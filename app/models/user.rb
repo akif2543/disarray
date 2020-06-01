@@ -2,7 +2,7 @@ class User < ApplicationRecord
   attr_reader :password
   validates :discriminator, :email, :session_token, presence: true, uniqueness: true
   validates :password_digest, :username, presence: true
-  validates :password, length: {minimum: 7}, allow_nil: true
+  validates :password, length: {minimum: 6, maximum: 128}, allow_nil: true
 
   after_initialize :ensure_session_token, :ensure_discriminator
 
@@ -33,7 +33,7 @@ class User < ApplicationRecord
   end
 
   def ensure_discriminator
-    self.descriminator ||= discriminate
+    self.discriminator ||= discriminate
   end
 
   def generate_session_token
