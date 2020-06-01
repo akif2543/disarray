@@ -3,9 +3,7 @@ import ReactDOM from "react-dom";
 
 import configureStore from "./store/store";
 import "./icons/fa_library";
-import { login } from "./actions/session_actions";
-
-const Root = (props) => <div></div>;
+import Root from "./root";
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;
