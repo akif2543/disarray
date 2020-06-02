@@ -34,43 +34,45 @@ class LoginForm extends React.Component {
     const passwordError = errors.find((e) => e.match(/Password/));
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Welcome back!</h2>
-        <p>We&apos;re so excited to see you again!</p>
-        <label htmlFor="email-input">
-          EMAIL
-          {emailError && (
-            <span className="session-error">{`- ${emailError}`}</span>
-          )}
-          <input
-            type="text"
-            id="email-input"
-            value={email}
-            onChange={this.handleChange("email")}
-          />
-        </label>
+      <form onSubmit={this.handleSubmit} className="session-form">
+        <section className="form-group">
+          <h1>Welcome back!</h1>
+          <p>We&apos;re so excited to see you again!</p>
+          <label htmlFor="email-input">
+            EMAIL
+            {emailError && (
+              <span className="session-error">{`- ${emailError}`}</span>
+            )}
+            <input
+              type="text"
+              id="email-input"
+              value={email}
+              onChange={this.handleChange("email")}
+            />
+          </label>
 
-        <label htmlFor="password-input">
-          PASSWORD
-          {passwordError && (
-            <span className="session-error">{`- ${passwordError}`}</span>
-          )}
-          <input
-            type="password"
-            id="password-input"
-            value={password}
-            onChange={this.handleChange("password")}
-          />
-        </label>
-        <Link to="#">
-          <p>Forgot your password?</p>
-        </Link>
+          <label htmlFor="password-input">
+            PASSWORD
+            {passwordError && (
+              <span className="session-error">{`- ${passwordError}`}</span>
+            )}
+            <input
+              type="password"
+              id="password-input"
+              value={password}
+              onChange={this.handleChange("password")}
+            />
+          </label>
+          <Link to="#">
+            <p>Forgot your password?</p>
+          </Link>
 
-        <button type="submit">Continue</button>
-        <p>
-          Need an account?
-          <Link to="/register">Register</Link>
-        </p>
+          <button type="submit">Continue</button>
+          <p>
+            Need an account?
+            <Link to="/register">Register</Link>
+          </p>
+        </section>
       </form>
     );
   }

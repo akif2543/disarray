@@ -1,0 +1,37 @@
+.session-container {
+  height: 100vh;
+  min-width: 100%;
+  background-image: url("/assets/session_bg.jpg");
+  background-size: cover;
+  mask-image: url("/assets/session_mask.png");
+  display: flex;
+
+  .session_bg {
+    object-fit: cover;
+    position: fixed;
+    z-index: -1;
+  }
+  .session-form {
+    background: $dk-main-bg;
+    box-sizing: border-box;
+    width: 786px;
+    height: 410px;
+    border-radius: 3px;
+    padding: 20px;
+    margin: auto;
+    align-self: center;
+
+    h1 {
+      font: {
+        family: "Whitney Bold";
+        size: 24px;
+      }
+    }
+  }
+}
+
+@media screen and (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 1) {
+}
+
+@media screen and (min-device-width: 1200px) and (max-device-width: 1600px) and (-webkit-min-device-pixel-ratio: 2) and (min-resolution: 192dpi) {
+}

@@ -36,8 +36,8 @@ class RegistrationForm extends React.Component {
     const passwordError = errors.find((e) => e.match(/Password/));
 
     return (
-      <form onSubmit={this.handleSubmit}>
-        <h2>Create an account</h2>
+      <form onSubmit={this.handleSubmit} className="session-form">
+        <h1>Create an account</h1>
         <label htmlFor="email-input">
           EMAIL
           {emailError && (

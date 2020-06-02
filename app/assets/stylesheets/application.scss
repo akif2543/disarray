@@ -16,13 +16,15 @@
 @import "fonts.scss";
 @import "colors.scss";
 @import "splash.scss";
+@import "session.scss";
 
 body {
   font: {
     family: "Whitney";
     weight: 700;
   }
+  line-height: 1.5rem;
 
-  background: $dk-splash-bg;
+  background: $dk-white;
   color: $dk-white;
 }

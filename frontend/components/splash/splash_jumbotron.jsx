@@ -11,10 +11,14 @@ const SplashJumbotron = ({ buttonText }) => (
     </p>
     <div className="splash-btns">
       <Link to="#">
-        <button type="button">Demo Login</button>
+        <button type="button" className="splash-jumbo-left">
+          Demo Login
+        </button>
       </Link>
       <Link to="/login">
-        <button type="button">{buttonText}</button>
+        <button type="button" className="splash-jumbo-right">
+          {buttonText}
+        </button>
       </Link>
     </div>
     {/* splash image */}
