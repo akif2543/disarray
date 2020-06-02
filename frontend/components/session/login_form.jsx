@@ -37,7 +37,9 @@ class LoginForm extends React.Component {
       <form onSubmit={this.handleSubmit} className="session-form">
         <section className="form-group">
           <h1>Welcome back!</h1>
-          <p>We&apos;re so excited to see you again!</p>
+          <h6 className="session-sub">
+            We&apos;re so excited to see you again!
+          </h6>
           <label htmlFor="email-input">
             EMAIL
             {emailError && (
@@ -67,9 +69,10 @@ class LoginForm extends React.Component {
             <p>Forgot your password?</p>
           </Link>
 
-          <button type="submit">Continue</button>
+          <button type="submit">Login</button>
           <p>
-            Need an account?
+            <span>Need an account?</span>
+            {"  "}
             <Link to="/register">Register</Link>
           </p>
         </section>

@@ -20,11 +20,83 @@
     padding: 20px;
     margin: auto;
     align-self: center;
+    display: flex;
+    flex-direction: row;
 
-    h1 {
-      font: {
-        family: "Whitney Bold";
-        size: 24px;
+    .form-group {
+      padding: 10px;
+      width: 420px;
+      display: flex;
+      flex-direction: column;
+
+      h1 {
+        font: {
+          family: "Whitney Bold";
+          size: 24px;
+        }
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      .session-sub {
+        color: $dk-session-sub;
+        text-align: center;
+      }
+
+      label {
+        color: $dk-session-label;
+        font-size: 12px;
+        margin-top: 20px;
+      }
+
+      input {
+        box-sizing: border-box;
+        background: $dk-session-input-bg;
+        color: $dk-white;
+        border: 0.5px solid $dk-session-input-b;
+        margin-top: 10px;
+        padding: 10px;
+        &:focus {
+          border-color: $dk-blue;
+        }
+      }
+      a,
+      input,
+      button {
+        width: 100%;
+        height: 40px;
+        border-radius: 3px;
+      }
+
+      button {
+        background: $dk-session-blue;
+        font: {
+          family: "Whitney Medium";
+          size: 16px;
+        }
+        &:hover {
+          background: rgb(105, 125, 194);
+        }
+      }
+
+      p {
+        font: {
+          family: "Whitney Medium";
+          size: 14px;
+        }
+        margin-top: 3px;
+      }
+
+      span {
+        color: $dk-session-p;
+      }
+
+      a {
+        color: $dk-blue;
+        text-decoration: none;
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
   }
