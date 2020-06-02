@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SplashJumbotron = ({ buttonText }) => (
-  <section>
+  <section className="splash-jumbo">
     <h1>A new way to chat with your communities and friends.</h1>
     <p>
       Discord is the easiest way to communicate over voice, video, and text,
