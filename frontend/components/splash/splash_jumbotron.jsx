@@ -17,6 +17,7 @@ const SplashJumbotron = ({ buttonText }) => (
         <button type="button">{buttonText}</button>
       </Link>
     </div>
+    {/* splash image */}
   </section>
 );
 
