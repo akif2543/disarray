@@ -34,6 +34,6 @@ export const login = (userData) => (dispatch) =>
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
 
 export const logout = () => (dispatch) =>
-  SessionAPI.logout(() => dispatch(logoutCurrentUser())).fail((e) =>
-    dispatch(receiveSessionErrors(e.responseJSON))
-  );
+  SessionAPI.logout()
+    .then(() => dispatch(logoutCurrentUser()))
+    .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));

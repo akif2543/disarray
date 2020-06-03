@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "assets/images/logo_solo.png";
 import icon from "assets/images/icon_solo.png";
 
-const SplashBar = ({ buttonText, handleDemo }) => (
+const SplashBar = ({ loggedIn, handleDemo }) => (
   <nav className="splash-nav">
     <nav>
       <Link to="/">
@@ -56,9 +56,9 @@ const SplashBar = ({ buttonText, handleDemo }) => (
       <a href="https://www.instagram.com/discord" className="splash-nav-link">
         <FontAwesomeIcon icon={["fab", "instagram"]} className="splash-icon" />
       </a>
-      <Link to="/login" className="splash-nav-link login">
+      <Link to={loggedIn ? "/@me" : "/login"} className="splash-nav-link login">
         <button type="button" className="splash-nav-btn">
-          {buttonText}
+          {loggedIn ? "Open" : "Login"}
         </button>
       </Link>
     </ul>

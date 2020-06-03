@@ -1,0 +1,61 @@
+.main {
+  height: 100vh;
+  width: 100vw;
+  background: $dk-main-bg;
+
+  .user-bar {
+    width: 200px;
+    height: 30px;
+    bottom: 0;
+    padding: 10px;
+    background: $dk-user-set-bg;
+    color: $dk-icons;
+    position: absolute;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    .user-bar-info {
+      width: 50%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1rem;
+
+      h1 {
+        color: $dk-white;
+        font: {
+          family: "Whitney Bold";
+          size: 14px;
+        }
+      }
+
+      h2 {
+        font: {
+          size: 14px;
+        }
+      }
+    }
+    .user-bar-ilist {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      justify-self: flex-end;
+      align-items: center;
+      justify-content: flex-end;
+
+      .user-bar-icon {
+        margin: 0 8px;
+        cursor: pointer;
+
+        &:hover {
+          color: $dk-white;
+        }
+      }
+
+      .temp-log {
+        color: $dk-red;
+      }
+    }
+  }
+}

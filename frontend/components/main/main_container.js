@@ -4,12 +4,12 @@ import { logout } from "../../actions/session_actions";
 import Main from "./main";
 
 const mSTP = (state) => ({
-  currentUser: state.entities.users[state.session.id];
-})
+  currentUser: state.entities.users[state.session.id],
+});
 
 const mDTP = (dispatch) => ({
-  logout: dispatch(logout())
-})
+  logout: () => dispatch(logout()),
+});
 
 const MainContainer = connect(mSTP, mDTP)(Main);
 

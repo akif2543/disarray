@@ -12,6 +12,7 @@ const App = (props) => (
     <AuthRoute exact path="/register" component={SessionContainer} />
     <AuthRoute exact path="/login" component={SessionContainer} />
     <ProtectedRoute path="/@me" component={MainContainer} />
+    {/* <Route path="/@me" component={MainContainer} /> */}
   </div>
 );
 

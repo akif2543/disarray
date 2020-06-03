@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SplashJumbotron = ({ buttonText, handleDemo }) => (
+const SplashJumbotron = ({ loggedIn, handleDemo }) => (
   <section className="splash-jumbo">
     <h1>A new way to chat with your communities and friends.</h1>
     <p>
@@ -15,9 +15,9 @@ const SplashJumbotron = ({ buttonText, handleDemo }) => (
           Demo
         </button>
       </Link>
-      <Link to="/login">
+      <Link to={loggedIn ? "/@me" : "/login"}>
         <button type="button" className="splash-jumbo-right">
-          {buttonText}
+          {loggedIn ? "Open" : "Open Disarray in your browser"}
         </button>
       </Link>
     </div>

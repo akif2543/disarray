@@ -10,14 +10,8 @@ const Splash = ({ loggedIn, login }) => {
 
   return (
     <section className="splash-container">
-      <SplashBar
-        buttonText={loggedIn ? "Open" : "Login"}
-        handleDemo={handleDemo}
-      />
-      <SplashJumbotron
-        buttonText={loggedIn ? "Open" : "Open Disarray in your browser"}
-        handleDemo={handleDemo}
-      />
+      <SplashBar loggedIn={loggedIn} handleDemo={handleDemo} />
+      <SplashJumbotron loggedIn={loggedIn} handleDemo={handleDemo} />
       <div className="splash-frame">
         <img src={image} alt="" className="splash-img" />
       </div>
