@@ -7,10 +7,10 @@ class Api::SessionsController < ApplicationController
         login!(@user)
         render "api/users/show"
       else
-        render json: ["Password does not match"], status: 422
+        render json: ["Password does not match."], status: 422
       end
     else
-      render json: ["Email does not exist"], status: 422
+      render json: ["Email does not exist."], status: 422
     end
   end
 

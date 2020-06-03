@@ -10,6 +10,13 @@ class RegistrationForm extends React.Component {
       password: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.valid = this.valid.bind(this);
+    this.errors = {
+      emailPresence: false,
+      usernamePresence: false,
+      invalidEmail: false,
+      passwordPresence: false,
+    };
   }
 
   componentDidMount() {
@@ -21,11 +28,48 @@ class RegistrationForm extends React.Component {
     return (e) => this.setState({ [type]: e.target.value });
   }
 
+  valid() {
+    const { email, password, username } = this.state;
+    let valid = true;
+    if (!email.length) {
+      this.errors.emailPresence = true;
+      valid = false;
+    }
+    if (!username.length) {
+      this.errors.usernamePresence = true;
+      valid = false;
+    }
+    if (!password.length) {
+      this.errors.passwordPresence = true;
+      valid = false;
+    }
+    if (!this.validEmail()) {
+      this.errors.invalidEmail = true;
+      valid = false;
+    }
+    debugger;
+    return valid;
+  }
+
+  validEmail() {
+    const { email } = this.state;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email.toLowerCase());
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    const { register, clearErrors } = this.props;
-    clearErrors();
-    register(this.state);
+    const { register } = this.props;
+    console.log(this.valid());
+    if (this.valid()) {
+      register(this.state);
+      this.errors = {
+        emailPresence: false,
+        usernamePresence: false,
+        invalidEmail: false,
+        passwordPresence: false,
+      };
+    }
   }
 
   render() {
@@ -34,53 +78,95 @@ class RegistrationForm extends React.Component {
     const emailError = errors.find((e) => e.match(/Email/));
     const usernameError = errors.find((e) => e.match(/Username/));
     const passwordError = errors.find((e) => e.match(/Password/));
+    const {
+      emailPresence,
+      invalidEmail,
+      usernamePresence,
+      passwordPresence,
+    } = this.errors;
 
     return (
-      <form onSubmit={this.handleSubmit} className="session-form">
-        <h1>Create an account</h1>
-        <label htmlFor="email-input">
-          EMAIL
-          {emailError && (
-            <span className="session-error">{`- ${emailError}`}</span>
-          )}
-          <input
-            type="text"
-            id="email-input"
-            value={email}
-            onChange={this.handleChange("email")}
-          />
-        </label>
+      <form onSubmit={this.handleSubmit} className="session-form registration">
+        <section className="form-group">
+          <h1>Create an account</h1>
+          <label
+            htmlFor="email-input"
+            className={emailPresence || emailError ? "presence-error" : ""}
+          >
+            EMAIL
+            {"  "}
+            {emailError && (
+              <span className="session-error">{`- ${emailError}`}</span>
+            )}
+            {emailPresence && (
+              <span className="session-error">- This field is required.</span>
+            )}
+            {invalidEmail && (
+              <span className="session-error">
+                - Please enter a valid email.
+              </span>
+            )}
+            <input
+              type="text"
+              id="email-input"
+              value={email}
+              onChange={this.handleChange("email")}
+            />
+          </label>
 
-        <label htmlFor="username-input">
-          USERNAME
-          {usernameError && (
-            <span className="session-error">{`- ${usernameError}`}</span>
-          )}
-          <input
-            type="text"
-            id="username-input"
-            value={username}
-            onChange={this.handleChange("username")}
-          />
-        </label>
+          <label
+            htmlFor="username-input"
+            className={
+              usernamePresence || usernameError ? "presence-error" : ""
+            }
+          >
+            USERNAME
+            {"  "}
+            {usernameError && (
+              <span className="session-error">{`- ${usernameError}`}</span>
+            )}
+            {usernamePresence && (
+              <span className="session-error">- This field is required.</span>
+            )}
+            <input
+              type="text"
+              id="username-input"
+              value={username}
+              onChange={this.handleChange("username")}
+            />
+          </label>
 
-        <label htmlFor="password-input">
-          PASSWORD
-          {passwordError && (
-            <span className="session-error">{`- ${passwordError}`}</span>
-          )}
-          <input
-            type="password"
-            id="password-input"
-            value={password}
-            onChange={this.handleChange("password")}
-          />
-        </label>
+          <label
+            htmlFor="password-input"
+            className={
+              passwordPresence || passwordError ? "presence-error" : ""
+            }
+          >
+            PASSWORD
+            {"  "}
+            {passwordError && (
+              <span className="session-error">{`- ${passwordError}`}</span>
+            )}
+            {passwordPresence && (
+              <span className="session-error">- This field is required.</span>
+            )}
+            <input
+              type="password"
+              id="password-input"
+              value={password}
+              onChange={this.handleChange("password")}
+            />
+          </label>
 
-        <button type="submit">Continue</button>
-        <Link to="/login">
-          <p>Already have an account?</p>
-        </Link>
+          <button type="submit">Continue</button>
+          <Link to="/login">
+            <p>Already have an account?</p>
+          </Link>
+          <p className="disclaimer">
+            By registering you agree to Disarray's{" "}
+            <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a>.
+          </p>
+        </section>
       </form>
     );
   }

@@ -9,6 +9,12 @@ class LoginForm extends React.Component {
       password: "",
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.valid = this.valid.bind(this);
+    this.errors = {
+      emailPresence: false,
+      invalidEmail: false,
+      passwordPresence: false,
+    };
   }
 
   componentDidMount() {
@@ -20,11 +26,41 @@ class LoginForm extends React.Component {
     return (e) => this.setState({ [type]: e.target.value });
   }
 
+  valid() {
+    const { email, password } = this.state;
+    let valid = true;
+    if (!email.length) {
+      this.errors.emailPresence = true;
+      valid = false;
+    }
+    if (!password.length) {
+      this.errors.passwordPresence = true;
+      valid = false;
+    }
+    if (!this.validEmail()) {
+      this.errors.invalidEmail = true;
+      valid = false;
+    }
+    return valid;
+  }
+
+  validEmail() {
+    const { email } = this.state;
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email.toLowerCase());
+  }
+
   handleSubmit(e) {
     e.preventDefault();
-    const { login, clearErrors } = this.props;
-    clearErrors();
-    login(this.state);
+    const { login } = this.props;
+    if (this.valid()) {
+      login(this.state);
+      this.errors = {
+        emailPresence: false,
+        invalidEmail: false,
+        passwordPresence: false,
+      };
+    }
   }
 
   render() {
@@ -32,6 +68,7 @@ class LoginForm extends React.Component {
     const { errors } = this.props;
     const emailError = errors.find((e) => e.match(/Email/));
     const passwordError = errors.find((e) => e.match(/Password/));
+    const { emailPresence, invalidEmail, passwordPresence } = this.errors;
 
     return (
       <form onSubmit={this.handleSubmit} className="session-form">
@@ -40,10 +77,22 @@ class LoginForm extends React.Component {
           <h6 className="session-sub">
             We&apos;re so excited to see you again!
           </h6>
-          <label htmlFor="email-input">
+          <label
+            htmlFor="email-input"
+            className={emailPresence || emailError ? "presence-error" : ""}
+          >
             EMAIL
+            {"  "}
             {emailError && (
               <span className="session-error">{`- ${emailError}`}</span>
+            )}
+            {emailPresence && (
+              <span className="session-error">- This field is required.</span>
+            )}
+            {invalidEmail && (
+              <span className="session-error">
+                - Please enter a valid email.
+              </span>
             )}
             <input
               type="text"
@@ -53,10 +102,19 @@ class LoginForm extends React.Component {
             />
           </label>
 
-          <label htmlFor="password-input">
+          <label
+            htmlFor="password-input"
+            className={
+              passwordPresence || passwordError ? "presence-error" : ""
+            }
+          >
             PASSWORD
+            {"  "}
             {passwordError && (
               <span className="session-error">{`- ${passwordError}`}</span>
+            )}
+            {passwordPresence && (
+              <span className="session-error">- This field is required.</span>
             )}
             <input
               type="password"
@@ -75,6 +133,19 @@ class LoginForm extends React.Component {
             {"  "}
             <Link to="/register">Register</Link>
           </p>
+        </section>
+        <section className="qr-group">
+          <div className="qr-code" />
+          <div>
+            <h1>Log in with QR Code</h1>
+            <h6 className="session-sub">
+              Scan this with the
+              {"  "}
+              <span>Disarray mobile app</span>
+              {"  "}
+              to log in instantly.
+            </h6>
+          </div>
         </section>
       </form>
     );

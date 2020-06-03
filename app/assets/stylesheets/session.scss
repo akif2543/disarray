@@ -6,11 +6,6 @@
   mask-image: url("/assets/session_mask.png");
   display: flex;
 
-  .session_bg {
-    object-fit: cover;
-    position: fixed;
-    z-index: -1;
-  }
   .session-form {
     background: $dk-main-bg;
     box-sizing: border-box;
@@ -22,31 +17,53 @@
     align-self: center;
     display: flex;
     flex-direction: row;
+    justify-content: space-around;
+
+    h1 {
+      font: {
+        family: "Whitney Bold";
+        size: 24px;
+      }
+      text-align: center;
+      margin-bottom: 10px;
+    }
+
+    .session-sub {
+      color: $dk-session-sub;
+      text-align: center;
+      span {
+        font-family: "Whitney Bold";
+      }
+    }
+
+    .qr-group {
+      width: 30%;
+      padding: 40px;
+
+      .qr-code {
+        box-sizing: border-box;
+        margin: 0 auto;
+        margin-bottom: 30px;
+        width: 178px;
+        height: 178px;
+        background: $dk-white;
+        border-radius: 3px;
+      }
+    }
 
     .form-group {
-      padding: 10px;
-      width: 420px;
+      box-sizing: border-box;
+      padding: 15px 12px;
+      width: 435px;
       display: flex;
       flex-direction: column;
 
-      h1 {
-        font: {
-          family: "Whitney Bold";
-          size: 24px;
-        }
-        text-align: center;
-        margin-bottom: 10px;
-      }
-
-      .session-sub {
-        color: $dk-session-sub;
-        text-align: center;
-      }
-
       label {
+        font-family: "Whitney Medium";
+        font-weight: 700;
         color: $dk-session-label;
         font-size: 12px;
-        margin-top: 20px;
+        margin-top: 22px;
       }
 
       input {
@@ -60,6 +77,18 @@
           border-color: $dk-blue;
         }
       }
+
+      .presence-error {
+        color: $dk-red;
+        input {
+          border: 0.5px solid $dk-red;
+        }
+        .session-error {
+          color: $dk-red;
+          font-family: "Whitney Medium Italic";
+        }
+      }
+
       a,
       input,
       button {
@@ -69,7 +98,9 @@
       }
 
       button {
+        height: 44px;
         background: $dk-session-blue;
+        margin-top: 5px;
         font: {
           family: "Whitney Medium";
           size: 16px;
@@ -98,6 +129,25 @@
           text-decoration: underline;
         }
       }
+    }
+  }
+
+  .session-form.registration {
+    width: 480px;
+    height: 475px;
+    padding-bottom: 18px;
+
+    label {
+      margin-top: 19px;
+    }
+
+    button {
+      margin-top: 20px;
+    }
+
+    .disclaimer {
+      color: $dk-session-p;
+      font-size: 12px;
     }
   }
 }
