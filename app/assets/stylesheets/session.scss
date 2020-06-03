@@ -1,12 +1,31 @@
 .session-container {
   height: 100vh;
   min-width: 100%;
-  background-image: url("/assets/session_bg.jpg");
-  background-size: cover;
-  mask-image: url("/assets/session_mask.png");
+  background-image: url("/assets/session_mask.png"),
+    url("/assets/session_bg.jpg");
+  background-size: auto, cover;
+  background-position: auto, center;
   display: flex;
 
+  .logo-group {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+
+    .logo-icon {
+      height: 35px;
+      color: $dk-white;
+    }
+
+    .logo {
+      transform: translateY(2px);
+      height: 40px;
+      color: $dk-white;
+    }
+  }
+
   .session-form {
+    z-index: 2;
     background: $dk-main-bg;
     box-sizing: border-box;
     width: 786px;
@@ -18,6 +37,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-around;
+
+    -moz-box-shadow: -0.5px -0.5px 3px 0.5px $dk-session-input-b;
+    -webkit-box-shadow: -0.5px -0.5px 3px 0.5px $dk-session-input-b;
+    box-shadow: -0.5px -0.5px 3px 0.5px $dk-session-input-b;
 
     h1 {
       font: {
@@ -42,12 +65,18 @@
 
       .qr-code {
         box-sizing: border-box;
+        padding: 5px;
         margin: 0 auto;
         margin-bottom: 30px;
         width: 178px;
         height: 178px;
         background: $dk-white;
         border-radius: 3px;
+
+        img {
+          object-fit: cover;
+          width: 100%;
+        }
       }
     }
 

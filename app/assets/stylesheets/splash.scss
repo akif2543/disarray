@@ -7,9 +7,13 @@ $xl-screen: 1200px;
   background: $dk-splash-bg;
 }
 
+a {
+  text-decoration: none;
+}
+
 .splash-nav {
   margin: 0 auto;
-  padding: 8px 20px;
+  padding: 15px 20px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -20,12 +24,15 @@ $xl-screen: 1200px;
     flex-direction: row;
     align-items: center;
   }
+  .splash-logo-icon {
+    height: 35px;
+    color: $dk-white;
+  }
 
   .splash-logo {
-    width: 150px;
-    height: auto;
+    transform: translateY(2px);
+    height: 40px;
     color: $dk-white;
-    align-self: flex-end;
   }
 
   ul {
@@ -55,11 +62,9 @@ $xl-screen: 1200px;
     width: $dk-social-icon-size;
     height: $dk-social-icon-size;
     color: $dk-splash-nav-color;
-    margin: auto 8px;
+    margin: 0 8px;
+    margin-top: 5px;
     cursor: pointer;
-    // & :hover {
-    //   color: $dk-white;
-    // }
   }
 
   .splash-nav-btn {
@@ -81,11 +86,6 @@ $xl-screen: 1200px;
       right: 8px;
     }
     cursor: pointer;
-
-    // & :hover {
-    //   color: $dk-white;
-    //   border: 1.5px solid $dk-white;
-    // }
   }
 
   .splash-nav-link {
@@ -152,7 +152,6 @@ $xl-screen: 1200px;
 }
 
 .splash-frame {
-  // margin: 0 auto;
   z-index: -1;
 
   img {
@@ -186,7 +185,7 @@ $xl-screen: 1200px;
     margin-top: 9%;
   }
   .splash-frame {
-    width: 100%;
-    transform: translate(20px, -30px);
+    width: 95%;
+    transform: translate(50px, -30px);
   }
 }

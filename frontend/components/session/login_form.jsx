@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import qr from "images/qr.png";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -142,7 +143,9 @@ class LoginForm extends React.Component {
           </p>
         </section>
         <section className="qr-group">
-          <div className="qr-code" />
+          <div className="qr-code">
+            <img src={qr} alt="" />
+          </div>
           <div>
             <h1>Log in with QR Code</h1>
             <h6 className="session-sub">

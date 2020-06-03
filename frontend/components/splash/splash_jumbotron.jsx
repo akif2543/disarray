@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const SplashJumbotron = ({ buttonText }) => (
+const SplashJumbotron = ({ buttonText, handleDemo }) => (
   <section className="splash-jumbo">
     <h1>A new way to chat with your communities and friends.</h1>
     <p>
@@ -10,9 +10,9 @@ const SplashJumbotron = ({ buttonText }) => (
       art community, or just a handful of friends that want to hang out.
     </p>
     <div className="splash-btns">
-      <Link to="#">
+      <Link to="/@me" onClick={handleDemo}>
         <button type="button" className="splash-jumbo-left">
-          Demo Login
+          Demo
         </button>
       </Link>
       <Link to="/login">
@@ -21,7 +21,6 @@ const SplashJumbotron = ({ buttonText }) => (
         </button>
       </Link>
     </div>
-    {/* splash image */}
   </section>
 );
 
