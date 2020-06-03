@@ -1,15 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import logo from "assets/images/logo_solo.png";
-import icon from "assets/images/icon_solo.png";
+// import logo from "assets/images/logo_solo.png";
+// import icon from "assets/images/icon_solo.png";
 
 const SplashBar = ({ loggedIn, handleDemo }) => (
   <nav className="splash-nav">
     <nav>
       <Link to="/">
-        <img src={icon} className="splash-logo-icon" alt="" />
-        <img src={logo} className="splash-logo" alt="" />
+        <img src={window.logoIconURL} className="splash-logo-icon" alt="" />
+        <img src={window.logoURL} className="splash-logo" alt="" />
       </Link>
       <ul className="splash-nav-left">
         <li>

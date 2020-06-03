@@ -1,8 +1,9 @@
 .session-container {
   height: 100vh;
   min-width: 100%;
-  background-image: url("/assets/session_mask.png"),
-    url("/assets/session_bg.jpg");
+  background-image: image-url("session_mask.png"), image-url("session_bg.jpg");
+  // background-image: url("/assets/session_mask.png"),
+  //   url("/assets/session_bg.jpg");
   background-size: auto, cover;
   background-position: auto, center;
   display: flex;

@@ -1,6 +1,6 @@
 import React from "react";
 
-import image from "images/splash_crop.png";
+// import image from "images/splash_crop.png";
 import SplashBar from "./splash_bar";
 import SplashJumbotron from "./splash_jumbotron";
 
@@ -13,7 +13,7 @@ const Splash = ({ loggedIn, login }) => {
       <SplashBar loggedIn={loggedIn} handleDemo={handleDemo} />
       <SplashJumbotron loggedIn={loggedIn} handleDemo={handleDemo} />
       <div className="splash-frame">
-        <img src={image} alt="" className="splash-img" />
+        <img src={window.splashURL} alt="" className="splash-img" />
       </div>
     </section>
   );
