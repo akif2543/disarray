@@ -10,10 +10,30 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_06_01_180548) do
+ActiveRecord::Schema.define(version: 2020_06_03_201338) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "memberships", force: :cascade do |t|
+    t.integer "member_id", null: false
+    t.string "subscribeable_type"
+    t.bigint "subscribeable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["member_id"], name: "index_memberships_on_member_id"
+    t.index ["subscribeable_type", "subscribeable_id"], name: "index_memberships_on_subscribeable_type_and_subscribeable_id"
+  end
+
+  create_table "servers", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description", null: false
+    t.integer "owner_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_servers_on_name"
+    t.index ["owner_id"], name: "index_servers_on_owner_id"
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "username", null: false

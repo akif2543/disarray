@@ -6,6 +6,10 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token, :ensure_discriminator
 
+  has_many :owned_servers, foreign_key: :owner_id, class_name: :Server
+  has_many :memberships, foreign_key: :member_id, class_name: :Membership
+  has_many :servers, through: :memberships, source: :subscribeable, source_type: :Server
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil
