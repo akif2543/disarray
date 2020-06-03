@@ -8,6 +8,7 @@ class RegistrationForm extends React.Component {
       email: "",
       username: "",
       password: "",
+      errors: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.valid = this.valid.bind(this);
@@ -28,31 +29,37 @@ class RegistrationForm extends React.Component {
     return (e) => this.setState({ [type]: e.target.value });
   }
 
-  valid() {
-    const { email, password, username } = this.state;
+  valid(email, username, password) {
     let valid = true;
     if (!email.length) {
       this.errors.emailPresence = true;
       valid = false;
+    } else {
+      this.errors.emailPresence = false;
     }
     if (!username.length) {
       this.errors.usernamePresence = true;
       valid = false;
+    } else {
+      this.errors.usernamePresence = false;
     }
     if (!password.length) {
       this.errors.passwordPresence = true;
       valid = false;
+    } else {
+      this.errors.passwordPresence = false;
     }
-    if (!this.validEmail()) {
+    if (!this.validEmail(email)) {
       this.errors.invalidEmail = true;
       valid = false;
+    } else {
+      this.errors.invalidEmail = false;
     }
-    debugger;
+    valid ? this.setState({ errors: false }) : this.setState({ errors: true });
     return valid;
   }
 
-  validEmail() {
-    const { email } = this.state;
+  validEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email.toLowerCase());
   }
@@ -60,9 +67,9 @@ class RegistrationForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { register } = this.props;
-    console.log(this.valid());
-    if (this.valid()) {
-      register(this.state);
+    const { email, username, password } = this.state;
+    if (this.valid(email, username, password)) {
+      register({ email, username, password });
       this.errors = {
         emailPresence: false,
         usernamePresence: false,

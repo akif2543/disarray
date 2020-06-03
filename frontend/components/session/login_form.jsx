@@ -7,6 +7,7 @@ class LoginForm extends React.Component {
     this.state = {
       email: "",
       password: "",
+      errors: false,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.valid = this.valid.bind(this);
@@ -26,26 +27,31 @@ class LoginForm extends React.Component {
     return (e) => this.setState({ [type]: e.target.value });
   }
 
-  valid() {
-    const { email, password } = this.state;
+  valid(email, password) {
     let valid = true;
     if (!email.length) {
       this.errors.emailPresence = true;
       valid = false;
+    } else {
+      this.errors.emailPresence = false;
     }
     if (!password.length) {
       this.errors.passwordPresence = true;
       valid = false;
+    } else {
+      this.errors.passwordPresence = false;
     }
-    if (!this.validEmail()) {
+    if (!this.validEmail(email)) {
       this.errors.invalidEmail = true;
       valid = false;
+    } else {
+      this.errors.invalidEmail = false;
     }
+    valid ? this.setState({ errors: false }) : this.setState({ errors: true });
     return valid;
   }
 
-  validEmail() {
-    const { email } = this.state;
+  validEmail(email) {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(email.toLowerCase());
   }
@@ -53,8 +59,9 @@ class LoginForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const { login } = this.props;
-    if (this.valid()) {
-      login(this.state);
+    const { email, password } = this.state;
+    if (this.valid(email, password)) {
+      login({ email, password });
       this.errors = {
         emailPresence: false,
         invalidEmail: false,

@@ -150,8 +150,7 @@ button:focus {
 }
 
 button:focus {
-  outline: 1px solid #fff;
-  outline-offset: -4px;
+  outline: none;
 }
 
 button:active {
