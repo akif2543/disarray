@@ -5,7 +5,7 @@ const SplashJumbotron = ({ loggedIn, handleDemo }) => (
   <section className="splash-jumbo">
     <h1>A new way to chat with your communities and friends.</h1>
     <p>
-      Discord is the easiest way to communicate over voice, video, and text,
+      Disarray is the easiest way to communicate over voice, video, and text,
       whether you’re part of a school club, a nightly gaming group, a worldwide
       art community, or just a handful of friends that want to hang out.
     </p>
@@ -17,7 +17,7 @@ const SplashJumbotron = ({ loggedIn, handleDemo }) => (
       </Link>
       <Link to={loggedIn ? "/@me" : "/login"}>
         <button type="button" className="splash-jumbo-right">
-          {loggedIn ? "Open" : "Open Disarray in your browser"}
+          {loggedIn ? "Open" : "Open Disarray"}
         </button>
       </Link>
     </div>

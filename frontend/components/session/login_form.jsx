@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-// import qr from "images/qr.png";
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -107,6 +106,7 @@ class LoginForm extends React.Component {
               id="email-input"
               value={email}
               onChange={this.handleChange("email")}
+              autoFocus
             />
           </label>
 
@@ -144,7 +144,7 @@ class LoginForm extends React.Component {
         </section>
         <section className="qr-group">
           <div className="qr-code">
-            <img src={window.qrURL} alt="" />
+            {/* <img src={window.qrUrl} alt="" /> */}
           </div>
           <div>
             <h1>Log in with QR Code</h1>

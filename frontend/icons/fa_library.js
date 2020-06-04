@@ -4,6 +4,9 @@ import {
   faDiscord,
   faFacebookSquare,
   faInstagram,
+  faGithub,
+  faLinkedin,
+  faAngellist,
 } from "@fortawesome/free-brands-svg-icons";
 import {
   faCommentAlt,
@@ -36,6 +39,9 @@ import {
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
+  faGithub,
+  faLinkedin,
+  faAngellist,
   faTwitter,
   faDiscord,
   faFacebookSquare,

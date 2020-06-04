@@ -118,6 +118,7 @@ class RegistrationForm extends React.Component {
               id="email-input"
               value={email}
               onChange={this.handleChange("email")}
+              autoFocus
             />
           </label>
 

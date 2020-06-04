@@ -1,8 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-// import logo from "assets/images/logo_solo.png";
-// import icon from "assets/images/icon_solo.png";
 
 const SplashBar = ({ loggedIn, handleDemo }) => (
   <nav className="splash-nav">
@@ -17,7 +15,7 @@ const SplashBar = ({ loggedIn, handleDemo }) => (
             <p>Demo</p>
           </Link>
         </li>
-        <li>
+        {/* <li>
           <p>Why Disarray?</p>
         </li>
         <li>
@@ -40,21 +38,21 @@ const SplashBar = ({ loggedIn, handleDemo }) => (
           <p>
             Support <FontAwesomeIcon icon="angle-down" size="xs" />
           </p>
-        </li>
+        </li> */}
       </ul>
     </nav>
     <ul className="splash-nav-right">
-      <a href="https://www.twitter.com/discord" className="splash-nav-link">
-        <FontAwesomeIcon icon={["fab", "twitter"]} className="splash-icon" />
+      <a href="https://www.github.com/akif2543" className="splash-nav-link">
+        <FontAwesomeIcon icon={["fab", "github"]} className="splash-icon" />
       </a>
-      <a href="https://www.facebook.com/discord" className="splash-nav-link">
-        <FontAwesomeIcon
-          icon={["fab", "facebook-square"]}
-          className="splash-icon"
-        />
+      <a
+        href="https://www.linkedin.com/in/akifsaifi"
+        className="splash-nav-link"
+      >
+        <FontAwesomeIcon icon={["fab", "linkedin"]} className="splash-icon" />
       </a>
       <a href="https://www.instagram.com/discord" className="splash-nav-link">
-        <FontAwesomeIcon icon={["fab", "instagram"]} className="splash-icon" />
+        <FontAwesomeIcon icon={["fab", "angellist"]} className="splash-icon" />
       </a>
       <Link to={loggedIn ? "/@me" : "/login"} className="splash-nav-link login">
         <button type="button" className="splash-nav-btn">
