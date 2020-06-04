@@ -64,12 +64,12 @@
     }
 
     .qr-group {
-      width: 30%;
-      padding: 40px;
+      width: 40%;
+      padding: 40px 0;
+      padding-left: 45px;
 
       .qr-code {
         box-sizing: border-box;
-        // padding: 5px;
         margin: 0 auto;
         margin-bottom: 30px;
         width: 178px;
@@ -102,13 +102,20 @@
       input {
         box-sizing: border-box;
         background: $dk-session-input-bg;
-        color: $dk-white;
+        color: $dk-session-sub;
         border: 0.5px solid $dk-session-input-b;
         margin-top: 10px;
         padding: 10px;
         &:focus {
           border-color: $dk-blue;
         }
+      }
+
+      input:-webkit-autofill,
+      input:-webkit-autofill:hover,
+      input:-webkit-autofill:focus {
+        // -webkit-text-fill-color: $dk-session-sub;
+        caret-color: white;
       }
 
       .presence-error {

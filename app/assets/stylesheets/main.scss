@@ -3,9 +3,58 @@
   width: 100vw;
   background: $dk-main-bg;
 
+  .server-panel {
+    width: 72px;
+    height: 100%;
+    background: $dk-search-bg;
+    position: fixed;
+    left: 0px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .home-btn {
+      height: 48px;
+      width: 48px;
+      border-radius: 15px;
+      background: $dk-blue;
+      margin-top: 15px;
+    }
+
+    .server-list {
+      display: flex;
+      flex-flow: column nowrap;
+
+      .server-icon {
+        height: 48px;
+        width: 48px;
+        border-radius: 50%;
+        background: $dk-main-bg;
+        margin: 5px 0;
+        color: $dk-green;
+        transition: all 0.5s ease;
+
+        &:hover {
+          background: $dk-green;
+          color: $dk-white;
+          border-radius: 15px;
+        }
+      }
+    }
+  }
+
+  .side-bar {
+    height: 100%;
+    width: 242px;
+    position: fixed;
+    left: 72px;
+    background: $dk-sidebar;
+  }
+
   .user-bar {
-    width: 200px;
-    height: 30px;
+    width: 240px;
+    height: 53px;
+    left: 72px;
     bottom: 0;
     padding: 10px;
     background: $dk-user-set-bg;
@@ -15,27 +64,43 @@
     flex-direction: row;
     justify-content: space-between;
 
-    .user-bar-info {
-      width: 50%;
+    .user {
       display: flex;
-      flex-direction: column;
-      justify-content: center;
-      line-height: 1rem;
+      flex-direction: row;
 
-      h1 {
-        color: $dk-white;
-        font: {
-          family: "Whitney Bold";
-          size: 14px;
-        }
+      .avatar {
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: white;
+        margin-right: 7px;
       }
 
-      h2 {
-        font: {
-          size: 14px;
+      .info {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        line-height: 1rem;
+
+        h1 {
+          color: $dk-white;
+          font: {
+            family: "Whitney Bold";
+            size: 14px;
+          }
+        }
+
+        h2 {
+          font: {
+            family: "Whitney Medium";
+            weight: 400;
+            size: 12px;
+          }
         }
       }
     }
+
     .user-bar-ilist {
       width: 100%;
       display: flex;
@@ -45,7 +110,9 @@
       justify-content: flex-end;
 
       .user-bar-icon {
-        margin: 0 8px;
+        width: 18px;
+        height: 18px;
+        margin-left: 15px;
         cursor: pointer;
 
         &:hover {
@@ -55,6 +122,7 @@
 
       .temp-log {
         color: $dk-red;
+        margin-right: 5px;
       }
     }
   }
