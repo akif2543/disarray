@@ -14,7 +14,7 @@ class Api::MembershipsController < ApplicationController
     begin
       @membership = Membership.find(params[:id])
       @membership.destroy
-      render json: { }, status: 204
+      render json: {  success: true }, status: 204
     rescue
       render json: ["Record not found"], status: 404
     end

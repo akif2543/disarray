@@ -2,12 +2,33 @@ import { connect } from "react-redux";
 
 import { logout } from "../../actions/session_actions";
 import Main from "./main";
+import {
+  getCurrentUser,
+  getUserServers,
+  getCurrentServer,
+  getServerMembers,
+} from "../../reducers/selectors";
+import {
+  requestServer,
+  requestServers,
+  createServer,
+  updateServer,
+  deleteServer,
+} from "../../actions/server_actions";
 
-const mSTP = (state) => ({
-  currentUser: state.entities.users[state.session.id],
+const mSTP = (state, ownProps) => ({
+  currentUser: getCurrentUser(state),
+  servers: getUserServers(state),
+  currentServer: getCurrentServer(state, ownProps.match.params.serverId),
+  members: getServerMembers(state, ownProps.match.params.serverId),
 });
 
 const mDTP = (dispatch) => ({
+  requestServers: () => dispatch(requestServers()),
+  requestServer: (id) => dispatch(requestServer(id)),
+  createServer: (server) => dispatch(createServer(server)),
+  updateServer: (server) => dispatch(updateServer(server)),
+  deleteServer: (id) => dispatch(deleteServer(id)),
   logout: () => dispatch(logout()),
 });
 

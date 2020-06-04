@@ -7,10 +7,10 @@ class Api::UsersController < ApplicationController
 
   def show
     begin
-      @user = User.find(params[:id])
+      @user = User.includes(:servers).find(params[:id])
       render :show
     rescue
-      render json: {error: "User not found", status: 404}
+      render json: ["User not found."], status: 404
     end
   end
 
@@ -25,18 +25,26 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    if @user.update(user_params)
-      render :show
-    else
-      render json: @user.errors.full_messages, status: 422
+    begin
+      @user = User.includes(:servers).find(params[:id])
+      if @user.update(user_params)
+        render :show
+      else
+        render json: @user.errors.full_messages, status: 422
+      end
+    rescue
+      render json: ["User not found."], status: 404
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
-    render :show
+    begin
+      @user = User.find(params[:id])
+      @user.destroy
+      render status: 204
+    rescue
+      render json: ["User not found."], status: 404
+    end
   end
 
   private
