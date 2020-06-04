@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { login } from "../../actions/session_actions";
-import { startLoading } from "../../actions/ui_actions";
+import { startLoading, stopLoading } from "../../actions/ui_actions";
 
 import Splash from "./splash";
 import { loading } from "../../reducers/selectors";
@@ -14,6 +14,7 @@ const mSTP = (state) => ({
 const mDTP = (dispatch) => ({
   login: (user) => dispatch(login(user)),
   startLoading: () => dispatch(startLoading()),
+  stopLoading: () => dispatch(stopLoading()),
 });
 
 const SplashContainer = connect(mSTP, mDTP)(Splash);

@@ -20,9 +20,14 @@ class RegistrationForm extends React.Component {
   }
 
   componentDidMount() {
-    const { clearErrors } = this.props;
+    const { clearErrors, stopLoading } = this.props;
     clearErrors();
+    stopLoading();
   }
+
+  // componentWillUnmount() {
+  //   this.props.startLoading();
+  // }
 
   handleChange(type) {
     return (e) => this.setState({ [type]: e.target.value });
@@ -69,7 +74,7 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { email, username, password } = this.state;
-    const { errors, loading } = this.props;
+    const { errors, loading, stopLoading } = this.props;
     const emailError = errors.find((e) => e.match(/Email/));
     const usernameError = errors.find((e) => e.match(/Username/));
     const passwordError = errors.find((e) => e.match(/Password/));

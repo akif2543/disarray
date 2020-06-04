@@ -5,6 +5,10 @@ $xl-screen: 1200px;
 
 .splash-container {
   background: $dk-splash-bg;
+  background-image: image-url("splash_footer.png");
+  background-size: contain;
+  background-position: bottom;
+  background-repeat: no-repeat;
 }
 
 a {
@@ -159,6 +163,39 @@ a {
     height: auto;
     margin: 0 auto;
     object-fit: cover;
+  }
+}
+
+.footer-frame {
+  border-top: 0.001rem solid $dk-footer-border;
+  width: 75%;
+  margin: 0 auto;
+  padding: 20px 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  h2 {
+    font-family: "Whitney Medium";
+    font-weight: 400;
+    font-size: 24px;
+  }
+
+  h3 {
+    font-family: "Whitney Medium";
+    font-size: 14px;
+    color: $dk-p-color;
+    margin-top: 5px;
+  }
+
+  button {
+    width: 115px;
+    height: 45px;
+    background: $dk-blue;
+    border-radius: 3px;
+    &:hover {
+      transform: translateY(-2px);
+    }
   }
 }
 

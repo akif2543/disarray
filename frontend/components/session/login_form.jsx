@@ -19,7 +19,7 @@ class LoginForm extends React.Component {
   }
 
   componentDidMount() {
-    const { clearErrors } = this.props;
+    const { clearErrors, stopLoading } = this.props;
     clearErrors();
   }
 
@@ -138,14 +138,15 @@ class LoginForm extends React.Component {
         </section>
         <section className="qr-group">
           <div className="qr-code">
-            {/* <img src={window.qrUrl} alt="" /> */}
+            <img src={window.dkIconURL} alt="" />
           </div>
           <div>
-            <h1>Log in with QR Code</h1>
+            <h1>Try a demo</h1>
             <h6 className="session-sub">
-              Scan this with the
-              {"  "}
-              <span>Disarray mobile app</span>
+              Use a{"  "}
+              <Link to="/@me" onClick={this.handleDemo}>
+                Disarray demo account
+              </Link>
               {"  "}
               to log in instantly.
             </h6>

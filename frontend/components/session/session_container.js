@@ -6,7 +6,7 @@ import {
 } from "../../actions/session_actions";
 import Session from "./session";
 import { loading } from "../../reducers/selectors";
-import { startLoading } from "../../actions/ui_actions";
+import { startLoading, stopLoading } from "../../actions/ui_actions";
 
 const mSTP = (state) => ({
   errors: state.errors.session,
@@ -19,6 +19,7 @@ const mDTP = (dispatch) => ({
   register: (user) => dispatch(register(user)),
   clearErrors: () => dispatch(clearSessionErrors()),
   startLoading: () => dispatch(startLoading()),
+  stopLoading: () => dispatch(stopLoading()),
 });
 
 const SessionContainer = connect(mSTP, mDTP)(Session);

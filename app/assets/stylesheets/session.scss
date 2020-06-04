@@ -54,8 +54,12 @@
     .session-sub {
       color: $dk-session-sub;
       text-align: center;
-      span {
+      a {
         font-family: "Whitney Bold";
+        color: $dk-session-sub;
+        &:hover {
+          color: $dk-white;
+        }
       }
     }
 
@@ -65,7 +69,7 @@
 
       .qr-code {
         box-sizing: border-box;
-        padding: 5px;
+        // padding: 5px;
         margin: 0 auto;
         margin-bottom: 30px;
         width: 178px;

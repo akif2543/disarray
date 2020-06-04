@@ -15,6 +15,7 @@ const Session = ({
   loading,
   startLoading,
   loggedIn,
+  stopLoading,
 }) => (
   <div className="session-container">
     <div className="logo-group">
@@ -29,6 +30,9 @@ const Session = ({
         register={register}
         clearErrors={clearErrors}
         loading={loading}
+        startLoading={startLoading}
+        loggedIn={loggedIn}
+        stopLoading={stopLoading}
       />
     ) : (
       <LoginForm
@@ -38,6 +42,7 @@ const Session = ({
         loading={loading}
         startLoading={startLoading}
         loggedIn={loggedIn}
+        stopLoading={stopLoading}
       />
     )}
   </div>
