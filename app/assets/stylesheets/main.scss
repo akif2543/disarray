@@ -25,7 +25,8 @@
       display: flex;
       flex-flow: column nowrap;
 
-      .server-icon {
+      .server-icon,
+      .server-btn {
         height: 48px;
         width: 48px;
         border-radius: 50%;
@@ -52,7 +53,7 @@
   }
 
   .user-bar {
-    width: 240px;
+    width: 242px;
     height: 53px;
     left: 72px;
     bottom: 0;

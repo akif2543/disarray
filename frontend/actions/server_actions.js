@@ -54,3 +54,13 @@ export const deleteServer = (id) => (dispatch) =>
   ServerAPI.deleteServer(id)
     .then(() => dispatch(removeServer(id)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
+
+export const joinServer = (membership) => (dispatch) =>
+  ServerAPI.joinServer(membership)
+    .then((server) => dispatch(receiveServer(server)))
+    .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
+
+export const leaveServer = (serverId) => (dispatch) =>
+  ServerAPI.leaveServer(serverId)
+    .then(() => dispatch(removeServer(serverId)))
+    .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));

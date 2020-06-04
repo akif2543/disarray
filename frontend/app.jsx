@@ -6,10 +6,12 @@ import SessionContainer from "./components/session/session_container";
 import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import MainContainer from "./components/main/main_container";
 import Loading from "./components/loading";
+import ModalContainer from "./components/modal";
 
 const App = ({ loading }) => (
   <div>
     {loading && <Loading />}
+    <ModalContainer />
     <Route exact path="/" component={SplashContainer} />
     <AuthRoute exact path="/register" component={SessionContainer} />
     <AuthRoute exact path="/login" component={SessionContainer} />

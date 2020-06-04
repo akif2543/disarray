@@ -1,6 +1,7 @@
 import React from "react";
 import { closeModal } from "../actions/ui_actions";
 import { connect } from "react-redux";
+import ServerPortalContainer from "./server/server_portal_container";
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
@@ -8,8 +9,8 @@ const Modal = ({ modal, closeModal }) => {
   let component;
 
   switch (modal) {
-    case "new":
-      component = this;
+    case "portal":
+      component = <ServerPortalContainer />;
       break;
     case "invite":
       component = this;
