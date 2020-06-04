@@ -75,9 +75,9 @@ class RegistrationForm extends React.Component {
   render() {
     const { email, username, password } = this.state;
     const { errors, loading, stopLoading } = this.props;
-    const emailError = errors.find((e) => e.match(/Email/));
-    const usernameError = errors.find((e) => e.match(/Username/));
-    const passwordError = errors.find((e) => e.match(/Password/));
+    const emailError = errors.find((e) => e[0].match(/email/));
+    const usernameError = errors.find((e) => e[0].match(/username/));
+    const passwordError = errors.find((e) => e[0].match(/password/));
     const { emailPresence, usernamePresence, passwordPresence } = this.errors;
 
     return (
@@ -91,7 +91,7 @@ class RegistrationForm extends React.Component {
             EMAIL
             {"  "}
             {emailError && (
-              <span className="session-error">{`- ${emailError}`}</span>
+              <span className="session-error">{`- ${emailError[1]}`}</span>
             )}
             {emailPresence && (
               <span className="session-error">- This field is required.</span>
@@ -114,7 +114,7 @@ class RegistrationForm extends React.Component {
             USERNAME
             {"  "}
             {usernameError && (
-              <span className="session-error">{`- ${usernameError}`}</span>
+              <span className="session-error">{`- ${usernameError[1]}`}</span>
             )}
             {usernamePresence && (
               <span className="session-error">- This field is required.</span>
@@ -136,7 +136,7 @@ class RegistrationForm extends React.Component {
             PASSWORD
             {"  "}
             {passwordError && (
-              <span className="session-error">{`- ${passwordError}`}</span>
+              <span className="session-error">{`- ${passwordError[1]}`}</span>
             )}
             {passwordPresence && (
               <span className="session-error">- This field is required.</span>

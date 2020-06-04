@@ -11,6 +11,25 @@ class User < ApplicationRecord
   has_many :memberships, foreign_key: :member_id, class_name: :Membership
   has_many :servers, through: :memberships, source: :subscribeable, source_type: :Server
 
+  def self.discordify_errors(errors)
+    errors.map do |e|
+      case e
+      when "Email has already been taken"
+        ["email", "Email is already registered"]
+      when "Username is too short (minimum is 2 characters)"
+        ["username", "Must be between 2 and 32 in length"]
+      when "Username is too long (maximum is 32 characters)"
+        ["username, ""Must be between 2 and 32 in length"]
+      when "Password is too short (minimum is 6 characters)"
+        ["password", "Must be between 6 and 128 in length"]
+      when "Password is too long (maximum is 128 characters)"
+        ["password", "Must be between 6 and 128 in length"]
+      else
+        e
+      end
+    end
+  end
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil
