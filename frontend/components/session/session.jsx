@@ -6,7 +6,16 @@ import LoginForm from "./login_form";
 // import logo from "assets/images/logo_solo.png";
 // import icon from "assets/images/icon_solo.png";
 
-const Session = ({ errors, register, login, match, clearErrors }) => (
+const Session = ({
+  errors,
+  register,
+  login,
+  match,
+  clearErrors,
+  loading,
+  startLoading,
+  loggedIn,
+}) => (
   <div className="session-container">
     <div className="logo-group">
       <Link to="/">
@@ -19,9 +28,17 @@ const Session = ({ errors, register, login, match, clearErrors }) => (
         errors={errors}
         register={register}
         clearErrors={clearErrors}
+        loading={loading}
       />
     ) : (
-      <LoginForm errors={errors} login={login} clearErrors={clearErrors} />
+      <LoginForm
+        errors={errors}
+        login={login}
+        clearErrors={clearErrors}
+        loading={loading}
+        startLoading={startLoading}
+        loggedIn={loggedIn}
+      />
     )}
   </div>
 );

@@ -15,7 +15,6 @@ class RegistrationForm extends React.Component {
     this.errors = {
       emailPresence: false,
       usernamePresence: false,
-      invalidEmail: false,
       passwordPresence: false,
     };
   }
@@ -49,19 +48,9 @@ class RegistrationForm extends React.Component {
     } else {
       this.errors.passwordPresence = false;
     }
-    if (!this.validEmail(email)) {
-      this.errors.invalidEmail = true;
-      valid = false;
-    } else {
-      this.errors.invalidEmail = false;
-    }
+
     valid ? this.setState({ errors: false }) : this.setState({ errors: true });
     return valid;
-  }
-
-  validEmail(email) {
-    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(email.toLowerCase());
   }
 
   handleSubmit(e) {
@@ -73,7 +62,6 @@ class RegistrationForm extends React.Component {
       this.errors = {
         emailPresence: false,
         usernamePresence: false,
-        invalidEmail: false,
         passwordPresence: false,
       };
     }
@@ -81,16 +69,11 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { email, username, password } = this.state;
-    const { errors } = this.props;
+    const { errors, loading } = this.props;
     const emailError = errors.find((e) => e.match(/Email/));
     const usernameError = errors.find((e) => e.match(/Username/));
     const passwordError = errors.find((e) => e.match(/Password/));
-    const {
-      emailPresence,
-      invalidEmail,
-      usernamePresence,
-      passwordPresence,
-    } = this.errors;
+    const { emailPresence, usernamePresence, passwordPresence } = this.errors;
 
     return (
       <form onSubmit={this.handleSubmit} className="session-form registration">
@@ -108,17 +91,12 @@ class RegistrationForm extends React.Component {
             {emailPresence && (
               <span className="session-error">- This field is required.</span>
             )}
-            {invalidEmail && (
-              <span className="session-error">
-                - Please enter a valid email.
-              </span>
-            )}
             <input
-              type="text"
+              type="email"
               id="email-input"
               value={email}
               onChange={this.handleChange("email")}
-              autoFocus
+              autoFocus={loading ? false : true}
             />
           </label>
 

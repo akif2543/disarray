@@ -15,6 +15,7 @@
 @import "reset.scss";
 @import "fonts.scss";
 @import "colors.scss";
+@import "loading.scss";
 @import "splash.scss";
 @import "session.scss";
 @import "main.scss";
@@ -28,4 +29,10 @@ body {
 
   background: $dk-white;
   color: $dk-white;
+
+  h1 {
+    font: {
+      family: "Whitney Bold";
+    }
+  }
 }

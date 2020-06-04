@@ -7,7 +7,9 @@ class Main extends React.Component {
     super(props);
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    this.props.stopLoading();
+  }
 
   render() {
     const { currentUser, logout } = this.props;

@@ -1,3 +1,5 @@
+export const loading = (state) => state.ui.loading;
+
 export const getCurrentUser = (state) => state.entities.users[state.session.id];
 
 export const getUserServers = (state) => {

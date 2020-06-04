@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const SplashBar = ({ loggedIn, handleDemo }) => (
+const SplashBar = ({ loggedIn, handleDemo, startLoading }) => (
   <nav className="splash-nav">
     <nav>
       <Link to="/">
@@ -54,7 +54,11 @@ const SplashBar = ({ loggedIn, handleDemo }) => (
       <a href="https://www.instagram.com/discord" className="splash-nav-link">
         <FontAwesomeIcon icon={["fab", "angellist"]} className="splash-icon" />
       </a>
-      <Link to={loggedIn ? "/@me" : "/login"} className="splash-nav-link login">
+      <Link
+        to={loggedIn ? "/@me" : "/login"}
+        className="splash-nav-link login"
+        onClick={loggedIn ? startLoading : null}
+      >
         <button type="button" className="splash-nav-btn">
           {loggedIn ? "Open" : "Login"}
         </button>

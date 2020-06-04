@@ -1,0 +1,42 @@
+@keyframes roll {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.loading {
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: absolute;
+  background: $dk-main-bg;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .loading-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transform: translateX(-15px);
+
+    img {
+      height: 100px;
+      margin-bottom: 20px;
+      animation: roll 3s infinite;
+      transform: rotate(30deg);
+    }
+
+    h1 {
+      font: {
+        family: "Whitney Medium Italic";
+        size: 18px;
+      }
+    }
+  }
+}

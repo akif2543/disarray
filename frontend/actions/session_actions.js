@@ -7,7 +7,7 @@ export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
 
 const receiveCurrentUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
-  user,
+  ...user,
 });
 
 const logoutCurrentUser = () => ({

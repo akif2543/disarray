@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   attr_reader :password
   validates :discriminator, :email, :session_token, presence: true, uniqueness: true
-  validates :password_digest, :username, presence: true
+  validates :password_digest, presence: true
+  validates :username, presence: true, length: {minimum: 2, maximum: 32}
   validates :password, length: {minimum: 6, maximum: 128}, allow_nil: true
 
   after_initialize :ensure_session_token, :ensure_discriminator
