@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ServerPanel = ({ servers, openModal }) => {
+const ServerPanel = ({ servers, openModal, modalOpen }) => {
   return (
     <section className="server-panel">
       <button className="home-btn" type="button"></button>
@@ -10,7 +10,7 @@ const ServerPanel = ({ servers, openModal }) => {
         <button key={s.id} className="server-icon" type="button"></button>
       ))} */}
         <button
-          className="server-btn"
+          className={modalOpen ? "server-btn active" : "server-btn"}
           type="button"
           onClick={() => openModal("portal")}
         >

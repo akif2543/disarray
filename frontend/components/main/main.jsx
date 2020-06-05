@@ -14,11 +14,15 @@ class Main extends React.Component {
   }
 
   render() {
-    const { currentUser, logout, servers, openModal } = this.props;
+    const { currentUser, logout, servers, openModal, modalOpen } = this.props;
 
     return (
       <main className="main">
-        <ServerPanel servers={servers} openModal={openModal} />
+        <ServerPanel
+          servers={servers}
+          openModal={openModal}
+          modalOpen={modalOpen}
+        />
         <Sidebar />
         <UserBar currentUser={currentUser} logout={logout} />
       </main>

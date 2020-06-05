@@ -35,10 +35,12 @@ import {
   faArrowAltCircleLeft,
   faSearch,
   faThumbtack,
+  faArrowLeft,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
+  faArrowLeft,
   faGithub,
   faLinkedin,
   faAngellist,

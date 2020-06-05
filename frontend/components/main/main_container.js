@@ -20,6 +20,7 @@ import {
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
   servers: getUserServers(state),
+  modalOpen: Boolean(state.ui.modal),
   // currentServer: getCurrentServer(state, ownProps.match.params.serverId),
   // members: getServerMembers(state, ownProps.match.params.serverId),
 });

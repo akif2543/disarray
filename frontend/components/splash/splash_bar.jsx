@@ -9,13 +9,13 @@ const SplashBar = ({ loggedIn, handleDemo, startLoading }) => (
         <img src={window.logoIconURL} className="splash-logo-icon" alt="" />
         <img src={window.logoURL} className="splash-logo" alt="" />
       </Link>
-      <ul className="splash-nav-left">
+      {/* <ul className="splash-nav-left">
         <li>
           <Link to="/@me" onClick={handleDemo}>
             <p>Demo</p>
           </Link>
-        </li>
-        {/* <li>
+        </li> */}
+      {/* <li>
           <p>Why Disarray?</p>
         </li>
         <li>
@@ -39,7 +39,7 @@ const SplashBar = ({ loggedIn, handleDemo, startLoading }) => (
             Support <FontAwesomeIcon icon="angle-down" size="xs" />
           </p>
         </li> */}
-      </ul>
+      {/* </ul> */}
     </nav>
     <ul className="splash-nav-right">
       <a href="https://www.github.com/akif2543" className="splash-nav-link">

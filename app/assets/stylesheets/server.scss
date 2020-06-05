@@ -1,0 +1,110 @@
+.server-panel {
+  width: 72px;
+  height: 100%;
+  background: $dk-search-bg;
+  position: fixed;
+  left: 0px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .home-btn {
+    height: 48px;
+    width: 48px;
+    border-radius: 15px;
+    background: $dk-blue;
+    margin-top: 15px;
+  }
+
+  .server-list {
+    display: flex;
+    flex-flow: column nowrap;
+
+    .server-icon,
+    .server-btn {
+      height: 48px;
+      width: 48px;
+      border-radius: 50%;
+      background: $dk-main-bg;
+      margin: 5px 0;
+      color: $dk-green;
+      transition: all 0.5s ease;
+
+      &:hover {
+        background: $dk-green;
+        color: $dk-white;
+        border-radius: 15px;
+      }
+    }
+
+    .server-btn.active {
+      background: $dk-green;
+      color: $dk-white;
+      border-radius: 15px;
+    }
+  }
+}
+
+.server-portal {
+  background: $dk-white;
+  color: $dk-black;
+  width: 542px;
+  height: 341px;
+  border-radius: 4px;
+  padding: 15px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  h1 {
+    font-size: 24px;
+  }
+
+  .portal-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    section {
+      width: 228px;
+      height: 242px;
+      border: 0.5px solid rgb(229, 229, 229);
+      border-radius: 5px;
+      padding: 15px;
+      margin: 0 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+      text-align: center;
+
+      h3 {
+        font-size: 16px;
+
+        span {
+          font-family: "Whitney Bold";
+        }
+      }
+
+      img {
+        width: 95%;
+        margin: 0 auto;
+      }
+
+      button {
+        width: 100%;
+        height: 38px;
+        border-radius: 3px;
+      }
+
+      .sp-left {
+        background: $dk-blue;
+      }
+
+      .sp-right {
+        background: $dk-green;
+      }
+    }
+  }
+}

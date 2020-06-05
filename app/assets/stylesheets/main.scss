@@ -3,47 +3,6 @@
   width: 100vw;
   background: $dk-main-bg;
 
-  .server-panel {
-    width: 72px;
-    height: 100%;
-    background: $dk-search-bg;
-    position: fixed;
-    left: 0px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    .home-btn {
-      height: 48px;
-      width: 48px;
-      border-radius: 15px;
-      background: $dk-blue;
-      margin-top: 15px;
-    }
-
-    .server-list {
-      display: flex;
-      flex-flow: column nowrap;
-
-      .server-icon,
-      .server-btn {
-        height: 48px;
-        width: 48px;
-        border-radius: 50%;
-        background: $dk-main-bg;
-        margin: 5px 0;
-        color: $dk-green;
-        transition: all 0.5s ease;
-
-        &:hover {
-          background: $dk-green;
-          color: $dk-white;
-          border-radius: 15px;
-        }
-      }
-    }
-  }
-
   .side-bar {
     height: 100%;
     width: 242px;
