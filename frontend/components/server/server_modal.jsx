@@ -10,14 +10,16 @@ class ServerModal extends React.Component {
       portal: true,
       create: false,
       join: false,
-      name: "",
-      code: `${this.props.currentUser.username}'s server`,
+      name: `${this.props.currentUser.username}'s server`,
+      code: "",
+      error: false,
     };
     this.handleCreate = this.handleCreate.bind(this);
     this.handleJoin = this.handleJoin.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleBack = this.handleBack.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.clearErrors = this.clearErrors.bind(this);
   }
 
   handleClick(type) {
@@ -35,8 +37,12 @@ class ServerModal extends React.Component {
   handleCreate(e) {
     e.preventDefault();
     const { name } = this.state;
-    const server = { name };
-    this.props.createServer(server);
+    if (name.length) {
+      const server = { name };
+      this.props.createServer(server);
+    } else {
+      this.setState({ error: true });
+    }
   }
 
   handleJoin(e) {
@@ -46,22 +52,27 @@ class ServerModal extends React.Component {
     this.props.joinServer(membership);
   }
 
+  clearErrors() {
+    this.setState({ error: false });
+  }
+
   render() {
     const { currentUser } = this.props;
-    const { portal, create, join, name, code } = this.state;
+    const { portal, create, join, name, code, error, initials } = this.state;
     return (
       <div className="server-modal">
-        {/* {portal && 
-        <ServerPortal handleClick={this.handleClick} />} */}
-        {/* {create && ( */}
-        <NewServerForm
-          name={name}
-          currentUser={currentUser}
-          handleBack={this.handleBack}
-          handleChange={this.handleChange}
-          handleCreate={this.handleCreate}
-        />
-        {/* )} */}
+        {portal && <ServerPortal handleClick={this.handleClick} />}
+        {create && (
+          <NewServerForm
+            name={name}
+            currentUser={currentUser}
+            handleBack={this.handleBack}
+            handleChange={this.handleChange}
+            handleCreate={this.handleCreate}
+            error={error}
+            clearErrors={this.clearErrors}
+          />
+        )}
       </div>
     );
   }

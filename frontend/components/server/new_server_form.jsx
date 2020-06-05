@@ -1,7 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NewServerForm = ({ name, handleChange, handleCreate, handleBack }) => {
+const NewServerForm = ({
+  name,
+  handleChange,
+  handleCreate,
+  handleBack,
+  error,
+  clearErrors,
+}) => {
+  useEffect(() => () => clearErrors(), []);
+
+  const getInitials = (name) =>
+    name
+      .split(" ")
+      .map((w) => w[0])
+      .join("");
+
   return (
     <form onSubmit={handleCreate} className="new-server">
       <header>
@@ -13,24 +28,45 @@ const NewServerForm = ({ name, handleChange, handleCreate, handleBack }) => {
       </header>
       <section className="input-group">
         <label htmlFor="server-name">
-          SERVER NAME
-          <input type="text" value={name} onChange={handleChange("name")} />
+          <strong className={error ? "server-name-err" : ""}>
+            SERVER NAME{" "}
+            {error && (
+              <span className="err-msg"> - This field is required</span>
+            )}
+          </strong>
+
+          <input
+            type="text"
+            value={name}
+            onChange={handleChange("name")}
+            placeholder="Enter a server name"
+            id="server-name"
+          />
           <p>
             By creating a server, you agree to Disarray's{" "}
-            <a href="#">Community Guidelines</a>.
+            <span>
+              <strong>Community Guidelines</strong>
+            </span>
+            .
           </p>
         </label>
         <figure>
-          <div className="s-icon"></div>
+          <div className="s-icon">
+            <h3>{getInitials(name)}</h3>
+          </div>
           <figcaption>
             Minimum Size: <strong>128x128</strong>
           </figcaption>
         </figure>
       </section>
       <footer>
-        <h4 onClick={handleBack("create")}>
-          <FontAwesomeIcon icon="arrow-left" /> Back
-        </h4>
+        <button className="back" type="button" onClick={handleBack("create")}>
+          <h4>
+            <FontAwesomeIcon icon="arrow-left" />
+            <span> </span>
+            BACK
+          </h4>
+        </button>
         <button type="submit">Create</button>
       </footer>
     </form>
