@@ -1,8 +1,9 @@
+import { connect } from "react-redux";
+
 import { getCurrentUser } from "../../reducers/selectors";
 import { createServer, joinServer } from "../../actions/server_actions";
-import { connect } from "react-redux";
-import ServerPortal from "./server_portal";
 import { closeModal } from "../../actions/ui_actions";
+import ServerModal from "./server_modal";
 
 const mSTP = (state) => ({
   currentUser: getCurrentUser(state),
@@ -14,6 +15,6 @@ const mDTP = (dispatch) => ({
   joinServer: (membership) => dispatch(joinServer(membership)),
 });
 
-const ServerPortalContainer = connect(mSTP, mDTP)(ServerPortal);
+const ServerModalContainer = connect(mSTP, mDTP)(ServerModal);
 
-export default ServerPortalContainer;
+export default ServerModalContainer;

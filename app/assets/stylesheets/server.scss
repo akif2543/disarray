@@ -78,6 +78,7 @@
       justify-content: space-around;
       align-items: center;
       text-align: center;
+      cursor: pointer;
 
       h3 {
         font-size: 16px;
@@ -105,6 +106,56 @@
       .sp-right {
         background: $dk-green;
       }
+    }
+  }
+}
+
+.new-server {
+  background: $dk-white;
+  color: $dk-server-form-text;
+  width: 542px;
+  height: 422px;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  header {
+    text-align: center;
+    width: 85%;
+    margin: 0 auto;
+    font-size: 18px;
+
+    h1 {
+      color: $dk-blue;
+    }
+    h2 {
+      font-family: "Whitney Medium";
+    }
+  }
+
+  .input-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    label {
+      font-size: 11px;
+      color: $dk-server-form-label;
+    }
+
+    .s-icon {
+      height: 128px;
+      width: 128px;
+      border-radius: 50%;
+      background: $dk-blue;
+      border: 5px solid $dk-s-icon-b;
+    }
+    figcaption {
+      font-size: 10px;
+      text-align: center;
     }
   }
 }
