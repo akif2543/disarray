@@ -35,6 +35,11 @@ class User < ApplicationRecord
     user && user.is_password?(password) ? user : nil
   end
 
+  def is_member?(server)
+    self.servers.include?(server)
+  end
+
+
   def password=(password)
     @password = password
     self.password_digest = BCrypt::Password.create(password)

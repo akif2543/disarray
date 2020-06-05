@@ -2,6 +2,7 @@ import React from "react";
 
 import NewServerForm from "./new_server_form";
 import ServerPortal from "./server_portal";
+import JoinServerForm from "./join_server_form";
 
 class ServerModal extends React.Component {
   constructor(props) {
@@ -11,7 +12,7 @@ class ServerModal extends React.Component {
       create: false,
       join: false,
       name: `${this.props.currentUser.username}'s server`,
-      code: "",
+      joinCode: "",
       error: false,
     };
     this.handleCreate = this.handleCreate.bind(this);
@@ -47,9 +48,14 @@ class ServerModal extends React.Component {
 
   handleJoin(e) {
     e.preventDefault();
-    const { code } = this.state;
-    const membership = { code };
-    this.props.joinServer(membership);
+    const { joinCode } = this.state;
+    if (joinCode.length) {
+      this.clearErrors();
+      const membership = { join_code: joinCode };
+      this.props.joinServer(membership);
+    } else {
+      this.setState({ error: true });
+    }
   }
 
   clearErrors() {
@@ -57,20 +63,30 @@ class ServerModal extends React.Component {
   }
 
   render() {
-    const { currentUser } = this.props;
-    const { portal, create, join, name, code, error, initials } = this.state;
+    const { errors } = this.props;
+    const { portal, create, join, name, joinCode, error } = this.state;
     return (
       <div className="server-modal">
         {portal && <ServerPortal handleClick={this.handleClick} />}
         {create && (
           <NewServerForm
             name={name}
-            currentUser={currentUser}
             handleBack={this.handleBack}
             handleChange={this.handleChange}
             handleCreate={this.handleCreate}
             error={error}
             clearErrors={this.clearErrors}
+          />
+        )}
+        {join && (
+          <JoinServerForm
+            handleJoin={this.handleJoin}
+            errors={errors}
+            error={error}
+            clearErrors={this.clearErrors}
+            joinCode={joinCode}
+            handleChange={this.handleChange}
+            handleBack={this.handleBack}
           />
         )}
       </div>

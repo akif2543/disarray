@@ -1,12 +1,13 @@
 import { connect } from "react-redux";
 
-import { getCurrentUser } from "../../reducers/selectors";
 import { createServer, joinServer } from "../../actions/server_actions";
 import { closeModal } from "../../actions/ui_actions";
 import ServerModal from "./server_modal";
+import { getCurrentUser } from "../../reducers/selectors";
 
 const mSTP = (state) => ({
   currentUser: getCurrentUser(state),
+  errors: state.errors.server,
 });
 
 const mDTP = (dispatch) => ({

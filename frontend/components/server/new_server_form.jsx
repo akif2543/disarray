@@ -67,7 +67,9 @@ const NewServerForm = ({
             BACK
           </h4>
         </button>
-        <button type="submit">Create</button>
+        <button type="submit" className="server-create">
+          Create
+        </button>
       </footer>
     </form>
   );

@@ -218,21 +218,23 @@
     position: fixed;
     bottom: 0;
 
-    button {
-      background: $dk-blue;
-      border-radius: 3px;
-      width: 98px;
-      height: 38px;
-    }
-
     .back {
       background: none;
       padding-left: 0px;
+      height: 38px;
       width: auto;
       border-radius: 0;
       &:hover {
         border-bottom: 2px solid $dk-server-form-footer-text;
       }
+    }
+
+    .server-create,
+    .server-join {
+      background: $dk-blue;
+      border-radius: 3px;
+      width: 98px;
+      height: 38px;
     }
 
     h4 {
@@ -243,5 +245,75 @@
         weight: 400;
       }
     }
+  }
+}
+
+.new-server.join {
+  header {
+    padding: 30px 95px 7px 95px;
+
+    h1 {
+      color: $dk-green;
+    }
+
+    h2 {
+      padding: 20px 0 14px;
+    }
+
+    p {
+      color: $dk-blue;
+      font: {
+        family: "Whitney Medium";
+        size: 12px;
+      }
+      line-height: 1rem;
+    }
+  }
+
+  label {
+    width: 100%;
+    padding: 0px 77px;
+    display: flex;
+    flex-direction: column;
+
+    input {
+      border-bottom: 1.5px solid $dk-s-icon-b;
+      color: $dk-black;
+      font-size: 16px;
+      padding: 10px 4px;
+      margin-bottom: 5px;
+    }
+
+    span {
+      font: {
+        size: 11px;
+        family: "Whitney Medium";
+      }
+      .err-msg {
+        color: $dk-red;
+      }
+    }
+  }
+
+  section {
+    text-align: center;
+    padding-top: 38px;
+    line-height: 1rem;
+    p,
+    a {
+      font: {
+        size: 14px;
+        family: "Whitney";
+        // weight: 400;
+      }
+    }
+
+    a {
+      color: $dk-blue-link;
+    }
+  }
+
+  .server-join {
+    background: $dk-green;
   }
 }

@@ -1,12 +1,21 @@
 class Api::MembershipsController < ApplicationController
 
   def create
-    @membership = Membership.new(member_params)
-    if @membership.save
-      @server = Server.find(@membership.subscribeable_id)
-      render "api/servers/show"
+    @server = Server.includes(:members).find_by(join_code: params[:membership][:join_code])
+    if @server
+      unless current_user.is_member?(@server)
+        @membership = Membership.new(member_id: current_user.id, subscribeable: @server)
+        if @membership.save
+          @server = Server.includes(:members).find(@server.id)
+          render "api/servers/show"
+        else
+          render json: @membership.errors.full_messages, status: 422
+        end
+      else
+        render "api/servers/show"
+      end
     else
-      render json: @membership.errors.full_messages, status: 422
+      render json: ["(The invite is invalid or has expired."], status: 404
     end
   end
 
@@ -18,11 +27,5 @@ class Api::MembershipsController < ApplicationController
     rescue
       render json: ["Record not found"], status: 404
     end
-  end
-
-  private
-
-  def member_params
-    params.require(:membership).permit(:member_id, :subscribeable_id)
   end
 end
