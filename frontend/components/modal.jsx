@@ -2,6 +2,7 @@ import React from "react";
 import { closeModal } from "../actions/ui_actions";
 import { connect } from "react-redux";
 import ServerModalContainer from "./server/server_modal_container";
+import ServerActionsContainer from "./server/server_actions_container";
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
@@ -13,7 +14,10 @@ const Modal = ({ modal, closeModal }) => {
       component = <ServerModalContainer />;
       break;
     case "invite":
-      component = this;
+      component = <ServerActionsContainer action="invite" />;
+      break;
+    case "leave":
+      component = <ServerActionsContainer action="leave" />;
       break;
     default:
       return null;

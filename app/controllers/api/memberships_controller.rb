@@ -24,7 +24,7 @@ class Api::MembershipsController < ApplicationController
 
     if @membership
       @membership.destroy
-      render(partial: 'api/users/current_user', locals: {user: @current_user})
+      render json: { userId: current_user.id, subscribeableId: @membership.subscribeable_id }, status: 204
     else
       render json: ["Record not found"], status: 404
     end

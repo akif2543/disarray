@@ -1,5 +1,4 @@
 import ServerAPI from "../util/server_api_util";
-import { receiveCurrentUser } from "./session_actions";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
@@ -17,9 +16,9 @@ const receiveServer = (server) => ({
   ...server,
 });
 
-const removeServer = (serverId) => ({
+const removeServer = (server) => ({
   type: REMOVE_SERVER,
-  serverId,
+  ...server,
 });
 
 const receiveServerErrors = (errors) => ({
@@ -48,7 +47,7 @@ export const createServer = (server) => (dispatch) =>
 
 export const updateServer = (server) => (dispatch) =>
   ServerAPI.updateServer(server)
-    .then((server) => dispatch(receiveServer(server)))
+    .then((updatedServer) => dispatch(receiveServer(updatedServer)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
 export const deleteServer = (id) => (dispatch) =>
@@ -63,5 +62,5 @@ export const joinServer = (membership) => (dispatch) =>
 
 export const leaveServer = (membership) => (dispatch) =>
   ServerAPI.leaveServer(membership)
-    .then((user) => dispatch(receiveCurrentUser(user)))
+    .then((server) => dispatch(removeServer(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));

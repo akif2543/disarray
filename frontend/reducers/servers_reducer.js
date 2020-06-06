@@ -15,7 +15,7 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_SERVER:
       return Object.assign(newState, action.server);
     case REMOVE_SERVER:
-      delete newState[action.serverId];
+      delete newState[action.subscribeableId];
       return newState;
     default:
       return state;

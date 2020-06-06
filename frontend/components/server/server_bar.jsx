@@ -2,6 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import shortid from "shortid";
 import { Link } from "react-router-dom";
+import ServerBarIcon from "./server_bar_icon";
 
 const ServerBar = ({ servers, openModal, modalOpen }) => {
   return (
@@ -11,9 +12,7 @@ const ServerBar = ({ servers, openModal, modalOpen }) => {
       </Link>
       <ul className="server-list">
         {servers.map((s) => (
-          <Link to={`/channels/${s.id}`} key={shortid.generate()}>
-            <button className="server-icon" type="button"></button>{" "}
-          </Link>
+          <ServerBarIcon key={shortid.generate()} server={s} />
         ))}
         <button
           className={modalOpen ? "server-btn active" : "server-btn"}
@@ -21,6 +20,9 @@ const ServerBar = ({ servers, openModal, modalOpen }) => {
           onClick={() => openModal("portal")}
         >
           <FontAwesomeIcon icon="plus" size="lg" />
+        </button>
+        <button className="server-btn" type="button">
+          <FontAwesomeIcon icon="compass" size="lg" />
         </button>
       </ul>
     </section>
