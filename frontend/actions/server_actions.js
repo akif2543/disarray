@@ -1,4 +1,5 @@
 import ServerAPI from "../util/server_api_util";
+import { receiveCurrentUser } from "./session_actions";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
@@ -60,7 +61,7 @@ export const joinServer = (membership) => (dispatch) =>
     .then((server) => dispatch(receiveServer(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
-export const leaveServer = (serverId) => (dispatch) =>
-  ServerAPI.leaveServer(serverId)
-    .then(() => dispatch(removeServer(serverId)))
+export const leaveServer = (membership) => (dispatch) =>
+  ServerAPI.leaveServer(membership)
+    .then((user) => dispatch(receiveCurrentUser(user)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));

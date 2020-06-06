@@ -47,6 +47,7 @@ class Server extends React.Component {
           <ServerDropdown
             toggleDropdown={this.toggleDropdown}
             openModal={openModal}
+            isOwner={currentUser.id === server.owner}
           />
         )}
         <main></main>

@@ -400,5 +400,14 @@
       color: $dk-blue;
       padding-right: 3px;
     }
+
+    .leave {
+      color: $dk-red;
+
+      &:hover {
+        background: $dk-red;
+        color: $dk-white;
+      }
+    }
   }
 }

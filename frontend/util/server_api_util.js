@@ -8,8 +8,12 @@ const ServerAPI = {
   deleteServer: (id) => $.ajax({ method: "DELETE", url: `/api/servers/${id}` }),
   joinServer: (membership) =>
     $.ajax({ method: "POST", url: "/api/memberships", data: { membership } }),
-  leaveServer: (id) =>
-    $.ajax({ method: "DELETE", url: `/api/memberships/${id}` }),
+  leaveServer: (membership) =>
+    $.ajax({
+      method: "DELETE",
+      url: `/api/memberships/$`,
+      data: { membership },
+    }),
 };
 
 export default ServerAPI;

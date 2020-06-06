@@ -20,12 +20,14 @@ class Api::MembershipsController < ApplicationController
   end
 
   def destroy
-    begin
-      @membership = Membership.find(params[:id])
+    @membership = Membership.find_by(member_id: current_user.id, subscribeable_type: params[:membership][:subscribeable_type], subscribeable_id: params[:membership][:subscribeable_id])
+
+    if @membership
       @membership.destroy
-      render json: {  success: true }, status: 204
-    rescue
+      render(partial: 'api/users/current_user', locals: {user: @current_user})
+    else
       render json: ["Record not found"], status: 404
     end
   end
+
 end

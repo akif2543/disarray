@@ -6,7 +6,8 @@ Rails.application.routes.draw do
     resources :users, only: [:index, :show, :create, :update, :destroy]
     resource :sessions, only: [:create, :destroy]
     resources :servers, only: [:index, :show, :create, :update, :destroy]
-    resources :memberships, only: [:create, :destroy]
+    resources :memberships, only: [:create]
+    delete 'memberships', to: 'memberships#destroy'
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
