@@ -25,10 +25,6 @@ class RegistrationForm extends React.Component {
     stopLoading();
   }
 
-  // componentWillUnmount() {
-  //   this.props.startLoading();
-  // }
-
   handleChange(type) {
     return (e) => this.setState({ [type]: e.target.value });
   }

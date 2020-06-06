@@ -3,10 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import shortid from "shortid";
 import { Link } from "react-router-dom";
 
-const ServerPanel = ({ servers, openModal, modalOpen }) => {
+const ServerBar = ({ servers, openModal, modalOpen }) => {
   return (
-    <section className="server-panel">
-      <Link to="/channels/@me">
+    <section className="server-bar">
+      <Link to="/@me">
         <button className="home-btn" type="button"></button>
       </Link>
       <ul className="server-list">
@@ -27,4 +27,4 @@ const ServerPanel = ({ servers, openModal, modalOpen }) => {
   );
 };
 
-export default ServerPanel;
+export default ServerBar;

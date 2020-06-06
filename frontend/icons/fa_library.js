@@ -36,10 +36,12 @@ import {
   faSearch,
   faThumbtack,
   faArrowLeft,
+  faTimes,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
+  faTimes,
   faArrowLeft,
   faGithub,
   faLinkedin,

@@ -2,88 +2,100 @@
   height: 100vh;
   width: 100vw;
   background: $dk-main-bg;
+  position: fixed;
+  left: 72px;
 
-  .side-bar {
-    height: 100%;
-    width: 242px;
+  // .side-bar {
+  //   height: 100%;
+  //   width: 242px;
+  //   position: fixed;
+  //   left: 72px;
+  //   background: $dk-sidebar;
+  // }
+
+  .nav-bar {
+    height: 50px;
+    width: 100%;
     position: fixed;
-    left: 72px;
-    background: $dk-sidebar;
+    top: 0;
+    left: 314px;
+    background: $dk-main-bg;
+    border-bottom: 1px solid rgb(43, 45, 50);
   }
+}
 
-  .user-bar {
-    width: 242px;
-    height: 53px;
-    left: 72px;
-    bottom: 0;
-    padding: 10px;
-    background: $dk-user-set-bg;
-    color: $dk-icons;
-    position: absolute;
+.user-bar {
+  width: 242px;
+  height: 53px;
+  left: 0;
+  bottom: 0;
+  padding: 10px;
+  background: $dk-user-set-bg;
+  color: $dk-icons;
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  .user {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 
-    .user {
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: white;
+      margin-right: 7px;
+    }
+
+    .info {
+      width: 50%;
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      justify-content: center;
+      line-height: 1rem;
 
-      .avatar {
-        width: 32px;
-        height: 32px;
-        border-radius: 50%;
-        background: white;
-        margin-right: 7px;
+      h1 {
+        color: $dk-white;
+        font: {
+          family: "Whitney Bold";
+          size: 14px;
+        }
       }
 
-      .info {
-        width: 50%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        line-height: 1rem;
-
-        h1 {
-          color: $dk-white;
-          font: {
-            family: "Whitney Bold";
-            size: 14px;
-          }
-        }
-
-        h2 {
-          font: {
-            family: "Whitney Medium";
-            weight: 400;
-            size: 12px;
-          }
+      h2 {
+        font: {
+          family: "Whitney Medium";
+          weight: 400;
+          size: 12px;
         }
       }
     }
+  }
 
-    .user-bar-ilist {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      justify-self: flex-end;
-      align-items: center;
-      justify-content: flex-end;
+  .user-bar-ilist {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-self: flex-end;
+    align-items: center;
+    justify-content: flex-end;
 
-      .user-bar-icon {
-        width: 18px;
-        height: 18px;
-        margin-left: 15px;
-        cursor: pointer;
+    .user-bar-icon {
+      width: 18px;
+      height: 18px;
+      margin-left: 15px;
+      cursor: pointer;
 
-        &:hover {
-          color: $dk-white;
-        }
+      &:hover {
+        color: $dk-white;
       }
+    }
 
-      .temp-log {
-        color: $dk-red;
-        margin-right: 5px;
-      }
+    .temp-log {
+      color: $dk-red;
+      margin-right: 5px;
     }
   }
 }

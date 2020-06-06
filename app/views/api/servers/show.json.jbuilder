@@ -3,6 +3,7 @@ json.server do
     json.id @server.id
     json.name @server.name
     json.owner @server.owner_id
+    json.joinCode @server.join_code
     json.members @server.members.map(&:id)
   end
 end

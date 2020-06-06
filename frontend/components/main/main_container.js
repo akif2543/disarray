@@ -19,21 +19,21 @@ import {
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
-  servers: getUserServers(state),
-  modalOpen: Boolean(state.ui.modal),
+  // servers: getUserServers(state),
+  // modalOpen: Boolean(state.ui.modal),
   // currentServer: getCurrentServer(state, ownProps.match.params.serverId),
   // members: getServerMembers(state, ownProps.match.params.serverId),
 });
 
 const mDTP = (dispatch) => ({
   stopLoading: () => dispatch(stopLoading()),
-  requestServers: () => dispatch(requestServers()),
-  requestServer: (id) => dispatch(requestServer(id)),
-  createServer: (server) => dispatch(createServer(server)),
-  updateServer: (server) => dispatch(updateServer(server)),
-  deleteServer: (id) => dispatch(deleteServer(id)),
+  // requestServers: () => dispatch(requestServers()),
+  // requestServer: (id) => dispatch(requestServer(id)),
+  // createServer: (server) => dispatch(createServer(server)),
+  // updateServer: (server) => dispatch(updateServer(server)),
+  // deleteServer: (id) => dispatch(deleteServer(id)),
   logout: () => dispatch(logout()),
-  openModal: (modal) => dispatch(openModal(modal)),
+  // openModal: (modal) => dispatch(openModal(modal)),
 });
 
 const MainContainer = connect(mSTP, mDTP)(Main);
