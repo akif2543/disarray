@@ -24,7 +24,7 @@ class Api::MembershipsController < ApplicationController
 
     if @membership
       @membership.destroy
-      render json: { userId: current_user.id, subscribeableId: @membership.subscribeable_id }, status: 204
+      render :show
     else
       render json: ["Record not found"], status: 404
     end

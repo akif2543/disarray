@@ -46,6 +46,7 @@ const ServerDropdown = ({
               onClick={handleClick("leave")}
             >
               <h3>Leave Server</h3>
+              <FontAwesomeIcon icon="arrow-alt-circle-left" />
             </button>
           )}
         </ul>

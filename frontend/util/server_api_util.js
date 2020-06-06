@@ -11,7 +11,7 @@ const ServerAPI = {
   leaveServer: (membership) =>
     $.ajax({
       method: "DELETE",
-      url: `/api/memberships/$`,
+      url: "/api/memberships",
       data: { membership },
     }),
 };

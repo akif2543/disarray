@@ -21,6 +21,7 @@ class ServerModal extends React.Component {
     this.handleBack = this.handleBack.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.clearErrors = this.clearErrors.bind(this);
+    this.clearCode = this.clearCode.bind(this);
   }
 
   handleClick(type) {
@@ -62,8 +63,12 @@ class ServerModal extends React.Component {
     this.setState({ error: false });
   }
 
+  clearCode() {
+    this.setState({ joinCode: "" });
+  }
+
   render() {
-    const { errors } = this.props;
+    const { errors, clearServerErrors } = this.props;
     const { portal, create, join, name, joinCode, error } = this.state;
     return (
       <div className="server-modal">
@@ -87,6 +92,8 @@ class ServerModal extends React.Component {
             joinCode={joinCode}
             handleChange={this.handleChange}
             handleBack={this.handleBack}
+            clearServerErrors={clearServerErrors}
+            clearCode={this.clearCode}
           />
         )}
       </div>

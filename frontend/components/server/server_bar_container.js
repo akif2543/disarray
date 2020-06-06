@@ -16,7 +16,7 @@ import { openModal } from "../../actions/ui_actions";
 
 const mSTP = (state) => ({
   servers: getUserServers(state),
-  modalOpen: Boolean(state.ui.modal),
+  modalOpen: state.ui.modal === "portal",
 });
 
 const mDTP = (dispatch) => ({

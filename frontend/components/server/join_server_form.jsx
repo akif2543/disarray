@@ -9,8 +9,19 @@ const JoinServerForm = ({
   errors,
   error,
   clearErrors,
+  clearServerErrors,
+  clearCode,
 }) => {
-  useEffect(() => () => clearErrors(), []);
+  useEffect(
+    () => () => {
+      clearErrors();
+      clearServerErrors();
+      clearCode();
+    },
+    []
+  );
+
+  const joinError = error || errors.length;
 
   return (
     <form onSubmit={handleJoin} className="new-server join">
@@ -33,14 +44,10 @@ const JoinServerForm = ({
           id="server-code"
         />
         <span>
-          Enter an invite{" "}
-          {error && (
+          Enter an invite
+          {Boolean(joinError) && (
             <span className="err-msg">
-              (The invite is invalid or has expired.)
-            </span>
-          )}
-          {error.length && (
-            <span className="err-msg">
+              {"  "}
               (The invite is invalid or has expired.)
             </span>
           )}

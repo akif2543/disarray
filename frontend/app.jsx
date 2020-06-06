@@ -20,10 +20,9 @@ const App = ({ loading }) => (
       path={["/register", "/login"]}
       component={SessionContainer}
     />
-    {/* <AuthRoute exact path="/login" component={SessionContainer} /> */}
     <ProtectedRoute path="/@me" component={MainContainer} />
     <ProtectedRoute
-      path={["/channels/", "/@me"]}
+      path={["/channels/:serverId", "/@me"]}
       component={ServerBarContainer}
     />
     <ProtectedRoute path="/channels/:serverId" component={ServerContainer} />

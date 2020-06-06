@@ -9,18 +9,11 @@
   align-items: center;
   z-index: 5;
 
-  .home-btn {
-    height: 48px;
-    width: 48px;
-    border-radius: 15px;
-    background: $dk-blue;
-    margin-top: 15px;
-  }
-
   .server-list {
     display: flex;
     flex-flow: column nowrap;
 
+    .home-btn,
     .server-icon,
     .server-btn {
       height: 48px;
@@ -42,6 +35,49 @@
       background: $dk-green;
       color: $dk-white;
       border-radius: 15px;
+    }
+
+    .home-btn-divider {
+      width: 50%;
+      margin: 0 auto;
+      padding-bottom: 3px;
+      margin-bottom: 3px;
+      border-bottom: 1.5px solid rgb(45, 47, 50);
+    }
+
+    .server-icon {
+      h1 {
+        font-family: "Whitney Medium";
+        font-size: 18px;
+      }
+    }
+
+    .home-btn {
+      margin-top: 15px;
+
+      img {
+        width: 60%;
+        margin: 0 auto;
+        object-fit: cover;
+        transform: translateY(1px);
+      }
+    }
+
+    .home-btn,
+    .server-icon {
+      color: rgb(220, 221, 222);
+
+      &:hover {
+        background: $dk-blue;
+        color: $dk-white;
+      }
+    }
+
+    .home-btn.active,
+    .server-icon.active {
+      background: $dk-blue;
+      border-radius: 15px;
+      color: $dk-white;
     }
   }
 }
@@ -368,11 +404,6 @@
     width: 228px;
     padding: 10px 7px;
 
-    // ul {
-    //   width: 100%;
-    //   margin: 0 auto;
-    // }
-
     button {
       width: 212px;
       height: 35px;
@@ -408,6 +439,195 @@
         background: $dk-red;
         color: $dk-white;
       }
+    }
+  }
+}
+
+.s-icon-tt {
+  left: 20px;
+
+  h1 {
+    &:after {
+      content: " ";
+      position: absolute;
+      top: 50%;
+      right: 100%;
+      margin-top: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: transparent $dk-dropdown-bg transparent transparent;
+    }
+  }
+}
+
+.server-inv {
+  background: $dk-main-bg;
+  width: 440px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  & > * {
+    padding: 15px;
+  }
+
+  header {
+    height: 53px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    h1 {
+      font-size: 16px;
+      font-family: "Whitney Medium";
+    }
+
+    button {
+      color: rgb(119, 122, 127);
+
+      &:hover {
+        color: $dk-white;
+      }
+    }
+  }
+
+  footer {
+    height: 130px;
+    border-top: 1px solid rgb(71, 74, 77);
+
+    h5 {
+      color: rgb(142, 146, 151);
+      font: {
+        family: "Whitney Medium";
+        size: 12px;
+      }
+      padding-bottom: 3px;
+    }
+
+    .input-wrapper {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      input {
+        box-sizing: border-box;
+        background: $dk-session-input-bg;
+        color: rgb(211, 213, 214);
+        border: 0.5px solid $dk-session-input-b;
+        border: {
+          top-left-radius: 3px;
+          bottom-left-radius: 3px;
+          right: none;
+        }
+        margin-top: 0;
+        padding: 10px;
+        height: 42px;
+        width: 100%;
+
+        font-size: 16px;
+
+        &:focus {
+          border-color: $dk-blue;
+        }
+      }
+
+      .btn-wrapper {
+        padding: 4px 4px 3px;
+        background: $dk-session-input-bg;
+        border: 0.5px solid $dk-session-input-b;
+        border: {
+          top-right-radius: 3px;
+          bottom-right-radius: 3px;
+          left: none;
+        }
+
+        button {
+          width: 77px;
+          height: 32px;
+          background: $dk-blue;
+          border-radius: 3px;
+        }
+      }
+
+      .btn-wrapper.active {
+        border-color: $dk-blue;
+      }
+
+      .btn-wrapper.copied,
+      input.copied {
+        border-color: $dk-green;
+
+        button {
+          background: $dk-green;
+        }
+      }
+    }
+
+    p {
+      padding-top: 3px;
+      color: rgb(150, 152, 156);
+      font: {
+        // family: "Whitney Medium";
+        size: 12px;
+      }
+    }
+  }
+}
+
+.leave-server {
+  width: 442px;
+
+  & > * {
+    padding: 16px 20px 20px;
+  }
+
+  header {
+    height: 120px;
+    background: $dk-main-bg;
+
+    border: {
+      top-left-radius: 4px;
+      top-right-radius: 4px;
+    }
+
+    h1 {
+      font-family: "Whitney Medium";
+      // font-weight: 400;
+      padding-bottom: 16px;
+    }
+
+    h2 {
+      color: rgb(211, 213, 214);
+      line-height: 1.25rem;
+    }
+  }
+
+  footer {
+    height: 78px;
+    background: rgb(47, 49, 54);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    border: {
+      bottom-left-radius: 4px;
+      bottom-right-radius: 4px;
+    }
+
+    button {
+      width: 108px;
+      height: 39px;
+      border-radius: 3px;
+    }
+
+    .leave {
+      background: $dk-red;
+    }
+
+    .cancel:hover {
+      text-decoration: underline;
     }
   }
 }

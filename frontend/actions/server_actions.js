@@ -62,5 +62,7 @@ export const joinServer = (membership) => (dispatch) =>
 
 export const leaveServer = (membership) => (dispatch) =>
   ServerAPI.leaveServer(membership)
-    .then((server) => dispatch(removeServer(server)))
+    .then((server) => {
+      dispatch(removeServer(server));
+    })
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));

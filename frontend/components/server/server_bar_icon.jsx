@@ -22,17 +22,25 @@ class ServerBarIcon extends React.Component {
   }
 
   render() {
-    const { server } = this.props;
+    const { server, active } = this.props;
+    const initials = server.name
+      .split(" ")
+      .map((w) => w[0])
+      .join("");
     const { tooltip, contextMenu } = this.state;
     return (
       <div>
         <Link to={`/channels/${server.id}`}>
           <button
-            className="server-icon"
+            className={active ? "server-icon active" : "server-icon"}
             type="button"
-            onHover={this.showTooltip}
+            onMouseOver={this.showTooltip}
+            onFocus={this.showTooltip}
+            onMouseOut={this.hideTooltip}
             onBlur={this.hideTooltip}
-          ></button>
+          >
+            {!server.icon && <h1>{initials}</h1>}
+          </button>
         </Link>
         {tooltip && <ServerIconTooltip text={server.name} />}
       </div>

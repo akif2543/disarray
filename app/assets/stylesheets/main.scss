@@ -99,3 +99,27 @@
     }
   }
 }
+
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+
+  .tooltip-content {
+    min-width: 175px;
+    max-width: 400px;
+    max-height: 35px;
+    background-color: $dk-dropdown-bg;
+    color: $dk-white;
+    margin: 0 auto;
+    padding: 5px;
+    border-radius: 6px;
+    display: flex;
+    position: absolute;
+    z-index: 1;
+
+    h1 {
+      margin: 0 auto;
+    }
+  }
+}
