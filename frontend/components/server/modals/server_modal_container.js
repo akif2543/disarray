@@ -4,10 +4,10 @@ import {
   createServer,
   joinServer,
   clearServerErrors,
-} from "../../actions/server_actions";
-import { closeModal } from "../../actions/ui_actions";
+} from "../../../actions/server_actions";
+import { closeModal } from "../../../actions/ui_actions";
 import ServerModal from "./server_modal";
-import { getCurrentUser } from "../../reducers/selectors";
+import { getCurrentUser } from "../../../reducers/selectors";
 
 const mSTP = (state) => ({
   currentUser: getCurrentUser(state),

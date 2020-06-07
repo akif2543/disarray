@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { settings } from "../../reducers/selectors";
 import UserSettingsContainer from "../user/user_settings_container";
+import ServerSettingsContainer from "../server/settings/server_settings_container";
 
 const Settings = ({ settings }) => {
   if (!settings) return null;
@@ -14,7 +15,7 @@ const Settings = ({ settings }) => {
       component = <UserSettingsContainer />;
       break;
     case "server":
-      component = this;
+      component = <ServerSettingsContainer />;
       break;
     case "leave":
       component = this;

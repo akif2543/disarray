@@ -4,20 +4,20 @@ import {
   getCurrentServer,
   getServerMembers,
   getCurrentUser,
-} from "../../reducers/selectors";
+} from "../../../reducers/selectors";
 import {
   requestServer,
   updateServer,
   deleteServer,
   leaveServer,
-} from "../../actions/server_actions";
+} from "../../../actions/server_actions";
 import ServerPanel from "./server_panel";
-import { logout } from "../../actions/session_actions";
+import { logout } from "../../../actions/session_actions";
 import {
   openModal,
   openSettings,
   closeSettings,
-} from "../../actions/ui_actions";
+} from "../../../actions/ui_actions";
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),

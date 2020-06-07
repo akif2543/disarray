@@ -1,9 +1,15 @@
 import React from "react";
 
 import ServerInvite from "./server_invite";
-import LeaveServer from "./leave_server";
+import ServerLeaveDelete from "./server_leave_delete";
 
-const ServerActions = ({ server, leaveServer, closeModal, action }) => {
+const ServerActions = ({
+  server,
+  leaveServer,
+  closeModal,
+  action,
+  deleteServer,
+}) => {
   let component;
 
   switch (action) {
@@ -12,10 +18,21 @@ const ServerActions = ({ server, leaveServer, closeModal, action }) => {
       break;
     case "leave":
       component = (
-        <LeaveServer
+        <ServerLeaveDelete
           server={server}
           closeModal={closeModal}
           leaveServer={leaveServer}
+          action={action}
+        />
+      );
+      break;
+    case "delete":
+      component = (
+        <ServerLeaveDelete
+          server={server}
+          closeModal={closeModal}
+          deleteServer={deleteServer}
+          action={action}
         />
       );
       break;

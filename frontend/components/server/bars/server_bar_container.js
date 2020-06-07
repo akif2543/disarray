@@ -4,15 +4,15 @@ import {
   // getCurrentServer,
   // getServerMembers,
   getUserServers,
-} from "../../reducers/selectors";
+} from "../../../reducers/selectors";
 import {
   //   requestServer,
   //   updateServer,
   //   deleteServer,
   leaveServer,
-} from "../../actions/server_actions";
+} from "../../../actions/server_actions";
 import ServerBar from "./server_bar";
-import { openModal } from "../../actions/ui_actions";
+import { openModal } from "../../../actions/ui_actions";
 
 const mSTP = (state) => ({
   servers: getUserServers(state),

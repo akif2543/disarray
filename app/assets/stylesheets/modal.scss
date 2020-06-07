@@ -44,16 +44,30 @@
         margin-bottom: 20px;
       }
 
-      button {
-        color: rgb(220, 221, 222);
-        &:hover {
-          color: $dk-white;
+      div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+
+        button {
+          color: rgb(220, 221, 222);
+          &:hover {
+            color: $dk-white;
+          }
+        }
+
+        h4 {
+          color: rgb(114, 118, 125);
+          font-size: 14px;
+          font-family: "Whitney Medium";
         }
       }
     }
 
     .user-account,
-    .user-edit {
+    .user-edit,
+    .edit-server-form {
       height: 145px;
       width: 662px;
       border-radius: 3px;
@@ -107,6 +121,91 @@
         width: 61px;
         height: 33px;
         justify-self: flex-end;
+      }
+    }
+
+    .server-head {
+      h2 {
+        margin-bottom: 0;
+      }
+    }
+
+    .edit-server-form {
+      background: none;
+      border: none;
+      display: flex;
+      flex-direction: row;
+      padding: 0;
+      padding-left: 10px;
+
+      .s-icon {
+        width: 100px;
+        height: 100px;
+        border: none;
+      }
+
+      figcaption {
+        color: rgb(136, 144, 156);
+      }
+
+      .info {
+        margin-left: 150px;
+
+        .input-wrapper {
+          display: flex;
+          flex-direction: column;
+
+          input {
+            box-sizing: border-box;
+            background: $dk-session-input-bg;
+            color: $dk-session-sub;
+            border: 0.5px solid $dk-session-input-b;
+            margin-top: 5px;
+            padding: 10px;
+            width: 320px;
+            border-radius: 3px;
+            &:focus {
+              border-color: $dk-blue;
+            }
+          }
+
+          input.presence-err {
+            border-color: $dk-red;
+          }
+
+          span.presence-err {
+            color: $dk-red;
+            font-size: 12px;
+            padding-top: 3px;
+          }
+        }
+      }
+    }
+
+    .unsaved-warning {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 702px;
+      height: 52px;
+      padding: 10px;
+      background: rgba(24, 25, 28, 0.4);
+      position: fixed;
+      bottom: 15px;
+      border-radius: 3px;
+
+      button {
+        width: 116px;
+        height: 33px;
+        border-radius: 3px;
+      }
+
+      .save {
+        background: $dk-green;
+      }
+
+      .cancel:hover {
+        text-decoration: underline;
       }
     }
   }

@@ -7,8 +7,8 @@ import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import MainContainer from "./components/main/main_container";
 import Loading from "./components/ui/loading";
 import ModalContainer from "./components/ui/modal";
-import ServerPanelContainer from "./components/server/server_panel_container";
-import ServerBarContainer from "./components/server/server_bar_container";
+import ServerPanelContainer from "./components/server/bars/server_panel_container";
+import ServerBarContainer from "./components/server/bars/server_bar_container";
 import SettingsContainer from "./components/ui/settings";
 
 const App = ({ loading, settings }) => (

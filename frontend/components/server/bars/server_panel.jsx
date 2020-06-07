@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import UserBar from "../user/user_bar";
+import UserBar from "../../user/user_bar";
 import ServerDropdown from "./server_dropdown";
 
 class ServerPanel extends React.Component {
@@ -49,6 +49,7 @@ class ServerPanel extends React.Component {
             toggleDropdown={this.toggleDropdown}
             openModal={openModal}
             isOwner={currentUser.id === server.owner}
+            openSettings={openSettings}
           />
         )}
         <main></main>

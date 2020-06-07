@@ -12,6 +12,11 @@ const ServerDropdown = ({
     return openModal(type);
   };
 
+  const handleSettings = (type) => () => {
+    toggleDropdown();
+    return openSettings(type);
+  };
+
   return (
     <div className="dropdown-bg" onClick={toggleDropdown}>
       <div className="dropdown" onClick={(e) => e.stopPropagation()}>
@@ -21,8 +26,7 @@ const ServerDropdown = ({
             <FontAwesomeIcon icon="user-plus" />
           </button>
           {isOwner && (
-            <button type="button">
-              {/* onClick={openSettings} */}
+            <button type="button" onClick={handleSettings("server")}>
               <h3>Server Settings</h3>
               <FontAwesomeIcon icon="cog" />
             </button>

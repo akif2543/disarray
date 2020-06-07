@@ -1,6 +1,5 @@
 import React from "react";
 
-import ServerPanel from "../server/server_panel";
 import Sidebar from "./side_bar";
 import UserBar from "../user/user_bar";
 import NavBar from "./nav_bar";

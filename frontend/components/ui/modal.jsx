@@ -2,8 +2,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { closeModal } from "../../actions/ui_actions";
-import ServerModalContainer from "../server/server_modal_container";
-import ServerActionsContainer from "../server/server_actions_container";
+import ServerModalContainer from "../server/modals/server_modal_container";
+import ServerActionsContainer from "../server/modals/server_actions_container";
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
@@ -19,6 +19,9 @@ const Modal = ({ modal, closeModal }) => {
       break;
     case "leave":
       component = <ServerActionsContainer action="leave" />;
+      break;
+    case "delete":
+      component = <ServerActionsContainer action="delete" />;
       break;
     default:
       return null;

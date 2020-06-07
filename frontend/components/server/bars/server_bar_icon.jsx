@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Tooltip from "../ui/tooltip";
+import Tooltip from "../../ui/tooltip";
 
 class ServerBarIcon extends React.Component {
   constructor(props) {

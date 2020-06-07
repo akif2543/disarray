@@ -1,14 +1,10 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import {
-  getCurrentServer,
-  getCurrentServerJanky,
-  getCurrentUser,
-} from "../../reducers/selectors";
+import { getCurrentServerJanky } from "../../../reducers/selectors";
 import ServerActions from "./server_actions";
-import { closeModal } from "../../actions/ui_actions";
-import { leaveServer } from "../../actions/server_actions";
+import { closeModal } from "../../../actions/ui_actions";
+import { leaveServer, deleteServer } from "../../../actions/server_actions";
 
 const mSTP = (state, ownProps) => ({
   server: getCurrentServerJanky(state, ownProps),
@@ -17,6 +13,7 @@ const mSTP = (state, ownProps) => ({
 const mDTP = (dispatch) => ({
   closeModal: () => dispatch(closeModal()),
   leaveServer: (membership) => dispatch(leaveServer(membership)),
+  deleteServer: (id) => dispatch(deleteServer(id)),
 });
 
 const ServerActionsContainer = withRouter(connect(mSTP, mDTP)(ServerActions));

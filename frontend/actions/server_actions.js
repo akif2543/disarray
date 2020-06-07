@@ -52,7 +52,7 @@ export const updateServer = (server) => (dispatch) =>
 
 export const deleteServer = (id) => (dispatch) =>
   ServerAPI.deleteServer(id)
-    .then(() => dispatch(removeServer(id)))
+    .then((server) => dispatch(removeServer(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
 export const joinServer = (membership) => (dispatch) =>

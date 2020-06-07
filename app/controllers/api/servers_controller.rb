@@ -8,8 +8,8 @@ class Api::ServersController < ApplicationController
 
   def show
     begin
-      @server = current_user ? current_user.servers.includes(:members).find(params[:id]) : Server.includes(:members).find(params[:id])
-      # @server = Server.includes(:members).find(params[:id])
+      # @server = current_user ? current_user.servers.includes(:members).find(params[:id]) : Server.includes(:members).find(params[:id])
+      @server = Server.includes(:members).find(params[:id])
       render :show
     rescue
       render json: ["Server not found."], status: 404
@@ -42,9 +42,9 @@ class Api::ServersController < ApplicationController
 
   def destroy
     begin
-      @server = current_user.servers.find(params[:id])
+      @server = current_user.owned_servers.find(params[:id])
       @server.destroy
-      render status: 204
+      render :destroy
     rescue
       render json: ["Server not found."], status: 404
     end

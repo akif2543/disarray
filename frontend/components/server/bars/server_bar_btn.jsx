@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Tooltip from "../ui/tooltip";
+import Tooltip from "../../ui/tooltip";
 
 const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
   const [tooltip, setTooltip] = useState(false);

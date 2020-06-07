@@ -52,9 +52,12 @@ class UserSettings extends React.Component {
         <main>
           <header>
             <h2>MY ACCOUNT</h2>
-            <button type="button" onClick={closeSettings}>
-              <FontAwesomeIcon icon={["far", "times-circle"]} size="2x" />
-            </button>
+            <div>
+              <button type="button" onClick={closeSettings}>
+                <FontAwesomeIcon icon={["far", "times-circle"]} size="2x" />
+              </button>
+              <h4>ESC</h4>
+            </div>
           </header>
           <div className="user-account">
             <img src={window.user1URL} alt="" className="avatar" />
