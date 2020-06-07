@@ -8,6 +8,7 @@ json.servers do
       json.id server.id
       json.name server.name
       json.members []
+      json.channels []
     end
   end
 end

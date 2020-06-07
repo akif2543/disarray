@@ -1,7 +1,7 @@
 class Api::ServersController < ApplicationController
 
   def index
-    @servers = current_user ? current_user.servers : Server.all
+    @servers = current_user ? current_user.servers.includes(:channels) : Server.all
     # @servers = Server.all
     render :index
   end
@@ -9,7 +9,7 @@ class Api::ServersController < ApplicationController
   def show
     begin
       # @server = current_user ? current_user.servers.includes(:members).find(params[:id]) : Server.includes(:members).find(params[:id])
-      @server = Server.includes(:members).find(params[:id])
+      @server = Server.includes(:members, :channels).find(params[:id])
       render :show
     rescue
       render json: ["Server not found."], status: 404
@@ -20,7 +20,7 @@ class Api::ServersController < ApplicationController
     @server = Server.new(server_params)
     @server.owner_id = current_user.id
     if @server.save
-      Membership.create(member_id: @server.owner_id, subscribeable: @server)
+      @server.bundle
       render :show
     else
       render json: @server.errors.full_messages, status: 422
@@ -29,7 +29,7 @@ class Api::ServersController < ApplicationController
 
   def update
     begin
-      @server = current_user.servers.find(params[:id])
+      @server = current_user.servers.includes(:members, :channels).find(params[:id])
       if @server.update(server_params)
         render :show
       else

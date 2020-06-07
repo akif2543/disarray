@@ -5,6 +5,15 @@ json.server do
     json.owner @server.owner_id
     json.joinCode @server.join_code
     json.members @server.members.map(&:id)
+    json.channels @server.channels.map(&:id)
+  end
+end
+
+json.channels do
+  @server.channels.each do |c|
+    json.set! c.id do
+      json.partial! "api/channels/channel", channel: c
+    end
   end
 end
 

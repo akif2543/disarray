@@ -10,6 +10,7 @@ class User < ApplicationRecord
   has_many :owned_servers, foreign_key: :owner_id, class_name: :Server
   has_many :memberships, foreign_key: :member_id, class_name: :Membership, dependent: :destroy
   has_many :servers, through: :memberships, source: :subscribeable, source_type: :Server
+  has_many :channels, through: :servers, source: :channels
 
   def self.discordify_errors(errors)
     errors.map do |e|

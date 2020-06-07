@@ -7,6 +7,12 @@ class Server < ApplicationRecord
   belongs_to :owner, foreign_key: :owner_id, class_name: :User
   has_many :memberships, as: :subscribeable, dependent: :destroy
   has_many :members, through: :memberships, source: :member
+  has_many :channels, foreign_key: :server_id, class_name: :Channel, dependent: :destroy
+
+  def bundle
+    Membership.create(member_id: @owner_id, subscribeable: self)
+    Channel.create(name: "general", server_id: @id)
+  end
 
 
   private

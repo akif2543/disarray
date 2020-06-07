@@ -12,6 +12,7 @@ json.servers do
       json.name server.name
       json.joinCode server.join_code
       json.members []
+      json.channels server.channels.map(&:id)
     end
   end
 end
