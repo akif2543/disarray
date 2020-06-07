@@ -11,8 +11,8 @@ const UserSettingsSidebar = ({ logout }) => (
           My Account
         </button>
         <div className="divider" />
-        <Link to="/">
-          <button type="button" className="logout" onClick={logout}>
+        <Link to="/" onClick={logout}>
+          <button type="button" className="logout">
             Logout
           </button>
         </Link>

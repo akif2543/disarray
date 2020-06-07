@@ -6,11 +6,15 @@ class Api::UsersController < ApplicationController
   end
 
   def show
-    begin
-      @user = User.includes(:servers).find(params[:id])
-      render :show
-    rescue
-      render json: ["User not found."], status: 404
+    if params[:cu]
+      render( partial: "api/users/current_user", locals: {user: current_user})
+    else
+      begin
+        @user = User.includes(:servers).find(params[:id])
+        render :show
+      rescue
+        render json: ["User not found."], status: 404
+      end
     end
   end
 
@@ -18,7 +22,7 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login!(@user)
-      render :show
+      render render( partial: "api/users/current_user", locals: {user: @user})
     else
       render json: User.discordify_errors(@user.errors.full_messages), status: 422
     end

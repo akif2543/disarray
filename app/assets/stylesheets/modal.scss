@@ -52,7 +52,8 @@
       }
     }
 
-    .user-account {
+    .user-account,
+    .user-edit {
       height: 145px;
       width: 662px;
       border-radius: 3px;
@@ -109,6 +110,10 @@
       }
     }
   }
+}
+
+.user-edit {
+  height: 389px;
 }
 
 .settings-sidebar {

@@ -75,7 +75,7 @@
   }
 
   .user-bar-ilist {
-    width: 100%;
+    // width: 100%;
     display: flex;
     flex-direction: row;
     justify-self: flex-end;
@@ -83,19 +83,21 @@
     justify-content: flex-end;
 
     .user-bar-icon {
-      width: 18px;
-      height: 18px;
-      margin-left: 15px;
+      box-sizing: content-box;
+      width: 33px;
+      height: 33px;
       cursor: pointer;
+      border-radius: 4px;
+      color: $dk-icons;
+
+      & > * {
+        font-size: 18px;
+      }
 
       &:hover {
         color: $dk-white;
+        background: rgb(54, 56, 62);
       }
-    }
-
-    .temp-log {
-      color: $dk-red;
-      margin-right: 5px;
     }
   }
 }
@@ -106,8 +108,6 @@
   align-items: center;
 
   .tooltip-content {
-    min-width: 175px;
-    max-width: 400px;
     max-height: 35px;
     background-color: $dk-dropdown-bg;
     color: $dk-white;
@@ -120,6 +120,33 @@
 
     h1 {
       margin: 0 auto;
+    }
+  }
+}
+
+.u-bar-tt {
+  bottom: 42px;
+  right: 41px;
+
+  .tooltip-content {
+    width: 115px;
+
+    h1 {
+      font-family: "Whitney Medium";
+      font-weight: 400;
+      font-size: 14px;
+      color: rgb(212, 213, 214);
+    }
+
+    &:after {
+      content: " ";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      margin-left: -5px;
+      border-width: 5px;
+      border-style: solid;
+      border-color: $dk-dropdown-bg transparent transparent transparent;
     }
   }
 }

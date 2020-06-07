@@ -1,6 +1,7 @@
 import React from "react";
 import UserSettingsSidebar from "./user_settings_sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import UserEditForm from "./user_edit_form";
 
 class UserSettings extends React.Component {
   constructor(props) {
@@ -12,10 +13,16 @@ class UserSettings extends React.Component {
       password: "",
       passwordChange: false,
     };
+
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
+    this.handleLogout = this.handleLogout.bind(this);
   }
 
   componentDidMount() {
-    // fetch current user info on mount
+    const { currentUser, fetchCurrentUser } = this.props;
+    fetchCurrentUser(currentUser.id);
   }
 
   handleClick() {
@@ -30,12 +37,18 @@ class UserSettings extends React.Component {
     e.preventDefault();
   }
 
+  handleLogout() {
+    const { logout, startLoading } = this.props;
+    logout();
+    startLoading();
+  }
+
   render() {
-    const { logout, closeSettings, currentUser } = this.props;
+    const { closeSettings, currentUser } = this.props;
 
     return (
       <div className="settings">
-        <UserSettingsSidebar logout={logout} />
+        <UserSettingsSidebar logout={this.handleLogout} />
         <main>
           <header>
             <h2>MY ACCOUNT</h2>
@@ -58,8 +71,15 @@ class UserSettings extends React.Component {
                 <p>{currentUser.email}</p>
               </div>
             </div>
-            <button type="edit">Edit</button>
+            <button type="button" onClick={this.handleClick}>
+              Edit
+            </button>
           </div>
+          {/* <UserEditForm
+            handleChange={this.handleChange}
+            handleUpdate={this.handleUpdate}
+            currentUser={currentUser}
+          /> */}
         </main>
       </div>
     );

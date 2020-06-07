@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ServerIconTooltip from "./server_icon_tooltip";
+import Tooltip from "../ui/tooltip";
 
 class ServerBarIcon extends React.Component {
   constructor(props) {
@@ -42,7 +42,7 @@ class ServerBarIcon extends React.Component {
             {!server.icon && <h1>{initials}</h1>}
           </button>
         </Link>
-        {tooltip && <ServerIconTooltip text={server.name} />}
+        {tooltip && <Tooltip text={server.name} className="s-icon-tt" />}
       </div>
     );
   }

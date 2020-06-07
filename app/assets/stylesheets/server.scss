@@ -446,16 +446,21 @@
 .s-icon-tt {
   left: 20px;
 
-  h1 {
-    &:after {
-      content: " ";
-      position: absolute;
-      top: 50%;
-      right: 100%;
-      margin-top: -5px;
-      border-width: 5px;
-      border-style: solid;
-      border-color: transparent $dk-dropdown-bg transparent transparent;
+  .tooltip-content {
+    min-width: 175px;
+    max-width: 400px;
+
+    h1 {
+      &:after {
+        content: " ";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 5px;
+        border-style: solid;
+        border-color: transparent $dk-dropdown-bg transparent transparent;
+      }
     }
   }
 }

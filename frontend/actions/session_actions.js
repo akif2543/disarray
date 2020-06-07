@@ -38,6 +38,11 @@ export const logout = () => (dispatch) =>
     .then(() => dispatch(logoutCurrentUser()))
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
 
+export const fetchCurrentUser = (id) => (dispatch) =>
+  SessionAPI.fetchCurrentUser(id)
+    .then((user) => dispatch(receiveCurrentUser(user)))
+    .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
+
 export const updateUser = (user) => (dispatch) =>
   SessionAPI.updateUser(user)
     .then((updatedUser) => receiveCurrentUser(updatedUser))

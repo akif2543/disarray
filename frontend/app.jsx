@@ -14,8 +14,9 @@ import SettingsContainer from "./components/ui/settings";
 const App = ({ loading, settings }) => (
   <div>
     {loading && <Loading />}
+    {/* {settings && <ProtectedRoute path="/" component={SettingsContainer} />} */}
     {settings && <SettingsContainer />}
-    <ModalContainer />
+    <ProtectedRoute path="/" component={ModalContainer} />
     <Route exact path="/" component={SplashContainer} />
     <AuthRoute
       exact

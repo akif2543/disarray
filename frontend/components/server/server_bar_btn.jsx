@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import ServerIconTooltip from "./server_icon_tooltip";
+import Tooltip from "../ui/tooltip";
 
 const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
   const [tooltip, setTooltip] = useState(false);
@@ -25,7 +25,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
             >
               <img src={window.logoIconURL} />
             </button>
-            {tooltip && <ServerIconTooltip text="Home" />}
+            {tooltip && <Tooltip text="Home" className="s-icon-tt" />}
             <div className="home-btn-divider" />
           </Link>
         </div>
@@ -44,7 +44,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
           >
             <FontAwesomeIcon icon="plus" size="lg" />
           </button>
-          {tooltip && <ServerIconTooltip text="Add a Server" />}
+          {tooltip && <Tooltip text="Add a Server" className="s-icon-tt" />}
         </div>
       );
     case "explore":
@@ -62,7 +62,9 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
               <FontAwesomeIcon icon="compass" size="lg" />
             </button>
           </Link>
-          {tooltip && <ServerIconTooltip text="Explore Public Servers" />}
+          {tooltip && (
+            <Tooltip text="Explore Public Servers" className="s-icon-tt" />
+          )}
           <div className="home-btn-divider" />
         </div>
       );
