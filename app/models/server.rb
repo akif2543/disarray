@@ -5,7 +5,7 @@ class Server < ApplicationRecord
   after_initialize :ensure_join_code
 
   belongs_to :owner, foreign_key: :owner_id, class_name: :User
-  has_many :memberships, as: :subscribeable
+  has_many :memberships, as: :subscribeable, dependent: :destroy
   has_many :members, through: :memberships, source: :member
 
 

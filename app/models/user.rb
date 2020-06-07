@@ -1,14 +1,14 @@
 class User < ApplicationRecord
   attr_reader :password
   validates :discriminator, :email, :session_token, presence: true, uniqueness: true
-  validates :password_digest, presence: true
+  validates :password_digest, :avatar, presence: true
   validates :username, presence: true, length: {minimum: 2, maximum: 32}
   validates :password, length: {minimum: 6, maximum: 128}, allow_nil: true
 
-  after_initialize :ensure_session_token, :ensure_discriminator
+  after_initialize :ensure_session_token, :ensure_discriminator, :ensure_avatar
 
   has_many :owned_servers, foreign_key: :owner_id, class_name: :Server
-  has_many :memberships, foreign_key: :member_id, class_name: :Membership
+  has_many :memberships, foreign_key: :member_id, class_name: :Membership, dependent: :destroy
   has_many :servers, through: :memberships, source: :subscribeable, source_type: :Server
 
   def self.discordify_errors(errors)
@@ -29,12 +29,6 @@ class User < ApplicationRecord
       end
     end
   end
-
-  def self.random_avatar
-    av = ['user_1.png', 'user_2.png', 'user_3.png', 'user_2.png'].sample
-    ActionController::Base.helpers.asset_url(av, type: :image)
-  end
-
 
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
@@ -71,6 +65,10 @@ class User < ApplicationRecord
     self.discriminator ||= discriminate
   end
 
+  def ensure_avatar
+    self.avatar ||= random_avatar
+  end
+
   def generate_session_token
     SecureRandom::urlsafe_base64
   end
@@ -81,5 +79,10 @@ class User < ApplicationRecord
     disc = disc.join
     discriminate if User.find_by(discriminator: disc)
     disc
+  end
+
+  def random_avatar
+    av = ['user_1.png', 'user_2.png', 'user_3.png', 'user_2.png'].sample
+    ActionController::Base.helpers.asset_url(av, type: :image)
   end
 end

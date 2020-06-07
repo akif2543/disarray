@@ -60,7 +60,7 @@ class UserSettings extends React.Component {
             </div>
           </header>
           <div className="user-account">
-            <img src={window.user1URL} alt="" className="avatar" />
+            <img src={currentUser.avatar} alt="" className="avatar" />
             <div className="info">
               <div className="username">
                 <h2>USERNAME</h2>

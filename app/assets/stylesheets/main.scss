@@ -45,8 +45,13 @@
       width: 32px;
       height: 32px;
       border-radius: 50%;
-      background: white;
       margin-right: 7px;
+
+      img {
+        object-fit: cover;
+        margin: 0 auto;
+        width: 100%;
+      }
     }
 
     .info {

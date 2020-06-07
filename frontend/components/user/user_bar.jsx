@@ -17,7 +17,9 @@ const UserBar = ({ currentUser, openSettings }) => {
   return (
     <div className="user-bar">
       <div className="user">
-        <div className="avatar"></div>
+        <div className="avatar">
+          <img src={currentUser.avatar} alt="" />
+        </div>
         <ul className="info">
           <h1>{currentUser.username}</h1>
           <h2>#{currentUser.discriminator}</h2>
