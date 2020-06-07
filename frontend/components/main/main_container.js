@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { logout } from "../../actions/session_actions";
-import { stopLoading, openModal } from "../../actions/ui_actions";
+import { stopLoading, openModal, openSettings } from "../../actions/ui_actions";
 import Main from "./main";
 import {
   getCurrentUser,
@@ -33,7 +33,7 @@ const mDTP = (dispatch) => ({
   // updateServer: (server) => dispatch(updateServer(server)),
   // deleteServer: (id) => dispatch(deleteServer(id)),
   logout: () => dispatch(logout()),
-  // openModal: (modal) => dispatch(openModal(modal)),
+  openSettings: (settings) => dispatch(openSettings(settings)),
 });
 
 const MainContainer = connect(mSTP, mDTP)(Main);

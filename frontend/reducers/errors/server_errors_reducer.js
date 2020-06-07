@@ -3,7 +3,7 @@ import {
   CLEAR_SERVER_ERRORS,
   RECEIVE_SERVERS,
   RECEIVE_SERVER,
-} from "../actions/server_actions";
+} from "../../actions/server_actions";
 
 const serverErrorsReducer = (state = [], action) => {
   switch (action.type) {

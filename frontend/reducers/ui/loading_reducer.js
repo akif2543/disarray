@@ -1,4 +1,4 @@
-import { START_LOADING, STOP_LOADING } from "../actions/ui_actions";
+import { START_LOADING, STOP_LOADING } from "../../actions/ui_actions";
 
 const loadingReducer = (state = false, action) => {
   switch (action.type) {

@@ -2,7 +2,7 @@ import React from "react";
 
 import ServerPanel from "../server/server_panel";
 import Sidebar from "./side_bar";
-import UserBar from "./user_bar";
+import UserBar from "../user/user_bar";
 import NavBar from "./nav_bar";
 
 class Main extends React.Component {
@@ -15,26 +15,17 @@ class Main extends React.Component {
   }
 
   render() {
-    const {
-      currentUser,
-      logout,
-      servers,
-      openModal,
-      modalOpen,
-      requestServer,
-      match,
-    } = this.props;
+    const { currentUser, openSettings, logout } = this.props;
 
     return (
       <main className="main">
-        {/* <ServerPanel
-          servers={servers}
-          openModal={openModal}
-          modalOpen={modalOpen}
-        /> */}
         <Sidebar />
         <NavBar />
-        <UserBar currentUser={currentUser} logout={logout} />
+        <UserBar
+          currentUser={currentUser}
+          logout={logout}
+          openSettings={openSettings}
+        />
       </main>
     );
   }

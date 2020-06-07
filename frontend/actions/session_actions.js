@@ -37,3 +37,13 @@ export const logout = () => (dispatch) =>
   SessionAPI.logout()
     .then(() => dispatch(logoutCurrentUser()))
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
+
+export const updateUser = (user) => (dispatch) =>
+  SessionAPI.updateUser(user)
+    .then((updatedUser) => receiveCurrentUser(updatedUser))
+    .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
+
+export const deleteUser = (userId) => (dispatch) =>
+  SessionAPI.deleteUser(userId)
+    .then(() => dispatch(logoutCurrentUser()))
+    .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));

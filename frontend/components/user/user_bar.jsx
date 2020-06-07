@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 
-const UserBar = ({ currentUser, logout }) => (
+const UserBar = ({ currentUser, openSettings }) => (
   <div className="user-bar">
     <div className="user">
       <div className="avatar"></div>
@@ -14,9 +14,11 @@ const UserBar = ({ currentUser, logout }) => (
     <ul className="user-bar-ilist">
       <FontAwesomeIcon icon="microphone" className="user-bar-icon" />
       <FontAwesomeIcon icon="headphones-alt" className="user-bar-icon" />
-      <Link to="/" onClick={logout}>
-        <FontAwesomeIcon icon="cog" className="user-bar-icon temp-log" />
-      </Link>
+      <FontAwesomeIcon
+        icon="cog"
+        className="user-bar-icon"
+        onClick={() => openSettings("user")}
+      />
     </ul>
   </div>
 );

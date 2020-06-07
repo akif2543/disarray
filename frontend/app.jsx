@@ -5,14 +5,16 @@ import SplashContainer from "./components/splash/splash_container";
 import SessionContainer from "./components/session/session_container";
 import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import MainContainer from "./components/main/main_container";
-import Loading from "./components/loading";
-import ModalContainer from "./components/modal";
-import ServerContainer from "./components/server/server_container";
+import Loading from "./components/ui/loading";
+import ModalContainer from "./components/ui/modal";
+import ServerPanelContainer from "./components/server/server_panel_container";
 import ServerBarContainer from "./components/server/server_bar_container";
+import SettingsContainer from "./components/ui/settings";
 
-const App = ({ loading }) => (
+const App = ({ loading, settings }) => (
   <div>
     {loading && <Loading />}
+    {settings && <SettingsContainer />}
     <ModalContainer />
     <Route exact path="/" component={SplashContainer} />
     <AuthRoute
@@ -25,7 +27,10 @@ const App = ({ loading }) => (
       path={["/channels/:serverId", "/@me"]}
       component={ServerBarContainer}
     />
-    <ProtectedRoute path="/channels/:serverId" component={ServerContainer} />
+    <ProtectedRoute
+      path="/channels/:serverId"
+      component={ServerPanelContainer}
+    />
   </div>
 );
 

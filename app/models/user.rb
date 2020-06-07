@@ -30,6 +30,12 @@ class User < ApplicationRecord
     end
   end
 
+  def self.random_avatar
+    av = ['user_1.png', 'user_2.png', 'user_3.png', 'user_2.png'].sample
+    ActionController::Base.helpers.asset_url(av, type: :image)
+  end
+
+
   def self.find_by_credentials(email, password)
     user = User.find_by(email: email)
     user && user.is_password?(password) ? user : nil

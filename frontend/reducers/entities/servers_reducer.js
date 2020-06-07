@@ -2,8 +2,8 @@ import {
   RECEIVE_SERVERS,
   RECEIVE_SERVER,
   REMOVE_SERVER,
-} from "../actions/server_actions";
-import { RECEIVE_CURRENT_USER } from "../actions/session_actions";
+} from "../../actions/server_actions";
+import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 
 const serversReducer = (state = {}, action) => {
   const newState = Object.assign({}, state);

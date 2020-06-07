@@ -1,6 +1,6 @@
 json.user do
   json.set! user.id do
-    json.extract! user, :id, :username, :discriminator
+    json.extract! user, :id, :username, :discriminator, :email
     json.servers user.servers.map(&:id) 
   end
 end

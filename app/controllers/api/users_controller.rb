@@ -25,25 +25,23 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    begin
-      @user = User.includes(:servers).find(params[:id])
-      if @user.update(user_params)
+    if current_user
+      if @current_user.update(user_params)
         render :show
       else
         render json: @user.errors.full_messages, status: 422
       end
-    rescue
-      render json: ["User not found."], status: 404
+    else
+      render json: ["You don't have permission to do that."], status: 403
     end
   end
 
   def destroy
-    begin
-      @user = User.find(params[:id])
-      @user.destroy
+    if current_user
+      @current_user.destroy
       render status: 204
-    rescue
-      render json: ["User not found."], status: 404
+    else
+      render json: ["You don't have permission to do that."], status: 403
     end
   end
 
