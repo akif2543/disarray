@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_many :memberships, foreign_key: :member_id, class_name: :Membership, dependent: :destroy
   has_many :servers, through: :memberships, source: :subscribeable, source_type: :Server
   has_many :channels, through: :servers, source: :channels
+  has_many :messages, foreign_key: :author_id, class_name: :Message, dependent: :destroy
 
   def self.discordify_errors(errors)
     errors.map do |e|
@@ -39,7 +40,6 @@ class User < ApplicationRecord
   def is_member?(server)
     self.servers.include?(server)
   end
-
 
   def password=(password)
     @password = password

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
     resources :memberships, only: [:create]
     delete 'memberships', to: 'memberships#destroy'
     resources :channels, only: [:show, :create, :update, :destroy]
+    resources :messages, only: [:update, :destroy]
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
