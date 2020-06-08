@@ -26,7 +26,7 @@ const UserBar = ({ currentUser, openSettings }) => {
         </ul>
       </div>
       <ul className="user-bar-ilist">
-        {mute && <Tooltip text="Mute" className="u-bar-tt" />}
+        {mute && <Tooltip text="Mute" className="u-bar-tt mute" />}
         <button
           type="button"
           className="user-bar-icon"
@@ -38,7 +38,7 @@ const UserBar = ({ currentUser, openSettings }) => {
           <FontAwesomeIcon icon="microphone" />
         </button>
 
-        {deafen && <Tooltip text="Deafen" className="u-bar-tt" />}
+        {deafen && <Tooltip text="Deafen" className="u-bar-tt deafen" />}
         <button
           type="button"
           className="user-bar-icon"

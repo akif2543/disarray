@@ -41,6 +41,7 @@ const NewServerForm = ({
             onChange={handleChange("name")}
             placeholder="Enter a server name"
             id="server-name"
+            autoComplete="off"
           />
           <p>
             By creating a server, you agree to Disarray's{" "}

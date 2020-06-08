@@ -5,15 +5,23 @@ const ServerLeaveDelete = ({
   leaveServer,
   closeModal,
   deleteServer,
+  closeSettings,
   action,
+  history,
 }) => {
   const handleLeave = () =>
     leaveServer({
       subscribeable_type: "Server",
       subscribeable_id: server.id,
-    });
+    })
+      .then(closeModal())
+      .then(history.push("/@me"));
 
-  const handleDelete = () => deleteServer(server.id);
+  const handleDelete = () =>
+    deleteServer(server.id)
+      .then(closeSettings())
+      .then(closeModal())
+      .then(history.push("/@me"));
 
   const leaveWarning = (
     <h2>
@@ -22,12 +30,12 @@ const ServerLeaveDelete = ({
     </h2>
   );
 
-  const deleteWarning = (
+  const deleteWarning = server ? (
     <h2>
       Are you sure you want to delete <strong>{server.name}</strong>? This
       action cannot be undone.
     </h2>
-  );
+  ) : null;
 
   return (
     <div className="leave-server">

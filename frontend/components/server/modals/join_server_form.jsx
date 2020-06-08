@@ -42,6 +42,7 @@ const JoinServerForm = ({
           value={joinCode}
           onChange={handleChange("joinCode")}
           id="server-code"
+          autoComplete="off"
         />
         <span>
           Enter an invite
