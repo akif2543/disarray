@@ -12,9 +12,10 @@ class TextChannel extends React.Component {
   }
 
   render() {
+    const { channel } = this.props;
     return (
       <div className="text-channel">
-        <NavBar />
+        <NavBar channel={channel} />
       </div>
     );
   }

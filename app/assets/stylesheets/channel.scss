@@ -198,3 +198,20 @@
     }
   }
 }
+
+.nav-bar {
+  .channel-name {
+    display: inline-flex;
+    flex-direction: row;
+
+    svg {
+      color: rgb(114, 118, 125);
+      transform: translateY(3px);
+    }
+
+    h3 {
+      font-family: "Whitney Medium";
+      padding-left: 10px;
+    }
+  }
+}
