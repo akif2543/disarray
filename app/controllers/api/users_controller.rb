@@ -22,7 +22,7 @@ class Api::UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       login!(@user)
-      render render( partial: "api/users/current_user", locals: {user: @user})
+      render( partial: "api/users/current_user", locals: {user: @user})
     else
       render json: User.discordify_errors(@user.errors.full_messages), status: 422
     end
