@@ -10,8 +10,8 @@ class Server < ApplicationRecord
   has_many :channels, foreign_key: :server_id, class_name: :Channel, dependent: :destroy
 
   def bundle
-    Membership.create(member_id: @owner_id, subscribeable: self)
-    Channel.create(name: "general", server_id: @id)
+    Membership.create(member_id: self.owner_id, subscribeable: self)
+    Channel.create(name: "general", server_id: self.id)
   end
 
 

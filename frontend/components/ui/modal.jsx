@@ -23,6 +23,9 @@ const Modal = ({ modal, closeModal }) => {
     case "delete":
       component = <ServerActionsContainer action="delete" />;
       break;
+    case "channel":
+      component = <ServerActionsContainer action="channel" />;
+      break;
     default:
       return null;
   }

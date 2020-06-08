@@ -4,6 +4,9 @@ import {
   getCurrentServer,
   getServerMembers,
   getCurrentUser,
+  getCurrentChannel,
+  getServerChannels,
+  getCurrentServerJanky,
 } from "../../../reducers/selectors";
 import {
   requestServer,
@@ -21,7 +24,8 @@ import {
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
-  server: getCurrentServer(state, ownProps),
+  server: getCurrentServerJanky(state, ownProps),
+  channels: getServerChannels(state, ownProps),
   // members: getServerMembers(state, ownProps),
 });
 

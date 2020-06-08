@@ -32,8 +32,7 @@ const ServerDropdown = ({
             </button>
           )}
           {isOwner && (
-            <button type="button">
-              {/* onClick={openModal("channel") */}
+            <button type="button" onClick={handleClick("channel")}>
               <h3>Create Channel</h3>
               <FontAwesomeIcon icon="plus-circle" />
             </button>

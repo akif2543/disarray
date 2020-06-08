@@ -37,6 +37,7 @@ import {
   faThumbtack,
   faArrowLeft,
   faTimes,
+  faAngleRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
@@ -68,6 +69,7 @@ library.add(
   faPen,
   faDotCircle,
   faAngleDown,
+  faAngleRight,
   faHashtag,
   faVolumeUp,
   faBell,

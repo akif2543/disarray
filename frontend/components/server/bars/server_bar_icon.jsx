@@ -30,7 +30,7 @@ class ServerBarIcon extends React.Component {
     const { tooltip, contextMenu } = this.state;
     return (
       <div>
-        <Link to={`/channels/${server.id}`}>
+        <Link to={`/channels/${server.id}/${server.channels[0]}`}>
           <button
             className={active ? "server-icon active" : "server-icon"}
             type="button"

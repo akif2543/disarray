@@ -2,6 +2,7 @@ import React from "react";
 
 import ServerInvite from "./server_invite";
 import ServerLeaveDelete from "./server_leave_delete";
+import AddChannel from "../../channel/add_channel";
 
 const ServerActions = ({
   server,
@@ -9,6 +10,7 @@ const ServerActions = ({
   closeModal,
   action,
   deleteServer,
+  createChannel,
 }) => {
   let component;
 
@@ -33,6 +35,16 @@ const ServerActions = ({
           closeModal={closeModal}
           deleteServer={deleteServer}
           action={action}
+        />
+      );
+      break;
+
+    case "channel":
+      component = (
+        <AddChannel
+          serverId={server.id}
+          closeModal={closeModal}
+          createChannel={createChannel}
         />
       );
       break;

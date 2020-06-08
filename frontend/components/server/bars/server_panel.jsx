@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import UserBar from "../../user/user_bar";
 import ServerDropdown from "./server_dropdown";
+import ChannelList from "./channel_list";
 
 class ServerPanel extends React.Component {
   constructor(props) {
@@ -30,11 +31,19 @@ class ServerPanel extends React.Component {
   }
 
   render() {
-    const { server, currentUser, openModal, openSettings } = this.props;
+    const {
+      server,
+      currentUser,
+      openModal,
+      openSettings,
+      channels,
+    } = this.props;
     const { dropdown } = this.state;
+    const isOwner = currentUser.id === server.owner;
+
     return (
       <section className="side-bar server">
-        <header onClick={this.toggleDropdown}>
+        <header onClick={this.toggleDropdown} className="dropdown-trigger">
           <h1>{server.name}</h1>
           <button type="button">
             {dropdown ? (
@@ -48,11 +57,18 @@ class ServerPanel extends React.Component {
           <ServerDropdown
             toggleDropdown={this.toggleDropdown}
             openModal={openModal}
-            isOwner={currentUser.id === server.owner}
+            isOwner={isOwner}
             openSettings={openSettings}
           />
         )}
-        <main></main>
+        <main>
+          <ChannelList
+            channels={channels}
+            isOwner={isOwner}
+            openModal={openModal}
+            server={server}
+          />
+        </main>
         <UserBar currentUser={currentUser} openSettings={openSettings} />
       </section>
     );

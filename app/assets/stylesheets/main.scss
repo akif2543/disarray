@@ -12,16 +12,16 @@
   //   left: 72px;
   //   background: $dk-sidebar;
   // }
+}
 
-  .nav-bar {
-    height: 50px;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 314px;
-    background: $dk-main-bg;
-    border-bottom: 1px solid rgb(43, 45, 50);
-  }
+.nav-bar {
+  height: 50px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 314px;
+  background: $dk-main-bg;
+  border-bottom: 1px solid rgb(43, 45, 50);
 }
 
 .user-bar {

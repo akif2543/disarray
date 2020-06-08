@@ -2,7 +2,7 @@ import React from "react";
 
 import Sidebar from "./side_bar";
 import UserBar from "../user/user_bar";
-import NavBar from "./nav_bar";
+import NavBar from "../ui/nav_bar";
 
 class Main extends React.Component {
   constructor(props) {

@@ -10,6 +10,7 @@ import ModalContainer from "./components/ui/modal";
 import ServerPanelContainer from "./components/server/bars/server_panel_container";
 import ServerBarContainer from "./components/server/bars/server_bar_container";
 import SettingsContainer from "./components/ui/settings";
+import TextChannelContainer from "./components/channel/text_channel_container";
 
 const App = ({ loading, settings }) => (
   <div>
@@ -25,12 +26,17 @@ const App = ({ loading, settings }) => (
     />
     <ProtectedRoute path="/@me" component={MainContainer} />
     <ProtectedRoute
-      path={["/channels/:serverId", "/@me"]}
+      path={["/channels/:serverId/:channelId", "/@me"]}
       component={ServerBarContainer}
     />
     <ProtectedRoute
-      path="/channels/:serverId"
+      path="/channels/:serverId/:channelId"
       component={ServerPanelContainer}
+    />
+    <ProtectedRoute
+      exact
+      path="/channels/:serverId/:channelId"
+      component={TextChannelContainer}
     />
   </div>
 );
