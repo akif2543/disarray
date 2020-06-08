@@ -1,14 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
   const [name, setName] = useState(server.name);
   const handleChange = (e) => setName(e.target.value);
-  const reset = () => setName(server.name);
 
   const [error, setError] = useState(false);
 
   const clearError = () => setError(false);
+
+  const reset = () => {
+    setName(server.name);
+    clearError();
+  };
 
   const handleUpdate = (e) => {
     e.preventDefault();
@@ -83,7 +87,7 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
           <div className="unsaved-warning">
             <h3>Careful — you have unsaved changes!</h3>
             <div className="btn-group">
-              <button className="cancel" type="button">
+              <button className="cancel" type="button" onClick={reset}>
                 Reset
               </button>
               <button className="save" type="submit" onClick={handleUpdate}>

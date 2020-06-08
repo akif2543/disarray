@@ -66,20 +66,21 @@ class User < ApplicationRecord
     self.discriminator ||= discriminate
   end
 
+  def discriminate
+    disc = []
+    4.times { disc << rand(10)}
+    disc = disc.join
+    discriminate if disc.length != 4
+    discriminate if User.find_by(discriminator: disc)
+    disc.to_i
+  end
+
   def ensure_avatar
     self.avatar ||= random_avatar
   end
 
   def generate_session_token
     SecureRandom::urlsafe_base64
-  end
-
-  def discriminate
-    disc = []
-    4.times { disc << rand(10)}
-    disc = disc.join
-    discriminate if User.find_by(discriminator: disc)
-    disc
   end
 
   def random_avatar

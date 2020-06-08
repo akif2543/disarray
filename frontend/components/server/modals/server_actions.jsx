@@ -12,6 +12,8 @@ const ServerActions = ({
   action,
   deleteServer,
   createChannel,
+  channel,
+  deleteChannel,
   history,
 }) => {
   let component;
@@ -45,12 +47,24 @@ const ServerActions = ({
       );
       break;
 
-    case "channel":
+    case "add channel":
       component = (
         <AddChannel
           serverId={server.id}
           closeModal={closeModal}
           createChannel={createChannel}
+        />
+      );
+      break;
+    case "delete channel":
+      component = (
+        <ServerLeaveDelete
+          channel={channel}
+          closeModal={closeModal}
+          closeSettings={closeSettings}
+          deleteChannel={deleteChannel}
+          action={action}
+          history={history}
         />
       );
       break;

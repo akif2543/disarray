@@ -6,12 +6,12 @@ class Api::ChannelsController < ApplicationController
   end
 
   def show
-    begin
-      @channel = Channel.find(params[:id])
-    rescue
+    @channel = Channel.find_by(id: params[:id])
+    if @channel
+      render :show
+    else
       render json: ["Channel not found"], status: 404
     end
-    render :show
   end
 
   def create
@@ -30,7 +30,7 @@ class Api::ChannelsController < ApplicationController
   end
 
   def update
-    if current_user.owned_servers.find_by(id: params[:channel][:server_id])
+    if current_user.owned_servers.find_by(id: params[:channel][:server])
       @channel = Channel.find_by(id: params[:id])
       if @channel
         if @channel.update(channel_params)
@@ -47,17 +47,17 @@ class Api::ChannelsController < ApplicationController
   end
 
   def destroy
-    if current_user.owned_servers.find_by(id: params[:channel][:server_id])
-      @channel = Channel.find_by(id: params[:id])
-      if @channel
+    @channel = Channel.find_by(id: params[:id])
+    if @channel
+      if current_user.owned_servers.find_by(id: @channel.server_id)
         @channel.destroy!
         render :show
       else
-        render json: ["Channel not found."], status: 404
-      end
+        render json: ["You don't have permission to do that."], status: 403
+      end      
     else
-      render json: ["You don't have permission to do that."], status: 403
-    end      
+      render json: ["Channel not found."], status: 404
+    end
   end
 
   private
