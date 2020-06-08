@@ -128,6 +128,7 @@
 
   .tooltip-content {
     max-height: 35px;
+    white-space: nowrap;
     background-color: $dk-dropdown-bg;
     color: $dk-white;
     margin: 0 auto;
@@ -139,17 +140,17 @@
 
     h1 {
       margin: 0 auto;
+      padding: 0 10px;
     }
   }
 }
 
 .u-bar-tt {
   bottom: 42px;
-  right: 41px;
+  right: 37px;
 
   .tooltip-content {
-    width: 115px;
-
+    // width: 115px;
     h1 {
       font-family: "Whitney Medium";
       font-weight: 400;
@@ -168,4 +169,12 @@
       border-color: $dk-dropdown-bg transparent transparent transparent;
     }
   }
+}
+
+.u-bar-tt.deafen {
+  right: 20px;
+}
+
+.u-bar-tt.mute {
+  right: 15px;
 }

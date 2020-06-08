@@ -8,9 +8,11 @@ const ServerActions = ({
   server,
   leaveServer,
   closeModal,
+  closeSettings,
   action,
   deleteServer,
   createChannel,
+  history,
 }) => {
   let component;
 
@@ -23,8 +25,10 @@ const ServerActions = ({
         <ServerLeaveDelete
           server={server}
           closeModal={closeModal}
+          closeSettings={closeSettings}
           leaveServer={leaveServer}
           action={action}
+          history={history}
         />
       );
       break;
@@ -33,8 +37,10 @@ const ServerActions = ({
         <ServerLeaveDelete
           server={server}
           closeModal={closeModal}
+          closeSettings={closeSettings}
           deleteServer={deleteServer}
           action={action}
+          history={history}
         />
       );
       break;

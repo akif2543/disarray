@@ -4,7 +4,7 @@ const ServerPortal = ({ handleClick }) => (
   <div className="server-portal">
     <h1>Oh, another server, huh?</h1>
     <div className="portal-group">
-      <section>
+      <section onClick={handleClick("create")}>
         <h3>
           <span>Create</span> a new server and invite your friends. It's free!
         </h3>
@@ -17,7 +17,7 @@ const ServerPortal = ({ handleClick }) => (
           Create a server
         </button>
       </section>
-      <section>
+      <section onClick={handleClick("join")}>
         <h3>
           <span>Join</span> a server with an invite code or link.
         </h3>
