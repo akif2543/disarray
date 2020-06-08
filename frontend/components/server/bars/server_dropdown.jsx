@@ -32,7 +32,7 @@ const ServerDropdown = ({
             </button>
           )}
           {isOwner && (
-            <button type="button" onClick={handleClick("channel")}>
+            <button type="button" onClick={handleClick("add channel")}>
               <h3>Create Channel</h3>
               <FontAwesomeIcon icon="plus-circle" />
             </button>

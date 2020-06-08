@@ -37,6 +37,7 @@ class ServerPanel extends React.Component {
       openModal,
       openSettings,
       channels,
+      history,
     } = this.props;
     const { dropdown } = this.state;
     const isOwner = currentUser.id === server.owner;
@@ -66,7 +67,9 @@ class ServerPanel extends React.Component {
             channels={channels}
             isOwner={isOwner}
             openModal={openModal}
+            openSettings={openSettings}
             server={server}
+            history={history}
           />
         </main>
         <UserBar currentUser={currentUser} openSettings={openSettings} />

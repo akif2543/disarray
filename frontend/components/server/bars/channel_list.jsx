@@ -3,10 +3,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import shortid from "shortid";
 import { NavLink } from "react-router-dom";
 
-const ChannelList = ({ isOwner, openModal, channels, server }) => {
+const ChannelList = ({
+  isOwner,
+  openModal,
+  channels,
+  server,
+  openSettings,
+  history,
+}) => {
   const [collapse, setCollapse] = useState(false);
 
   const toggleCollapse = () => setCollapse(!collapse);
+
+  // const handleOpen = (channelId) => (e) => {
+  //   history.push(`/channels/${server.id}/${channelId}`);
+  //   return openSettings("channel");
+  // };
 
   const seen = [];
 
@@ -30,7 +42,12 @@ const ChannelList = ({ isOwner, openModal, channels, server }) => {
               icon="user-plus"
               onClick={() => openModal("invite")}
             />
-            {isOwner && <FontAwesomeIcon icon="cog" />}
+            {isOwner && (
+              <FontAwesomeIcon
+                icon="cog"
+                onClick={() => openSettings("channel")}
+              />
+            )}
           </div>
         </button>
       </NavLink>
@@ -52,7 +69,7 @@ const ChannelList = ({ isOwner, openModal, channels, server }) => {
           <FontAwesomeIcon
             icon="plus"
             className="add-channel"
-            onClick={() => openModal("channel")}
+            onClick={() => openModal("add channel")}
           />
         )}
       </header>

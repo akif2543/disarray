@@ -13,16 +13,12 @@ class TextChannel extends React.Component {
   }
 
   render() {
-    const { channel, members, currentUser, server } = this.props;
-    const isOwner = currentUser.id === server.owner;
+    const { channel, members, server } = this.props;
+
     return (
       <div className="text-channel">
         <NavBar channel={channel} />
-        <MemberBar
-          members={members}
-          isOwner={isOwner}
-          currentUser={currentUser}
-        />
+        <MemberBar members={members} owner={server.owner} />
       </div>
     );
   }

@@ -23,8 +23,11 @@ const Modal = ({ modal, closeModal }) => {
     case "delete":
       component = <ServerActionsContainer action="delete" />;
       break;
-    case "channel":
-      component = <ServerActionsContainer action="channel" />;
+    case "add channel":
+      component = <ServerActionsContainer action="add channel" />;
+      break;
+    case "delete channel":
+      component = <ServerActionsContainer action="delete channel" />;
       break;
     default:
       return null;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 const ServerLeaveDelete = ({
   server,
@@ -6,9 +6,16 @@ const ServerLeaveDelete = ({
   closeModal,
   deleteServer,
   closeSettings,
+  channel,
+  deleteChannel,
   action,
   history,
 }) => {
+  let header;
+  let warning;
+  let handler;
+  let buttonText;
+
   const handleLeave = () =>
     leaveServer({
       subscribeable_type: "Server",
@@ -23,40 +30,66 @@ const ServerLeaveDelete = ({
       .then(closeModal())
       .then(history.push("/@me"));
 
-  const leaveWarning = (
-    <h2>
-      Are you sure you want to leave <strong>{server.name}</strong>? You won't
-      be able to rejoin this server unless you are re-invited.
-    </h2>
-  );
+  const handleDeleteChannel = () =>
+    deleteChannel(channel.id)
+      .then(closeSettings())
+      .then(closeModal())
+      .then(history.push("/@me"));
 
-  const deleteWarning = server ? (
-    <h2>
-      Are you sure you want to delete <strong>{server.name}</strong>? This
-      action cannot be undone.
-    </h2>
-  ) : null;
+  const setOptions = () => {
+    switch (action) {
+      case "leave":
+        header = `LEAVE '${server.name.toUpperCase()}'`;
+        warning = server ? (
+          <h2>
+            Are you sure you want to leave <strong>{server.name}</strong>? You
+            won't be able to rejoin this server unless you are re-invited.
+          </h2>
+        ) : null;
+        handler = handleLeave;
+        buttonText = "Leave Server";
+        break;
+      case "delete":
+        header = `DELETE '${server.name.toUpperCase()}'`;
+        warning = server ? (
+          <h2>
+            Are you sure you want to delete <strong>{server.name}</strong>? This
+            action cannot be undone.
+          </h2>
+        ) : null;
+        handler = handleDelete;
+        buttonText = "Delete Server";
+        break;
+      case "delete channel":
+        header = "DELETE CHANNEL";
+        warning = channel ? (
+          <h2>
+            Are you sure you want to delete <strong>#{channel.name}</strong>?
+            This action cannot be undone.
+          </h2>
+        ) : null;
+        handler = handleDeleteChannel;
+        buttonText = "Delete Channel";
+        break;
+      default:
+        break;
+    }
+  };
+
+  setOptions();
 
   return (
     <div className="leave-server">
       <header>
-        <h1>
-          {action === "leave"
-            ? `LEAVE '${server.name.toUpperCase()}'`
-            : `DELETE '${server.name.toUpperCase()}'`}
-        </h1>
-        {action === "leave" ? leaveWarning : deleteWarning}
+        <h1>{header}</h1>
+        {warning}
       </header>
       <footer>
         <button type="button" onClick={closeModal} className="cancel">
           Cancel
         </button>
-        <button
-          type="button"
-          onClick={action === "leave" ? handleLeave : handleDelete}
-          className="leave"
-        >
-          {action === "leave" ? "Leave Server" : "Delete Server"}
+        <button type="button" onClick={handler} className="leave">
+          {buttonText}
         </button>
       </footer>
     </div>
@@ -64,3 +97,28 @@ const ServerLeaveDelete = ({
 };
 
 export default ServerLeaveDelete;
+
+// return (
+//   <div className="leave-server">
+//     <header>
+//       <h1>
+//         {action === "leave"
+//           ? `LEAVE '${server.name.toUpperCase()}'`
+//           : `DELETE '${server.name.toUpperCase()}'`}
+//       </h1>
+//       {() => warning()}
+//     </header>
+//     <footer>
+//       <button type="button" onClick={closeModal} className="cancel">
+//         Cancel
+//       </button>
+//       <button
+//         type="button"
+//         onClick={action === "leave" ? handleLeave : handleDelete}
+//         className="leave"
+//       >
+//         {action === "leave" ? "Leave Server" : "Delete Server"}
+//       </button>
+//     </footer>
+//   </div>
+// );

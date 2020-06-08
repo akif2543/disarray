@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { settings } from "../../reducers/selectors";
 import UserSettingsContainer from "../user/user_settings_container";
 import ServerSettingsContainer from "../server/settings/server_settings_container";
+import ChannelSettingsContainer from "../channel/channel_settings_container";
 
 const Settings = ({ settings }) => {
   if (!settings) return null;
@@ -17,8 +18,8 @@ const Settings = ({ settings }) => {
     case "server":
       component = <ServerSettingsContainer />;
       break;
-    case "leave":
-      component = this;
+    case "channel":
+      component = <ChannelSettingsContainer />;
       break;
     default:
       return null;
