@@ -15,7 +15,6 @@ const mSTP = (state, ownProps) => {
     currentUser: getCurrentUser(state),
     server: getCurrentServer(state, ownProps),
     channel: getCurrentChannel(state, ownProps),
-    // channel: getCurrentChannelJanky(state, ownProps),
     members: getServerMembers(state, ownProps),
   };
 };

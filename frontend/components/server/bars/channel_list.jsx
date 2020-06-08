@@ -8,8 +8,12 @@ const ChannelList = ({ isOwner, openModal, channels, server }) => {
 
   const toggleCollapse = () => setCollapse(!collapse);
 
+  const seen = [];
+
   const c = channels.map((channel) => {
     if (channel === undefined) return null;
+    if (seen.includes(channel.id)) return null;
+    seen.push(channel.id);
     return (
       <NavLink
         to={`/channels/${server.id}/${channel.id}`}

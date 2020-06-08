@@ -4,6 +4,66 @@
   background: $dk-main-bg;
 }
 
+.member-bar {
+  position: fixed;
+  right: 0;
+  top: 50px;
+  height: 100%;
+  width: 240px;
+  background: $dk-sidebar;
+  color: rgb(140, 143, 148);
+
+  h4 {
+    font: {
+      size: 12px;
+      family: "Whitney Bold";
+    }
+    padding: 20px 20px 0;
+  }
+
+  ul {
+    padding: 5px 10px;
+    display: flex;
+    flex-direction: column;
+
+    button {
+      width: 100%;
+      height: 42px;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      color: rgb(140, 143, 148);
+      border-radius: 3px;
+      padding: 10px;
+
+      &:hover {
+        background: rgb(52, 55, 60);
+      }
+
+      img {
+        height: 35px;
+        width: 35px;
+        border-radius: 50%;
+      }
+
+      h2 {
+        padding-left: 10px;
+        padding-right: 5px;
+
+        font: {
+          family: "Whitney Medium";
+          size: 16px;
+        }
+      }
+
+      svg {
+        color: $dk-owner-icon;
+        transform: translateY(1px);
+      }
+    }
+  }
+}
+
 .channel-list {
   color: rgb(114, 118, 125);
 
