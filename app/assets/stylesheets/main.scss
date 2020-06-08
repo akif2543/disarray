@@ -16,7 +16,7 @@
 
 .nav-bar {
   height: 50px;
-  width: 100%;
+  width: calc(100vw - 314px);
   position: fixed;
   top: 0;
   left: 314px;
@@ -35,6 +35,54 @@
 
   .nav-icon-group {
     color: $dk-icons;
+
+    a {
+      color: $dk-icons;
+    }
+
+    .nav-icon {
+      margin-left: 20px;
+      height: 20px;
+      cursor: pointer;
+
+      &:hover {
+        color: $dk-white;
+      }
+    }
+
+    .nav-icon.active {
+      color: $dk-white;
+
+      &:hover {
+        color: $dk-icons;
+      }
+    }
+
+    .search-wrapper {
+      height: 26px;
+      background: $dk-search-bg;
+      background: $dk-search-bg;
+      border-radius: 3px;
+      margin-left: 20px;
+
+      .search-bar {
+        box-sizing: content-box;
+        width: 143px;
+        padding: 0 5px;
+        height: 97%;
+        background: $dk-search-bg;
+        color: rgb(111, 115, 122);
+        border: {
+          top-left-radius: 3px;
+          bottom-left-radius: 3px;
+        }
+      }
+
+      .search-icon {
+        transform: translateX(-5px);
+        cursor: text;
+      }
+    }
   }
 }
 

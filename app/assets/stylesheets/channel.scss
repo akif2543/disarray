@@ -273,5 +273,20 @@
       font-family: "Whitney Medium";
       padding-left: 10px;
     }
+
+    .topic {
+      margin-left: 15px;
+      border-left: 0.5px solid rgb(66, 69, 74);
+      padding-left: 15px;
+      transform: translateY(1px);
+
+      h4 {
+        color: rgb(185, 187, 190);
+        font: {
+          size: 14px;
+          family: "Whitney Medium";
+        }
+      }
+    }
   }
 }

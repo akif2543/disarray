@@ -114,7 +114,7 @@ const ChannelSettings = ({
             </div>
           </div>
         </form>
-        {name !== channel.name && (
+        {(name !== channel.name || topic !== t) && (
           <div className="unsaved-warning">
             <h3>Careful — you have unsaved changes!</h3>
             <div className="btn-group">
