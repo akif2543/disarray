@@ -12,6 +12,8 @@ Rails.application.routes.draw do
     delete 'memberships', to: 'memberships#destroy'
     resources :channels, only: [:show, :create, :update, :destroy]
     resources :messages, only: [:update, :destroy]
+
+    mount ActionCable.server, at: '/cable'
   end
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

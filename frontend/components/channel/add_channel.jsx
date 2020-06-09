@@ -4,7 +4,9 @@ const AddChannel = ({ createChannel, closeModal, serverId }) => {
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
 
-  const handleChange = (e) => setName(e.target.value);
+  const formatName = (input) => input.replace(" ", "-").toLowerCase();
+
+  const handleChange = (e) => setName(formatName(e.target.value));
 
   const handleSubmit = (e) => {
     e.preventDefault();
