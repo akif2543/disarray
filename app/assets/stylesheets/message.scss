@@ -1,0 +1,66 @@
+.chat {
+  position: fixed;
+  top: 50px;
+  left: 314px;
+  width: calc(100vw - 554px);
+  height: calc(100vh - 120px);
+  overflow: scroll;
+  padding: 0 50px 25px 17px;
+}
+
+.new-message-form {
+  position: fixed;
+  left: 314px;
+  bottom: 0;
+  width: calc(100vw - 554px);
+  min-height: 70px;
+  max-height: 170px;
+  padding: 0 16px 25px;
+
+  .input-wrapper {
+    min-height: 45px;
+    max-height: 145px;
+    border-radius: 8px;
+    background: rgb(64, 68, 75);
+    color: rgb(185, 187, 190);
+    display: flex;
+    flex-flow: row nowrap;
+
+    .add-file {
+      min-height: inherit;
+      max-height: inherit;
+      width: 56px;
+      background: inherit;
+      color: inherit;
+      border: {
+        top-left-radius: inherit;
+        bottom-left-radius: inherit;
+      }
+    }
+
+    input {
+      min-height: inherit;
+      max-height: inherit;
+      width: 100%;
+      padding: 11px 10px 11px 0;
+      box-sizing: border-box;
+      background: inherit;
+      color: inherit;
+      border: {
+        top-right-radius: inherit;
+        bottom-right-radius: inherit;
+      }
+
+      font: {
+        family: "Whitney Medium";
+        weight: 400;
+        size: 16px;
+      }
+    }
+  }
+}
+
+.chat.wide,
+.new-message-form.wide {
+  width: calc(100vw - 314px);
+}

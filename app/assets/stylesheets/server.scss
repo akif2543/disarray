@@ -82,6 +82,12 @@
   }
 }
 
+.server-frame {
+  position: fixed;
+  left: 72px;
+  height: 100%;
+}
+
 .server-portal {
   background: $dk-white;
   color: $dk-black;

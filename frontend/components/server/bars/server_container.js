@@ -12,7 +12,7 @@ import {
   deleteServer,
   leaveServer,
 } from "../../../actions/server_actions";
-import ServerPanel from "./server_panel";
+import Server from "./server";
 import { logout } from "../../../actions/session_actions";
 import {
   openModal,
@@ -24,7 +24,8 @@ const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
   server: getCurrentServer(state, ownProps),
   channels: getServerChannels(state, ownProps),
-  // members: getServerMembers(state, ownProps),
+  members: getServerMembers(state, ownProps),
+  sidebarOpen: state.ui.sidebar,
 });
 
 const mDTP = (dispatch) => ({
@@ -38,6 +39,6 @@ const mDTP = (dispatch) => ({
   closeSettings: () => dispatch(closeSettings()),
 });
 
-const ServerPanelContainer = connect(mSTP, mDTP)(ServerPanel);
+const ServerContainer = connect(mSTP, mDTP)(Server);
 
-export default ServerPanelContainer;
+export default ServerContainer;

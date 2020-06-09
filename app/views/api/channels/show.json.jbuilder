@@ -4,8 +4,12 @@ json.channel do
   end
 end
 
-json.messages do
-  @channel.messages.each do |m|
+@channel.messages.each do |m|
+  json.messages do
     json.partial! "api/messages/message", message: m
+  end
+
+  json.users do
+    json.partial! "api/users/user", user: m.author
   end
 end

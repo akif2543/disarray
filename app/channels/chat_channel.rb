@@ -5,8 +5,8 @@ class ChatChannel < ApplicationCable::Channel
     stream_for @channel if @channel
   end
 
-  def speak
-    @message = Message.new(m_params)
+  def speak(data)
+    @message = Message.new(data["message"])
     if @message.save
       ChatChannel.broadcast_to(@channel, format_message)
     end
@@ -17,10 +17,6 @@ class ChatChannel < ApplicationCable::Channel
   end
 
   private
-
-  def m_params
-    params.require(:message).permit(:body, :author_id, :messageable_type, :messageable_id)
-  end
 
   def format_message
     json = ApplicationController.render(
