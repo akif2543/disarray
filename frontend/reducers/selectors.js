@@ -20,12 +20,6 @@ export const getCurrentServer = (state, props) => {
   return null;
 };
 
-// export const getCurrentServerJanky = (state, props) => {
-//   const re = /\/channels\/(\d+)\//;
-//   const id = props.location.pathname.match(re)[1];
-//   return state.entities.servers[id];
-// };
-
 export const getCurrentChannel = (state, props) => {
   if (props.match.params.channelId) {
     return state.entities.channels[props.match.params.channelId];
@@ -36,16 +30,7 @@ export const getCurrentChannel = (state, props) => {
     return state.entities.channels[id];
   }
   return null;
-  // if (props.channelId) {
-  //   return state.entities.channels[props.channelId];
-  // }
 };
-
-// export const getCurrentChannelJanky = (state, props) => {
-//   const re = /\/channels\/\d+\/(\d+)/;
-//   const id = props.location.pathname.match(re)[1];
-//   return state.entities.channels[id];
-// };
 
 export const getServerMembers = (state, props) => {
   const { members } = getCurrentServer(state, props);
@@ -55,4 +40,15 @@ export const getServerMembers = (state, props) => {
 export const getServerChannels = (state, props) => {
   const { channels } = getCurrentServer(state, props);
   return channels.map((c) => state.entities.channels[c]);
+};
+
+export const getTextChannelMessages = (state, props) => {
+  const channel = getCurrentChannel(state, props);
+  if (channel === undefined) return null;
+  const { messages } = channel;
+  return messages
+    .map((id) => state.entities.messages[id])
+    .map((m) =>
+      m === undefined ? null : { ...m, author: state.entities.users[m.author] }
+    );
 };

@@ -1,7 +1,7 @@
 class Api::MessagesController < ApplicationController
 
   def update
-    @message = Message.find_by(id: params[:id])
+    @message = Message.includes(:author).find_by(id: params[:id])
     if @message
         if @message.author_id == current_user.id
           if @message.update(m_params)
@@ -18,7 +18,7 @@ class Api::MessagesController < ApplicationController
   end
 
   def destroy
-    @message = Message.find_by(id: params[:id])
+    @message = Message.includes(:author).find_by(id: params[:id])
     if @message
         if @message.author_id == current_user.id
           @message.destroy

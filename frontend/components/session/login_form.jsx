@@ -58,14 +58,14 @@ class LoginForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { login } = this.props;
+    const { login, websocketConnect } = this.props;
     const { email, password } = this.state;
     if (this.valid(email, password)) {
-      login({ email, password });
       this.errors = {
         emailPresence: false,
         passwordPresence: false,
       };
+      login({ email, password });
     }
   }
 

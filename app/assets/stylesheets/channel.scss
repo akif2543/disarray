@@ -290,3 +290,11 @@
     }
   }
 }
+
+.chat {
+  position: fixed;
+  top: 50px;
+  left: 314px;
+  width: calc(100vw - 554px);
+  height: calc(100vh - 140px);
+}

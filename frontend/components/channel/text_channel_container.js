@@ -3,9 +3,9 @@ import { connect } from "react-redux";
 import {
   getCurrentServer,
   getCurrentUser,
-  getCurrentChannelJanky,
   getServerMembers,
   getCurrentChannel,
+  getTextChannelMessages,
 } from "../../reducers/selectors";
 import { fetchChannel } from "../../actions/channel_actions";
 import TextChannel from "./text_channel";
@@ -16,6 +16,7 @@ const mSTP = (state, ownProps) => {
     server: getCurrentServer(state, ownProps),
     channel: getCurrentChannel(state, ownProps),
     members: getServerMembers(state, ownProps),
+    messages: getTextChannelMessages(state, ownProps),
   };
 };
 

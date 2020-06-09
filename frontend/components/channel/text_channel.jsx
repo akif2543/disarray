@@ -1,6 +1,7 @@
 import React from "react";
 import NavBar from "../ui/nav_bar";
 import MemberBar from "./member_bar";
+import ChatStream from "./chat_stream";
 
 class TextChannel extends React.Component {
   constructor(props) {
@@ -13,7 +14,18 @@ class TextChannel extends React.Component {
 
   componentDidMount() {
     const { fetchChannel, match } = this.props;
-    fetchChannel(match.params.channelId);
+    const { channelId } = match.params;
+    fetchChannel(channelId);
+
+    App.cable.subscriptions.create(
+      { channel: "ChatChannel", channel_id: channelId },
+      {
+        received: (data) => receiveMessage(data),
+        speak(data) {
+          return this.perform("speak", data);
+        },
+      }
+    );
   }
 
   toggleMemberBar() {
@@ -22,7 +34,7 @@ class TextChannel extends React.Component {
   }
 
   render() {
-    const { channel, members, server } = this.props;
+    const { channel, members, server, messages } = this.props;
     const { memberBar } = this.state;
 
     return (
@@ -33,6 +45,7 @@ class TextChannel extends React.Component {
           toggleMemberBar={this.toggleMemberBar}
         />
         {memberBar && <MemberBar members={members} owner={server.owner} />}
+        <ChatStream messages={messages || []} />
       </div>
     );
   }

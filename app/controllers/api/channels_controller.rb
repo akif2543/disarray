@@ -6,7 +6,7 @@ class Api::ChannelsController < ApplicationController
   end
 
   def show
-    @channel = Channel.find_by(id: params[:id])
+    @channel = Channel.includes(:messages).find_by(id: params[:id])
     if @channel
       render :show
     else

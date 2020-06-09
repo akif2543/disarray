@@ -9,7 +9,7 @@ class Api::ServersController < ApplicationController
   def show
     begin
       # @server = current_user ? current_user.servers.includes(:members).find(params[:id]) : Server.includes(:members).find(params[:id])
-      @server = Server.includes(:members, :channels).find(params[:id])
+      @server = Server.includes(:members, channels: :messages).find(params[:id])
       render :show
     rescue
       render json: ["Server not found."], status: 404

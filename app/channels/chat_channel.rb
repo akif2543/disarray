@@ -9,6 +9,7 @@ class ChatChannel < ApplicationCable::Channel
     @message = Message.new(m_params)
     if @message.save
       ChatChannel.broadcast_to(@channel, format_message)
+    end
   end
 
   def unsubscribed
@@ -23,7 +24,7 @@ class ChatChannel < ApplicationCable::Channel
 
   def format_message
     json = ApplicationController.render(
-        partial: "api/messages/message.json.jbuilder",
+        partial: "api/messages/full_message.json.jbuilder",
         locals: { message: @message})
     JSON.parse(json)
   end

@@ -7,6 +7,7 @@ import {
 import Session from "./session";
 import { loading } from "../../reducers/selectors";
 import { startLoading, stopLoading } from "../../actions/ui_actions";
+import { websocketConnect } from "../../actions/websocket_actions";
 
 const mSTP = (state) => ({
   errors: state.errors.session,
