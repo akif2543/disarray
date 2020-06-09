@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import NavBar from "../ui/nav_bar";
-import MemberBar from "./member_bar";
 import ChatStream from "../messages/chat_stream";
 import NewMessageForm from "../messages/new_message_form";
 
@@ -15,8 +14,6 @@ const TextChannel = ({
   messages,
   currentUser,
 }) => {
-  // const [memberBar, setMemberBar] = useState(true);
-  // const toggleMemberBar = () => setMemberBar(!memberBar);
   const [messageBody, setMessageBody] = useState("");
 
   const { channelId } = match.params;

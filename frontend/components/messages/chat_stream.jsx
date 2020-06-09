@@ -1,5 +1,6 @@
 import React from "react";
 import shortid from "shortid";
+import Message from "./message";
 
 class ChatStream extends React.Component {
   constructor(props) {
@@ -17,17 +18,11 @@ class ChatStream extends React.Component {
       <main className={memberbar ? "chat" : "chat wide"}>
         <ul className="message-list">
           <div ref={this.bottom} />
-          {messages.map((m) => {
-            if (m === undefined || !m) return null;
-            return (
-              <li key={shortid.generate()}>
-                <h6>{m.author.username}</h6>
-                <span>{m.createdAt}</span>
-                <p>{m.body}</p>
-                <div ref={this.bottom} />
-              </li>
-            );
-          })}
+          {messages.map((m) =>
+            m === undefined || !m ? null : (
+              <Message key={shortid.generate()} m={m} bottom={this.bottom} />
+            )
+          )}
         </ul>
       </main>
     );
