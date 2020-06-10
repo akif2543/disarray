@@ -4,6 +4,7 @@ import {
   RECEIVE_MESSAGES,
 } from "../../actions/message_actions";
 import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
+import { RECEIVE_CONVERSATION } from "../../actions/conversation_actions";
 
 const messagesReducer = (state = {}, action) => {
   const newState = Object.assign({}, state);
@@ -17,6 +18,8 @@ const messagesReducer = (state = {}, action) => {
       [channel] = Object.values(action.channel);
       channel.messages.forEach((id) => delete newState[id]);
       return newState;
+    case RECEIVE_CONVERSATION:
+      return Object.assign(newState, action.messages);
     case RECEIVE_MESSAGE:
       return Object.assign(newState, action.message);
     case RECEIVE_MESSAGES:

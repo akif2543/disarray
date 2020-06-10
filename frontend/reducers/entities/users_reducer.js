@@ -5,6 +5,10 @@ import {
   RECEIVE_MESSAGE,
   RECEIVE_MESSAGES,
 } from "../../actions/message_actions";
+import {
+  RECEIVE_CONVERSATION,
+  RECEIVE_CONVERSATIONS,
+} from "../../actions/conversation_actions";
 
 const usersReducer = (state = {}, action) => {
   const newState = Object.assign({}, state);
@@ -19,6 +23,10 @@ const usersReducer = (state = {}, action) => {
       newState[action.userId].servers.splice(i, 1);
       return newState;
     case RECEIVE_CHANNEL:
+      return Object.assign(newState, action.users);
+    case RECEIVE_CONVERSATIONS:
+      return Object.assign(newState, action.users);
+    case RECEIVE_CONVERSATION:
       return Object.assign(newState, action.users);
     case RECEIVE_MESSAGE:
       return Object.assign(newState, action.user);
