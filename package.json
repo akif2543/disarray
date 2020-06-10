@@ -12,6 +12,7 @@
     "@fortawesome/react-fontawesome": "^0.1.9",
     "babel-loader": "^8.1.0",
     "file-loader": "^6.0.0",
+    "lodash.debounce": "^4.0.8",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",

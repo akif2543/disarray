@@ -28,12 +28,15 @@ const channelsReducer = (state = {}, action) => {
       }
       return state;
     case RECEIVE_MESSAGES:
-      messages = Object.values(action.messages);
-      if (messages[0].textChannel) {
-        newState[messages[0].messageableId].messages = messages
-          .map((m) => m.id)
-          .concat(newState[messages[0].messageableId].messages);
-        return newState;
+      if (action.messages) {
+        messages = Object.values(action.messages);
+        if (messages[0].textChannel) {
+          newState[messages[0].messageableId].messages = messages
+            .map((m) => m.id)
+            .concat(newState[messages[0].messageableId].messages);
+          return newState;
+        }
+        return state;
       }
       return state;
     case REMOVE_MESSAGE:

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
 import { closeModal } from "../../actions/ui_actions";
@@ -9,6 +9,12 @@ const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
 
   let component;
+
+  useEffect(() => {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") return closeModal();
+    });
+  }, []);
 
   switch (modal) {
     case "portal":

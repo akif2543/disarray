@@ -23,7 +23,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_MESSAGE:
       return Object.assign(newState, action.user);
     case RECEIVE_MESSAGES:
-      return Object.assign(newState, action.users);
+      return action.users ? Object.assign(newState, action.users) : state;
     default:
       return state;
   }

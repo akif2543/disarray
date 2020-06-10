@@ -20,7 +20,7 @@ const messagesReducer = (state = {}, action) => {
     case RECEIVE_MESSAGE:
       return Object.assign(newState, action.message);
     case RECEIVE_MESSAGES:
-      return Object.assign(newState, action.messages);
+      return action.messages ? Object.assign(newState, action.messages) : state;
     case REMOVE_MESSAGE:
       [message] = Object.values(action.message);
       delete newState[message.id];

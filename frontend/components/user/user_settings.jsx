@@ -1,7 +1,8 @@
 import React from "react";
-import UserSettingsSidebar from "./user_settings_sidebar";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import UserEditForm from "./user_edit_form";
+
+import UserSettingsSidebar from "./user_settings_sidebar";
+// import UserEditForm from "./user_edit_form";
 
 class UserSettings extends React.Component {
   constructor(props) {
@@ -21,8 +22,11 @@ class UserSettings extends React.Component {
   }
 
   componentDidMount() {
-    const { currentUser, fetchCurrentUser } = this.props;
+    const { currentUser, fetchCurrentUser, closeSettings } = this.props;
     fetchCurrentUser(currentUser.id);
+    // document.addEventListener("keydown", (e) => {
+    //   if (e.key === "Escape") return closeSettings();
+    // });
   }
 
   handleClick() {

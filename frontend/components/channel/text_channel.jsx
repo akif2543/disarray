@@ -13,6 +13,7 @@ const TextChannel = ({
   hideSidebar,
   messages,
   currentUser,
+  fetchMessages,
 }) => {
   const [messageBody, setMessageBody] = useState("");
 
@@ -58,7 +59,11 @@ const TextChannel = ({
         toggleMemberBar={toggleMemberBar}
       />
       {/* {memberBar && <MemberBar members={members} owner={server.owner} />} */}
-      <ChatStream messages={messages || []} memberbar={sidebarOpen} />
+      <ChatStream
+        messages={messages || []}
+        memberbar={sidebarOpen}
+        fetchMessages={fetchMessages}
+      />
       {channel && (
         <NewMessageForm
           handleChange={handleChange}

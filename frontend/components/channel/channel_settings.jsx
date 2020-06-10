@@ -8,9 +8,6 @@ const ChannelSettings = ({
   closeSettings,
 }) => {
   const t = channel.topic === null ? "" : channel.topic;
-  const onlyNameLimit = 20;
-  const withSubLimit = 11;
-
   const [name, setName] = useState(channel.name);
   const [topic, setTopic] = useState(t);
   const [error, setError] = useState(false);

@@ -4,7 +4,7 @@ json.channel do
   end
 end
 
-@channel.messages.reverse.each do |m|
+@channel.messages.each do |m|
   json.messages do
     json.partial! "api/messages/message", message: m
   end
