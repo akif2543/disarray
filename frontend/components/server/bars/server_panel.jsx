@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import UserBar from "../../user/user_bar";
 import ServerDropdown from "./server_dropdown";
-import ChannelList from "./channel_list";
+import ChannelList from "../../channel/channel_list";
 
 class ServerPanel extends React.Component {
   constructor(props) {
@@ -37,7 +37,7 @@ class ServerPanel extends React.Component {
       openModal,
       openSettings,
       channels,
-      history,
+      match,
     } = this.props;
     const { dropdown } = this.state;
     const isOwner = currentUser.id === server.owner;
@@ -69,7 +69,7 @@ class ServerPanel extends React.Component {
             openModal={openModal}
             openSettings={openSettings}
             server={server}
-            history={history}
+            match={match}
           />
         </main>
         <UserBar currentUser={currentUser} openSettings={openSettings} />

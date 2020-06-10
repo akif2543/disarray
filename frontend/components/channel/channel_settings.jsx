@@ -19,11 +19,10 @@ const ChannelSettings = ({
 
   const formatName = (input) => input.replace(" ", "-").toLowerCase();
 
-  const viewName = () => {
-    return name.length < 21
-      ? name.toUpperCase()
-      : name.slice(0, name.length).concat("...");
-  };
+  const viewName = (input) =>
+    input.length < 21
+      ? input.toUpperCase()
+      : input.slice(0, 20).toUpperCase().concat("...");
 
   const viewSub = () => {
     const sub = "TEXT CHANNELS";
@@ -53,7 +52,7 @@ const ChannelSettings = ({
         <nav>
           <header className="channel-sidebar-head">
             <FontAwesomeIcon icon="hashtag" size="xs" />
-            <h5>{viewName()}</h5>
+            <h5>{viewName(name)}</h5>
             <h6>{viewSub()}</h6>
           </header>
           <ul>

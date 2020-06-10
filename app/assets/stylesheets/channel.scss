@@ -82,17 +82,28 @@
       svg {
         padding-right: 5px;
       }
-    }
-
-    .add-channel {
-      padding-right: 15px;
-      align-self: center;
+      &:hover {
+        color: rgb(220, 221, 222);
+      }
     }
 
     & > * {
       cursor: pointer;
-      &:hover {
-        color: $dk-white;
+    }
+
+    .add-channel-group {
+      position: relative;
+      .add-channel {
+        padding-right: 15px;
+        align-self: center;
+
+        &:hover {
+          color: rgb(214, 215, 216);
+        }
+
+        &:hover {
+          z-index: 2;
+        }
       }
     }
   }
@@ -152,7 +163,7 @@
     & > * {
       padding-right: 4px;
       &:hover {
-        color: $dk-white;
+        color: $dk-splash-nav-color;
       }
     }
   }
@@ -261,8 +272,13 @@
 
 .nav-bar {
   .channel-name {
-    display: inline-flex;
-    flex-direction: row;
+    display: flex;
+    flex-flow: row nowrap;
+    overflow: hidden;
+    // align-items: center;
+    white-space: nowrap;
+    max-height: inherit;
+    max-width: calc(100vw - 730px);
 
     svg {
       color: rgb(114, 118, 125);
@@ -272,6 +288,8 @@
     h3 {
       font-family: "Whitney Medium";
       padding-left: 10px;
+      white-space: nowrap;
+      max-width: 100%;
     }
 
     .topic {

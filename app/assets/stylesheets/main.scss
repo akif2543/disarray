@@ -15,7 +15,7 @@
 }
 
 .nav-bar {
-  height: 50px;
+  max-height: 50px;
   width: calc(100vw - 314px);
   position: fixed;
   top: 0;
@@ -27,6 +27,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  z-index: 0;
 
   & > * {
     display: flex;
@@ -48,6 +49,10 @@
       &:hover {
         color: $dk-white;
       }
+    }
+
+    svg:first-of-type {
+      margin-left: 10px;
     }
 
     .nav-icon.active {
@@ -142,7 +147,6 @@
   }
 
   .user-bar-ilist {
-    // width: 100%;
     display: flex;
     flex-direction: row;
     justify-self: flex-end;
@@ -173,9 +177,10 @@
   position: relative;
   display: inline-flex;
   align-items: center;
+  z-index: 10;
 
   .tooltip-content {
-    max-height: 35px;
+    height: 35px;
     white-space: nowrap;
     background-color: $dk-dropdown-bg;
     color: $dk-white;
@@ -184,16 +189,18 @@
     border-radius: 6px;
     display: flex;
     position: absolute;
-    z-index: 1;
+    z-index: 10;
 
     h1 {
       margin: 0 auto;
       padding: 0 10px;
+      z-index: 10;
     }
   }
 }
 
-.u-bar-tt {
+.u-bar-tt,
+.cl-tt {
   bottom: 42px;
   right: 37px;
 
@@ -224,5 +231,24 @@
 }
 
 .u-bar-tt.mute {
-  right: 15px;
+  // right: 15px;
+  right: 31px;
+}
+
+.cl-tt.i {
+  bottom: 35px;
+  right: 46px;
+
+  .tooltip-content {
+    padding-top: 10px;
+  }
+}
+
+.cl-tt.i.inv {
+  right: 43px;
+}
+
+.cl-tt.add {
+  bottom: 38px;
+  right: 55px;
 }

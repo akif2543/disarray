@@ -63,7 +63,10 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
             </button>
           </Link>
           {tooltip && (
-            <Tooltip text="Explore Public Servers" className="s-icon-tt" />
+            <Tooltip
+              text="Explore Public Servers [NYI]"
+              className="s-icon-tt"
+            />
           )}
           <div className="home-btn-divider" />
         </div>
