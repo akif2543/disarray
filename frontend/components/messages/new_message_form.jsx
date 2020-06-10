@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NewMessageForm = ({
-  handleChange,
-  handleSubmit,
-  body,
-  name,
-  memberbar,
-}) => {
+const NewMessageForm = ({ name, memberbar, type, id, author }) => {
+  const [messageBody, setMessageBody] = useState("");
+  const handleChange = (e) => setMessageBody(e.target.value);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const message = {
+      body: messageBody,
+      author_id: author.id,
+      messageable_type: type,
+      messageable_id: id,
+    };
+    App.cable.subscriptions.subscriptions[0].speak({ message });
+    setMessageBody("");
+  };
+
   const formatPlaceholder = (input) =>
     input.length < 70 ? input : input.slice(0, 71).concat("...");
 
@@ -22,7 +31,7 @@ const NewMessageForm = ({
         </button>
         <input
           type="text"
-          value={body}
+          value={messageBody}
           placeholder={`Message ${formatPlaceholder(name)}`}
           onChange={handleChange}
         />

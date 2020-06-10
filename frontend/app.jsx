@@ -11,11 +11,11 @@ import ServerContainer from "./components/server/bars/server_container";
 import ServerBarContainer from "./components/server/bars/server_bar_container";
 import SettingsContainer from "./components/ui/settings";
 import TextChannelContainer from "./components/channel/text_channel_container";
+import ConversationContainer from "./components/conversation/conversation_container";
 
 const App = ({ loading, settings }) => (
   <div>
     {loading && <Loading />}
-    {/* {settings && <ProtectedRoute path="/" component={SettingsContainer} />} */}
     {settings && <SettingsContainer />}
     <ProtectedRoute path="/" component={ModalContainer} />
     <Route exact path="/" component={SplashContainer} />
@@ -24,10 +24,15 @@ const App = ({ loading, settings }) => (
       path={["/register", "/login"]}
       component={SessionContainer}
     />
-    <ProtectedRoute path="/@me" component={MainContainer} />
+    <ProtectedRoute exact path="/@me" component={MainContainer} />
     <ProtectedRoute
       path={["/channels/:serverId/:channelId", "/@me"]}
       component={ServerBarContainer}
+    />
+    <ProtectedRoute
+      exact
+      path="/@me/:conversationId"
+      component={ConversationContainer}
     />
     <ProtectedRoute
       path="/channels/:serverId/:channelId"

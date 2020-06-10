@@ -11,7 +11,7 @@ const receiveConversations = (convos) => ({
 });
 
 const receiveConversation = (convo) => ({
-  type: RECEIVE_CONVERSATIONS,
+  type: RECEIVE_CONVERSATION,
   ...convo,
 });
 

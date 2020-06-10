@@ -52,3 +52,38 @@ export const getTextChannelMessages = (state, props) => {
       m === undefined ? null : { ...m, author: state.entities.users[m.author] }
     );
 };
+
+export const getCurrentConversation = (state, props) => {
+  if (props.match.params.conversationId) {
+    return state.entities.conversations[props.match.params.conversationId];
+  }
+  if (props.location) {
+    const re = /\/@me\/(\d+)\//;
+    const id = props.location.pathname.match(re)[1];
+    return state.entities.conversations[id];
+  }
+  return null;
+};
+
+export const getConversationMembers = (state, props) => {
+  const { members } = getCurrentConversation(state, props);
+  return members.map((m) => state.entities.users[m]);
+};
+
+export const getOtherUser = (state, props) => {
+  const { members } = getCurrentConversation(state, props);
+  return members
+    .filter((m) => m !== parseInt(state.session.id))
+    .map((id) => state.entities.users[id])[0];
+};
+
+export const getConversationMessages = (state, props) => {
+  const convo = getCurrentConversation(state, props);
+  if (convo === undefined) return null;
+  const { messages } = convo;
+  return messages
+    .map((id) => state.entities.messages[id])
+    .map((m) =>
+      m === undefined ? null : { ...m, author: state.entities.users[m.author] }
+    );
+};

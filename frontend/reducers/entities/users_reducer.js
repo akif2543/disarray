@@ -15,7 +15,7 @@ const usersReducer = (state = {}, action) => {
   let i;
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
-      return Object.assign(newState, action.user);
+      return Object.assign(newState, action.users, action.user);
     case RECEIVE_SERVER:
       return Object.assign(newState, action.users);
     case REMOVE_SERVER:

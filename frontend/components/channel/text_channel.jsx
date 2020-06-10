@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import NavBar from "../ui/nav_bar";
 import ChatStream from "../messages/chat_stream";
 import NewMessageForm from "../messages/new_message_form";
@@ -15,8 +15,6 @@ const TextChannel = ({
   currentUser,
   fetchMessages,
 }) => {
-  const [messageBody, setMessageBody] = useState("");
-
   const { channelId } = match.params;
 
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
@@ -37,20 +35,6 @@ const TextChannel = ({
     );
   }, []);
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const message = {
-      body: messageBody,
-      author_id: currentUser.id,
-      messageable_type: "Channel",
-      messageable_id: channel.id,
-    };
-    App.cable.subscriptions.subscriptions[0].speak({ message });
-    setMessageBody("");
-  };
-
-  const handleChange = (e) => setMessageBody(e.target.value);
-
   return (
     <div className="text-channel">
       <NavBar
@@ -66,11 +50,11 @@ const TextChannel = ({
       />
       {channel && (
         <NewMessageForm
-          handleChange={handleChange}
-          handleSubmit={handleSubmit}
-          body={messageBody}
           name={`#${channel.name}`}
+          id={channel.id}
           memberbar={sidebarOpen}
+          type="Channel"
+          author={currentUser}
         />
       )}
     </div>

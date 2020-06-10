@@ -1,14 +1,18 @@
 class ChatChannel < ApplicationCable::Channel
   def subscribed
-    # stream_from "some_channel"
-    @channel = Channel.find_by(id: params[:channel_id])
-    stream_for @channel if @channel
+    if params.has_key?(:channel_id)
+      @channel = Channel.find_by(id: params[:channel_id])
+      stream_for @channel if @channel
+    else
+      @conversation = Conversation.find_by(id: params[:conversation_id])
+      stream_for @conversation if @conversation
+    end
   end
 
   def speak(data)
     @message = Message.new(data["message"])
     if @message.save
-      ChatChannel.broadcast_to(@channel, format_message)
+      ChatChannel.broadcast_to(@channel || @conversation, format_message)
     end
   end
 

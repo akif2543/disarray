@@ -8,12 +8,13 @@ import Root from "./root";
 document.addEventListener("DOMContentLoaded", () => {
   let store;
   if (window.currentUser) {
-    const user = Object.values(window.currentUser.user)[0];
-    const { servers } = window.currentUser;
+    const [user] = Object.values(window.currentUser.user);
+    const { servers, conversations, users } = window.currentUser;
     const preloadedState = {
       entities: {
-        users: { [user.id]: user },
+        users: { ...users, [user.id]: user },
         servers,
+        conversations,
       },
       session: { id: user.id },
     };

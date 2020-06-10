@@ -18,12 +18,24 @@ json.servers do
   end
 end
 
-json.conversations do
-  user.conversations.each do |c|
+user.conversations.each do |c|
+  json.conversations do
     json.set! c.id do
       json.id c.id
       json.members c.members.map(&:id)
       json.messages []
+    end
+  end
+
+  json.users do 
+    c.members.each do |m|
+      if m.id != user.id
+        json.set! m.id do
+          json.extract! m, :id, :username, :discriminator, :avatar
+          json.servers m.servers.map(&:id)
+          json.conversations m.conversations.map(&:id)
+        end
+      end
     end
   end
 end

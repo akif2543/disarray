@@ -38,6 +38,7 @@ import {
   faArrowLeft,
   faTimes,
   faAngleRight,
+  faPhoneAlt,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
@@ -67,6 +68,7 @@ library.add(
   faDownload,
   faCrown,
   faPen,
+  faPhoneAlt,
   faDotCircle,
   faAngleDown,
   faAngleRight,
