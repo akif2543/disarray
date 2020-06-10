@@ -34,7 +34,9 @@ const NavBar = ({ channel, memberBar, toggleMemberBar }) => {
       <div className="nav-icon-group">
         {channel && (
           <div className="channel">
-            {bell && <Tooltip text="Mute Channel [NYI]" className="nav-tt" />}
+            {bell && (
+              <Tooltip text="Mute Channel [NYI]" className="nav-tt bell" />
+            )}
             <FontAwesomeIcon
               icon="bell"
               size="lg"
@@ -44,7 +46,9 @@ const NavBar = ({ channel, memberBar, toggleMemberBar }) => {
               onMouseOut={hideTooltip("bell")}
               onBlur={hideTooltip("bell")}
             />
-            {pin && <Tooltip text="Pinned Messages [NYI]" className="nav-tt" />}
+            {pin && (
+              <Tooltip text="Pinned Messages [NYI]" className="nav-tt pin" />
+            )}
             <FontAwesomeIcon
               icon="thumbtack"
               size="lg"
@@ -55,7 +59,9 @@ const NavBar = ({ channel, memberBar, toggleMemberBar }) => {
               onMouseOut={hideTooltip("pin")}
               onBlur={hideTooltip("pin")}
             />
-            {members && <Tooltip text="Member List" className="nav-tt" />}
+            {members && (
+              <Tooltip text="Member List" className="nav-tt members" />
+            )}
             <FontAwesomeIcon
               icon="user-friends"
               size="lg"
@@ -74,26 +80,27 @@ const NavBar = ({ channel, memberBar, toggleMemberBar }) => {
         </div>
         <div className="user-icons">
           {mentions && (
-            <Tooltip
-              text="Recent Mentions [NYI]"
-              className="nav-tt"
-              onMouseOver={showTooltip("mentions")}
-              onFocus={showTooltip("mentions")}
-              onMouseOut={hideTooltip("mentions")}
-              onBlur={hideTooltip("mentions")}
-            />
+            <Tooltip text="Recent Mentions [NYI]" className="nav-tt mentions" />
           )}
-          <FontAwesomeIcon icon="at" size="lg" className="nav-icon" />
-          {contact && <Tooltip text="Contact" className="nav-tt" />}
+          <FontAwesomeIcon
+            icon="at"
+            size="lg"
+            className="nav-icon"
+            onMouseOver={showTooltip("mentions")}
+            onFocus={showTooltip("mentions")}
+            onMouseOut={hideTooltip("mentions")}
+            onBlur={hideTooltip("mentions")}
+          />
+          {contact && <Tooltip text="Contact" className="nav-tt contact" />}
           <a href="https://www.github.com/akif2543">
             <FontAwesomeIcon
               icon={["fab", "github"]}
               size="lg"
               className="nav-icon"
-              onMouseOver={showTooltip("Contact")}
-              onFocus={showTooltip("Contact")}
-              onMouseOut={hideTooltip("Contact")}
-              onBlur={hideTooltip("Contact")}
+              onMouseOver={showTooltip("contact")}
+              onFocus={showTooltip("contact")}
+              onMouseOut={hideTooltip("contact")}
+              onBlur={hideTooltip("contact")}
             />
           </a>
         </div>
