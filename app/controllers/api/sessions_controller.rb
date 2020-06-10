@@ -2,7 +2,7 @@ class Api::SessionsController < ApplicationController
 
   def create
     if User.find_by(email: params[:user][:email])
-      @user = User.includes(servers: :channels).find_by_credentials(params[:user][:email], params[:user][:password])
+      @user = User.includes(servers: :channels, conversations: :members).find_by_credentials(params[:user][:email], params[:user][:password])
       if @user
         login!(@user)
         render( partial: "api/users/current_user", locals: {user: @user})

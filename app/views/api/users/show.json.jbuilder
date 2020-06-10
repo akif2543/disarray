@@ -7,8 +7,18 @@ json.servers do
     json.set! server.id do
       json.id server.id
       json.name server.name
-      json.members []
+      json.members [@user.id]
       json.channels []
+    end
+  end
+end
+
+json.conversations do
+  @user.conversations.each do |c|
+    json.set! c.id do
+      json.id c.id
+      json.members [@user.id]
+      json.messages []
     end
   end
 end
