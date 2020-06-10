@@ -15,7 +15,7 @@ const removeChannel = (channel) => ({
   ...channel,
 });
 
-const receiveChannelErrors = (errors) => ({
+export const receiveChannelErrors = (errors) => ({
   type: RECEIVE_CHANNEL_ERRORS,
   errors,
 });

@@ -1,11 +1,17 @@
 import React from "react";
 import shortid from "shortid";
+
 import Message from "./message";
 
 class ChatStream extends React.Component {
   constructor(props) {
     super(props);
     this.bottom = React.createRef();
+    this.scroller = React.createRef();
+  }
+
+  componentDidMount() {
+    // this.scroller.addEventListener("scroll", () => {});
   }
 
   componentDidUpdate() {
@@ -16,7 +22,7 @@ class ChatStream extends React.Component {
     const { memberbar, messages } = this.props;
     return (
       <main className={memberbar ? "chat" : "chat wide"}>
-        <ul className="message-list">
+        <ul className="message-list" ref={this.scroller}>
           <div ref={this.bottom} />
           {messages.map((m) =>
             m === undefined || !m ? null : (

@@ -1,7 +1,10 @@
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 import { RECEIVE_SERVER, REMOVE_SERVER } from "../../actions/server_actions";
 import { RECEIVE_CHANNEL } from "../../actions/channel_actions";
-import { RECEIVE_MESSAGE } from "../../actions/websocket_actions";
+import {
+  RECEIVE_MESSAGE,
+  RECEIVE_MESSAGES,
+} from "../../actions/message_actions";
 
 const usersReducer = (state = {}, action) => {
   const newState = Object.assign({}, state);
@@ -19,6 +22,8 @@ const usersReducer = (state = {}, action) => {
       return Object.assign(newState, action.users);
     case RECEIVE_MESSAGE:
       return Object.assign(newState, action.user);
+    case RECEIVE_MESSAGES:
+      return Object.assign(newState, action.users);
     default:
       return state;
   }

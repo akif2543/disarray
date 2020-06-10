@@ -9,7 +9,12 @@ import {
 } from "../../reducers/selectors";
 import { fetchChannel } from "../../actions/channel_actions";
 import TextChannel from "./text_channel";
-import { receiveMessage } from "../../actions/websocket_actions";
+import {
+  receiveMessage,
+  fetchMessages,
+  updateMessage,
+  deleteMessage,
+} from "../../actions/message_actions";
 import { showSidebar, hideSidebar } from "../../actions/ui_actions";
 
 const mSTP = (state, ownProps) => ({
@@ -26,6 +31,9 @@ const mDTP = (dispatch) => ({
   receiveMessage: (message) => dispatch(receiveMessage(message)),
   showSidebar: () => dispatch(showSidebar()),
   hideSidebar: () => dispatch(hideSidebar()),
+  fetchMessages: (id, time) => dispatch(fetchMessages(id, time)),
+  updateMessage: (message) => dispatch(updateMessage(message)),
+  deleteMessage: (id) => dispatch(deleteMessage(id)),
 });
 
 const TextChannelContainer = connect(mSTP, mDTP)(TextChannel);

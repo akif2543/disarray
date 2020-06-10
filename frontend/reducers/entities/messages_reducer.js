@@ -1,7 +1,8 @@
 import {
   RECEIVE_MESSAGE,
   REMOVE_MESSAGE,
-} from "../../actions/websocket_actions";
+  RECEIVE_MESSAGES,
+} from "../../actions/message_actions";
 import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
 
 const messagesReducer = (state = {}, action) => {
@@ -18,6 +19,8 @@ const messagesReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_MESSAGE:
       return Object.assign(newState, action.message);
+    case RECEIVE_MESSAGES:
+      return Object.assign(newState, action.messages);
     case REMOVE_MESSAGE:
       [message] = Object.values(action.message);
       delete newState[message.id];

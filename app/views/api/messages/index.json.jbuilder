@@ -1,10 +1,4 @@
-json.channel do
-  json.set! @channel.id do
-    json.partial! "api/channels/channel", channel: @channel
-  end
-end
-
-@channel.messages.reverse.each do |m|
+@messages.each do |m|
   json.messages do
     json.partial! "api/messages/message", message: m
   end
