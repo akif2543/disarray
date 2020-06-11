@@ -50,7 +50,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
     case "explore":
       return (
         <div>
-          <Link to="/explore">
+          <Link to="#">
             <button
               className="server-btn"
               type="button"

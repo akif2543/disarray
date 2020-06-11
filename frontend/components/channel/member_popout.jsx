@@ -42,14 +42,14 @@ const MemberPopout = ({
   return (
     <div className="popout-bg" onClick={togglePopout}>
       <div className="popout" onClick={(e) => e.stopPropagation()}>
-        <header>
+        <header className="popout-head">
           <img src={m.avatar} alt="" />
           <div className="user">
             <h1>{m.username}</h1>
             <h2>#{m.discriminator}</h2>
           </div>
         </header>
-        <footer>
+        <footer className="popout-foot">
           {m.id !== currentUser.id && (
             <form onSubmit={handleSubmit} className="dm-message-form">
               <input

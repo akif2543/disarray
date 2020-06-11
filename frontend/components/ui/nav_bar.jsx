@@ -40,7 +40,11 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
         </div>
       )}
 
-      <div className="nav-icon-group">
+      <div
+        className={
+          !channel && !otherUser ? "nav-icon-group home" : "nav-icon-group"
+        }
+      >
         {channel && (
           <div className="channel">
             {bell && (
@@ -113,7 +117,7 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
             {add && (
               <Tooltip
                 text="Add Friends to DM [NYI]"
-                className="nav-tt members"
+                className="nav-tt add-user"
               />
             )}
             <FontAwesomeIcon
@@ -128,7 +132,11 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
             />
           </div>
         )}
-        <div className="search-wrapper">
+        <div
+          className={
+            !channel && !otherUser ? "search-wrapper home" : "search-wrapper"
+          }
+        >
           <input type="text" placeholder="Search" className="search-bar" />
           <FontAwesomeIcon icon="search" className="search-icon" />
         </div>

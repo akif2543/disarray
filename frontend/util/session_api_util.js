@@ -6,6 +6,7 @@ const SessionAPI = {
   logout: () => $.ajax({ url: "/api/sessions", method: "DELETE" }),
   fetchCurrentUser: (id) =>
     $.ajax({ url: `/api/users/${id}?cu=true`, method: "GET" }),
+  fetchUsers: () => $.ajax({ url: "/api/users", method: "GET" }),
   updateUser: (user) =>
     $.ajax({ url: `/api/users/${user.id}`, method: "PATCH", data: { user } }),
   deleteUser: (id) => $.ajax({ url: `/api/users/${id}`, method: "DELETE" }),

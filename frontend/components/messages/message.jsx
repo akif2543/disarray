@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
+import MemberPopoutContainer from "../channel/member_popout";
 
 const Message = ({ m, bottom, short }) => {
+  const [popout, setPopout] = useState(false);
+  const togglePopout = () => setPopout(!popout);
+
   const dateDiff = (date) => {
     const now = Date.now();
     const messageDate = date.getTime();
@@ -38,8 +42,13 @@ const Message = ({ m, bottom, short }) => {
       <img src={m.author.avatar} alt="" className="avatar" />
       {short && <span>{shortDate(m.createdAt)}</span>}
       <div className={short ? "content short" : "content"}>
-        <header>
-          <h2>{m.author.username}</h2>
+        {popout && (
+          <MemberPopoutContainer m={m.author} togglePopout={togglePopout} />
+        )}
+        <header className="msg-head">
+          <h2 className="author-name" onClick={togglePopout}>
+            {m.author.username}
+          </h2>
           <span>{formatDate(m.createdAt)}</span>
         </header>
         <p>{m.body}</p>

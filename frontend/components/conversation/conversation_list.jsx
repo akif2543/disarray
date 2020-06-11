@@ -4,11 +4,14 @@ import shortid from "shortid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
+import DMDropdownContainer from "./dm_dropdown";
 
 const ConversationList = ({ conversations, currentUser }) => {
   const [tooltip, setTooltip] = useState(false);
+  const [dropdown, setDropdown] = useState(false);
   const showTooltip = () => setTooltip(true);
   const hideTooltip = () => setTooltip(false);
+  const toggleDropdown = () => setDropdown(!dropdown);
 
   const seen = [];
 
@@ -17,16 +20,17 @@ const ConversationList = ({ conversations, currentUser }) => {
       <header>
         <h2>DIRECT MESSAGES</h2>
         <div className="add-channel-group">
-          {tooltip && <Tooltip text="Create DM" className="cl-tt add" />}
+          {tooltip && <Tooltip text="Create DM" className="cl-tt add-dm" />}
           <FontAwesomeIcon
             icon="plus"
             className="add-channel"
-            // onClick={() => openModal("add channel")}
+            onClick={toggleDropdown}
             onMouseOver={showTooltip}
             onFocus={showTooltip}
             onMouseOut={hideTooltip}
             onBlur={hideTooltip}
           />
+          {dropdown && <DMDropdownContainer toggleDropdown={toggleDropdown} />}
         </div>
       </header>
       <ul>

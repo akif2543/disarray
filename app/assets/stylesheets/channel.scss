@@ -98,7 +98,7 @@
     border: 1px solid $dk-search-bg;
     border-radius: 4px;
 
-    header {
+    .popout-head {
       height: 150px;
       background: $dk-search-bg;
       border: {
@@ -138,7 +138,7 @@
       }
     }
 
-    footer {
+    .popout-foot {
       max-height: 80px;
       min-height: 40px;
       width: 100%;

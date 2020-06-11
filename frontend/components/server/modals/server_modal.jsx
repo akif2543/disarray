@@ -39,9 +39,14 @@ class ServerModal extends React.Component {
   handleCreate(e) {
     e.preventDefault();
     const { name } = this.state;
+    const { history, createServer, openModal } = this.props;
     if (name.length) {
       const server = { name };
-      this.props.createServer(server);
+      createServer(server).then((action) => {
+        const [s] = Object.values(action.server);
+        const [c] = s.channels;
+        history.push(`/channels/${s.id}/${c}`);
+      });
     } else {
       this.setState({ error: true });
     }
@@ -50,10 +55,15 @@ class ServerModal extends React.Component {
   handleJoin(e) {
     e.preventDefault();
     const { joinCode } = this.state;
+    const { history, joinServer } = this.props;
     if (joinCode.length) {
       this.clearErrors();
       const membership = { join_code: joinCode };
-      this.props.joinServer(membership);
+      joinServer(membership).then((action) => {
+        const [s] = Object.values(action.server);
+        const c = s.channels[0];
+        history.push(`/channels/${s.id}/${c}`);
+      });
     } else {
       this.setState({ error: true });
     }
@@ -68,7 +78,7 @@ class ServerModal extends React.Component {
   }
 
   render() {
-    const { errors, clearServerErrors } = this.props;
+    const { errors, clearServerErrors, history } = this.props;
     const { portal, create, join, name, joinCode, error } = this.state;
     return (
       <div className="server-modal">

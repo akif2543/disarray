@@ -4,10 +4,16 @@ export const RECEIVE_CURRENT_USER = "RECEIVE_CURRENT_USER";
 export const LOGOUT_CURRENT_USER = "LOGOUT_CURRENT_USER";
 export const RECEIVE_SESSION_ERRORS = "RECEIVE_SESSION_ERRORS";
 export const CLEAR_SESSION_ERRORS = "CLEAR_SESSION_ERRORS";
+export const RECEIVE_USERS = "RECEIVE_USERS";
 
 export const receiveCurrentUser = (user) => ({
   type: RECEIVE_CURRENT_USER,
   ...user,
+});
+
+const receiveUsers = (users) => ({
+  type: RECEIVE_USERS,
+  ...users,
 });
 
 const logoutCurrentUser = () => ({
@@ -52,3 +58,6 @@ export const deleteUser = (userId) => (dispatch) =>
   SessionAPI.deleteUser(userId)
     .then(() => dispatch(logoutCurrentUser()))
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
+
+export const fetchUsers = () => (dispatch) =>
+  SessionAPI.fetchUsers().then((users) => dispatch(receiveUsers(users)));
