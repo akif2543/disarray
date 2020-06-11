@@ -1,6 +1,6 @@
 import React from "react";
 
-const Message = ({ m, bottom }) => {
+const Message = ({ m, bottom, short }) => {
   const dateDiff = (date) => {
     const now = Date.now();
     const messageDate = date.getTime();
@@ -27,10 +27,17 @@ const Message = ({ m, bottom }) => {
     }
   };
 
+  const shortDate = (date) =>
+    new Date(date).toLocaleTimeString([], {
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
   return (
-    <div className="message">
+    <div className={short ? "message short" : "message"}>
       <img src={m.author.avatar} alt="" className="avatar" />
-      <div className="content">
+      {short && <span>{shortDate(m.createdAt)}</span>}
+      <div className={short ? "content short" : "content"}>
         <header>
           <h2>{m.author.username}</h2>
           <span>{formatDate(m.createdAt)}</span>

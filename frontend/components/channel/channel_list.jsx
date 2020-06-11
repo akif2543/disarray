@@ -75,18 +75,3 @@ const ChannelList = ({
 };
 
 export default ChannelList;
-
-{
-  /* <button type="button">
-  <div>
-    <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />
-    <h3>{channel.name}</h3>
-  </div>
-  <div className="icon-grp">
-    <FontAwesomeIcon icon="user-plus" onClick={() => openModal("invite")} />
-    {isOwner && (
-      <FontAwesomeIcon icon="cog" onClick={() => openSettings("channel")} />
-    )}
-  </div>
-</button>; */
-}

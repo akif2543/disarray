@@ -12,6 +12,7 @@ import ServerBarContainer from "./components/server/bars/server_bar_container";
 import SettingsContainer from "./components/ui/settings";
 import TextChannelContainer from "./components/channel/text_channel_container";
 import ConversationContainer from "./components/conversation/conversation_container";
+import ConversationPanelContainer from "./components/conversation/conversation_panel_container";
 
 const App = ({ loading, settings }) => (
   <div>
@@ -29,6 +30,7 @@ const App = ({ loading, settings }) => (
       path={["/channels/:serverId/:channelId", "/@me"]}
       component={ServerBarContainer}
     />
+    <ProtectedRoute path="/@me" component={ConversationPanelContainer} />
     <ProtectedRoute
       exact
       path="/@me/:conversationId"

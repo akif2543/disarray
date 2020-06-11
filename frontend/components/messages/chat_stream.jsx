@@ -35,16 +35,24 @@ class ChatStream extends React.Component {
   }
 
   render() {
+    const seen = [];
     const { memberbar, messages } = this.props;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
         <ul className="message-list">
           <div ref={this.bottom} />
-          {messages.map((m) =>
-            m === undefined || !m ? null : (
-              <Message key={shortid.generate()} m={m} bottom={this.bottom} />
-            )
-          )}
+          {messages.map((m) => {
+            if (m === undefined || !m) return null;
+            seen.unshift(m.author.id);
+            return (
+              <Message
+                key={shortid.generate()}
+                m={m}
+                bottom={this.bottom}
+                short={seen[1] === m.author.id}
+              />
+            );
+          })}
         </ul>
       </main>
     );

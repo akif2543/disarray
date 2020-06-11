@@ -39,7 +39,7 @@ const ServerDropdown = ({
           )}
           <button type="button">
             {/* onClick={openModal("nickname")} */}
-            <h3>Change Nickname</h3>
+            <h3>Change Nickname [NYI]</h3>
             <FontAwesomeIcon icon="pen" />
           </button>
           {!isOwner && (

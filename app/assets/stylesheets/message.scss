@@ -58,13 +58,44 @@
 
       p {
         font-family: "Whitney";
-        weight: 400;
         color: rgb(220, 221, 222);
+        transform: translateY(-2px);
       }
     }
 
     &:hover {
       background: $dk-msg-hover;
+    }
+  }
+
+  .message.short {
+    margin-top: 3px;
+    min-height: 25px;
+
+    span {
+      display: none;
+      position: absolute;
+      color: rgb(114, 118, 125);
+      font: {
+        size: 11px;
+        family: "Whitney Medium";
+      }
+    }
+
+    img {
+      display: none;
+    }
+
+    .content.short {
+      padding-left: 40px;
+      header {
+        display: none;
+      }
+    }
+    &:hover {
+      span {
+        display: inline-block;
+      }
     }
   }
 }
@@ -113,8 +144,8 @@
       }
 
       font: {
-        family: "Whitney Medium";
-        weight: 400;
+        family: "Whitney";
+        weight: 700;
         size: 16px;
       }
     }

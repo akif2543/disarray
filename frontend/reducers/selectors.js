@@ -65,6 +65,16 @@ export const getCurrentConversation = (state, props) => {
   return null;
 };
 
+export const getConversations = (state) => {
+  const { conversations } = getCurrentUser(state);
+  return conversations
+    .map((id) => state.entities.conversations[id])
+    .map((c) => ({
+      ...c,
+      members: c.members.map((id) => state.entities.users[id]),
+    }));
+};
+
 export const getConversationMembers = (state, props) => {
   const { members } = getCurrentConversation(state, props);
   return members.map((m) => state.entities.users[m]);
