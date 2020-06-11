@@ -10,6 +10,20 @@ class Api::MessagesController < ApplicationController
     render :index
   end
 
+  def create
+    @conversation = Conversation.find_by(id: params[:conversation_id])
+    if @conversation
+      @message = Message.new(body: params[:message][:body], author_id: current_user.id, messageable: @conversation)
+      if @message.save
+        render "api/conversations/show"
+      else
+        render json: @message.errors.full_messages, status: 422
+      end
+    else
+      render json: ["Conversation not found."], status: 404
+    end
+  end
+
   def update
     @message = Message.includes(:author).find_by(id: params[:id])
     if @message

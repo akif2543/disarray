@@ -36,5 +36,10 @@ export const fetchConversation = (id) => (dispatch) =>
 
 export const createConversation = (convo) => (dispatch) =>
   ConversationAPI.createConversation(convo)
+    .then((newConvo) => dispatch(receiveConversation(newConvo)))
+    .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));
+
+export const directMessage = (id, message) => (dispatch) =>
+  ConversationAPI.directMessage(id, message)
     .then((convo) => dispatch(receiveConversation(convo)))
     .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));

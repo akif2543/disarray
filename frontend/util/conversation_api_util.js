@@ -9,6 +9,12 @@ const ConversationAPI = {
       method: "POST",
       data: { conversation },
     }),
+  directMessage: (id, message) =>
+    $.ajax({
+      url: `/api/conversations/${id}/messages`,
+      method: "POST",
+      data: { message },
+    }),
 };
 
 export default ConversationAPI;

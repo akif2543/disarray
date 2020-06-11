@@ -3,7 +3,10 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { getCurrentUser } from "../../reducers/selectors";
-import { createConversation } from "../../actions/conversation_actions";
+import {
+  createConversation,
+  directMessage,
+} from "../../actions/conversation_actions";
 
 const MemberPopout = ({
   m,
@@ -11,19 +14,29 @@ const MemberPopout = ({
   currentUser,
   createConversation,
   history,
+  directMessage,
 }) => {
   const [body, setBody] = useState("");
 
   const handleChange = (e) => setBody(e.target.value);
 
+  const getConversation = () =>
+    m.conversations.find((id) => currentUser.conversations.includes(id));
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const convo = { user1_id: currentUser.id, user2_id: m.id, body };
-    createConversation(convo).then((action) => {
-      debugger;
-      const [c] = Object.values(action.conversation);
-      return history.push(`/@me/${c.id}`);
-    });
+    const c = getConversation();
+
+    if (c > 0) {
+      const message = { body };
+      directMessage(c, message).then(history.push(`/@me/${c}`));
+    } else {
+      const convo = { user1_id: currentUser.id, user2_id: m.id, body };
+      createConversation(convo).then((action) => {
+        const [cv] = Object.values(action.conversation);
+        return history.push(`/@me/${cv.id}`);
+      });
+    }
   };
 
   return (
@@ -64,6 +77,7 @@ const mSTP = (state) => ({
 
 const mDTP = (dispatch) => ({
   createConversation: (convo) => dispatch(createConversation(convo)),
+  directMessage: (id, message) => dispatch(directMessage(id, message)),
 });
 
 const MemberPopoutContainer = withRouter(connect(mSTP, mDTP)(MemberPopout));

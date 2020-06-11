@@ -16,7 +16,7 @@ class Api::ConversationsController < ApplicationController
   def create
     @conversation = Conversation.new
     if @conversation.save
-      @conversation.bundle(convo_params)
+      @conversation.bundle(params[:conversation][:user1_id], params[:conversation][:user2_id], params[:conversation][:body])
       render :show
     else
       render json: @conversation.errors.full_messages, status: 422
