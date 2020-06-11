@@ -8,7 +8,7 @@ const Member = ({ m, owner }) => {
   const togglePopout = () => setPopout(!popout);
 
   return (
-    <div>
+    <div className="member">
       {popout && <MemberPopoutContainer m={m} togglePopout={togglePopout} />}
       <button type="button" onClick={togglePopout}>
         <img src={m.avatar} alt="" />

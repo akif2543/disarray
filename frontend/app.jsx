@@ -7,7 +7,7 @@ import { AuthRoute, ProtectedRoute } from "./util/route_util";
 import MainContainer from "./components/main/main_container";
 import Loading from "./components/ui/loading";
 import ModalContainer from "./components/ui/modal";
-import ServerContainer from "./components/server/bars/server_container";
+import ServerPanelContainer from "./components/server/bars/server_panel_container";
 import ServerBarContainer from "./components/server/bars/server_bar_container";
 import SettingsContainer from "./components/ui/settings";
 import TextChannelContainer from "./components/channel/text_channel_container";
@@ -15,7 +15,7 @@ import ConversationContainer from "./components/conversation/conversation_contai
 import ConversationPanelContainer from "./components/conversation/conversation_panel_container";
 
 const App = ({ loading, settings }) => (
-  <div>
+  <div className="app">
     {loading && <Loading />}
     {settings && <SettingsContainer />}
     <ProtectedRoute path="/" component={ModalContainer} />
@@ -25,10 +25,13 @@ const App = ({ loading, settings }) => (
       path={["/register", "/login"]}
       component={SessionContainer}
     />
-    <ProtectedRoute exact path="/@me" component={MainContainer} />
     <ProtectedRoute
       path={["/channels/:serverId/:channelId", "/@me"]}
       component={ServerBarContainer}
+    />
+    <ProtectedRoute
+      path="/channels/:serverId/:channelId"
+      component={ServerPanelContainer}
     />
     <ProtectedRoute path="/@me" component={ConversationPanelContainer} />
     <ProtectedRoute
@@ -36,10 +39,7 @@ const App = ({ loading, settings }) => (
       path="/@me/:conversationId"
       component={ConversationContainer}
     />
-    <ProtectedRoute
-      path="/channels/:serverId/:channelId"
-      component={ServerContainer}
-    />
+    <ProtectedRoute exact path="/@me" component={MainContainer} />
     <ProtectedRoute
       exact
       path="/channels/:serverId/:channelId"

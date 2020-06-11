@@ -18,13 +18,7 @@ class Main extends React.Component {
 
     return (
       <main className="main">
-        <Sidebar />
         <NavBar />
-        <UserBar
-          currentUser={currentUser}
-          logout={logout}
-          openSettings={openSettings}
-        />
       </main>
     );
   }

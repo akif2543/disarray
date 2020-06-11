@@ -1,6 +1,6 @@
 import React from "react";
 import ServerPanel from "./server_panel";
-import MemberBar from "./member_bar";
+// import MemberBar from "../../channel/member_bar";
 
 class Server extends React.Component {
   constructor(props) {
@@ -23,7 +23,7 @@ class Server extends React.Component {
     return (
       <div className="server-frame">
         <ServerPanel {...this.props} />
-        {sidebarOpen && <MemberBar members={members} owner={server.owner} />}
+        {/* {sidebarOpen && <MemberBar members={members} owner={server.owner} />} */}
       </div>
     );
   }

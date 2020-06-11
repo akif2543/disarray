@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { getCurrentUser } from "../../../reducers/selectors";
-import { createConversation } from "../../../actions/conversation_actions";
+import { getCurrentUser } from "../../reducers/selectors";
+import { createConversation } from "../../actions/conversation_actions";
 
 const MemberPopout = ({
   m,
@@ -27,7 +27,7 @@ const MemberPopout = ({
   };
 
   return (
-    <div className="dropdown-bg" onClick={togglePopout}>
+    <div className="popout-bg" onClick={togglePopout}>
       <div className="popout" onClick={(e) => e.stopPropagation()}>
         <header>
           <img src={m.avatar} alt="" />

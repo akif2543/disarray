@@ -12,13 +12,14 @@ import {
   deleteServer,
   leaveServer,
 } from "../../../actions/server_actions";
-import Server from "./server";
+// import Server from "./server";
 import { logout } from "../../../actions/session_actions";
 import {
   openModal,
   openSettings,
   closeSettings,
 } from "../../../actions/ui_actions";
+import ServerPanel from "./server_panel";
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
@@ -39,6 +40,6 @@ const mDTP = (dispatch) => ({
   closeSettings: () => dispatch(closeSettings()),
 });
 
-const ServerContainer = connect(mSTP, mDTP)(Server);
+const ServerPanelContainer = connect(mSTP, mDTP)(ServerPanel);
 
-export default ServerContainer;
+export default ServerPanelContainer;

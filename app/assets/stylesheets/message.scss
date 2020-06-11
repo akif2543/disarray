@@ -1,7 +1,7 @@
 .chat {
-  position: fixed;
-  top: 50px;
-  left: 314px;
+  // position: fixed;
+  // top: 50px;
+  // left: 314px;
   width: calc(100vw - 554px);
   height: calc(100vh - 120px);
   overflow: scroll;
@@ -69,12 +69,14 @@
   }
 
   .message.short {
+    position: relative;
     margin-top: 3px;
     min-height: 25px;
 
     span {
       display: none;
       position: absolute;
+      // top: 30%;
       color: rgb(114, 118, 125);
       font: {
         size: 11px;
@@ -87,6 +89,7 @@
     }
 
     .content.short {
+      // position: relative;
       padding-left: 40px;
       header {
         display: none;
@@ -101,9 +104,9 @@
 }
 
 .new-message-form {
-  position: fixed;
-  left: 314px;
-  bottom: 0;
+  // position: fixed;
+  // left: 314px;
+  // bottom: 0;
   width: calc(100vw - 554px);
   min-height: 70px;
   max-height: 170px;

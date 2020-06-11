@@ -1,25 +1,24 @@
+.app {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 100%;
+}
+
 .main {
   height: 100vh;
-  width: 100vw;
+  width: calc(100vw - 72px - 242px);
   background: $dk-main-bg;
-  position: fixed;
-  left: 72px;
-
-  // .side-bar {
-  //   height: 100%;
-  //   width: 242px;
-  //   position: fixed;
-  //   left: 72px;
-  //   background: $dk-sidebar;
-  // }
+  // position: fixed;
+  // left: 72px;
 }
 
 .nav-bar {
   max-height: 50px;
   width: calc(100vw - 314px);
-  position: fixed;
-  top: 0;
-  left: 314px;
+  // position: fixed;
+  // top: 0;
+  // left: 314px;
   background: $dk-main-bg;
   border-bottom: 1px solid rgb(43, 45, 50);
   display: flex;
@@ -27,7 +26,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  z-index: 0;
+  // z-index: 0;
 
   & > * {
     display: flex;
@@ -38,7 +37,7 @@
   .dm-name {
     display: flex;
     flex-flow: row nowrap;
-    overflow: hidden;
+    // overflow: hidden;
     white-space: nowrap;
     max-height: inherit;
     max-width: calc(100vw - 730px);
@@ -136,12 +135,12 @@
 .user-bar {
   width: 242px;
   height: 53px;
-  left: 0;
-  bottom: 0;
+  // left: 0;
+  // bottom: 0;
   padding: 10px;
   background: $dk-user-set-bg;
   color: $dk-icons;
-  position: absolute;
+  // position: fixed;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -219,7 +218,7 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  // z-index: 999;
+  z-index: 999;
 
   .tooltip-content {
     height: 35px;
@@ -236,7 +235,7 @@
     h1 {
       margin: 0 auto;
       padding: 0 10px;
-      z-index: 999;
+      // z-index: 999;
     }
   }
 }

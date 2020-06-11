@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import NavBar from "../ui/nav_bar";
 import ChatStream from "../messages/chat_stream";
 import NewMessageForm from "../messages/new_message_form";
+import MemberBar from "./member_bar";
 
 const TextChannel = ({
   fetchChannel,
@@ -14,6 +15,8 @@ const TextChannel = ({
   messages,
   currentUser,
   fetchMessages,
+  members,
+  server,
 }) => {
   const { channelId } = match.params;
 
@@ -42,21 +45,25 @@ const TextChannel = ({
         memberbar={sidebarOpen}
         toggleMemberBar={toggleMemberBar}
       />
-      {/* {memberBar && <MemberBar members={members} owner={server.owner} />} */}
-      <ChatStream
-        messages={messages || []}
-        memberbar={sidebarOpen}
-        fetchMessages={fetchMessages}
-      />
-      {channel && (
-        <NewMessageForm
-          name={`#${channel.name}`}
-          id={channel.id}
-          memberbar={sidebarOpen}
-          type="Channel"
-          author={currentUser}
-        />
-      )}
+      <div className="chat-group">
+        <div className="chat-room">
+          <ChatStream
+            messages={messages || []}
+            memberbar={sidebarOpen}
+            fetchMessages={fetchMessages}
+          />
+          {channel && (
+            <NewMessageForm
+              name={`#${channel.name}`}
+              id={channel.id}
+              memberbar={sidebarOpen}
+              type="Channel"
+              author={currentUser}
+            />
+          )}
+        </div>
+        {sidebarOpen && <MemberBar members={members} owner={server.owner} />}
+      </div>
     </div>
   );
 };

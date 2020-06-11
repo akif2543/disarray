@@ -1,17 +1,30 @@
 .text-channel {
   height: 100vh;
-  width: 100vw;
+  width: calc(100vw - 72px - 242px);
   background: $dk-main-bg;
+  display: flex;
+  flex-direction: column;
+}
+
+.chat-group {
+  display: flex;
+  flex-direction: row;
+
+  .chat-room {
+    display: flex;
+    flex-direction: column;
+  }
 }
 
 .member-bar {
-  position: fixed;
-  right: 0;
+  // position: fixed;
+  // right: 0;
   top: 50px;
-  height: 100%;
+  height: calc(100vh - 50px);
   width: 240px;
   background: $dk-sidebar;
   color: rgb(140, 143, 148);
+  overflow-y: scroll;
 
   h4 {
     font: {
@@ -26,8 +39,11 @@
     display: flex;
     flex-direction: column;
 
-    button {
+    .member {
       position: relative;
+    }
+
+    button {
       width: 100%;
       height: 42px;
       display: flex;
@@ -66,102 +82,111 @@
   }
 }
 
-.popout {
-  position: absolute;
-  right: 225px;
-  top: 100px;
-  width: 250px;
-  border: 1px solid $dk-search-bg;
-  border-radius: 4px;
+.popout-bg {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: none;
+  z-index: 10;
+  .popout {
+    position: absolute;
+    right: 225px;
+    top: 100px;
+    width: 250px;
+    border: 1px solid $dk-search-bg;
+    border-radius: 4px;
 
-  header {
-    height: 150px;
-    background: $dk-search-bg;
-    border: {
-      top-right-radius: 4px;
-      top-left-radius: 4px;
-    }
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
-    img {
-      height: 80px;
-      width: 80px;
-      margin-bottom: 12px;
-    }
-
-    .user {
+    header {
+      height: 150px;
+      background: $dk-search-bg;
+      border: {
+        top-right-radius: 4px;
+        top-left-radius: 4px;
+      }
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
 
-      h1 {
-        font: {
-          size: 16px;
-          family: "Whitney Medium";
-        }
-        color: $dk-white;
+      img {
+        height: 80px;
+        width: 80px;
+        margin-bottom: 12px;
       }
 
-      h2 {
-        color: rgb(167, 167, 168);
-        font: {
-          size: 16px;
-          family: "Whitney Medium";
+      .user {
+        display: flex;
+        flex-direction: row;
+
+        h1 {
+          font: {
+            size: 16px;
+            family: "Whitney Medium";
+          }
+          color: $dk-white;
+        }
+
+        h2 {
+          color: rgb(167, 167, 168);
+          font: {
+            size: 16px;
+            family: "Whitney Medium";
+          }
         }
       }
     }
-  }
 
-  footer {
-    max-height: 80px;
-    min-height: 40px;
-    width: 100%;
-    background: $dk-sidebar;
-    border: {
-      bottom-right-radius: 4px;
-      bottom-left-radius: 4px;
-    }
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 12px;
-
-    .dm-message-form {
+    footer {
+      max-height: 80px;
+      min-height: 40px;
       width: 100%;
-      margin-bottom: 5px;
+      background: $dk-sidebar;
+      border: {
+        bottom-right-radius: 4px;
+        bottom-left-radius: 4px;
+      }
 
-      input {
-        box-sizing: border-box;
-        background: $dk-main-bg;
-        color: rgb(108, 109, 110);
-        border: 1px solid rgb(35, 38, 42);
-        border-radius: 3px;
-        height: 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 12px;
+
+      .dm-message-form {
         width: 100%;
-        padding: 8px 10px;
+        margin-bottom: 5px;
+
+        input {
+          box-sizing: border-box;
+          background: $dk-main-bg;
+          color: rgb(108, 109, 110);
+          border: 1px solid rgb(35, 38, 42);
+          border-radius: 3px;
+          height: 35px;
+          width: 100%;
+          padding: 8px 10px;
+          font: {
+            family: "Whitney";
+            size: 14px;
+            weight: 700;
+          }
+        }
+      }
+
+      p {
         font: {
+          size: 12px;
           family: "Whitney";
-          size: 14px;
           weight: 700;
         }
-      }
-    }
+        color: rgb(167, 167, 168);
 
-    p {
-      font: {
-        size: 12px;
-        family: "Whitney";
-        weight: 700;
-      }
-      color: rgb(167, 167, 168);
-
-      span {
-        color: $dk-green;
-        font: {
-          family: "Whitney Medium";
+        span {
+          color: $dk-green;
+          font: {
+            family: "Whitney Medium";
+          }
         }
       }
     }
@@ -170,6 +195,8 @@
 
 .channel-list {
   color: rgb(114, 118, 125);
+  height: calc(100vh - 50px - 53px);
+  // overflow-y: scroll;
 
   header {
     padding: 10px 5px 0;
@@ -203,10 +230,6 @@
 
         &:hover {
           color: rgb(214, 215, 216);
-        }
-
-        &:hover {
-          z-index: 2;
         }
       }
     }
