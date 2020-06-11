@@ -27,6 +27,7 @@
     flex-direction: column;
 
     button {
+      position: relative;
       width: 100%;
       height: 42px;
       display: flex;
@@ -60,6 +61,108 @@
       svg {
         color: $dk-owner-icon;
         transform: translateY(1px);
+      }
+    }
+  }
+}
+
+.popout {
+  position: absolute;
+  right: 225px;
+  top: 100px;
+  width: 250px;
+  border: 1px solid $dk-search-bg;
+  border-radius: 4px;
+
+  header {
+    height: 150px;
+    background: $dk-search-bg;
+    border: {
+      top-right-radius: 4px;
+      top-left-radius: 4px;
+    }
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    img {
+      height: 80px;
+      width: 80px;
+      margin-bottom: 12px;
+    }
+
+    .user {
+      display: flex;
+      flex-direction: row;
+
+      h1 {
+        font: {
+          size: 16px;
+          family: "Whitney Medium";
+        }
+        color: $dk-white;
+      }
+
+      h2 {
+        color: rgb(167, 167, 168);
+        font: {
+          size: 16px;
+          family: "Whitney Medium";
+        }
+      }
+    }
+  }
+
+  footer {
+    max-height: 80px;
+    min-height: 40px;
+    width: 100%;
+    background: $dk-sidebar;
+    border: {
+      bottom-right-radius: 4px;
+      bottom-left-radius: 4px;
+    }
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 12px;
+
+    .dm-message-form {
+      width: 100%;
+      margin-bottom: 5px;
+
+      input {
+        box-sizing: border-box;
+        background: $dk-main-bg;
+        color: rgb(108, 109, 110);
+        border: 1px solid rgb(35, 38, 42);
+        border-radius: 3px;
+        height: 35px;
+        width: 100%;
+        padding: 8px 10px;
+        font: {
+          family: "Whitney";
+          size: 14px;
+          weight: 700;
+        }
+      }
+    }
+
+    p {
+      font: {
+        size: 12px;
+        family: "Whitney";
+        weight: 700;
+      }
+      color: rgb(167, 167, 168);
+
+      span {
+        color: $dk-green;
+        font: {
+          family: "Whitney Medium";
+        }
       }
     }
   }

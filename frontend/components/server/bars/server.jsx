@@ -1,6 +1,6 @@
 import React from "react";
 import ServerPanel from "./server_panel";
-import MemberBar from "../../channel/member_bar";
+import MemberBar from "./member_bar";
 
 class Server extends React.Component {
   constructor(props) {
