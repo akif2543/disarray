@@ -8,11 +8,10 @@ const MemberBar = ({ members, owner }) => {
     <nav className="member-bar">
       <h4>MEMBERS—{members.length}</h4>
       <ul>
-        {members.map((m) =>
-          m === undefined ? null : (
-            <Member m={m} owner={owner} key={shortid.generate()} />
-          )
-        )}
+        {members.map((m) => {
+          if (m === undefined) return null;
+          return <Member m={m} owner={owner} key={shortid.generate()} />;
+        })}
       </ul>
     </nav>
   );

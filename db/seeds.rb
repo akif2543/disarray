@@ -227,7 +227,7 @@ Membership.create([
     member_id: demo.id,
     subscribeable: gang,
   }, {
-    member_id: hiker.id,
+    member_id: anita.id,
     subscribeable: gang,
   }, {
     member_id: sinus.id,
