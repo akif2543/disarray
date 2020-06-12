@@ -138,7 +138,7 @@ class LoginForm extends React.Component {
         </section>
         <section className="qr-group">
           <div className="qr-code">
-            <img src={window.dkIconURL} alt="" />
+            <img src={window.demoURL} alt="" />
           </div>
           <div>
             <h1>Try a demo</h1>

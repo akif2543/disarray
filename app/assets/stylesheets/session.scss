@@ -74,12 +74,13 @@
         margin-bottom: 30px;
         width: 178px;
         height: 178px;
-        background: $dk-white;
+        background: $dk-main-bg;
         border-radius: 3px;
 
         img {
           object-fit: cover;
-          width: 100%;
+          width: 120%;
+          transform: translateX(-20px);
         }
       }
     }
