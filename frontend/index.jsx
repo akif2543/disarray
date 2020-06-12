@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 
 import configureStore from "./store/store";
 import "./icons/fa_library";
-import Root from "./root";
+import Root from "./components/app/root";
 
 document.addEventListener("DOMContentLoaded", () => {
   let store;

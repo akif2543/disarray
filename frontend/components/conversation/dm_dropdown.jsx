@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import shortid from "shortid";
 
 import { fetchUsers } from "../../actions/session_actions";
 import { getCurrentUser } from "../../reducers/selectors";
 import { createConversation } from "../../actions/conversation_actions";
-import shortid from "shortid";
 
 const DMDropdown = ({
   createConversation,
@@ -15,33 +15,33 @@ const DMDropdown = ({
   currentUser,
   history,
 }) => {
+  const otherUsers = users.filter((u) => u.id !== currentUser.id);
   const [username, setUsername] = useState("");
-  const [found, setFound] = useState(
-    users.filter((u) => u.id !== currentUser.id)
-  );
+  const [found, setFound] = useState(otherUsers);
 
   useEffect(() => {
-    fetchUsers().then(setFound(users.filter((u) => u.id !== currentUser.id)));
+    fetchUsers().then(setFound(otherUsers));
   }, []);
 
-  const filterUsers = () => {
+  const filterUsers = (input) => {
     if (username.length) {
       const f = users.filter(
         (u) =>
-          u.username.toLowerCase().includes(username.toLowerCase()) &&
+          u.username.toLowerCase().includes(input.toLowerCase()) &&
           u.id !== currentUser.id
       );
       setFound(f);
     } else {
-      setFound(users.filter((u) => u.id !== currentUser.id));
+      setFound(otherUsers);
     }
   };
+
   const getConversation = (user) =>
     user.conversations.find((id) => currentUser.conversations.includes(id));
 
   const handleChange = (e) => {
     setUsername(e.target.value);
-    filterUsers();
+    filterUsers(e.target.value);
   };
 
   const handleCreate = (user) => () => {

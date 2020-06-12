@@ -1,18 +1,18 @@
 import React from "react";
 import { Route } from "react-router-dom";
 
-import SplashContainer from "./components/splash/splash_container";
-import SessionContainer from "./components/session/session_container";
-import { AuthRoute, ProtectedRoute } from "./util/route_util";
-import MainContainer from "./components/main/main_container";
-import Loading from "./components/ui/loading";
-import ModalContainer from "./components/ui/modal";
-import ServerPanelContainer from "./components/server/bars/server_panel_container";
-import ServerBarContainer from "./components/server/bars/server_bar_container";
-import SettingsContainer from "./components/ui/settings";
-import TextChannelContainer from "./components/channel/text_channel_container";
-import ConversationContainer from "./components/conversation/conversation_container";
-import ConversationPanelContainer from "./components/conversation/conversation_panel_container";
+import SplashContainer from "../splash/splash_container";
+import SessionContainer from "../session/session_container";
+import { AuthRoute, ProtectedRoute } from "../../util/route_util";
+import MainContainer from "../main/main_container";
+import Loading from "../ui/loading";
+import ModalContainer from "../ui/modal";
+import ServerPanelContainer from "../server/bars/server_panel_container";
+import ServerBarContainer from "../server/bars/server_bar_container";
+import SettingsContainer from "../ui/settings";
+import TextChannelContainer from "../channel/text_channel_container";
+import ConversationContainer from "../conversation/conversation_container";
+import ConversationPanelContainer from "../conversation/conversation_panel_container";
 
 const App = ({ loading, settings }) => (
   <div className="app">

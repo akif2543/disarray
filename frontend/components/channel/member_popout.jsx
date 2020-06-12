@@ -52,7 +52,6 @@ const MemberPopout = ({
   };
 
   return (
-    // <div className="popout-bg" onClick={togglePopout}>
     <div className="popout" ref={(elem) => (node = elem)}>
       <header className="popout-head">
         <img src={m.avatar} alt="" />
@@ -79,7 +78,6 @@ const MemberPopout = ({
         </p>
       </footer>
     </div>
-    // </div>
   );
 };
 
@@ -95,5 +93,3 @@ const mDTP = (dispatch) => ({
 const MemberPopoutContainer = withRouter(connect(mSTP, mDTP)(MemberPopout));
 
 export default MemberPopoutContainer;
-
-// onClick={(e) => e.stopPropagation()

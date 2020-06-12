@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 
-import { loading, settings } from "./reducers/selectors";
+import { loading, settings } from "../../reducers/selectors";
 import App from "./app";
 
 const mSTP = (state) => ({
