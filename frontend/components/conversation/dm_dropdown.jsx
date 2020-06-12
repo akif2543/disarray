@@ -21,7 +21,7 @@ const DMDropdown = ({
   );
 
   useEffect(() => {
-    fetchUsers();
+    fetchUsers().then(setFound(users.filter((u) => u.id !== currentUser.id)));
   }, []);
 
   const filterUsers = () => {

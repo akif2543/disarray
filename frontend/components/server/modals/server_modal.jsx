@@ -39,7 +39,7 @@ class ServerModal extends React.Component {
   handleCreate(e) {
     e.preventDefault();
     const { name } = this.state;
-    const { history, createServer, openModal } = this.props;
+    const { history, createServer, openModal, closeModal } = this.props;
     if (name.length) {
       const server = { name };
       createServer(server).then((action) => {

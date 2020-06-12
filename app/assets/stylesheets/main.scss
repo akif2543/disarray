@@ -9,16 +9,11 @@
   height: 100vh;
   width: calc(100vw - 72px - 242px);
   background: $dk-main-bg;
-  // position: fixed;
-  // left: 72px;
 }
 
 .nav-bar {
-  max-height: 50px;
+  height: 50px;
   width: calc(100vw - 314px);
-  // position: fixed;
-  // top: 0;
-  // left: 314px;
   background: $dk-main-bg;
   border-bottom: 1px solid rgb(43, 45, 50);
   display: flex;
@@ -26,7 +21,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  // z-index: 0;
 
   & > * {
     display: flex;
@@ -52,6 +46,7 @@
       padding-left: 10px;
       white-space: nowrap;
       max-width: 100%;
+      overflow: hidden;
     }
 
     .topic {
@@ -139,12 +134,9 @@
 .user-bar {
   width: 242px;
   height: 53px;
-  // left: 0;
-  // bottom: 0;
   padding: 10px;
   background: $dk-user-set-bg;
   color: $dk-icons;
-  // position: fixed;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -292,11 +284,7 @@
 .u-bar-tt,
 .cl-tt,
 .nav-tt {
-  // bottom: 42px;
-  // right: 37px;
-
   .tooltip-content {
-    // width: 115px;
     h1 {
       font-family: "Whitney Medium";
       font-weight: 400;

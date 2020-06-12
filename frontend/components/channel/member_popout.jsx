@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -20,6 +20,18 @@ const MemberPopout = ({
 
   const handleChange = (e) => setBody(e.target.value);
 
+  let node;
+
+  const handleClick = (e) => {
+    if (node.contains(e.target)) return;
+    togglePopout();
+  };
+
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClick, false);
+    return () => document.removeEventListener("mousedown", handleClick, false);
+  }, []);
+
   const getConversation = () =>
     m.conversations.find((id) => currentUser.conversations.includes(id));
 
@@ -40,34 +52,34 @@ const MemberPopout = ({
   };
 
   return (
-    <div className="popout-bg" onClick={togglePopout}>
-      <div className="popout" onClick={(e) => e.stopPropagation()}>
-        <header className="popout-head">
-          <img src={m.avatar} alt="" />
-          <div className="user">
-            <h1>{m.username}</h1>
-            <h2>#{m.discriminator}</h2>
-          </div>
-        </header>
-        <footer className="popout-foot">
-          {m.id !== currentUser.id && (
-            <form onSubmit={handleSubmit} className="dm-message-form">
-              <input
-                type="text"
-                placeholder={`Message @${m.username}`}
-                value={body}
-                onChange={handleChange}
-              />
-            </form>
-          )}
-          <p>
-            <span>PROTIP:</span>
-            {"  "}
-            Try restarting webpack
-          </p>
-        </footer>
-      </div>
+    // <div className="popout-bg" onClick={togglePopout}>
+    <div className="popout" ref={(elem) => (node = elem)}>
+      <header className="popout-head">
+        <img src={m.avatar} alt="" />
+        <div className="user">
+          <h1>{m.username}</h1>
+          <h2>#{m.discriminator}</h2>
+        </div>
+      </header>
+      <footer className="popout-foot">
+        {m.id !== currentUser.id && (
+          <form onSubmit={handleSubmit} className="dm-message-form">
+            <input
+              type="text"
+              placeholder={`Message @${m.username}`}
+              value={body}
+              onChange={handleChange}
+            />
+          </form>
+        )}
+        <p>
+          <span>PROTIP:</span>
+          {"  "}
+          Try restarting webpack
+        </p>
+      </footer>
     </div>
+    // </div>
   );
 };
 
@@ -83,3 +95,5 @@ const mDTP = (dispatch) => ({
 const MemberPopoutContainer = withRouter(connect(mSTP, mDTP)(MemberPopout));
 
 export default MemberPopoutContainer;
+
+// onClick={(e) => e.stopPropagation()

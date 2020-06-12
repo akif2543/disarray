@@ -2,8 +2,6 @@
   width: 72px;
   height: 100vh;
   background: $dk-search-bg;
-  // position: fixed;
-  // left: 0px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,12 +84,6 @@
     }
   }
 }
-
-// .server-frame {
-//   position: fixed;
-//   left: 72px;
-//   height: 100%;
-// }
 
 .server-portal {
   background: $dk-white;
@@ -229,28 +221,6 @@
         color: $dk-red;
       }
     }
-
-    // .s-icon {
-    //   height: 128px;
-    //   width: 128px;
-    //   border-radius: 50%;
-    //   background: $dk-blue;
-    //   border: 5px solid $dk-s-icon-b;
-    //   box-sizing: content-box;
-    //   display: flex;
-    //   align-items: center;
-
-    //   h3 {
-    //     color: $dk-white;
-    //     font-size: 36px;
-    //     margin: 0 auto;
-    //     text-align: center;
-    //   }
-    // }
-    // figcaption {
-    //   font-size: 10px;
-    //   text-align: center;
-    // }
   }
 
   footer {
@@ -369,8 +339,6 @@
 .side-bar {
   height: 100vh;
   width: 242px;
-  // position: fixed;
-  // left: 72px;
   background: $dk-sidebar;
 }
 

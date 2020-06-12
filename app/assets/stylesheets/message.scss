@@ -1,13 +1,11 @@
 .chat {
-  // position: fixed;
-  // top: 50px;
-  // left: 314px;
   width: calc(100vw - 554px);
   height: calc(100vh - 120px);
   overflow: scroll;
   padding: 0 17px 25px 0;
 
   .message {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -24,9 +22,15 @@
     }
 
     .content {
+      position: relative;
       margin-left: 15px;
       display: flex;
       flex-direction: column;
+
+      .popout {
+        left: 75px;
+        top: 0;
+      }
 
       .msg-head {
         display: flex;
@@ -47,6 +51,10 @@
           &:hover {
             text-decoration: underline;
           }
+        }
+
+        .msg-anchor {
+          position: relative;
         }
 
         span {
@@ -74,14 +82,12 @@
   }
 
   .message.short {
-    position: relative;
     margin-top: 3px;
     min-height: 25px;
 
     span {
       display: none;
       position: absolute;
-      // top: 30%;
       color: rgb(114, 118, 125);
       font: {
         size: 11px;
@@ -94,7 +100,6 @@
     }
 
     .content.short {
-      // position: relative;
       padding-left: 40px;
       header {
         display: none;
@@ -109,9 +114,6 @@
 }
 
 .new-message-form {
-  // position: fixed;
-  // left: 314px;
-  // bottom: 0;
   width: calc(100vw - 554px);
   min-height: 70px;
   max-height: 170px;

@@ -48,6 +48,7 @@ const Message = ({ m, bottom, short }) => {
         <header className="msg-head">
           <h2 className="author-name" onClick={togglePopout}>
             {m.author.username}
+            <div className="msg-anchor"></div>
           </h2>
           <span>{formatDate(m.createdAt)}</span>
         </header>
