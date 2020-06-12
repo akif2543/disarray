@@ -39,7 +39,7 @@ cubber, boots, buth, daphni, ruby = User.create([
     password: "password",
   }, {
     username: "Ecter",
-    email: "ecter@email.com ",
+    email: "ecter@email.com",
     password: "password",
   }, {
     username: "ttoosh",
@@ -51,7 +51,7 @@ cubber, boots, buth, daphni, ruby = User.create([
     password: "password",
   }, {
     username: "sinusboy",
-    email: "snus@email.com  ",
+    email: "snus@email.com",
     password: "password",
   }, {
     username: "Marre",
