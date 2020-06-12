@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NewMessageForm = ({ name, memberbar, type, id, author }) => {
+const NewMessageForm = ({ name, memberbar, type, id, author, sub }) => {
   const [messageBody, setMessageBody] = useState("");
   const handleChange = (e) => setMessageBody(e.target.value);
 

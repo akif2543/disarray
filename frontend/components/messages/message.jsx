@@ -8,7 +8,7 @@ const Message = ({ m, bottom, short }) => {
   const dateDiff = (date) => {
     const now = Date.now();
     const messageDate = date.getTime();
-    return parseInt((now - messageDate) / (24 * 3600 * 1000));
+    return Math.floor((now - messageDate) / (24 * 3600 * 1000));
   };
 
   const formatDate = (date) => {

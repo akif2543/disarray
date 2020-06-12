@@ -85,7 +85,7 @@ class User < ApplicationRecord
   end
 
   def random_avatar
-    av = ['user_1.png', 'user_2.png', 'user_3.png', 'user_2.png'].sample
+    av = ['user_1.png', 'user_2.png', 'user_3.png', 'user_4.png'].sample
     ActionController::Base.helpers.asset_url(av, type: :image)
   end
 end

@@ -7,7 +7,10 @@ import {
   getConversationMembers,
   getOtherUser,
 } from "../../reducers/selectors";
-import { fetchConversation } from "../../actions/conversation_actions";
+import {
+  fetchConversation,
+  fetchConversations,
+} from "../../actions/conversation_actions";
 import { receiveMessage, fetchMessages } from "../../actions/message_actions";
 import { showSidebar, hideSidebar } from "../../actions/ui_actions";
 import Conversation from "./conversation";
@@ -15,7 +18,6 @@ import Conversation from "./conversation";
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
   conversation: getCurrentConversation(state, ownProps),
-  // members: getConversationMembers(state, ownProps),
   otherUser: getOtherUser(state, ownProps),
   messages: getConversationMessages(state, ownProps),
   sidebarOpen: state.ui.sidebar,
