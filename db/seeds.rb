@@ -45,7 +45,7 @@ cubber, boots, buth, daphni, ruby = User.create([
     username: "ttoosh",
     email: "toosh@email.com",
     password: "password",
-  }{
+  }, {
     username: "Hiker Jon",
     email: "skate4money@email.com",
     password: "password",
@@ -102,7 +102,7 @@ cubber, boots, buth, daphni, ruby = User.create([
 
 bnp, avi, dfr, fro, gang, z, dnd, dp, trr, tsd  = Server.create([
   {
-    name: "Boots & Pants",
+    name: "boots & pants",
     owner_id: boots.id
   }, {
     name: "Aviato",
@@ -111,7 +111,7 @@ bnp, avi, dfr, fro, gang, z, dnd, dp, trr, tsd  = Server.create([
     name: "Daphni's Fun Room",
     owner_id: daphni.id
   }, {
-    name: "For Rubyists Only",
+    name: "for rubyists only",
     owner_id: ruby.id
   }, {
     name: "The Gang",
@@ -120,16 +120,16 @@ bnp, avi, dfr, fro, gang, z, dnd, dp, trr, tsd  = Server.create([
     name: "z 1 1",
     owner_id: toosh.id
   }, {
-    name: "Do Not Disturb",
+    name: "do not disturb",
     owner_id: buth.id
   }, {
     name: "Dad Party",
     owner_id: marre.id
   }, {
-    name: "The Red Room",
+    name: "the red room",
     owner_id: relevee.id
   }, {
-    name: "The Savage Detectives",
+    name: "the savage detectives",
     owner_id: cinch.id,
   }
 ])
@@ -163,7 +163,7 @@ Channel.create([
     server_id: dfr.id,
   }, {
     name: "memes",
-    topic: ":omegalul:"
+    topic: ":omegalul:",
     server_id: gang.id,
   }, {
     name: "music-recs",
@@ -173,7 +173,7 @@ Channel.create([
     server_id: gang.id,
   }, {
     name: "rails",
-    server_id: fre.id,
+    server_id: fro.id,
   }, {
     name: "mmm-that-syntactic-sugar",
     server_id: fro.id,
@@ -194,7 +194,7 @@ Channel.create([
     server_id: tsd.id,
   }, {
     name: "sonora",
-    server_id: dp.id,
+    server_id: tsd.id,
   }, {
     name: "made-you-look",
     server_id: dnd.id,
@@ -209,88 +209,88 @@ Channel.create([
 
 Membership.create([
   {
-    member_id: sewpra,
+    member_id: sewpra.id,
     subscribeable: bnp,
   }, {
-    member_id: ribs,
+    member_id: ribs.id,
     subscribeable: bnp,
   }, {
-    member_id: north,
+    member_id: north.id,
     subscribeable: bnp,
   }, {
-    member_id: cubber,
+    member_id: cubber.id,
     subscribeable: bnp,
   }, {
-    member_id: cinch,
+    member_id: cinch.id,
     subscribeable: bnp,
   }, {
-    member_id: demo,
+    member_id: demo.id,
     subscribeable: gang,
   }, {
-    member_id: hiker,
+    member_id: hiker.id,
     subscribeable: gang,
   }, {
-    member_id: sinus,
+    member_id: sinus.id,
     subscribeable: gang,
   }, {
-    member_id: marre,
+    member_id: marre.id,
     subscribeable: gang,
   }, {
-    member_id: ttoosh,
+    member_id: toosh.id,
     subscribeable: gang,
   }, {
-    member_id: van,
+    member_id: van.id,
     subscribeable: avi,
   }, {
-    member_id: kimky,
+    member_id: kimky.id,
     subscribeable: avi,
   }, {
-    member_id: zaroky,
+    member_id: zaroky.id,
     subscribeable: avi,
   }, {
-    member_id: ecter,
+    member_id: ecter.id,
     subscribeable: avi,
   }, {
-    member_id: demo,
+    member_id: cinch.id,
     subscribeable: avi,
   }, {
-    member_id: marre,
+    member_id: marre.id,
     subscribeable: z,
   }, {
-    member_id: hiker,
+    member_id: hiker.id,
     subscribeable: dp,
   }, {
-    member_id: sinus,
+    member_id: sinus.id,
     subscribeable: dp,
   }, {
-    member_id: demo,
+    member_id: demo.id,
     subscribeable: tsd,
   }, {
-    member_id: anita,
+    member_id: anita.id,
     subscribeable: tsd,
   }, {
-    member_id: daphni,
+    member_id: daphni.id,
     subscribeable: tsd,
   }, {
-    member_id: ruby,
+    member_id: ruby.id,
     subscribeable: tsd,
   }, {
-    member_id: buth,
+    member_id: buth.id,
     subscribeable: fro,
   }, {
-    member_id: relevee,
+    member_id: relevee.id,
     subscribeable: fro,
   }, {
-    member_id: toosh,
+    member_id: toosh.id,
     subscribeable: fro,
   }, {
-    member_id: demo,
+    member_id: demo.id,
     subscribeable: fro,
   }, {
-    member_id: ribs,
+    member_id: ribs.id,
     subscribeable: dfr,
   }, {
-    member_id: van,
+    member_id: van.id,
     subscribeable: dfr,
   }
 ])
