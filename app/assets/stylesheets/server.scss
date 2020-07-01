@@ -1,3 +1,6 @@
+.server-bar-wrapper {
+  position: relative;
+}
 .server-bar {
   width: 72px;
   height: 100vh;
@@ -7,6 +10,7 @@
   align-items: center;
   // z-index: 5;
   // overflow-y: scroll;
+  // overflow-x: visible;å
   // -ms-overflow-style: none;
   // &::-webkit-scrollbar {
   //   display: none;
