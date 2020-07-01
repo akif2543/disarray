@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 import Tooltip from "../../ui/tooltip";
 
 class ServerBarIcon extends React.Component {
@@ -7,10 +8,10 @@ class ServerBarIcon extends React.Component {
     super(props);
     this.state = {
       tooltip: false,
-      contextMenu: false,
     };
     this.showTooltip = this.showTooltip.bind(this);
     this.hideTooltip = this.hideTooltip.bind(this);
+    this.icon = React.createRef();
   }
 
   showTooltip() {
@@ -27,7 +28,7 @@ class ServerBarIcon extends React.Component {
       .split(" ")
       .map((w) => w[0])
       .join("");
-    const { tooltip, contextMenu } = this.state;
+    const { tooltip } = this.state;
     return (
       <div>
         <Link to={`/channels/${server.id}/${server.channels[0]}`}>
@@ -38,11 +39,14 @@ class ServerBarIcon extends React.Component {
             onFocus={this.showTooltip}
             onMouseOut={this.hideTooltip}
             onBlur={this.hideTooltip}
+            ref={this.icon}
           >
             {!server.icon && <h1>{initials}</h1>}
           </button>
         </Link>
-        {tooltip && <Tooltip text={server.name} className="s-icon-tt" />}
+        {tooltip && (
+          <Tooltip text={server.name} className="s-icon-tt" icon={this.icon} />
+        )}
       </div>
     );
   }

@@ -9,12 +9,12 @@
   flex-direction: column;
   align-items: center;
   // z-index: 5;
-  // overflow-y: scroll;
-  // overflow-x: visible;å
-  // -ms-overflow-style: none;
-  // &::-webkit-scrollbar {
-  //   display: none;
-  // }
+  overflow-y: scroll;
+  // overflow-x: visible;
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   .server-list {
     display: flex;
@@ -427,7 +427,9 @@
 }
 
 .s-icon-tt {
-  left: 20px;
+  // position: absolute;
+  transform: translateX(20px);
+  // left: 20px;
 
   .tooltip-content {
     h1 {

@@ -22,7 +22,7 @@
   width: 240px;
   background: $dk-sidebar;
   color: rgb(140, 143, 148);
-  // overflow-y: scroll;
+  overflow-y: scroll;
 
   h4 {
     font: {
@@ -185,7 +185,7 @@
 .channel-list {
   color: rgb(114, 118, 125);
   height: calc(100vh - 50px - 53px);
-  // overflow-y: scroll;
+  overflow-y: scroll;
 
   header {
     padding: 10px 5px 0;

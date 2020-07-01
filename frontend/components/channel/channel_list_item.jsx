@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
@@ -10,6 +10,9 @@ const ChannelListItem = ({
   isOwner,
   isActive,
 }) => {
+  const inviteEl = useRef(null);
+  const editEl = useRef(null);
+
   const [tooltips, setTooltips] = useState({ invite: false, edit: false });
   const [maxLength, setMaxLength] = useState(22);
 
@@ -42,19 +45,22 @@ const ChannelListItem = ({
         <h3>{formatName(channel.name)}</h3>
       </div>
       <div className="icon-grp">
-        {invite && <Tooltip text="Create Invite" className="cl-tt i inv" />}
-        <FontAwesomeIcon
-          icon="user-plus"
-          onClick={() => openModal("invite")}
-          onMouseOver={showTooltip("invite")}
-          onFocus={showTooltip("invite")}
-          onMouseOut={hideTooltip("invite")}
-          onBlur={hideTooltip("invite")}
-        />
+        <div ref={inviteEl}>
+          <FontAwesomeIcon
+            icon="user-plus"
+            onClick={() => openModal("invite")}
+            onMouseOver={showTooltip("invite")}
+            onFocus={showTooltip("invite")}
+            onMouseOut={hideTooltip("invite")}
+            onBlur={hideTooltip("invite")}
+          />
+        </div>
+        {invite && (
+          <Tooltip text="Create Invite" className="cl-tt i inv" el={inviteEl} />
+        )}
 
         {isOwner && (
-          <div>
-            {edit && <Tooltip text="Edit Channel" className="cl-tt i" />}
+          <div ref={inviteEl}>
             <FontAwesomeIcon
               icon="cog"
               onClick={() => openSettings("channel")}
@@ -63,6 +69,9 @@ const ChannelListItem = ({
               onMouseOut={hideTooltip("edit")}
               onBlur={hideTooltip("edit")}
             />
+            {edit && (
+              <Tooltip text="Edit Channel" className="cl-tt i" el={editEl} />
+            )}
           </div>
         )}
       </div>

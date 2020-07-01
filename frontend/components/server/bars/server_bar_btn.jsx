@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../../ui/tooltip";
 
 const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
+  const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
 
   const showTooltip = () => setTooltip(true);
@@ -22,10 +23,11 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
               onFocus={showTooltip}
               onMouseOut={hideTooltip}
               onBlur={hideTooltip}
+              ref={el}
             >
               <img src={window.logoIconURL} />
             </button>
-            {tooltip && <Tooltip text="Home" className="s-icon-tt" />}
+            {tooltip && <Tooltip text="Home" className="s-icon-tt" el={el} />}
             <div className="home-btn-divider" />
           </Link>
         </div>
@@ -41,10 +43,13 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
             onFocus={showTooltip}
             onMouseOut={hideTooltip}
             onBlur={hideTooltip}
+            ref={el}
           >
             <FontAwesomeIcon icon="plus" size="lg" />
           </button>
-          {tooltip && <Tooltip text="Add a Server" className="s-icon-tt" />}
+          {tooltip && (
+            <Tooltip text="Add a Server" className="s-icon-tt" el={el} />
+          )}
         </div>
       );
     case "explore":
@@ -58,6 +63,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
               onFocus={showTooltip}
               onMouseOut={hideTooltip}
               onBlur={hideTooltip}
+              ref={el}
             >
               <FontAwesomeIcon icon="compass" size="lg" />
             </button>
@@ -66,6 +72,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
             <Tooltip
               text="Explore Public Servers [NYI]"
               className="s-icon-tt"
+              el={el}
             />
           )}
           <div className="home-btn-divider" />
