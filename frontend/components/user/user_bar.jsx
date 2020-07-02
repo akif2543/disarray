@@ -1,8 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
 
 const UserBar = ({ currentUser, openSettings }) => {
+  const settingsEl = useRef(null);
+  const deafenEl = useRef(null);
+  const muteEl = useRef(null);
+
   const [settings, setSettings] = useState(false);
   const [deafen, setDeafen] = useState(false);
   const [mute, setMute] = useState(false);
@@ -26,7 +30,6 @@ const UserBar = ({ currentUser, openSettings }) => {
         </ul>
       </div>
       <ul className="user-bar-ilist">
-        {mute && <Tooltip text="Mute [NYI]" className="u-bar-tt mute" />}
         <button
           type="button"
           className="user-bar-icon"
@@ -34,11 +37,13 @@ const UserBar = ({ currentUser, openSettings }) => {
           onFocus={showMute}
           onMouseOut={hideMute}
           onBlur={hideMute}
+          ref={muteEl}
         >
           <FontAwesomeIcon icon="microphone" />
         </button>
-
-        {deafen && <Tooltip text="Deafen [NYI]" className="u-bar-tt" />}
+        {mute && (
+          <Tooltip text="Mute [NYI]" className="u-bar-tt mute" el={muteEl} />
+        )}
         <button
           type="button"
           className="user-bar-icon"
@@ -46,10 +51,13 @@ const UserBar = ({ currentUser, openSettings }) => {
           onFocus={showDeafen}
           onMouseOut={hideDeafen}
           onBlur={hideDeafen}
+          ref={deafenEl}
         >
           <FontAwesomeIcon icon="headphones-alt" />
         </button>
-        {settings && <Tooltip text="User Settings" className="u-bar-tt" />}
+        {deafen && (
+          <Tooltip text="Deafen [NYI]" className="u-bar-tt" el={deafenEl} />
+        )}
         <button
           type="button"
           className="user-bar-icon"
@@ -61,6 +69,9 @@ const UserBar = ({ currentUser, openSettings }) => {
         >
           <FontAwesomeIcon icon="cog" />
         </button>
+        {settings && (
+          <Tooltip text="User Settings" className="u-bar-tt" el={settingsEl} />
+        )}
       </ul>
     </div>
   );

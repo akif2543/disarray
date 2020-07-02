@@ -19,12 +19,19 @@ const Tooltip = ({ text, className, el }) => {
           right: `${-36}px`,
         };
         break;
+      case "cl-tt add-dm":
+        style = {
+          top: `${-26}px`,
+          right: `${-22}px`,
+        };
+        break;
       case "cl-tt inv":
         style = {
           top: `${top - offsetTop}px`,
           // right: `${-36}px`,
         };
         break;
+      case ""
       default:
         break;
     }
