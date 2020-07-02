@@ -45,7 +45,7 @@ class ServerBarIcon extends React.Component {
           </button>
         </Link>
         {tooltip && (
-          <Tooltip text={server.name} className="s-icon-tt" icon={this.icon} />
+          <Tooltip text={server.name} className="s-icon-tt" el={this.icon} />
         )}
       </div>
     );

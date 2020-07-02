@@ -182,6 +182,10 @@
   }
 }
 
+.channel-list-wrapper {
+  position: relative;
+}
+
 .channel-list {
   color: rgb(114, 118, 125);
   height: calc(100vh - 50px - 53px);
@@ -212,7 +216,7 @@
     }
 
     .add-channel-group {
-      position: relative;
+      // position: relative;
       .add-channel {
         padding-right: 15px;
         align-self: center;
@@ -243,7 +247,7 @@
     align-items: center;
     padding: 6px 6px;
     margin-bottom: 2px;
-    position: relative;
+    // position: relative;
 
     div {
       display: flex;

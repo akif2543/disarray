@@ -60,7 +60,7 @@ const ChannelListItem = ({
         )}
 
         {isOwner && (
-          <div ref={inviteEl}>
+          <div ref={editEl}>
             <FontAwesomeIcon
               icon="cog"
               onClick={() => openSettings("channel")}
