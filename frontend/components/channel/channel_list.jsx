@@ -47,37 +47,37 @@ const ChannelList = ({
   });
 
   return (
-    <div className="channel-list-wrapper">
-      <nav className="channel-list">
-        <header>
-          <h2 onClick={toggleCollapse}>
-            {collapse ? (
-              <FontAwesomeIcon icon="angle-right" size="xs" />
-            ) : (
-              <FontAwesomeIcon icon="angle-down" size="xs" />
-            )}
-            TEXT CHANNELS
-          </h2>
-          {isOwner && (
-            <div className="add-channel-group" ref={el}>
-              <FontAwesomeIcon
-                icon="plus"
-                className="add-channel"
-                onClick={() => openModal("add channel")}
-                onMouseOver={showTooltip}
-                onFocus={showTooltip}
-                onMouseOut={hideTooltip}
-                onBlur={hideTooltip}
-              />
-              {tooltip && (
-                <Tooltip text="Create Channel" className="cl-tt add" el={el} />
-              )}
-            </div>
+    // <div className="channel-list-wrapper">
+    <nav className="channel-list">
+      <header>
+        <h2 onClick={toggleCollapse}>
+          {collapse ? (
+            <FontAwesomeIcon icon="angle-right" size="xs" />
+          ) : (
+            <FontAwesomeIcon icon="angle-down" size="xs" />
           )}
-        </header>
-        <ul>{c}</ul>
-      </nav>
-    </div>
+          TEXT CHANNELS
+        </h2>
+        {isOwner && (
+          <div className="add-channel-group" ref={el}>
+            <FontAwesomeIcon
+              icon="plus"
+              className="add-channel"
+              onClick={() => openModal("add channel")}
+              onMouseOver={showTooltip}
+              onFocus={showTooltip}
+              onMouseOut={hideTooltip}
+              onBlur={hideTooltip}
+            />
+            {tooltip && (
+              <Tooltip text="Create Channel" className="cl-tt add" el={el} />
+            )}
+          </div>
+        )}
+      </header>
+      <ul>{c}</ul>
+    </nav>
+    // </div>
   );
 };
 

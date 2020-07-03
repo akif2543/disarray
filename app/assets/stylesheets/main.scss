@@ -197,6 +197,7 @@
       cursor: pointer;
       border-radius: 4px;
       color: $dk-icons;
+      position: relative;
 
       & > * {
         font-size: 18px;
@@ -278,8 +279,7 @@
 }
 
 .u-bar-tt {
-  bottom: 42px;
-  right: 37px;
+  bottom: 45px;
 }
 
 .u-bar-tt,
@@ -312,15 +312,22 @@
 }
 
 .u-bar-tt.deafen {
-  right: 20px;
+  right: 22px;
+  // left: 220px;
 }
 
 .u-bar-tt.mute {
-  // right: 15px;
-  right: 31px;
+  right: 62px;
+  // left: 191px;
 }
 
-.cl-tt.i {
+.u-bar-tt.set {
+  // left: 234px;
+  right: -28px;
+}
+
+.cl-tt.inv,
+.cl-tt.edit {
   // bottom: 35px;
   // right: 46px;
 

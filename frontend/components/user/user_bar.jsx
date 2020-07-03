@@ -1,12 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
 
 const UserBar = ({ currentUser, openSettings }) => {
-  const settingsEl = useRef(null);
-  const deafenEl = useRef(null);
-  const muteEl = useRef(null);
-
   const [settings, setSettings] = useState(false);
   const [deafen, setDeafen] = useState(false);
   const [mute, setMute] = useState(false);
@@ -37,13 +33,10 @@ const UserBar = ({ currentUser, openSettings }) => {
           onFocus={showMute}
           onMouseOut={hideMute}
           onBlur={hideMute}
-          ref={muteEl}
         >
           <FontAwesomeIcon icon="microphone" />
         </button>
-        {mute && (
-          <Tooltip text="Mute [NYI]" className="u-bar-tt mute" el={muteEl} />
-        )}
+        {mute && <Tooltip text="Mute" className="u-bar-tt mute" />}
         <button
           type="button"
           className="user-bar-icon"
@@ -51,13 +44,10 @@ const UserBar = ({ currentUser, openSettings }) => {
           onFocus={showDeafen}
           onMouseOut={hideDeafen}
           onBlur={hideDeafen}
-          ref={deafenEl}
         >
           <FontAwesomeIcon icon="headphones-alt" />
         </button>
-        {deafen && (
-          <Tooltip text="Deafen [NYI]" className="u-bar-tt" el={deafenEl} />
-        )}
+        {deafen && <Tooltip text="Deafen" className="u-bar-tt deafen" />}
         <button
           type="button"
           className="user-bar-icon"
@@ -69,9 +59,7 @@ const UserBar = ({ currentUser, openSettings }) => {
         >
           <FontAwesomeIcon icon="cog" />
         </button>
-        {settings && (
-          <Tooltip text="User Settings" className="u-bar-tt" el={settingsEl} />
-        )}
+        {settings && <Tooltip text="User Settings" className="u-bar-tt set" />}
       </ul>
     </div>
   );

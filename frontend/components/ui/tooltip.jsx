@@ -5,7 +5,13 @@ const Tooltip = ({ text, className, el }) => {
 
   if (el && el.current) {
     // debugger;
-    const { top, height, left } = el.current.getBoundingClientRect();
+    const {
+      top,
+      height,
+      left,
+      width,
+      right,
+    } = el.current.getBoundingClientRect();
     const { offsetTop } = el.current;
     switch (className) {
       case "s-icon-tt":
@@ -15,7 +21,7 @@ const Tooltip = ({ text, className, el }) => {
         break;
       case "cl-tt add":
         style = {
-          top: `${-26}px`,
+          top: `${24}px`,
           right: `${-36}px`,
         };
         break;
@@ -27,11 +33,16 @@ const Tooltip = ({ text, className, el }) => {
         break;
       case "cl-tt inv":
         style = {
-          top: `${top - offsetTop}px`,
-          // right: `${-36}px`,
+          top: `${top - height * 3.5}px`,
+          right: `${-10}px`,
         };
         break;
-      case ""
+      case "cl-tt edit":
+        style = {
+          top: `${top - height * 3.5}px`,
+          right: `${-27}px`,
+        };
+        break;
       default:
         break;
     }

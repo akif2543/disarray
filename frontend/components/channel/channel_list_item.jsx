@@ -56,7 +56,7 @@ const ChannelListItem = ({
           />
         </div>
         {invite && (
-          <Tooltip text="Create Invite" className="cl-tt i inv" el={inviteEl} />
+          <Tooltip text="Create Invite" className="cl-tt inv" el={inviteEl} />
         )}
 
         {isOwner && (
@@ -70,7 +70,7 @@ const ChannelListItem = ({
               onBlur={hideTooltip("edit")}
             />
             {edit && (
-              <Tooltip text="Edit Channel" className="cl-tt i" el={editEl} />
+              <Tooltip text="Edit Channel" className="cl-tt edit" el={editEl} />
             )}
           </div>
         )}
