@@ -16,6 +16,7 @@ const MemberPopout = ({
   history,
   directMessage,
   el,
+  chat,
 }) => {
   const [body, setBody] = useState("");
 
@@ -35,10 +36,19 @@ const MemberPopout = ({
   }, []);
 
   if (el && el.current) {
-    const { top, bottom } = el.current.getBoundingClientRect();
+    const { top, bottom, right } = el.current.getBoundingClientRect();
     const below = window.innerHeight - bottom;
 
-    style = top > below ? { bottom: `${below}px` } : { top: `${top}px` };
+    if (chat) {
+      const offsetX = right - 306;
+      const offsetY = top - 50;
+      style =
+        top > below
+          ? { bottom: `${below}px`, left: `${offsetX}px` }
+          : { top: `${offsetY}px`, left: `${offsetX}px` };
+    } else {
+      style = top > below ? { bottom: `${below}px` } : { top: `${top}px` };
+    }
 
     console.log(el.current.getBoundingClientRect());
   }

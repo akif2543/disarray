@@ -1,3 +1,7 @@
+.chat-room {
+  position: relative;
+}
+
 .chat {
   width: calc(100vw - 554px);
   height: calc(100vh - 120px);
@@ -5,7 +9,6 @@
   padding: 0 17px 25px 0;
 
   .message {
-    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -22,15 +25,9 @@
     }
 
     .content {
-      position: relative;
       margin-left: 15px;
       display: flex;
       flex-direction: column;
-
-      .popout {
-        left: 75px;
-        top: 0;
-      }
 
       .msg-head {
         display: flex;
@@ -53,11 +50,7 @@
           }
         }
 
-        .msg-anchor {
-          position: relative;
-        }
-
-        span {
+        .date {
           padding-left: 8px;
           color: rgb(114, 118, 125);
           font: {
@@ -85,12 +78,12 @@
     margin-top: 3px;
     min-height: 25px;
 
-    span {
-      display: none;
-      position: absolute;
+    .date {
+      width: 45px;
+      opacity: 0;
       color: rgb(114, 118, 125);
       font: {
-        size: 11px;
+        size: 10px;
         family: "Whitney Medium";
       }
     }
@@ -100,14 +93,14 @@
     }
 
     .content.short {
-      padding-left: 40px;
+      margin-left: 10.5px;
       header {
         display: none;
       }
     }
     &:hover {
-      span {
-        display: inline-block;
+      .date {
+        opacity: 1;
       }
     }
   }
