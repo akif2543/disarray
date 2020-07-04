@@ -82,13 +82,20 @@
       margin-left: 20px;
       height: 20px;
       cursor: pointer;
+      position: relative;
+      color: $dk-icons;
+
+      & > * {
+        height: 100%;
+        width: auto;
+      }
 
       &:hover {
         color: $dk-white;
       }
     }
 
-    svg:first-of-type {
+    .nav-icon.f {
       margin-left: 10px;
     }
 
@@ -213,7 +220,6 @@
 
 .tooltip {
   position: absolute;
-  // transform: translate(60px, 30px);
   display: inline-flex;
   align-items: center;
   z-index: 999;
@@ -227,20 +233,16 @@
     padding: 5px;
     border-radius: 6px;
     display: flex;
-    // position: absolute;
-    // z-index: 999;
 
     h1 {
       margin: 0 auto;
       padding: 0 10px;
-      // z-index: 999;
     }
   }
 }
 
 .nav-tt {
-  top: 40px;
-  right: 20px;
+  top: 44px;
 
   .tooltip-content {
     &:after {
@@ -254,28 +256,6 @@
       border-color: transparent transparent $dk-dropdown-bg transparent;
     }
   }
-}
-
-.nav-tt.pin,
-.nav-tt.bell {
-  right: 56px;
-}
-
-.nav-tt.add-user {
-  right: 60px;
-}
-
-.nav-tt.mentions,
-.nav-tt.contact {
-  top: 35px;
-}
-
-.nav-tt.mentions {
-  right: 63px;
-}
-
-.nav-tt.contact {
-  right: 17px;
 }
 
 .u-bar-tt {
@@ -313,42 +293,22 @@
 
 .u-bar-tt.deafen {
   right: 23px;
-  // left: 220px;
 }
 
 .u-bar-tt.mute {
   right: 61px;
-  // left: 191px;
 }
 
 .u-bar-tt.set {
-  // left: 234px;
   right: -28px;
 }
 
 .cl-tt.inv,
 .cl-tt.edit {
-  // bottom: 35px;
-  // right: 46px;
-
   .tooltip-content {
     padding-top: 10px;
   }
 }
-
-.cl-tt.i.inv {
-  // right: 43px;
-}
-
-.cl-tt.add {
-  // bottom: 38px;
-  // right: 55px;
-}
-
-// .cl-tt.add-dm {
-//   bottom: 38px;
-//   right: 42px;
-// }
 
 .side-bar.convo {
   position: relative;

@@ -46,20 +46,22 @@ const Conversation = ({
         toggleMemberBar={toggleMemberBar}
       />
       {/* {sidebarOpen && <MemberBar members={members}/>} */}
-      <ChatStream
-        messages={messages || []}
-        memberbar={false}
-        fetchMessages={fetchMessages}
-      />
-      {conversation && (
-        <NewMessageForm
-          name={otherUser ? `@${otherUser.username}` : ""}
-          id={conversationId}
+      <div className="chat-room">
+        <ChatStream
+          messages={messages || []}
           memberbar={false}
-          type="Conversation"
-          author={currentUser}
+          fetchMessages={fetchMessages}
         />
-      )}
+        {conversation && (
+          <NewMessageForm
+            name={otherUser ? `@${otherUser.username}` : ""}
+            id={conversationId}
+            memberbar={false}
+            type="Conversation"
+            author={currentUser}
+          />
+        )}
+      </div>
     </div>
   );
 };

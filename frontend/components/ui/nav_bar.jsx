@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "./tooltip";
 
@@ -12,6 +12,14 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
     add: false,
     call: false,
   });
+
+  const muteEl = useRef(null);
+  const callEl = useRef(null);
+  const pinEl = useRef(null);
+  const memEl = useRef(null);
+  const addEl = useRef(null);
+  const atEl = useRef(null);
+  const gitEl = useRef(null);
 
   const showTooltip = (type) => () =>
     setTooltips({ ...tooltips, [type]: true });
@@ -47,89 +55,127 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
       >
         {channel && (
           <div className="channel">
-            {bell && (
-              <Tooltip text="Mute Channel [NYI]" className="nav-tt bell" />
-            )}
-            <FontAwesomeIcon
-              icon="bell"
-              size="lg"
-              className="nav-icon"
+            <button
+              type="button"
+              className="nav-icon f"
               onMouseOver={showTooltip("bell")}
               onFocus={showTooltip("bell")}
               onMouseOut={hideTooltip("bell")}
               onBlur={hideTooltip("bell")}
-            />
-            {pin && (
-              <Tooltip text="Pinned Messages [NYI]" className="nav-tt pin" />
+              ref={muteEl}
+            >
+              <FontAwesomeIcon icon="bell" size="lg" />
+            </button>
+            {bell && (
+              <Tooltip
+                text="Mute Channel [NYI]"
+                className="nav-tt mute"
+                el={muteEl}
+              />
             )}
-            <FontAwesomeIcon
-              icon="thumbtack"
-              size="lg"
-              transform={{ rotate: 45 }}
+            <button
+              type="button"
               className="nav-icon"
               onMouseOver={showTooltip("pin")}
               onFocus={showTooltip("pin")}
               onMouseOut={hideTooltip("pin")}
               onBlur={hideTooltip("pin")}
-            />
-            {members && (
-              <Tooltip text="Member List" className="nav-tt members" />
+              ref={pinEl}
+            >
+              <FontAwesomeIcon
+                icon="thumbtack"
+                size="lg"
+                transform={{ rotate: 45 }}
+              />
+            </button>
+            {pin && (
+              <Tooltip
+                text="Pinned Messages [NYI]"
+                className="nav-tt pin"
+                el={pinEl}
+              />
             )}
-            <FontAwesomeIcon
-              icon="user-friends"
-              size="lg"
+            <button
+              type="button"
               className={memberBar ? "nav-icon active" : "nav-icon"}
               onClick={toggleMemberBar}
               onMouseOver={showTooltip("members")}
               onFocus={showTooltip("members")}
               onMouseOut={hideTooltip("members")}
               onBlur={hideTooltip("members")}
-            />
+              ref={memEl}
+            >
+              <FontAwesomeIcon icon="user-friends" size="lg" />
+            </button>
+            {members && (
+              <Tooltip
+                text="Member List"
+                className="nav-tt members"
+                el={memEl}
+              />
+            )}
           </div>
         )}
         {otherUser && (
           <div className="channel">
-            {call && (
-              <Tooltip text="Start Voice Call [NYI]" className="nav-tt bell" />
-            )}
-            <FontAwesomeIcon
-              icon="phone-alt"
-              // size="lg"
-              className="nav-icon"
+            <button
+              type="button"
+              className="nav-icon f"
               onMouseOver={showTooltip("call")}
               onFocus={showTooltip("call")}
               onMouseOut={hideTooltip("call")}
               onBlur={hideTooltip("call")}
-            />
-            {pin && (
-              <Tooltip text="Pinned Messages [NYI]" className="nav-tt pin" />
+              ref={callEl}
+            >
+              <FontAwesomeIcon icon="phone-alt" size="lg" />
+            </button>
+            {call && (
+              <Tooltip
+                text="Start Voice Call [NYI]"
+                className="nav-tt call"
+                el={callEl}
+              />
             )}
-            <FontAwesomeIcon
-              icon="thumbtack"
-              size="lg"
-              transform={{ rotate: 45 }}
+            <button
+              type="button"
               className="nav-icon"
               onMouseOver={showTooltip("pin")}
               onFocus={showTooltip("pin")}
               onMouseOut={hideTooltip("pin")}
               onBlur={hideTooltip("pin")}
-            />
-            {add && (
+              ref={pinEl}
+            >
+              <FontAwesomeIcon
+                icon="thumbtack"
+                size="lg"
+                transform={{ rotate: 45 }}
+              />
+            </button>
+            {pin && (
               <Tooltip
-                text="Add Friends to DM [NYI]"
-                className="nav-tt add-user"
+                text="Pinned Messages [NYI]"
+                className="nav-tt pin"
+                el={pinEl}
               />
             )}
-            <FontAwesomeIcon
-              icon="user-plus"
-              // size="lg"
-              className={memberBar ? "nav-icon active" : "nav-icon"}
-              onClick={toggleMemberBar}
+            <button
+              type="button"
+              className="nav-icon"
               onMouseOver={showTooltip("add")}
               onFocus={showTooltip("add")}
               onMouseOut={hideTooltip("add")}
               onBlur={hideTooltip("add")}
-            />
+              ref={addEl}
+            >
+              <FontAwesomeIcon icon="user-plus" />
+            </button>
+            {add && (
+              <Tooltip
+                text="Add Friends to DM [NYI]"
+                className="nav-tt add-user"
+                el={addEl}
+              />
+            )}
           </div>
         )}
         <div
@@ -141,30 +187,39 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
           <FontAwesomeIcon icon="search" className="search-icon" />
         </div>
         <div className="user-icons">
-          {mentions && (
-            <Tooltip text="Recent Mentions [NYI]" className="nav-tt mentions" />
-          )}
-          <FontAwesomeIcon
-            icon="at"
-            size="lg"
+          <button
+            type="button"
             className="nav-icon"
             onMouseOver={showTooltip("mentions")}
             onFocus={showTooltip("mentions")}
             onMouseOut={hideTooltip("mentions")}
             onBlur={hideTooltip("mentions")}
-          />
-          {contact && <Tooltip text="Contact" className="nav-tt contact" />}
-          <a href="https://www.github.com/akif2543">
-            <FontAwesomeIcon
-              icon={["fab", "github"]}
-              size="lg"
-              className="nav-icon"
-              onMouseOver={showTooltip("contact")}
-              onFocus={showTooltip("contact")}
-              onMouseOut={hideTooltip("contact")}
-              onBlur={hideTooltip("contact")}
+            ref={atEl}
+          >
+            <FontAwesomeIcon icon="at" size="lg" />
+          </button>
+          {mentions && (
+            <Tooltip
+              text="Recent Mentions [NYI]"
+              className="nav-tt at"
+              el={atEl}
             />
-          </a>
+          )}
+          <button
+            type="button"
+            href="https://www.github.com/akif2543"
+            className="nav-icon"
+            onMouseOver={showTooltip("contact")}
+            onFocus={showTooltip("contact")}
+            onMouseOut={hideTooltip("contact")}
+            onBlur={hideTooltip("contact")}
+            ref={gitEl}
+          >
+            <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
+          </button>
+          {contact && (
+            <Tooltip text="Contact" className="nav-tt git" el={gitEl} />
+          )}
         </div>
       </div>
     </nav>

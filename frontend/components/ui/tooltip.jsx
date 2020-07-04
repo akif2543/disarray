@@ -4,8 +4,7 @@ const Tooltip = ({ text, className, el }) => {
   let style;
 
   if (el && el.current) {
-    // debugger;
-    const { top, height } = el.current.getBoundingClientRect();
+    const { top, height, right, width } = el.current.getBoundingClientRect();
     switch (className) {
       case "s-icon-tt":
         style = {
@@ -34,6 +33,41 @@ const Tooltip = ({ text, className, el }) => {
         style = {
           top: `${top - height * 3.5}px`,
           right: `${-27}px`,
+        };
+        break;
+      case "nav-tt mute":
+        style = {
+          left: `${right - 74 - width / 2}px`,
+        };
+        break;
+      case "nav-tt call":
+        style = {
+          left: `${right - 79 - width / 2}px`,
+        };
+        break;
+      case "nav-tt pin":
+        style = {
+          left: `${right - 85 - width / 2}px`,
+        };
+        break;
+      case "nav-tt members":
+        style = {
+          left: `${right - 52 - width / 2}px`,
+        };
+        break;
+      case "nav-tt add-user":
+        style = {
+          left: `${right - 90 - width / 2}px`,
+        };
+        break;
+      case "nav-tt at":
+        style = {
+          left: `${right - 83 - width / 2}px`,
+        };
+        break;
+      case "nav-tt git":
+        style = {
+          left: `${right - 38 - width / 2}px`,
         };
         break;
       default:
