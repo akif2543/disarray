@@ -37,9 +37,9 @@
     display: flex;
     flex-direction: column;
 
-    .member {
-      position: relative;
-    }
+    // .member {
+    //   position: relative;
+    // }
 
     button {
       width: 100%;
@@ -82,7 +82,7 @@
 
 .popout {
   position: absolute;
-  right: 225px;
+  right: 230px;
   width: 250px;
   border: 1px solid $dk-search-bg;
   border-radius: 4px;

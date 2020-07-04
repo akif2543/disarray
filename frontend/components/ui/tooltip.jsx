@@ -5,14 +5,7 @@ const Tooltip = ({ text, className, el }) => {
 
   if (el && el.current) {
     // debugger;
-    const {
-      top,
-      height,
-      left,
-      width,
-      right,
-    } = el.current.getBoundingClientRect();
-    const { offsetTop } = el.current;
+    const { top, height } = el.current.getBoundingClientRect();
     switch (className) {
       case "s-icon-tt":
         style = {
@@ -21,13 +14,13 @@ const Tooltip = ({ text, className, el }) => {
         break;
       case "cl-tt add":
         style = {
-          top: `${24}px`,
+          top: `${22}px`,
           right: `${-36}px`,
         };
         break;
       case "cl-tt add-dm":
         style = {
-          top: `${-26}px`,
+          top: `${-29}px`,
           right: `${-22}px`,
         };
         break;
@@ -46,8 +39,6 @@ const Tooltip = ({ text, className, el }) => {
       default:
         break;
     }
-    console.log(el.current.getBoundingClientRect());
-    console.log(`offsetTop: ${el.current.offsetTop}`);
   }
   return (
     <div className={`tooltip ${className}`} style={style}>

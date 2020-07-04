@@ -312,12 +312,12 @@
 }
 
 .u-bar-tt.deafen {
-  right: 22px;
+  right: 23px;
   // left: 220px;
 }
 
 .u-bar-tt.mute {
-  right: 62px;
+  right: 61px;
   // left: 191px;
 }
 
@@ -351,6 +351,7 @@
 // }
 
 .side-bar.convo {
+  position: relative;
   .convo-search {
     cursor: default;
     height: 50px;

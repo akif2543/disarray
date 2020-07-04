@@ -15,12 +15,14 @@ const MemberPopout = ({
   createConversation,
   history,
   directMessage,
+  el,
 }) => {
   const [body, setBody] = useState("");
 
   const handleChange = (e) => setBody(e.target.value);
 
   let node;
+  let style;
 
   const handleClick = (e) => {
     if (node.contains(e.target)) return;
@@ -31,6 +33,15 @@ const MemberPopout = ({
     document.addEventListener("mousedown", handleClick, false);
     return () => document.removeEventListener("mousedown", handleClick, false);
   }, []);
+
+  if (el && el.current) {
+    const { top, bottom } = el.current.getBoundingClientRect();
+    const below = window.innerHeight - bottom;
+
+    style = top > below ? { bottom: `${below}px` } : { top: `${top}px` };
+
+    console.log(el.current.getBoundingClientRect());
+  }
 
   const getConversation = () =>
     m.conversations.find((id) => currentUser.conversations.includes(id));
@@ -52,7 +63,7 @@ const MemberPopout = ({
   };
 
   return (
-    <div className="popout" ref={(elem) => (node = elem)}>
+    <div className="popout" ref={(elem) => (node = elem)} style={style}>
       <header className="popout-head">
         <img src={m.avatar} alt="" />
         <div className="user">
