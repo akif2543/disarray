@@ -4,7 +4,7 @@ class Api::MessagesController < ApplicationController
     time = Time.at(params[:before].to_i/1000.0)
     @messages = Message
       .includes(:author)
-      .where("messageable_type = 'Channel' AND messageable_id = :id AND created_at < :date", { id: params[:channel_id], date: time })
+      .where("messageable_type = :type AND messageable_id = :id AND created_at < :date", { type: params[:t] ? 'Channel' : 'Conversation', id: params[:channel_id], date: time })
       .order(:created_at)
       .limit(20)
     render :index

@@ -103,5 +103,9 @@ export const getConversationMessages = (state, props) => {
     .map((id) => state.entities.messages[id])
     .map((m) =>
       m === undefined ? null : { ...m, author: state.entities.users[m.author] }
-    );
+    )
+    .sort((a, b) => {
+      if (!a || !b) return;
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
 };

@@ -51,6 +51,8 @@ const Conversation = ({
           messages={messages || []}
           memberbar={false}
           fetchMessages={fetchMessages}
+          id={conversationId}
+          type="Conversation"
         />
         {conversation && (
           <NewMessageForm

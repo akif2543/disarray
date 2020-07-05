@@ -31,7 +31,7 @@ const mDTP = (dispatch) => ({
   receiveMessage: (message) => dispatch(receiveMessage(message)),
   showSidebar: () => dispatch(showSidebar()),
   hideSidebar: () => dispatch(hideSidebar()),
-  fetchMessages: (id, time) => dispatch(fetchMessages(id, time)),
+  fetchMessages: (type, id, time) => dispatch(fetchMessages(type, id, time)),
   updateMessage: (message) => dispatch(updateMessage(message)),
   deleteMessage: (id) => dispatch(deleteMessage(id)),
 });

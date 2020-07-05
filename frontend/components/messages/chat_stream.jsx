@@ -1,79 +1,9 @@
-import React, { useRef, useEffect, useState } from "react";
+import React from "react";
 import shortid from "shortid";
 import debounce from "lodash.debounce";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Message from "./message";
-
-// const ChatStream = ({ memberbar, messages, id, fetchMessages }) => {
-//   const top = useRef(null);
-//   const bottom = useRef(null);
-//   const scroller = useRef(null);
-
-//   const timestamp = messages[0] ? messages[0].createdAt : null;
-
-//   const [lastTime, setLastTime] = useState(1);
-//   const [lastHeight, setLastHeight] = useState(0);
-//   const [load, setLoad] = useState(false);
-//   const [scrolling, setScrolling] = useState(false);
-
-//   const handleScroll = () => {
-//     // console.log(`scroller.current.scrollTop: ${scroller.current.scrollTop}`);
-//     // console.log(
-//     //   `scroller.current.clientHeight: ${scroller.current.clientHeight}`
-//     // );
-//     if (load || scroller.current.scrollTop !== 0) return;
-//     setLastHeight(scroller.current.scrollHeight);
-//     setScrolling(true);
-//     setLoad(true);
-//     setTimeout(() => setLoad(false), 2000);
-//   };
-
-//   useEffect(() => {
-//     scroller.current.addEventListener("scroll", debounce(handleScroll, 150));
-//     return () =>
-//       scroller.current.removeEventListener(
-//         "scroll",
-//         debounce(handleScroll, 150)
-//       );
-//   }, [scroller.current]);
-
-//   useEffect(() => {
-//     if (!scrolling && bottom.current) bottom.current.scrollIntoView();
-//     if (scrolling && bottom.current) {
-
-//       // scroller.current.scrollTop = scroller.current.scrollHeight - lastHeight;
-//     }
-//   }, [bottom.current]);
-
-//   useEffect(() => {
-//     if (!load || timestamp === lastTime) return;
-//     setLastTime(timestamp);
-//     const time = new Date(timestamp).getTime();
-//     fetchMessages(id, time);
-//   }, [load]);
-
-//   const seen = [];
-//   return (
-//     <main className={memberbar ? "chat" : "chat wide"} ref={scroller}>
-//       <ul className="message-list">
-//         {/* <div ref={top} /> */}
-//         <div ref={bottom} />
-//         {messages.map((m) => {
-//           if (m === undefined || !m) return null;
-//           seen.unshift(m.author.id);
-//           return (
-//             <Message
-//               key={shortid.generate()}
-//               m={m}
-//               bottom={bottom}
-//               short={seen[1] === m.author.id}
-//             />
-//           );
-//         })}
-//       </ul>
-//     </main>
-//   );
-// };
 
 class ChatStream extends React.Component {
   constructor(props) {
@@ -89,8 +19,9 @@ class ChatStream extends React.Component {
     this.scroller = React.createRef();
     this.handleScroll = this.handleScroll.bind(this);
     this.setTimestamp = this.setTimestamp.bind(this);
-    this.toggleLoad = this.toggleLoad.bind(this);
+    this.setSlice = this.setSlice.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
+    this.jumpBack = this.jumpBack.bind(this);
   }
 
   componentDidMount() {
@@ -106,26 +37,21 @@ class ChatStream extends React.Component {
       prevProps.messages[0] !== null &&
       prevProps.messages[0].id !== this.props.messages[0].id
     ) {
-      const scroller = this.scroller.current;
-      return scroller.scrollHeight;
+      return this.scroller.current.scrollHeight;
     }
     return null;
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     if (snapshot) {
-      debugger;
       this.scroller.current.scrollTop =
         this.scroller.current.scrollHeight - snapshot;
-      this.toggleLoad(false);
-      debugger;
+      this.setSlice("loading", false);
     } else if (prevProps.messages[0] !== this.props.messages[0]) {
       this.setTimestamp();
     } else if (this.state.loading && !prevState.loading) {
       this.handleLoad();
     } else if (this.bottom.current && !this.state.scrolling) {
-      this.bottom.current.scrollIntoView();
-    } else if (this.bottom.current && this.state.scrolling) {
       this.bottom.current.scrollIntoView();
     }
   }
@@ -139,31 +65,39 @@ class ChatStream extends React.Component {
 
   setTimestamp() {
     const ts = this.props.messages[0];
-    if (ts) this.setState({ timestamp: ts.createdAt });
+    if (ts) this.setSlice("timestamp", ts.createdAt);
+  }
+
+  setSlice(slice, update) {
+    this.setState({ [slice]: update });
+  }
+
+  triggerLoad() {
+    this.setState({ scrolling: true, loading: true, unreads: true });
   }
 
   handleScroll() {
     if (!this.scroller.current) return;
+    if (
+      this.scroller.current.scrollHeight - this.scroller.current.scrollTop ===
+      this.scroller.current.clientHeight
+    )
+      this.jumpBack();
     if (this.state.loading || this.scroller.current.scrollTop !== 0) return;
-    this.toggleScroll(true);
-    this.toggleLoad(true);
+    this.triggerLoad();
   }
 
-  toggleScroll(bool) {
-    this.setState({ scrolling: bool });
-  }
-
-  toggleLoad(bool) {
-    this.setState({ loading: bool });
+  jumpBack() {
+    this.setState({ scrolling: false, unreads: false });
   }
 
   handleLoad() {
     const { loading, timestamp, lastTime } = this.state;
     if (!loading || timestamp === lastTime) return;
-    this.setState({ lastTime: timestamp });
-    const { id, fetchMessages } = this.props;
+    this.setSlice("lastTime", timestamp);
+    const { id, fetchMessages, type } = this.props;
     const time = new Date(timestamp).getTime();
-    fetchMessages(id, time);
+    fetchMessages(type, id, time);
   }
 
   render() {
@@ -188,7 +122,18 @@ class ChatStream extends React.Component {
           })}
         </ul>
         {unreads && (
-          <div className="unread-alert">You have unread messages</div>
+          <div className={memberbar ? "unread-alert" : "unread-alert wide"}>
+            <button onClick={this.jumpBack} type="button">
+              You&apos;re Viewing Older Messages
+            </button>
+            <button onClick={this.jumpBack} type="button">
+              Jump To Present
+              <FontAwesomeIcon
+                icon="angle-down"
+                style={{ marginLeft: "10px" }}
+              />
+            </button>
+          </div>
         )}
       </main>
     );

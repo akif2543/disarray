@@ -1,7 +1,10 @@
 const MessageAPI = {
-  fetchMessages: (id, time) =>
+  fetchMessages: (type, id, time) =>
     $.ajax({
-      url: `/api/channels/${id}/messages?before=${time}`,
+      url:
+        type === "Channel"
+          ? `/api/channels/${id}/messages?before=${time}&t=true`
+          : `/api/conversations/${id}/messages?before=${time}&t=false`,
       method: "GET",
     }),
   updateMessage: (message) =>

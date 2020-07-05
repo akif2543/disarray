@@ -104,6 +104,35 @@
       }
     }
   }
+
+  .unread-alert {
+    position: absolute;
+    bottom: 64px;
+    left: 16px;
+    height: 30px;
+    width: calc(100vw - 586px);
+    padding-bottom: 5px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    background: $dk-unreads-bg;
+    border-radius: 8px 8px 0 0;
+    color: $dk-white;
+    opacity: 0.95;
+    transition: opacity 0.15s;
+    z-index: 2;
+
+    button {
+      font: {
+        family: "Whitney Medium";
+        weight: 400;
+      }
+      padding: 0 8px;
+    }
+  }
 }
 
 .new-message-form {
@@ -111,6 +140,7 @@
   min-height: 70px;
   max-height: 170px;
   padding: 0 16px 25px;
+  z-index: 3;
 
   .input-wrapper {
     min-height: 45px;
@@ -158,4 +188,8 @@
 .chat.wide,
 .new-message-form.wide {
   width: calc(100vw - 314px);
+}
+
+.unread-alert.wide {
+  width: calc(100vw - 346px);
 }

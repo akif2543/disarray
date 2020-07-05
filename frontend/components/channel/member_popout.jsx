@@ -49,8 +49,6 @@ const MemberPopout = ({
     } else {
       style = top > below ? { bottom: `${below}px` } : { top: `${top}px` };
     }
-
-    console.log(el.current.getBoundingClientRect());
   }
 
   const getConversation = () =>
