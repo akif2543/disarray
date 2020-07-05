@@ -22,10 +22,7 @@ const removeMessage = (message) => ({
 
 export const fetchMessages = (id, time) => (dispatch) =>
   MessageAPI.fetchMessages(id, time)
-    .then((messages) => {
-      debugger;
-      return dispatch(receiveMessages(messages));
-    })
+    .then((messages) => dispatch(receiveMessages(messages)))
     .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
 
 export const updateMessage = (message) => (dispatch) =>
