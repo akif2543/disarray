@@ -3,9 +3,6 @@ import MemberPopoutContainer from "../channel/member_popout";
 
 const Message = ({ m, bottom, short }) => {
   const el = useRef(null);
-  const shortEl = useRef(null);
-
-  let style;
 
   const [popout, setPopout] = useState(false);
   const togglePopout = () => setPopout(!popout);
@@ -15,12 +12,6 @@ const Message = ({ m, bottom, short }) => {
     const messageDate = date.getTime();
     return Math.floor((now - messageDate) / (24 * 3600 * 1000));
   };
-
-  // if (short && shortEl && shortEl.current) {
-  //   const { top } = shortEl.current.getBoundingClientRect();
-  //   const offsetY = top - 50;
-  //   style = { top: `${offsetY}px` };
-  // }
 
   const formatDate = (date) => {
     const mDate = new Date(date);
@@ -51,12 +42,8 @@ const Message = ({ m, bottom, short }) => {
   return (
     <div className={short ? "message short" : "message"}>
       <img src={m.author.avatar} alt="" className="avatar" />
-      {short && (
-        <span className="date" style={style}>
-          {shortDate(m.createdAt)}
-        </span>
-      )}
-      <div className={short ? "content short" : "content"} ref={shortEl}>
+      {short && <span className="date">{shortDate(m.createdAt)}</span>}
+      <div className={short ? "content short" : "content"}>
         <header className="msg-head">
           <h2 className="author-name" ref={el} onClick={togglePopout}>
             {m.author.username}

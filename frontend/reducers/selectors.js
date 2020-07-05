@@ -34,7 +34,11 @@ export const getCurrentChannel = (state, props) => {
 
 export const getServerMembers = (state, props) => {
   const { members } = getCurrentServer(state, props);
-  return members.map((m) => state.entities.users[m]);
+  return members
+    .map((m) => state.entities.users[m])
+    .sort((a, b) =>
+      a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+    );
 };
 
 export const getServerChannels = (state, props) => {
@@ -50,7 +54,11 @@ export const getTextChannelMessages = (state, props) => {
     .map((id) => state.entities.messages[id])
     .map((m) =>
       m === undefined ? null : { ...m, author: state.entities.users[m.author] }
-    );
+    )
+    .sort((a, b) => {
+      if (!a || !b) return;
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
 };
 
 export const getCurrentConversation = (state, props) => {

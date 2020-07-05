@@ -1,4 +1,4 @@
-@messages.each do |m|
+@messages.reverse.each do |m|
   json.messages do
     json.partial! "api/messages/message", message: m
   end

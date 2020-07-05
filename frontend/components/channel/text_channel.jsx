@@ -51,6 +51,7 @@ const TextChannel = ({
             messages={messages || []}
             memberbar={sidebarOpen}
             fetchMessages={fetchMessages}
+            id={channel ? channel.id : null}
           />
           {channel && (
             <NewMessageForm
