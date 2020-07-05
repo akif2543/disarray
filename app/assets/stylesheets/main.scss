@@ -84,6 +84,7 @@
       cursor: pointer;
       position: relative;
       color: $dk-icons;
+      padding: 1px;
 
       & > * {
         height: 100%;
@@ -452,6 +453,7 @@
     h2 {
       color: rgb(138, 141, 146);
       font: {
+        family: "Whitney Medium";
         size: 16px;
       }
     }

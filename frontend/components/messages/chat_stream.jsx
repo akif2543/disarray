@@ -34,7 +34,8 @@ class ChatStream extends React.Component {
   getSnapshotBeforeUpdate(prevProps) {
     if (
       prevProps.messages.length &&
-      prevProps.messages[0] !== null &&
+      prevProps.messages[0] &&
+      this.props.messages[0] &&
       prevProps.messages[0].id !== this.props.messages[0].id
     ) {
       return this.scroller.current.scrollHeight;
