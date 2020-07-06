@@ -13,7 +13,6 @@ class ChatStream extends React.Component {
       lastTime: 1,
       loading: false,
       scrolling: false,
-      unreads: false,
     };
     this.bottom = React.createRef();
     this.scroller = React.createRef();
@@ -44,6 +43,15 @@ class ChatStream extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
+    const { type, id } = this.props;
+    if (
+      (type === prevProps.type && id !== prevProps.id) ||
+      (type !== prevProps.type && id === prevProps.id)
+    ) {
+      this.resetState();
+      return;
+    }
+
     if (snapshot) {
       this.scroller.current.scrollTop =
         this.scroller.current.scrollHeight - snapshot;
@@ -73,12 +81,25 @@ class ChatStream extends React.Component {
     this.setState({ [slice]: update });
   }
 
+  resetState() {
+    this.setState({
+      timestamp: null,
+      lastTime: 1,
+      loading: false,
+      scrolling: false,
+    });
+  }
+
   triggerLoad() {
-    this.setState({ scrolling: true, loading: true, unreads: true });
+    this.setState({ scrolling: true, loading: true });
   }
 
   handleScroll() {
     if (!this.scroller.current) return;
+    if (
+      this.scroller.current.scrollHeight === this.scroller.current.clientHeight
+    )
+      return;
     if (
       this.scroller.current.scrollHeight - this.scroller.current.scrollTop ===
       this.scroller.current.clientHeight
@@ -89,7 +110,7 @@ class ChatStream extends React.Component {
   }
 
   jumpBack() {
-    this.setState({ scrolling: false, unreads: false });
+    this.setState({ scrolling: false });
   }
 
   handleLoad() {
@@ -104,7 +125,7 @@ class ChatStream extends React.Component {
   render() {
     const seen = [];
     const { memberbar, messages } = this.props;
-    const { unreads } = this.state;
+    const { scrolling } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
         <ul className="message-list">
@@ -122,7 +143,7 @@ class ChatStream extends React.Component {
             );
           })}
         </ul>
-        {unreads && (
+        {scrolling && (
           <div className={memberbar ? "unread-alert" : "unread-alert wide"}>
             <button onClick={this.jumpBack} type="button">
               You&apos;re Viewing Older Messages
