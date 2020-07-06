@@ -47,7 +47,6 @@ const ChannelList = ({
   });
 
   return (
-    // <div className="channel-list-wrapper">
     <nav className="channel-list">
       <header>
         <h2 onClick={toggleCollapse}>
@@ -77,7 +76,6 @@ const ChannelList = ({
       </header>
       <ul>{c}</ul>
     </nav>
-    // </div>
   );
 };
 

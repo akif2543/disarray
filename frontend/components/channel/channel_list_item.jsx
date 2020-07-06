@@ -29,7 +29,7 @@ const ChannelListItem = ({
   const formatName = (name) => {
     if (name.length < 18) return name;
     if (isActive) return `${name.slice(0, 18)}...`;
-    return `${name.slice(0, maxLength)}...`;
+    return name.length > 22 ? `${name.slice(0, maxLength)}...` : name;
   };
 
   return (

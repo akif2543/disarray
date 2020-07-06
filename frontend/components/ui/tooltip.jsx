@@ -32,7 +32,7 @@ const Tooltip = ({ text, className, el }) => {
       case "cl-tt inv":
         style = {
           top: `${top - height * 3.5}px`,
-          left: `${right - 128 - width / 2}px`,
+          left: `${right - 129 - width / 2}px`,
         };
         break;
       case "cl-tt edit":

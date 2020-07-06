@@ -4,6 +4,8 @@
 [Disarray](http://www.disarray-chat.herokuapp.com) is a clone of the popular chat app [Discord](http://www.discord.com). It allows users to create or join chat servers that can each contain multiple chat channels. Users can send instant messages on these channels and those messages will be broadcast to all members of that server, or they can choose to privately direct message other users.
 
 ![Disarray Splash](/app/assets/images/splash_readme.png "Disarray Splash Page")
+Artwork by [Tania Tiedemann](https://www.instagram.com/tatied.art/)
+
 ![Disarray Chat](/app/assets/images/chat_readme.png "Disarray Chat Channel")
 
 ## Technologies Used
@@ -16,8 +18,8 @@ Disarray was created with a Rails backend and a React frontend, with Redux used 
 
 One of the least expected challenges I encountered in this project was properly positioning and displaying tooltips. Discord has a number of tooltips throughout their application that appear when you hover specific components, like the server icons on the vertical bar on the far left, or on the icons on the horizontal navbar at the very top. Initially, implementing them was relatively straightforward, as simple as setting the outer tooltip div to `position: relative` and the content to `position: absolute`. The problem arose when tooltips needed to be inside containers with `overflow-y: scroll`. By design, when an element's overflow is set to scroll in one direction, the overflow in the other direction is set to auto. In the case of the server bar, this meant none of the tooltips would be visible as they were situated outside the container's x-axis.
 
-I did some Googling but wasn't able to find a direct solution to my problem, but I did come across a [suggestion](https://css-tricks.com/popping-hidden-overflow/) to wrap the scrollable element in a wrapper div with `position: relative`, and then use
-`position: absolute` on the tooltip to position it in relation the parent wrapper. In order to make this work in the case of the server bar, I would have to dynamically set the top and left properties of the tooltips using the position of the server icons on the screen. I try to avoid using refs unless absolutely necessary in React, but this seemed like a no-brainer. I created a ref to the server icon button and passed it to the tooltip component as a prop.
+I did some Googling but wasn't able to find a direct solution to my problem, but I did come across a [tip](https://css-tricks.com/popping-hidden-overflow/) to wrap the scrollable element in a div with `position: relative`, and then use
+`position: absolute` on the tooltip to position it in relation to the parent wrapper and allow the tooltip to appear outside the scrollable element's margins. In order to make this work in the case of the server bar, I would have to dynamically set the top and left properties of the tooltips using the position of the server icons on the screen. I try to avoid using refs unless absolutely necessary in React, but this seemed like a no-brainer. I created a ref to the server icon button and passed it to the tooltip component as a prop.
 
 ```js
 const ServerBarIcon = ({ server, active }) => {
@@ -60,7 +62,7 @@ And just like that, I had visible tooltips in an `overflow-y: scroll` container!
 
 ### Infinite Scroll in a Chat Channel
 
-Another obstacle I encountered was implementing infinite scroll in chat channels to load earlier messages. I wanted each channel to only load a batch of the most recent messages, and then allow the user to request earlier messages at their will. The chat component uses refs (sigh, once again) to scroll to the bottom of the chat whenever a new message is received using `element.scrollIntoView()`. This behavior proved problematic when attempting to load earlier messages though. The user would scroll to the top of the chat, triggering a request to fetch a batch of earlier messages, but when the chat component was updated to include those messages, the most recent message would scroll into view, causing the scrollbar to jump all the way back to the bottom of the component, and forcing the user to have to scroll all the way back up in order to view the messages they requested. Not very user-friendly!
+Another obstacle I encountered was implementing infinite scroll in chat channels to load earlier messages. I wanted each channel to only load a batch of the most recent messages, and then allow the user to request earlier messages at their will. The chat component uses refs (_sigh_, once again) to scroll to the bottom of the chat whenever a new message is received using `element.scrollIntoView()`. This behavior proved problematic when attempting to load earlier messages though. The user would scroll to the top of the chat, triggering a request to fetch a batch of earlier messages, but when the chat component was updated to include those messages, the most recent message would scroll into view, causing the scrollbar to jump all the way back to the bottom of the component, and forcing the user to have to scroll all the way back up in order to view the messages they requested. Not very user-friendly!
 
 To get past this issue, I needed to find a way to temporarily disable the scroll into view call when earlier messages were being fetched. To accomplish this I created `loading` and `scrolling` slices of local state:
 
@@ -107,6 +109,6 @@ if (snapshot) {
 }
 ```
 
-I also incorporated one of Discord's alerts to signal to the user that they were viewing older messages when `scrolling` is set to `true`. By clicking it, they could set it back to `false`, which would cause the scroll bar to jump back all the way to the bottom of the chat and reinitiate the scroll into view behavior for new messages. So ended my long odyssey to load earlier messages on scroll!
+I also incorporated a banner like Discord does to signal to the user that they were viewing older messages when `scrolling` is set to `true`. By clicking it, they could set it back to `false`, which would cause the scroll bar to jump back all the way to the bottom of the chat and reinitiate the scroll into view behavior for new messages. So ended my long odyssey to load earlier messages on scroll!
 
 ![Old message alert](/app/assets/images/old_alert_readme.png "Disarray Alert When Viewing Older Messages")
