@@ -4,11 +4,17 @@ const Tooltip = ({ text, className, el }) => {
   let style;
 
   if (el && el.current) {
-    const { top, height, right, width } = el.current.getBoundingClientRect();
+    const {
+      top,
+      bottom,
+      height,
+      right,
+      width,
+    } = el.current.getBoundingClientRect();
     switch (className) {
-      case "s-icon-tt":
+      case "sb-tt":
         style = {
-          top: `${top + height / 6}px`,
+          top: `${bottom - 17.5 - height / 2}px`,
         };
         break;
       case "cl-tt add":

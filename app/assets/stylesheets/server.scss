@@ -428,27 +428,6 @@
   }
 }
 
-.s-icon-tt {
-  // position: absolute;
-  transform: translateX(20px);
-  // left: 20px;
-
-  .tooltip-content {
-    h1 {
-      &:after {
-        content: " ";
-        position: absolute;
-        top: 50%;
-        right: 100%;
-        margin-top: -5px;
-        border-width: 5px;
-        border-style: solid;
-        border-color: transparent $dk-dropdown-bg transparent transparent;
-      }
-    }
-  }
-}
-
 .server-inv {
   background: $dk-main-bg;
   width: 440px;

@@ -27,7 +27,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
             >
               <img src={window.logoIconURL} />
             </button>
-            {tooltip && <Tooltip text="Home" className="s-icon-tt" el={el} />}
+            {tooltip && <Tooltip text="Home" className="sb-tt" el={el} />}
             <div className="home-btn-divider" />
           </Link>
         </div>
@@ -47,9 +47,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
           >
             <FontAwesomeIcon icon="plus" size="lg" />
           </button>
-          {tooltip && (
-            <Tooltip text="Add a Server" className="s-icon-tt" el={el} />
-          )}
+          {tooltip && <Tooltip text="Add a Server" className="sb-tt" el={el} />}
         </div>
       );
     case "explore":
@@ -71,7 +69,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
           {tooltip && (
             <Tooltip
               text="Explore Public Servers [NYI]"
-              className="s-icon-tt"
+              className="sb-tt"
               el={el}
             />
           )}
