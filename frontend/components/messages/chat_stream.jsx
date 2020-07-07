@@ -124,7 +124,7 @@ class ChatStream extends React.Component {
 
   render() {
     const seen = [];
-    const { memberbar, messages } = this.props;
+    const { memberbar, messages, user } = this.props;
     const { scrolling } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
@@ -139,6 +139,7 @@ class ChatStream extends React.Component {
                 m={m}
                 bottom={this.bottom}
                 short={seen[1] === m.author.id}
+                u={user}
               />
             );
           })}

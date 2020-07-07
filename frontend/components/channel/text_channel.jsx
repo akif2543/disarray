@@ -53,6 +53,7 @@ const TextChannel = ({
             fetchMessages={fetchMessages}
             id={channel ? channel.id : null}
             type="Channel"
+            user={currentUser}
           />
           {channel && (
             <NewMessageForm

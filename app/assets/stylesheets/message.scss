@@ -9,6 +9,7 @@
   padding: 0 17px 25px 0;
 
   .message {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -71,6 +72,40 @@
 
     &:hover {
       background: $dk-msg-hover;
+    }
+
+    .msg-options {
+      position: absolute;
+      top: -16px;
+      right: 16px;
+      float: right;
+      background: $dk-main-bg;
+      border-radius: 8px;
+      border: 1px solid rgb(47, 50, 55);
+      display: flex;
+      flex-direction: row;
+
+      button {
+        color: $dk-icons;
+        width: 32px;
+        height: 32px;
+
+        &:hover {
+          color: $dk-white;
+          background: rgb(58, 62, 68);
+        }
+      }
+      .msg-edit {
+        border-radius: 8px 0 0 8px;
+      }
+
+      .msg-more {
+        border-radius: 0 8px 8px 0;
+      }
+
+      .msg-more.solo {
+        border-radius: 8px;
+      }
     }
   }
 
