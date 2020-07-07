@@ -1,12 +1,13 @@
 import React, { useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import MemberPopoutContainer from "../channel/member_popout";
-import { shortDate, formatDate } from "../../util/date_util";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
+import { shortDate, formatDate } from "../../util/date_util";
 
 const Message = ({ m, bottom, short, u }) => {
   const el = useRef(null);
+  const mesEl = useRef(null);
   const editEl = useRef(null);
   const moreEl = useRef(null);
 
@@ -26,6 +27,13 @@ const Message = ({ m, bottom, short, u }) => {
 
   const { edit, more } = tooltips;
 
+  let style;
+
+  if (mesEl && mesEl.current) {
+    const { top } = mesEl.current.getBoundingClientRect();
+    style = top > 66 ? { top: `${top - 66}px` } : { display: "none" };
+  }
+
   return (
     <div
       className={short ? "message short" : "message"}
@@ -33,13 +41,10 @@ const Message = ({ m, bottom, short, u }) => {
       onFocus={toggleOptions(true)}
       onMouseLeave={toggleOptions(false)}
       onBlur={toggleOptions(false)}
+      ref={mesEl}
     >
       {options && (
-        <div
-          className="msg-options"
-          // onMouseOver={toggleOptions(true)}
-          // onFocus={toggleOptions(true)}
-        >
+        <div className="msg-options" style={style}>
           {isAuthor && (
             <button
               type="button"
@@ -53,7 +58,7 @@ const Message = ({ m, bottom, short, u }) => {
               <FontAwesomeIcon icon="pen" />
             </button>
           )}
-          {edit && <Tooltip text="Edit" className="msg-tt" el={editEl} />}
+          {edit && <Tooltip text="Edit" className="msg-tt e" el={editEl} />}
           <button
             type="button"
             className={isAuthor ? "msg-more" : "msg-more solo"}
@@ -65,7 +70,13 @@ const Message = ({ m, bottom, short, u }) => {
           >
             <FontAwesomeIcon icon="ellipsis-h" />
           </button>
-          {more && <Tooltip text="More" className="msg-tt" el={moreEl} />}
+          {more && (
+            <Tooltip
+              text="More"
+              className={isAuthor ? "msg-tt m" : "msg-tt ms"}
+              el={moreEl}
+            />
+          )}
         </div>
       )}
       <img src={m.author.avatar} alt="" className="avatar" />

@@ -75,7 +75,8 @@
 }
 
 .u-bar-tt,
-.cl-tt {
+.cl-tt,
+.msg-tt {
   .tooltip-content {
     &:after {
       content: " ";
@@ -107,4 +108,18 @@
   .tooltip-content {
     padding-top: 10px;
   }
+}
+
+.msg-tt {
+  bottom: 40px;
+}
+
+.msg-tt.e {
+  right: 16px;
+}
+.msg-tt.m {
+  left: 16px;
+}
+.msg-tt.ms {
+  right: -16px;
 }

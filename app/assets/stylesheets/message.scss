@@ -9,7 +9,6 @@
   padding: 0 17px 25px 0;
 
   .message {
-    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -76,9 +75,7 @@
 
     .msg-options {
       position: absolute;
-      top: -16px;
-      right: 16px;
-      float: right;
+      right: 32px;
       background: $dk-main-bg;
       border-radius: 8px;
       border: 1px solid rgb(47, 50, 55);

@@ -76,11 +76,6 @@ const Tooltip = ({ text, className, el }) => {
           left: `${right - 38 - width / 2}px`,
         };
         break;
-      case "msg-tt":
-        style = {
-          bottom: `${40}px`,
-        };
-        break;
       default:
         break;
     }

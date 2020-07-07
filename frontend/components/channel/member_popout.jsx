@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
@@ -19,14 +19,13 @@ const MemberPopout = ({
   chat,
 }) => {
   const [body, setBody] = useState("");
-
+  const node = useRef(null);
   const handleChange = (e) => setBody(e.target.value);
 
-  let node;
   let style;
 
   const handleClick = (e) => {
-    if (node.contains(e.target)) return;
+    if (node.current.contains(e.target)) return;
     togglePopout();
   };
 
@@ -71,7 +70,7 @@ const MemberPopout = ({
   };
 
   return (
-    <div className="popout" ref={(elem) => (node = elem)} style={style}>
+    <div className="popout" ref={node} style={style}>
       <header className="popout-head">
         <img src={m.avatar} alt="" />
         <div className="user">
