@@ -15,6 +15,7 @@ const TextChannel = ({
   messages,
   currentUser,
   fetchMessages,
+  updateMessage,
   members,
   server,
 }) => {
@@ -54,6 +55,7 @@ const TextChannel = ({
             id={channel ? channel.id : null}
             type="Channel"
             user={currentUser}
+            updateMessage={updateMessage}
           />
           {channel && (
             <NewMessageForm

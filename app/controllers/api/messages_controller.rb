@@ -29,7 +29,8 @@ class Api::MessagesController < ApplicationController
     if @message
         if @message.author_id == current_user.id
           if @message.update(m_params)
-            render :show
+            @channel = @message.messageable
+            ChatChannel.broadcast_to(@channel, format_message)
           else
             render json: @message.errors.full_messages, status: 422
           end
@@ -56,6 +57,13 @@ class Api::MessagesController < ApplicationController
   end
 
   private
+
+  def format_message
+    json = render(
+        partial: "api/messages/full_message.json.jbuilder",
+        locals: { message: @message})
+    JSON.parse(json)
+  end
 
   def m_params
     params.require(:message).permit(:body)

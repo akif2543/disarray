@@ -4,16 +4,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MemberPopoutContainer from "../channel/member_popout";
 import Tooltip from "../ui/tooltip";
 import { shortDate, formatDate } from "../../util/date_util";
+import EditMessageForm from "./edit_message_form";
 
-const Message = ({ m, bottom, short, u }) => {
+const Message = ({ m, bottom, short, u, updateMessage, toggleEditting }) => {
   const el = useRef(null);
   const mesEl = useRef(null);
-  const editEl = useRef(null);
-  const moreEl = useRef(null);
 
   const [popout, setPopout] = useState(false);
   const [options, setOptions] = useState(false);
   const [tooltips, setTooltips] = useState({ edit: false, more: false });
+  const [editting, setEditting] = useState(false);
 
   const showTooltip = (type) => () =>
     setTooltips({ ...tooltips, [type]: true });
@@ -23,7 +23,14 @@ const Message = ({ m, bottom, short, u }) => {
   const togglePopout = () => setPopout(!popout);
   const toggleOptions = (bool) => () => setOptions(bool);
 
+  const toggleEdit = () => {
+    hideTooltip("edit");
+    setEditting(!editting);
+  };
+
   const isAuthor = u.id === m.author.id;
+
+  const edited = m.createdAt !== m.updatedAt;
 
   const { edit, more } = tooltips;
 
@@ -43,26 +50,25 @@ const Message = ({ m, bottom, short, u }) => {
       onBlur={toggleOptions(false)}
       ref={mesEl}
     >
-      {options && (
+      {options && !editting && (
         <div className="msg-options" style={style}>
           {isAuthor && (
             <button
               type="button"
               className="msg-edit"
-              ref={editEl}
               onMouseOver={showTooltip("edit")}
               onFocus={showTooltip("edit")}
               onMouseLeave={hideTooltip("edit")}
               onBlur={hideTooltip("edit")}
+              onClick={toggleEdit}
             >
               <FontAwesomeIcon icon="pen" />
             </button>
           )}
-          {edit && <Tooltip text="Edit" className="msg-tt e" el={editEl} />}
+          {edit && <Tooltip text="Edit" className="msg-tt e" />}
           <button
             type="button"
             className={isAuthor ? "msg-more" : "msg-more solo"}
-            ref={moreEl}
             onMouseOver={showTooltip("more")}
             onFocus={showTooltip("more")}
             onMouseLeave={hideTooltip("more")}
@@ -74,13 +80,16 @@ const Message = ({ m, bottom, short, u }) => {
             <Tooltip
               text="More"
               className={isAuthor ? "msg-tt m" : "msg-tt ms"}
-              el={moreEl}
             />
           )}
         </div>
       )}
       <img src={m.author.avatar} alt="" className="avatar" />
-      {short && <span className="date">{shortDate(m.createdAt)}</span>}
+      {short && (
+        <span className={editting ? "date edit" : "date"}>
+          {shortDate(m.createdAt)}
+        </span>
+      )}
       <div className={short ? "content short" : "content"}>
         <header className="msg-head">
           <h2 className="author-name" ref={el} onClick={togglePopout}>
@@ -97,7 +106,19 @@ const Message = ({ m, bottom, short, u }) => {
           )}
           <span className="date">{formatDate(m.createdAt)}</span>
         </header>
-        <p>{m.body}</p>
+        {editting ? (
+          <EditMessageForm
+            m={m}
+            toggleEdit={toggleEdit}
+            updateMessage={updateMessage}
+            short={short}
+          />
+        ) : (
+          <p>
+            {m.body}
+            {edited && <span className="edited">(edited)</span>}
+          </p>
+        )}
       </div>
       <div ref={bottom} />
     </div>

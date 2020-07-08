@@ -13,6 +13,7 @@ const Conversation = ({
   fetchConversation,
   fetchMessages,
   receiveMessage,
+  updateMessage,
   sidebarOpen,
   hideSidebar,
   showSidebar,
@@ -53,6 +54,8 @@ const Conversation = ({
           fetchMessages={fetchMessages}
           id={conversationId}
           type="Conversation"
+          user={currentUser}
+          updateMessage={updateMessage}
         />
         {conversation && (
           <NewMessageForm

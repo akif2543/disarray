@@ -150,7 +150,8 @@
       input {
         box-sizing: border-box;
         background: $dk-main-bg;
-        color: rgb(108, 109, 110);
+        color: $dk-icons;
+        // color: rgb(108, 109, 110);
         border: 1px solid rgb(35, 38, 42);
         border-radius: 3px;
         height: 35px;

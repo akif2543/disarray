@@ -22,12 +22,15 @@
     .avatar {
       height: 40px;
       width: 40px;
+      margin: 5px 0;
+      align-self: flex-start;
     }
 
     .content {
       margin-left: 15px;
       display: flex;
       flex-direction: column;
+      width: 100%;
 
       .msg-head {
         display: flex;
@@ -66,6 +69,15 @@
         font-family: "Whitney";
         color: rgb(220, 221, 222);
         transform: translateY(-2px);
+
+        .edited {
+          margin-left: 3px;
+          color: rgb(114, 118, 125);
+          font: {
+            size: 11px;
+            weight: 500;
+          }
+        }
       }
     }
 
@@ -111,7 +123,8 @@
     min-height: 25px;
 
     .date {
-      width: 45px;
+      min-width: 41px;
+      white-space: nowrap;
       opacity: 0;
       color: rgb(114, 118, 125);
       font: {
@@ -125,7 +138,7 @@
     }
 
     .content.short {
-      margin-left: 10.5px;
+      margin-left: 14px;
       header {
         display: none;
       }
@@ -133,6 +146,10 @@
     &:hover {
       .date {
         opacity: 1;
+      }
+      .date.edit {
+        align-self: flex-start;
+        margin-top: 10px;
       }
     }
   }
@@ -165,6 +182,46 @@
       padding: 0 8px;
     }
   }
+}
+
+.edit-message-form {
+  width: 100%;
+  padding: 5px 0;
+
+  input {
+    min-height: 45px;
+    max-height: 145px;
+    width: 100%;
+    padding: 11px 16px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    background: $dk-msg-input-bg;
+    color: rgb(220, 221, 222);
+
+    font: {
+      family: "Whitney";
+      weight: 700;
+      size: 16px;
+    }
+  }
+
+  .edit-txt {
+    margin-top: 10px;
+    color: rgb(114, 118, 125);
+    font: {
+      size: 12px;
+      family: "Whitney Medium";
+    }
+    .edit-link {
+      color: $dk-blue;
+      text-decoration: underline;
+      cursor: pointer;
+    }
+  }
+}
+
+.edit-message-form.short {
+  padding-top: 10px;
 }
 
 .new-message-form {
@@ -212,6 +269,10 @@
         family: "Whitney";
         weight: 700;
         size: 16px;
+      }
+
+      &::placeholder {
+        color: rgb(114, 118, 125);
       }
     }
   }

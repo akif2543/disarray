@@ -13,6 +13,7 @@ class ChatStream extends React.Component {
       lastTime: 1,
       loading: false,
       scrolling: false,
+      editting: false,
     };
     this.bottom = React.createRef();
     this.scroller = React.createRef();
@@ -21,6 +22,7 @@ class ChatStream extends React.Component {
     this.setSlice = this.setSlice.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
     this.jumpBack = this.jumpBack.bind(this);
+    this.toggleEditting = this.toggleEditting.bind(this);
   }
 
   componentDidMount() {
@@ -60,7 +62,11 @@ class ChatStream extends React.Component {
       this.setTimestamp();
     } else if (this.state.loading && !prevState.loading) {
       this.handleLoad();
-    } else if (this.bottom.current && !this.state.scrolling) {
+    } else if (
+      this.bottom.current &&
+      !this.state.scrolling &&
+      !this.state.editing
+    ) {
       this.bottom.current.scrollIntoView();
     }
   }
@@ -109,6 +115,11 @@ class ChatStream extends React.Component {
     this.triggerLoad();
   }
 
+  toggleEditting() {
+    const { editting } = this.state;
+    this.setState({ editting: !editting });
+  }
+
   jumpBack() {
     this.setState({ scrolling: false });
   }
@@ -124,7 +135,8 @@ class ChatStream extends React.Component {
 
   render() {
     const seen = [];
-    const { memberbar, messages, user } = this.props;
+    const last = [];
+    const { memberbar, messages, user, updateMessage } = this.props;
     const { scrolling } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
@@ -132,14 +144,18 @@ class ChatStream extends React.Component {
           <div ref={this.bottom} />
           {messages.map((m) => {
             if (m === undefined || !m) return null;
-            seen.unshift(m.author.id);
+            if (seen.includes(m.id)) return;
+            seen.push(m.id);
+            last.unshift(m.author.id);
             return (
               <Message
                 key={shortid.generate()}
                 m={m}
                 bottom={this.bottom}
-                short={seen[1] === m.author.id}
+                short={last[1] === m.author.id}
                 u={user}
+                updateMessage={updateMessage}
+                toggleEditting={this.toggleEditting}
               />
             );
           })}

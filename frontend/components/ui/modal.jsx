@@ -14,6 +14,10 @@ const Modal = ({ modal, closeModal }) => {
     document.addEventListener("keydown", (e) => {
       if (e.key === "Escape") return closeModal();
     });
+    return () =>
+      document.removeEventListener("keydown", (e) => {
+        if (e.key === "Escape") return closeModal();
+      });
   }, []);
 
   switch (modal) {
