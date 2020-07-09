@@ -116,3 +116,15 @@ export const getMessageAuthor = (state, props) => {
   const { author } = props.m;
   return state.entities.users[author];
 };
+
+export const getMessageWithAuthor = (state, props) => {
+  const {
+    location: { pathname },
+  } = props;
+  debugger;
+  const id = pathname.match(/\/@?[a-z]+\/\d+\/\d*\/*(\d+)/)[1];
+  debugger;
+  const m = state.entities.messages[id];
+  m.author = state.entities.users[m.author];
+  return m;
+};

@@ -1,7 +1,15 @@
 import React, { useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const MessageDropdown = ({ isAuthor, toggleDropdown, el, toggleEdit }) => {
+const MessageDropdown = ({
+  isAuthor,
+  toggleDropdown,
+  el,
+  toggleEdit,
+  history,
+  id,
+  openModal,
+}) => {
   const node = useRef(null);
 
   const handleClick = (e) => {
@@ -35,6 +43,15 @@ const MessageDropdown = ({ isAuthor, toggleDropdown, el, toggleEdit }) => {
     style = top > below ? { bottom: `${16}px` } : { top: `${-16}px` };
   }
 
+  const handleDelete = () => {
+    const {
+      push,
+      location: { pathname },
+    } = history;
+    push(`${pathname}/${id}`);
+    openModal("messageDelete");
+  };
+
   return (
     <div className="msg-dropdown" ref={node} style={style}>
       {isAuthor && (
@@ -47,10 +64,12 @@ const MessageDropdown = ({ isAuthor, toggleDropdown, el, toggleEdit }) => {
         Pin Message
         <FontAwesomeIcon icon="thumbtack" transform={{ rotate: 45 }} />
       </button>
-      <button type="button" className="msg-delete">
-        Delete Message
-        <FontAwesomeIcon icon="trash-alt" />
-      </button>
+      {isAuthor && (
+        <button type="button" className="msg-delete" onClick={handleDelete}>
+          Delete Message
+          <FontAwesomeIcon icon="trash-alt" />
+        </button>
+      )}
     </div>
   );
 };

@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import { closeModal } from "../../actions/ui_actions";
 import ServerModalContainer from "../server/modals/server_modal_container";
 import ServerActionsContainer from "../server/modals/server_actions_container";
+import MessageModalContainer from "../messages/message_modal_container";
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
@@ -38,6 +39,9 @@ const Modal = ({ modal, closeModal }) => {
       break;
     case "delete channel":
       component = <ServerActionsContainer action="delete channel" />;
+      break;
+    case "messageDelete":
+      component = <MessageModalContainer action="delete" />;
       break;
     default:
       return null;

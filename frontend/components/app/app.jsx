@@ -35,13 +35,11 @@ const App = ({ loading, settings }) => (
     />
     <ProtectedRoute path="/@me" component={ConversationPanelContainer} />
     <ProtectedRoute
-      exact
       path="/@me/:conversationId"
       component={ConversationContainer}
     />
     <ProtectedRoute exact path="/@me" component={MainContainer} />
     <ProtectedRoute
-      exact
       path="/channels/:serverId/:channelId"
       component={TextChannelContainer}
     />

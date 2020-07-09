@@ -7,7 +7,16 @@ import EditMessageForm from "./edit_message_form";
 import { shortDate, formatDate } from "../../util/date_util";
 import MessageDropdown from "./message_dropdown";
 
-const Message = ({ m, bottom, short, u, updateMessage, a }) => {
+const Message = ({
+  m,
+  bottom,
+  short,
+  u,
+  updateMessage,
+  a,
+  history,
+  openModal,
+}) => {
   const el = useRef(null);
   const mesEl = useRef(null);
 
@@ -52,6 +61,9 @@ const Message = ({ m, bottom, short, u, updateMessage, a }) => {
           el={mesEl}
           toggleDropdown={toggleDropdown}
           toggleEdit={toggleEdit}
+          history={history}
+          id={m.id}
+          openModal={openModal}
         />
       )}
       <img src={a.avatar} alt="" className="avatar" />
