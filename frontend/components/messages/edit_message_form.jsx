@@ -21,7 +21,7 @@ const EditMessageForm = ({ m, toggleEdit, updateMessage, short }) => {
       const message = {
         id: m.id,
         body,
-        author_id: m.author.id,
+        author_id: m.author,
         messageable_type: m.textChannel ? "Channel" : "Conversation",
         messageable_id: m.messageableId,
       };

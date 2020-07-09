@@ -3,7 +3,7 @@ import shortid from "shortid";
 import debounce from "lodash.debounce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Message from "./message";
+import MessageContainer from "./message_container";
 
 class ChatStream extends React.Component {
   constructor(props) {
@@ -146,15 +146,13 @@ class ChatStream extends React.Component {
             if (m === undefined || !m) return null;
             if (seen.includes(m.id)) return;
             seen.push(m.id);
-            last.unshift(m.author.id);
+            last.unshift(m.author);
             return (
-              <Message
+              <MessageContainer
                 key={shortid.generate()}
                 m={m}
                 bottom={this.bottom}
-                short={last[1] === m.author.id}
-                u={user}
-                updateMessage={updateMessage}
+                short={last[1] === m.author}
                 toggleEditting={this.toggleEditting}
               />
             );

@@ -7,7 +7,7 @@ import EditMessageForm from "./edit_message_form";
 import { shortDate, formatDate } from "../../util/date_util";
 import MessageDropdown from "./message_dropdown";
 
-const Message = ({ m, bottom, short, u, updateMessage }) => {
+const Message = ({ m, bottom, short, u, updateMessage, a }) => {
   const el = useRef(null);
   const mesEl = useRef(null);
 
@@ -27,7 +27,7 @@ const Message = ({ m, bottom, short, u, updateMessage }) => {
     setEditting(!editting);
   };
 
-  const isAuthor = u.id === m.author.id;
+  const isAuthor = u.id === m.author;
   const edited = m.createdAt !== m.updatedAt;
 
   return (
@@ -55,7 +55,7 @@ const Message = ({ m, bottom, short, u, updateMessage }) => {
           toggleEdit={toggleEdit}
         />
       )}
-      <img src={m.author.avatar} alt="" className="avatar" />
+      <img src={a.avatar} alt="" className="avatar" />
       {short && (
         <span className={editting ? "date edit" : "date"}>
           {shortDate(m.createdAt)}
@@ -64,15 +64,15 @@ const Message = ({ m, bottom, short, u, updateMessage }) => {
       <div className={short ? "content short" : "content"}>
         <header className="msg-head">
           <h2 className="author-name" ref={el} onClick={togglePopout}>
-            {m.author.username}
+            {a.username}
             <div className="msg-anchor"></div>
           </h2>
           {popout && (
             <MemberPopoutContainer
-              m={m.author}
+              m={a}
               togglePopout={togglePopout}
               el={el}
-              chat={true}
+              chat
             />
           )}
           <span className="date">{formatDate(m.createdAt)}</span>
