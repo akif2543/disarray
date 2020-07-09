@@ -9,6 +9,7 @@
   padding: 0 17px 25px 0;
 
   .message {
+    position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -41,7 +42,7 @@
           family: "Whitney Medium";
         }
 
-        h2 {
+        .author-name {
           color: $dk-white;
           cursor: pointer;
           font: {
@@ -87,7 +88,8 @@
 
     .msg-options {
       position: absolute;
-      right: 32px;
+      top: -16px;
+      right: 16px;
       background: $dk-main-bg;
       border-radius: 8px;
       border: 1px solid rgb(47, 50, 55);
@@ -289,7 +291,7 @@
 
 .msg-dropdown {
   position: absolute;
-  right: 74px;
+  right: 58px;
   width: 190px;
   display: flex;
   flex-direction: column;

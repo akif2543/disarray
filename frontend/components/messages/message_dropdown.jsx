@@ -32,8 +32,7 @@ const MessageDropdown = ({ isAuthor, toggleDropdown, el, toggleEdit }) => {
   if (el && el.current) {
     const { top, bottom } = el.current.getBoundingClientRect();
     const below = window.innerHeight - bottom;
-    const offsetY = top - 66;
-    style = top > below ? { bottom: `${below}px` } : { top: `${offsetY}px` };
+    style = top > below ? { bottom: `${16}px` } : { top: `${-16}px` };
   }
 
   return (

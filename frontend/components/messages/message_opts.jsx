@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
 
-const MessageOpts = ({ isAuthor, el, toggleEdit, toggleDropdown }) => {
+const MessageOpts = ({ isAuthor, toggleEdit, toggleDropdown }) => {
   const [tooltips, setTooltips] = useState({ edit: false, more: false });
 
   const showTooltip = (type) => () =>
@@ -13,15 +13,8 @@ const MessageOpts = ({ isAuthor, el, toggleEdit, toggleDropdown }) => {
 
   const { edit, more } = tooltips;
 
-  let style;
-
-  if (el && el.current) {
-    const { top } = el.current.getBoundingClientRect();
-    style = top > 66 ? { top: `${top - 66}px` } : { display: "none" };
-  }
-
   return (
-    <div className="msg-options" style={style}>
+    <div className="msg-options">
       {isAuthor && (
         <button
           type="button"

@@ -29,24 +29,42 @@ const MemberPopout = ({
     togglePopout();
   };
 
+  const handleEsc = (e) => {
+    if (e.key === "Escape") togglePopout();
+  };
+
   useEffect(() => {
     document.addEventListener("mousedown", handleClick, false);
-    return () => document.removeEventListener("mousedown", handleClick, false);
+    document.addEventListener("keydown", handleEsc, false);
+    return () => {
+      document.removeEventListener("mousedown", handleClick, false);
+      document.removeEventListener("keydown", handleEsc, false);
+    };
   }, []);
 
   if (el && el.current) {
-    const { top, bottom, right } = el.current.getBoundingClientRect();
+    const { top, bottom, width } = el.current.getBoundingClientRect();
     const below = window.innerHeight - bottom;
 
     if (chat) {
-      const offsetX = right - 306;
-      const offsetY = top - 50;
+      const offsetX = width + 10;
       style =
         top > below
-          ? { bottom: `${below}px`, left: `${offsetX}px` }
-          : { top: `${offsetY}px`, left: `${offsetX}px` };
+          ? {
+              position: "fixed",
+              bottom: `${below}px`,
+              transform: `translateX(${offsetX}px)`,
+            }
+          : {
+              position: "fixed",
+              top: `${top}px`,
+              transform: `translateX(${offsetX}px)`,
+            };
     } else {
-      style = top > below ? { bottom: `${below}px` } : { top: `${top}px` };
+      style =
+        top > below
+          ? { position: "absolute", right: "230px", bottom: `${below}px` }
+          : { position: "absolute", right: "230px", top: `${top}px` };
     }
   }
 

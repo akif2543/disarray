@@ -42,7 +42,6 @@ const Message = ({ m, bottom, short, u, updateMessage, a }) => {
       {options && !editting && (
         <MessageOpts
           isAuthor={isAuthor}
-          el={mesEl}
           toggleEdit={toggleEdit}
           toggleDropdown={toggleDropdown}
         />
@@ -65,7 +64,6 @@ const Message = ({ m, bottom, short, u, updateMessage, a }) => {
         <header className="msg-head">
           <h2 className="author-name" ref={el} onClick={togglePopout}>
             {a.username}
-            <div className="msg-anchor"></div>
           </h2>
           {popout && (
             <MemberPopoutContainer
