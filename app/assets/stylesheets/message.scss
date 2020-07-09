@@ -286,3 +286,46 @@
 .unread-alert.wide {
   width: calc(100vw - 346px);
 }
+
+.msg-dropdown {
+  position: absolute;
+  right: 74px;
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  border-radius: 5px;
+  background: $dk-dropdown-bg;
+  z-index: 4;
+
+  button {
+    width: 100%;
+    height: 32px;
+    color: $dk-icons;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-radius: 3px;
+
+    font: {
+      family: "Whitney Medium";
+      size: 14px;
+    }
+
+    &:hover {
+      background: $dk-blue;
+      color: $dk-white;
+    }
+  }
+
+  .msg-delete {
+    color: $dk-red;
+
+    &:hover {
+      background: $dk-red;
+      color: $dk-white;
+    }
+  }
+}
