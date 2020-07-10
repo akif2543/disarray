@@ -15,6 +15,7 @@ class Api::MessagesController < ApplicationController
     if @conversation
       @message = Message.new(body: params[:message][:body], author_id: current_user.id, messageable: @conversation)
       if @message.save
+        ChatChannel.broadcast_to(@conversation, format_message)
         render "api/conversations/show"
       else
         render json: @message.errors.full_messages, status: 422
@@ -48,7 +49,7 @@ class Api::MessagesController < ApplicationController
         if @message.author_id == current_user.id
           @message.destroy
           @channel = @message.messageable
-          @message.delete = true;
+          @message.remove = true;
           ChatChannel.broadcast_to(@channel, format_message)
         else
           render json: ["You don't have permission to do that."], status: 403

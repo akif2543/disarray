@@ -33,7 +33,7 @@ const Conversation = ({
       { channel: "ChatChannel", conversation_id: conversationId },
       {
         received: (data) =>
-          data.delete ? removeMessage(data) : receiveMessage(data),
+          data.remove ? removeMessage(data) : receiveMessage(data),
         speak(data) {
           return this.perform("speak", data);
         },

@@ -33,7 +33,7 @@ const TextChannel = ({
       { channel: "ChatChannel", channel_id: channelId },
       {
         received: (data) =>
-          data.delete ? removeMessage(data) : receiveMessage(data),
+          data.remove ? removeMessage(data) : receiveMessage(data),
         speak(data) {
           return this.perform("speak", data);
         },
