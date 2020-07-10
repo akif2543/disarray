@@ -12,3 +12,7 @@ end
 json.user do
   json.partial! "api/users/user", user: message.author
 end
+
+if message.delete
+  json.delete true
+end

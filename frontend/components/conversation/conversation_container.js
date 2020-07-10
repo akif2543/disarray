@@ -13,6 +13,7 @@ import {
 } from "../../actions/conversation_actions";
 import {
   receiveMessage,
+  removeMessage,
   fetchMessages,
   updateMessage,
   deleteMessage,
@@ -36,6 +37,7 @@ const mDTP = (dispatch) => ({
   fetchMessages: (type, id, time) => dispatch(fetchMessages(type, id, time)),
   showSidebar: () => dispatch(showSidebar()),
   hideSidebar: () => dispatch(hideSidebar()),
+  removeMessage: (message) => dispatch(removeMessage(message)),
 });
 
 const ConversationContainer = connect(mSTP, mDTP)(Conversation);

@@ -101,15 +101,17 @@ export const getConversationMessages = (state, props) => {
   const convo = getCurrentConversation(state, props);
   if (convo === undefined) return null;
   const { messages } = convo;
-  return messages
-    .map((id) => state.entities.messages[id])
-    .map((m) =>
-      m === undefined ? null : { ...m, author: state.entities.users[m.author] }
-    )
-    .sort((a, b) => {
-      if (!a || !b) return;
-      return new Date(a.createdAt) - new Date(b.createdAt);
-    });
+  return (
+    messages
+      .map((id) => state.entities.messages[id])
+      // .map((m) =>
+      //   m === undefined ? null : { ...m, author: state.entities.users[m.author] }
+      // )
+      .sort((a, b) => {
+        if (!a || !b) return;
+        return new Date(a.createdAt) - new Date(b.createdAt);
+      })
+  );
 };
 
 export const getMessageAuthor = (state, props) => {
@@ -117,14 +119,17 @@ export const getMessageAuthor = (state, props) => {
   return state.entities.users[author];
 };
 
-export const getMessageWithAuthor = (state, props) => {
+export const getMessageFromPath = (state, props) => {
   const {
     location: { pathname },
   } = props;
-  debugger;
+  // debugger;
   const id = pathname.match(/\/@?[a-z]+\/\d+\/\d*\/*(\d+)/)[1];
-  debugger;
-  const m = state.entities.messages[id];
-  m.author = state.entities.users[m.author];
-  return m;
+  // debugger;
+  return state.entities.messages[id];
+};
+
+export const getAuthorFromMessage = (state, props) => {
+  const m = getMessageFromPath(state, props);
+  return state.entities.users[m.author];
 };

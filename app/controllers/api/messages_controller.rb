@@ -47,7 +47,9 @@ class Api::MessagesController < ApplicationController
     if @message
         if @message.author_id == current_user.id
           @message.destroy
-          render :show
+          @channel = @message.messageable
+          @message.delete = true;
+          ChatChannel.broadcast_to(@channel, format_message)
         else
           render json: ["You don't have permission to do that."], status: 403
         end
@@ -61,7 +63,7 @@ class Api::MessagesController < ApplicationController
   def format_message
     json = render(
         partial: "api/messages/full_message.json.jbuilder",
-        locals: { message: @message})
+        locals: { message: @message })
     JSON.parse(json)
   end
 

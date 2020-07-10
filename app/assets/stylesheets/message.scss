@@ -2,159 +2,159 @@
   position: relative;
 }
 
+.message {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1.0625rem;
+  min-height: 2.75rem;
+  padding: {
+    right: 50px;
+    left: 17px;
+  }
+
+  .avatar {
+    height: 40px;
+    width: 40px;
+    margin: 5px 0;
+    align-self: flex-start;
+  }
+
+  .content {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .msg-head {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-end;
+
+      font: {
+        family: "Whitney Medium";
+      }
+
+      .author-name {
+        color: $dk-white;
+        cursor: pointer;
+        font: {
+          family: inherit;
+        }
+
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+
+      .date {
+        padding-left: 8px;
+        color: rgb(114, 118, 125);
+        font: {
+          size: 12px;
+          weight: 400;
+          family: inherit;
+        }
+        transform: translateY(2.5px);
+      }
+    }
+
+    p {
+      font-family: "Whitney";
+      color: rgb(220, 221, 222);
+      transform: translateY(-2px);
+
+      .edited {
+        margin-left: 3px;
+        color: rgb(114, 118, 125);
+        font: {
+          size: 11px;
+          weight: 500;
+        }
+      }
+    }
+  }
+
+  &:hover {
+    background: $dk-msg-hover;
+  }
+
+  .msg-options {
+    position: absolute;
+    top: -16px;
+    right: 16px;
+    background: $dk-main-bg;
+    border-radius: 8px;
+    border: 1px solid rgb(47, 50, 55);
+    display: flex;
+    flex-direction: row;
+
+    button {
+      color: $dk-icons;
+      width: 32px;
+      height: 32px;
+
+      &:hover {
+        color: $dk-white;
+        background: rgb(58, 62, 68);
+      }
+    }
+    .msg-edit {
+      border-radius: 8px 0 0 8px;
+    }
+
+    .msg-more {
+      border-radius: 0 8px 8px 0;
+    }
+
+    .msg-more.solo {
+      border-radius: 8px;
+    }
+  }
+}
+
+.message.short {
+  margin-top: 3px;
+  min-height: 25px;
+
+  .date {
+    min-width: 41px;
+    white-space: nowrap;
+    opacity: 0;
+    color: rgb(114, 118, 125);
+    font: {
+      size: 10px;
+      family: "Whitney Medium";
+    }
+  }
+
+  img {
+    display: none;
+  }
+
+  .content.short {
+    margin-left: 14px;
+    header {
+      display: none;
+    }
+  }
+  &:hover {
+    .date {
+      opacity: 1;
+    }
+    .date.edit {
+      align-self: flex-start;
+      margin-top: 10px;
+    }
+  }
+}
+
 .chat {
   width: calc(100vw - 554px);
   height: calc(100vh - 120px);
   overflow-y: scroll;
   padding: 0 17px 25px 0;
-
-  .message {
-    position: relative;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-top: 1.0625rem;
-    min-height: 2.75rem;
-    padding: {
-      right: 50px;
-      left: 17px;
-    }
-
-    .avatar {
-      height: 40px;
-      width: 40px;
-      margin: 5px 0;
-      align-self: flex-start;
-    }
-
-    .content {
-      margin-left: 15px;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-
-      .msg-head {
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-
-        font: {
-          family: "Whitney Medium";
-        }
-
-        .author-name {
-          color: $dk-white;
-          cursor: pointer;
-          font: {
-            family: inherit;
-          }
-
-          &:hover {
-            text-decoration: underline;
-          }
-        }
-
-        .date {
-          padding-left: 8px;
-          color: rgb(114, 118, 125);
-          font: {
-            size: 12px;
-            weight: 400;
-            family: inherit;
-          }
-          transform: translateY(2.5px);
-        }
-      }
-
-      p {
-        font-family: "Whitney";
-        color: rgb(220, 221, 222);
-        transform: translateY(-2px);
-
-        .edited {
-          margin-left: 3px;
-          color: rgb(114, 118, 125);
-          font: {
-            size: 11px;
-            weight: 500;
-          }
-        }
-      }
-    }
-
-    &:hover {
-      background: $dk-msg-hover;
-    }
-
-    .msg-options {
-      position: absolute;
-      top: -16px;
-      right: 16px;
-      background: $dk-main-bg;
-      border-radius: 8px;
-      border: 1px solid rgb(47, 50, 55);
-      display: flex;
-      flex-direction: row;
-
-      button {
-        color: $dk-icons;
-        width: 32px;
-        height: 32px;
-
-        &:hover {
-          color: $dk-white;
-          background: rgb(58, 62, 68);
-        }
-      }
-      .msg-edit {
-        border-radius: 8px 0 0 8px;
-      }
-
-      .msg-more {
-        border-radius: 0 8px 8px 0;
-      }
-
-      .msg-more.solo {
-        border-radius: 8px;
-      }
-    }
-  }
-
-  .message.short {
-    margin-top: 3px;
-    min-height: 25px;
-
-    .date {
-      min-width: 41px;
-      white-space: nowrap;
-      opacity: 0;
-      color: rgb(114, 118, 125);
-      font: {
-        size: 10px;
-        family: "Whitney Medium";
-      }
-    }
-
-    img {
-      display: none;
-    }
-
-    .content.short {
-      margin-left: 14px;
-      header {
-        display: none;
-      }
-    }
-    &:hover {
-      .date {
-        opacity: 1;
-      }
-      .date.edit {
-        align-self: flex-start;
-        margin-top: 10px;
-      }
-    }
-  }
 
   .unread-alert {
     position: absolute;

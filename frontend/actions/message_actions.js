@@ -15,7 +15,7 @@ const receiveMessages = (messages) => ({
   ...messages,
 });
 
-const removeMessage = (message) => ({
+export const removeMessage = (message) => ({
   type: REMOVE_MESSAGE,
   ...message,
 });
@@ -26,11 +26,11 @@ export const fetchMessages = (type, id, time) => (dispatch) =>
     .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
 
 export const updateMessage = (message) => (dispatch) =>
-  MessageAPI.updateMessage(message)
-    .then((updatedMessage) => dispatch(receiveMessage(updatedMessage)))
-    .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
+  MessageAPI.updateMessage(message).fail((e) =>
+    dispatch(receiveChannelErrors(e.responseJSON))
+  );
 
 export const deleteMessage = (id) => (dispatch) =>
-  MessageAPI.deleteMessage(id)
-    .then((deletedMessage) => dispatch(removeMessage(deletedMessage)))
-    .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
+  MessageAPI.deleteMessage(id).fail((e) =>
+    dispatch(receiveChannelErrors(e.responseJSON))
+  );

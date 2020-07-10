@@ -11,6 +11,7 @@ import { fetchChannel } from "../../actions/channel_actions";
 import TextChannel from "./text_channel";
 import {
   receiveMessage,
+  removeMessage,
   fetchMessages,
   updateMessage,
   deleteMessage,
@@ -34,6 +35,7 @@ const mDTP = (dispatch) => ({
   fetchMessages: (type, id, time) => dispatch(fetchMessages(type, id, time)),
   updateMessage: (message) => dispatch(updateMessage(message)),
   deleteMessage: (id) => dispatch(deleteMessage(id)),
+  removeMessage: (message) => dispatch(removeMessage(message)),
 });
 
 const TextChannelContainer = connect(mSTP, mDTP)(TextChannel);

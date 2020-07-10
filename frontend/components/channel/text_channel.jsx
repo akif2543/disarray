@@ -16,6 +16,7 @@ const TextChannel = ({
   currentUser,
   fetchMessages,
   updateMessage,
+  removeMessage,
   members,
   server,
 }) => {
@@ -31,7 +32,8 @@ const TextChannel = ({
     App.cable.subscriptions.create(
       { channel: "ChatChannel", channel_id: channelId },
       {
-        received: (data) => receiveMessage(data),
+        received: (data) =>
+          data.delete ? removeMessage(data) : receiveMessage(data),
         speak(data) {
           return this.perform("speak", data);
         },

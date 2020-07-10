@@ -13,6 +13,7 @@ const Conversation = ({
   fetchConversation,
   fetchMessages,
   receiveMessage,
+  removeMessage,
   updateMessage,
   sidebarOpen,
   hideSidebar,
@@ -31,7 +32,8 @@ const Conversation = ({
     App.cable.subscriptions.create(
       { channel: "ChatChannel", conversation_id: conversationId },
       {
-        received: (data) => receiveMessage(data),
+        received: (data) =>
+          data.delete ? removeMessage(data) : receiveMessage(data),
         speak(data) {
           return this.perform("speak", data);
         },
