@@ -1,65 +1,112 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 
 const UserEditForm = ({
-  // handleUpdate,
-  // handleChange,
   currentUser,
-  // fetchCurrentUser,
+  updateUser,
+  serverErrors,
+  clearErrors,
+  openModal,
 }) => {
   const initialUser = {
     username: currentUser.username,
     email: currentUser.email,
-    avatar: currentUser.avatar,
-    password: "",
+    // avatar: currentUser.avatar,
+    currentPassword: "",
   };
 
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialUser);
   const [focused, setFocused] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
-  const [newPassword, setNewPassword] = useState("");
+  const [password, setPassword] = useState("");
+  const [localErrors, setLocalErrors] = useState([]);
 
   const toggleEdit = () => setEdit(!edit);
 
-  const handleCancel = () => {
+  const handleClose = () => {
     setEdit(false);
     setPasswordChange(false);
-    setNewPassword("");
+    setPassword("");
+    setLocalErrors([]);
+    clearErrors();
     setUser(initialUser);
   };
 
   const handleChange = (field) => (e) =>
     setUser({ ...user, [field]: e.target.value });
 
-  const handleUpdate = () => {};
+  const validateEmail = (email) =>
+    /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
 
-  const handleDelete = () => {};
+  const isValid = () => {
+    const keys = Object.keys(user);
+    const err = [];
 
-  // useEffect(() => {
-  //   if (passwordChange) {
-  //     setUser({ ...user, newPassword: "" });
-  //   } else {
-  //     const u = user;
-  //     delete u.newPassword;
-  //     setUser({ ...u });
-  //   }
-  // }, [passwordChange]);
+    keys.forEach((key) => {
+      const msg = key === "currentPassword" ? "Password does not match" : key;
+      if (!user[key].trim().length) err.push(msg);
+    });
+    if (!validateEmail(user.email))
+      err.push("Not a well formed email address.");
+    setLocalErrors(err);
+    return !err.length;
+  };
 
-  // useEffect(() => {
-  //   if (!edit) setUser(initialUser);
-  // }, [edit]);
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    setLocalErrors([]);
+    if (isValid()) {
+      const { id } = currentUser;
+      updateUser(
+        passwordChange ? { ...user, id, password } : { ...user, id }
+      ).then((action) => {
+        if (action.type === RECEIVE_CURRENT_USER) handleClose();
+      });
+    }
+  };
 
-  const { avatar, username, email, password } = user;
+  const { username, email, currentPassword } = user;
 
   const { discriminator } = currentUser;
 
   const asterisk = edit && <span className="required">*</span>;
+  const presence = "This field is required";
+
+  let serverE = serverErrors.find((e) => e[0].match(/email/));
+  serverE = serverE ? serverE[1] : null;
+  let serverU = serverErrors.find((e) => e[0].match(/username/));
+  serverU = serverU ? serverU[1] : null;
+  let serverC = serverErrors.find((e) => e[0].match(/current/));
+  serverC = serverC ? serverC[1] : null;
+  let serverN = serverErrors.find((e) => e[0].match(/password/));
+  serverN = serverN ? serverN[1] : null;
+
+  const usernameError = localErrors.includes("username") ? presence : serverU;
+  const invalidEmail = localErrors.find((e) => e.match(/address/)) || serverE;
+  const emailError = localErrors.includes("email") ? presence : invalidEmail;
+  const passwordError = localErrors.find((e) => e.match(/Password/)) || serverC;
+  const newPasswordError = serverN;
+
+  const showPasswordError = passwordError && !(usernameError || emailError);
+
+  const isDemo = currentUser.username === "Demogorgon";
+
+  const usernameClass = () => {
+    if (usernameError) {
+      return "input-wrapper err";
+    }
+    if (focused) {
+      return "input-wrapper focus";
+    }
+    return "input-wrapper";
+  };
 
   return (
     <div className={edit ? "user-account edit" : "user-account"}>
       <form className="user-edit">
         <div className="info">
-          <img src={avatar} alt="" className="avatar" />
+          <img src={currentUser.avatar} alt="" className="avatar" />
           <div className="inputs">
             <div className="input-grp">
               <label htmlFor="edit-username">
@@ -67,21 +114,24 @@ const UserEditForm = ({
                 {asterisk}
               </label>
               {edit ? (
-                <div
-                  className={focused ? "input-wrapper focus" : "input-wrapper"}
-                >
-                  <input
-                    id="edit-username"
-                    type="text"
-                    value={username}
-                    onChange={handleChange("username")}
-                    autoFocus
-                    onFocus={() => setFocused(true)}
-                    onBlur={() => setFocused(false)}
-                  />
-                  <div className="disc">
-                    <span>#{discriminator}</span>
+                <div>
+                  <div className={usernameClass()}>
+                    <input
+                      id="edit-username"
+                      type="text"
+                      value={username}
+                      onChange={handleChange("username")}
+                      autoFocus
+                      onFocus={() => setFocused(true)}
+                      onBlur={() => setFocused(false)}
+                    />
+                    <div className="disc">
+                      <span>#{discriminator}</span>
+                    </div>
                   </div>
+                  {usernameError && (
+                    <span className="err-msg">{usernameError}</span>
+                  )}
                 </div>
               ) : (
                 <p>
@@ -96,12 +146,18 @@ const UserEditForm = ({
                 {asterisk}
               </label>
               {edit ? (
-                <input
-                  id="edit-email"
-                  type="email"
-                  value={email}
-                  onChange={handleChange("email")}
-                />
+                <div>
+                  <input
+                    id="edit-email"
+                    type="email"
+                    value={email}
+                    onChange={handleChange("email")}
+                    className={emailError ? "err" : ""}
+                  />
+                  {emailError && !usernameError && (
+                    <span className="err-msg">{emailError}</span>
+                  )}
+                </div>
               ) : (
                 <p>{currentUser.email}</p>
               )}
@@ -115,9 +171,13 @@ const UserEditForm = ({
                 <input
                   id="edit-pw"
                   type="password"
-                  value={password}
-                  onChange={handleChange("password")}
+                  value={currentPassword}
+                  onChange={handleChange("currentPassword")}
+                  className={showPasswordError ? "err" : ""}
                 />
+                {showPasswordError && (
+                  <span className="err-msg">{passwordError}</span>
+                )}
               </div>
             )}
             {edit && !passwordChange && (
@@ -138,20 +198,28 @@ const UserEditForm = ({
                 <input
                   id="edit-npw"
                   type="password"
-                  value={newPassword}
-                  onChange={(e) => setNewPassword(e.target.value)}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  className={newPasswordError ? "err" : ""}
                 />
+                {newPasswordError && (
+                  <span className="err-msg">{newPasswordError}</span>
+                )}
               </div>
             )}
           </div>
         </div>
         {edit && (
           <footer>
-            <button type="button" className="delete-btn" onClick={handleDelete}>
+            <button
+              type="button"
+              className="delete-btn"
+              onClick={() => openModal("accountDelete")}
+            >
               Delete Account
             </button>
             <div className="btn-group">
-              <button type="button" className="cancel" onClick={handleCancel}>
+              <button type="button" className="cancel" onClick={handleClose}>
                 Cancel
               </button>
               <button type="submit" className="save-btn" onClick={handleUpdate}>
@@ -162,7 +230,12 @@ const UserEditForm = ({
         )}
       </form>
       {!edit && (
-        <button type="button" onClick={toggleEdit} className="edit-btn">
+        <button
+          type="button"
+          onClick={toggleEdit}
+          className={isDemo ? "edit-btn demo" : "edit-btn"}
+          disabled={isDemo}
+        >
           Edit
         </button>
       )}

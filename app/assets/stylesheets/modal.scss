@@ -16,11 +16,12 @@
 }
 
 .settings {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
+  // position: fixed;
+  overflow-y: scroll;
+  // top: 0;
+  // right: 0;
+  height: 100vh;
+  width: 100vw;
   z-index: 10;
 
   main {
@@ -138,6 +139,12 @@
         height: 33px;
         justify-self: flex-end;
       }
+
+      .edit-btn.demo {
+        background: $dk-icons;
+        // position: relative;
+        cursor: not-allowed;
+      }
     }
 
     .user-account.edit {
@@ -149,6 +156,10 @@
 
       label {
         display: flex;
+
+        h2 {
+          margin-bottom: 8px;
+        }
 
         .required {
           margin-left: 0.2rem;
@@ -208,6 +219,24 @@
 
       .input-wrapper.focus {
         border-color: $dk-blue;
+      }
+
+      .err {
+        border-color: $dk-red;
+        margin-bottom: 7px;
+
+        &:focus {
+          border-color: $dk-red;
+        }
+      }
+
+      .err-msg {
+        margin-top: 10px;
+        color: $dk-red;
+        font: {
+          family: "Whitney";
+          size: 14px;
+        }
       }
 
       .cancel:hover {

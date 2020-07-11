@@ -3,22 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import UserSettingsSidebar from "./user_settings_sidebar";
 import UserEditForm from "./user_edit_form";
-// import UserEditForm from "./user_edit_form";
 
 class UserSettings extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      // edit: false,
-      // username: this.props.currentUser.username,
-      // email: this.props.currentUser.email,
-      // password: "",
-      // passwordChange: false,
-    };
-
-    this.handleClick = this.handleClick.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.handleUpdate = this.handleUpdate.bind(this);
     this.handleLogout = this.handleLogout.bind(this);
   }
 
@@ -30,18 +18,6 @@ class UserSettings extends React.Component {
     fetchCurrentUser(id);
   }
 
-  handleClick() {
-    this.setState({ edit: true });
-  }
-
-  handleChange(type) {
-    return (e) => this.setState({ [type]: e.target.value });
-  }
-
-  handleUpdate(e) {
-    e.preventDefault();
-  }
-
   handleLogout() {
     const { logout, startLoading } = this.props;
     logout();
@@ -49,7 +25,14 @@ class UserSettings extends React.Component {
   }
 
   render() {
-    const { closeSettings, currentUser } = this.props;
+    const {
+      closeSettings,
+      currentUser,
+      updateUser,
+      openModal,
+      serverErrors,
+      clearErrors,
+    } = this.props;
 
     return (
       <div className="settings">
@@ -65,9 +48,11 @@ class UserSettings extends React.Component {
             </div>
           </header>
           <UserEditForm
-            // handleChange={this.handleChange}
-            // handleUpdate={this.handleUpdate}
+            updateUser={updateUser}
             currentUser={currentUser}
+            serverErrors={serverErrors}
+            clearErrors={clearErrors}
+            openModal={openModal}
           />
         </main>
       </div>

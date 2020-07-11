@@ -7,16 +7,20 @@ import ServerSettingsContainer from "../server/settings/server_settings_containe
 import ChannelSettingsContainer from "../channel/channel_settings_container";
 import { closeSettings } from "../../actions/ui_actions";
 
-const Settings = ({ settings, closeSettings }) => {
+const Settings = ({ settings, closeSettings, modal }) => {
   if (!settings) return null;
 
   let component;
 
+  const handleEsc = (e) => {
+    if (modal) return;
+    if (e.key === "Escape") return closeSettings();
+  };
+
   useEffect(() => {
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape") return closeSettings();
-    });
-  }, []);
+    document.addEventListener("keydown", handleEsc);
+    return () => document.removeEventListener("keydown", handleEsc);
+  }, [modal]);
 
   switch (settings) {
     case "user":
@@ -37,6 +41,7 @@ const Settings = ({ settings, closeSettings }) => {
 
 const mSTP = (state) => ({
   settings: settings(state),
+  modal: state.ui.modal,
 });
 
 const mDTP = (dispatch) => ({

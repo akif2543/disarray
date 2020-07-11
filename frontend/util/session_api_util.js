@@ -8,8 +8,13 @@ const SessionAPI = {
     $.ajax({ url: `/api/users/${id}?cu=true`, method: "GET" }),
   fetchUsers: () => $.ajax({ url: "/api/users", method: "GET" }),
   updateUser: (user) =>
-    $.ajax({ url: `/api/users/${user.id}`, method: "PATCH", data: { user } }),
-  deleteUser: (id) => $.ajax({ url: `/api/users/${id}`, method: "DELETE" }),
+    $.ajax({
+      url: `/api/users/${user.id}`,
+      method: "PATCH",
+      data: { user },
+    }),
+  deleteUser: (user) =>
+    $.ajax({ url: `/api/users/${user.id}`, method: "DELETE", data: { user } }),
 };
 
 export default SessionAPI;

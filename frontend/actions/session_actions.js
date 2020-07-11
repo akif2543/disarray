@@ -51,11 +51,11 @@ export const fetchCurrentUser = (id) => (dispatch) =>
 
 export const updateUser = (user) => (dispatch) =>
   SessionAPI.updateUser(user)
-    .then((updatedUser) => receiveCurrentUser(updatedUser))
+    .then((updatedUser) => dispatch(receiveCurrentUser(updatedUser)))
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
 
-export const deleteUser = (userId) => (dispatch) =>
-  SessionAPI.deleteUser(userId)
+export const deleteUser = (user) => (dispatch) =>
+  SessionAPI.deleteUser(user)
     .then(() => dispatch(logoutCurrentUser()))
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
 

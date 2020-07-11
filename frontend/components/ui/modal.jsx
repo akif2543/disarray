@@ -5,6 +5,7 @@ import { closeModal } from "../../actions/ui_actions";
 import ServerModalContainer from "../server/modals/server_modal_container";
 import ServerActionsContainer from "../server/modals/server_actions_container";
 import MessageModalContainer from "../messages/message_modal_container";
+import DeleteAccountContainer from "../user/delete_account_container";
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
@@ -42,6 +43,9 @@ const Modal = ({ modal, closeModal }) => {
       break;
     case "messageDelete":
       component = <MessageModalContainer del />;
+      break;
+    case "accountDelete":
+      component = <DeleteAccountContainer />;
       break;
     default:
       return null;
