@@ -64,34 +64,11 @@ class UserSettings extends React.Component {
               <h4>ESC</h4>
             </div>
           </header>
-          {/* {!edit ? ( */}
-          {/* <div className="user-account">
-              <img src={currentUser.avatar} alt="" className="avatar" />
-              <div className="info">
-                <div className="username">
-                  <h2>USERNAME</h2>
-                  <p>
-                    {currentUser.username}
-                    <span>#{currentUser.discriminator}</span>
-                  </p>
-                </div>
-                <div>
-                  <h2>EMAIL</h2>
-                  <p>{currentUser.email}</p>
-                </div>
-              </div>
-              <button type="button" onClick={this.handleClick}>
-                Edit
-              </button>
-            </div> */}
-          {/* ) : ( */}
           <UserEditForm
             // handleChange={this.handleChange}
             // handleUpdate={this.handleUpdate}
             currentUser={currentUser}
-            // fetchCurrentUser={fetchCurrentUser}
           />
-          {/* )} */}
         </main>
       </div>
     );
