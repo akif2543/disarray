@@ -4,6 +4,7 @@ const Tooltip = ({ text, className, el }) => {
   let style;
 
   if (el && el.current) {
+    console.log(el.current.getBoundingClientRect());
     const {
       top,
       bottom,
@@ -79,6 +80,12 @@ const Tooltip = ({ text, className, el }) => {
       case "nav-tt dm":
         style = {
           left: `${right - 60 - width / 2}px`,
+        };
+        break;
+      case "ue-tt":
+        style = {
+          top: `${85}px`,
+          left: `${572.5}px`,
         };
         break;
       default:

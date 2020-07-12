@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
+import Tooltip from "../ui/tooltip";
 
 const UserEditForm = ({
   currentUser,
@@ -15,12 +16,17 @@ const UserEditForm = ({
     currentPassword: "",
   };
 
+  const el = useRef(null);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialUser);
   const [focused, setFocused] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
   const [password, setPassword] = useState("");
   const [localErrors, setLocalErrors] = useState([]);
+  const [tooltip, setTooltip] = useState(false);
+
+  const showTooltip = () => setTooltip(true);
+  const hideTooltip = () => setTooltip(false);
 
   const toggleEdit = () => setEdit(!edit);
 
@@ -232,12 +238,19 @@ const UserEditForm = ({
       {!edit && (
         <button
           type="button"
-          onClick={toggleEdit}
+          onClick={isDemo ? null : toggleEdit}
           className={isDemo ? "edit-btn demo" : "edit-btn"}
-          disabled={isDemo}
+          onFocus={showTooltip}
+          onMouseEnter={showTooltip}
+          onBlur={hideTooltip}
+          onMouseLeave={hideTooltip}
+          ref={el}
         >
           Edit
         </button>
+      )}
+      {isDemo && tooltip && (
+        <Tooltip text="Cannot edit demo user" className="ue-tt" el={el} />
       )}
     </div>
   );

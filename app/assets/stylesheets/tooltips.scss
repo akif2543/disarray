@@ -63,7 +63,8 @@
 
 .u-bar-tt,
 .cl-tt,
-.nav-tt {
+.nav-tt,
+.ue-tt {
   .tooltip-content {
     h1 {
       font-family: "Whitney Medium";
@@ -76,7 +77,8 @@
 
 .u-bar-tt,
 .cl-tt,
-.msg-tt {
+.msg-tt,
+.ue-tt {
   .tooltip-content {
     &:after {
       content: " ";
