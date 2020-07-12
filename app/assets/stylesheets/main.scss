@@ -28,7 +28,8 @@
   }
 
   .channel-name,
-  .dm-name {
+  .dm-name,
+  .friends-bar {
     display: flex;
     flex-flow: row nowrap;
     // overflow: hidden;
@@ -61,6 +62,59 @@
           size: 14px;
           family: "Whitney Medium";
         }
+      }
+    }
+  }
+
+  .friends-bar {
+    .title {
+      display: flex;
+      flex-direction: row;
+      padding-right: 15px;
+      border-right: 0.1px solid rgb(66, 69, 74);
+
+      h3 {
+        font-family: "Whitney Bold";
+      }
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+
+      .friends-tab {
+        margin: 0 8px;
+        padding: 2px 8px;
+        height: 25px;
+
+        border-radius: 5px;
+
+        h3 {
+          font-size: 16px;
+          color: $dk-icons;
+          padding: 0;
+          height: 80%;
+        }
+
+        &:hover {
+          background: rgb(58, 62, 68);
+          color: rgb(220, 221, 222);
+        }
+      }
+    }
+
+    .add-friend {
+      margin: 0 8px;
+      padding: 2px 8px;
+      height: 25px;
+
+      border-radius: 5px;
+      background: $dk-green;
+      font-size: 16px;
+
+      h3 {
+        padding: 0;
+        height: 80%;
       }
     }
   }
@@ -134,8 +188,9 @@
     }
   }
 
-  .nav-icon-group.home {
-    display: none;
+  .grp-dm {
+    padding-right: 20px;
+    border-right: 0.1px solid rgb(66, 69, 74);
   }
 }
 

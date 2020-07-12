@@ -4,7 +4,7 @@ import { Route } from "react-router-dom";
 import SplashContainer from "../splash/splash_container";
 import SessionContainer from "../session/session_container";
 import { AuthRoute, ProtectedRoute } from "../../util/route_util";
-import MainContainer from "../main/main_container";
+import HomeContainer from "../home/home_container";
 import Loading from "../ui/loading";
 import ModalContainer from "../ui/modal";
 import ServerPanelContainer from "../server/bars/server_panel_container";
@@ -38,7 +38,7 @@ const App = ({ loading, settings }) => (
       path="/@me/:conversationId"
       component={ConversationContainer}
     />
-    <ProtectedRoute exact path="/@me" component={MainContainer} />
+    <ProtectedRoute exact path="/@me" component={HomeContainer} />
     <ProtectedRoute
       path="/channels/:serverId/:channelId"
       component={TextChannelContainer}

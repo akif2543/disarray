@@ -19,6 +19,14 @@ const ConversationList = ({ conversations, currentUser }) => {
   return (
     <div className="channel-list-wrapper">
       <nav className="channel-list convo">
+        <div className="tabs">
+          <NavLink exact to="/@me">
+            <button type="button" className="friends-btn">
+              <FontAwesomeIcon icon="users" size="lg" />
+              <h2>Friends</h2>
+            </button>
+          </NavLink>
+        </div>
         <header>
           <h2>DIRECT MESSAGES</h2>
           <div className="add-channel-group" ref={el}>

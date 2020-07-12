@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "./tooltip";
 
-const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
+const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser, home }) => {
   const [tooltips, setTooltips] = useState({
     bell: false,
     pin: false,
@@ -11,6 +11,7 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
     contact: false,
     add: false,
     call: false,
+    dm: false,
   });
 
   const muteEl = useRef(null);
@@ -18,6 +19,7 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
   const pinEl = useRef(null);
   const memEl = useRef(null);
   const addEl = useRef(null);
+  const dmEl = useRef(null);
   const atEl = useRef(null);
   const gitEl = useRef(null);
 
@@ -26,7 +28,7 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
   const hideTooltip = (type) => () =>
     setTooltips({ ...tooltips, [type]: false });
 
-  const { bell, pin, members, mentions, contact, add, call } = tooltips;
+  const { bell, pin, members, mentions, contact, add, call, dm } = tooltips;
 
   return (
     <nav className="nav-bar">
@@ -48,11 +50,33 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
         </div>
       )}
 
-      <div
-        className={
-          !channel && !otherUser ? "nav-icon-group home" : "nav-icon-group"
-        }
-      >
+      {home && (
+        <div className="friends-bar">
+          <div className="title">
+            <FontAwesomeIcon icon="users" size="lg" />
+            <h3>Friends</h3>
+          </div>
+          <nav>
+            <button type="button" className="friends-tab">
+              <h3>Online</h3>
+            </button>
+            <button type="button" className="friends-tab">
+              <h3>All</h3>
+            </button>
+            <button type="button" className="friends-tab">
+              <h3>Pending</h3>
+            </button>
+            <button type="button" className="friends-tab">
+              <h3>Blocked</h3>
+            </button>
+          </nav>
+          <button type="button" className="add-friend">
+            <h3>Add Friend</h3>
+          </button>
+        </div>
+      )}
+
+      <div className="nav-icon-group">
         {channel && (
           <div className="channel">
             <button
@@ -178,14 +202,29 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser }) => {
             )}
           </div>
         )}
-        <div
-          className={
-            !channel && !otherUser ? "search-wrapper home" : "search-wrapper"
-          }
-        >
-          <input type="text" placeholder="Search" className="search-bar" />
-          <FontAwesomeIcon icon="search" className="search-icon" />
-        </div>
+        {home ? (
+          <div className="grp-dm">
+            <button
+              type="button"
+              className="nav-icon"
+              onMouseOver={showTooltip("dm")}
+              onFocus={showTooltip("dm")}
+              onMouseOut={hideTooltip("dm")}
+              onBlur={hideTooltip("dm")}
+              ref={dmEl}
+            >
+              <FontAwesomeIcon icon="comment-alt" size="lg" />
+            </button>
+            {dm && (
+              <Tooltip text="New Group DM" className="nav-tt dm" el={dmEl} />
+            )}
+          </div>
+        ) : (
+          <div className="search-wrapper">
+            <input type="text" placeholder="Search" className="search-bar" />
+            <FontAwesomeIcon icon="search" className="search-icon" />
+          </div>
+        )}
         <div className="user-icons">
           <button
             type="button"

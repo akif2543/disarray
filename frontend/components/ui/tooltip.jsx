@@ -25,7 +25,7 @@ const Tooltip = ({ text, className, el }) => {
         break;
       case "cl-tt add-dm":
         style = {
-          top: `${-29}px`,
+          top: `${20}px`,
           right: `${-22}px`,
         };
         break;
@@ -74,6 +74,11 @@ const Tooltip = ({ text, className, el }) => {
       case "nav-tt git":
         style = {
           left: `${right - 38 - width / 2}px`,
+        };
+        break;
+      case "nav-tt dm":
+        style = {
+          left: `${right - 60 - width / 2}px`,
         };
         break;
       default:

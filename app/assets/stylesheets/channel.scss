@@ -191,7 +191,7 @@
   overflow-y: scroll;
 
   header {
-    padding: 10px 5px 0;
+    padding: 0 5px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -387,6 +387,41 @@
       &:hover {
         text-decoration: underline;
       }
+    }
+  }
+}
+
+.tabs {
+  padding: 8px;
+
+  .friends-btn {
+    background: $dk-sidebar;
+    color: rgb(114, 118, 125);
+    justify-content: flex-start;
+    box-sizing: border-box;
+    padding: 10px;
+    padding-left: 15px;
+    margin-bottom: 0;
+    height: 42px;
+
+    h2 {
+      margin-left: 20px;
+      font: {
+        family: "Whitney Medium";
+        size: 16px;
+      }
+    }
+
+    &:hover {
+      background: rgb(52, 55, 60);
+      color: $dk-white;
+    }
+  }
+
+  .active {
+    .friends-btn {
+      background: rgb(58, 60, 67);
+      color: $dk-white;
     }
   }
 }

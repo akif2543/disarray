@@ -40,6 +40,7 @@ import {
   faAngleRight,
   faPhoneAlt,
   faTrashAlt,
+  faUsers,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
@@ -82,5 +83,7 @@ library.add(
   faSearch,
   faThumbtack,
   faTimesCircle,
-  faTrashAlt
+  faTrashAlt,
+  faUsers,
+  faCommentAlt
 );

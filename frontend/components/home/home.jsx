@@ -1,10 +1,8 @@
 import React from "react";
 
-import Sidebar from "./side_bar";
-import UserBar from "../user/user_bar";
 import NavBar from "../ui/nav_bar";
 
-class Main extends React.Component {
+class Home extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -14,14 +12,14 @@ class Main extends React.Component {
   }
 
   render() {
-    const { currentUser, openSettings, logout } = this.props;
+    const { currentUser } = this.props;
 
     return (
       <main className="main">
-        <NavBar />
+        <NavBar home />
       </main>
     );
   }
 }
 
-export default Main;
+export default Home;
