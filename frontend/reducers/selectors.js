@@ -133,3 +133,27 @@ export const getAuthorFromMessage = (state, props) => {
   const m = getMessageFromPath(state, props);
   return state.entities.users[m.author];
 };
+
+export const getUserFriends = (state) => {
+  const user = getCurrentUser(state);
+  const { friends } = user;
+  return friends.map((f) => state.entities.users[f]);
+};
+
+export const getUserIncomingPendingFriends = (state) => {
+  const user = getCurrentUser(state);
+  const { pendingIn } = user;
+  return pendingIn.map((f) => state.entities.users[f]);
+};
+
+export const getUserOutgoingPendingFriends = (state) => {
+  const user = getCurrentUser(state);
+  const { pendingOut } = user;
+  return pendingOut.map((f) => state.entities.users[f]);
+};
+
+export const getUserBlockedFriends = (state) => {
+  const user = getCurrentUser(state);
+  const { blocked } = user;
+  return blocked.map((f) => state.entities.users[f]);
+};

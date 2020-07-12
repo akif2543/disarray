@@ -10,7 +10,7 @@ class Api::FriendsController < ApplicationController
     @user = User.includes(:friends).find_by(id: params[:id])
     if @user
       @mutuals = current_user.mutual_friends(@user)
-      render(partial: "api/users/user", locals: {user: @user, mutuals: @mutuals})
+      render "api/users/show"
     else
       render json: ["User not found"], status: 404
     end

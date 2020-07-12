@@ -107,6 +107,12 @@
         }
       }
 
+      .friends-tab.active {
+        background: rgb(58, 62, 68);
+        color: rgb(220, 221, 222);
+        cursor: default;
+      }
+
       .add-friend {
         background: $dk-green;
       }

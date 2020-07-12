@@ -1,25 +1,49 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import NavBar from "../ui/nav_bar";
+import FriendList from "./friend_list";
 
-class Home extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+const Home = ({
+  stopLoading,
+  user,
+  friends,
+  pendingIn,
+  pendingOut,
+  blocked,
+  requestFriend,
+  respondToRequest,
+  removeFriend,
+  directMessage,
+  createConversation,
+  history: { push },
+}) => {
+  const [active, setActive] = useState("online");
 
-  componentDidMount() {
-    this.props.stopLoading();
-  }
+  const switchTab = (tab) => () => setActive(tab);
 
-  render() {
-    const { currentUser } = this.props;
+  useEffect(() => {
+    stopLoading();
+  }, []);
 
-    return (
-      <main className="main">
-        <NavBar home />
-      </main>
-    );
-  }
-}
+  return (
+    <div className="main">
+      <NavBar home switchTab={switchTab} active={active} />
+      <FriendList
+        active={active}
+        user={user}
+        friends={friends}
+        pendingIn={pendingIn}
+        pendingOut={pendingOut}
+        blocked={blocked}
+        requestFriend={requestFriend}
+        respondToRequest={respondToRequest}
+        removeFriend={removeFriend}
+        directMessage={directMessage}
+        createConversation={createConversation}
+        push={push}
+      />
+    </div>
+  );
+};
 
 export default Home;

@@ -41,11 +41,13 @@ import {
   faPhoneAlt,
   faTrashAlt,
   faUsers,
+  faCheck,
 } from "@fortawesome/free-solid-svg-icons";
 import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
 
 library.add(
   faTimes,
+  faCheck,
   faArrowLeft,
   faGithub,
   faLinkedin,

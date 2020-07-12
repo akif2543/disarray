@@ -12,9 +12,16 @@ import {
   RECEIVE_CONVERSATION,
   RECEIVE_CONVERSATIONS,
 } from "../../actions/conversation_actions";
+import {
+  RECEIVE_USER,
+  RECEIVE_FRIEND,
+  RECEIVE_PENDING,
+  RECEIVE_DECLINE,
+  REMOVE_FRIEND,
+} from "../../actions/friend_actions";
 
 const usersReducer = (state = {}, action) => {
-  const newState = Object.assign({}, state);
+  const newState = { ...state };
   let i;
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
@@ -37,6 +44,30 @@ const usersReducer = (state = {}, action) => {
       return Object.assign(newState, action.user);
     case RECEIVE_MESSAGES:
       return action.users ? Object.assign(newState, action.users) : state;
+    case RECEIVE_USER:
+      return Object.assign(newState, action.user);
+    case RECEIVE_FRIEND:
+      newState[action.id].friends.push(action.otherId);
+      newState[action.id].pending.splice(
+        newState[action.id].pending.indexOf(action.otherId),
+        1
+      );
+      return newState;
+    case RECEIVE_PENDING:
+      newState[action.id].pending.push(action.otherId);
+      return newState;
+    case RECEIVE_DECLINE:
+      newState[action.id].pending.splice(
+        newState[action.id].pending.indexOf(action.otherId),
+        1
+      );
+      return newState;
+    case REMOVE_FRIEND:
+      newState[action.id].friends.splice(
+        newState[action.id].friends.indexOf(action.otherId),
+        1
+      );
+      return newState;
     default:
       return state;
   }

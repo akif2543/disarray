@@ -2,7 +2,15 @@ import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "./tooltip";
 
-const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser, home }) => {
+const NavBar = ({
+  channel,
+  memberBar,
+  toggleMemberBar,
+  otherUser,
+  home,
+  switchTab,
+  active,
+}) => {
   const [tooltips, setTooltips] = useState({
     bell: false,
     pin: false,
@@ -57,19 +65,52 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser, home }) => {
             <h3>Friends</h3>
           </div>
           <nav>
-            <button type="button" className="friends-tab">
+            <button
+              type="button"
+              className={
+                active === "online" ? "friends-tab active" : "friends-tab"
+              }
+              onClick={switchTab("online")}
+              disabled={active === "online"}
+            >
               <h3>Online</h3>
             </button>
-            <button type="button" className="friends-tab">
+            <button
+              type="button"
+              className={
+                active === "all" ? "friends-tab active" : "friends-tab"
+              }
+              onClick={switchTab("all")}
+              disabled={active === "all"}
+            >
               <h3>All</h3>
             </button>
-            <button type="button" className="friends-tab">
+            <button
+              type="button"
+              className={
+                active === "pending" ? "friends-tab active" : "friends-tab"
+              }
+              onClick={switchTab("pending")}
+              disabled={active === "pending"}
+            >
               <h3>Pending</h3>
             </button>
-            <button type="button" className="friends-tab">
+            <button
+              type="button"
+              className={
+                active === "blocked" ? "friends-tab active" : "friends-tab"
+              }
+              onClick={switchTab("blocked")}
+              disabled={active === "blocked"}
+            >
               <h3>Blocked</h3>
             </button>
-            <button type="button" className="add-friend">
+            <button
+              type="button"
+              className={active === "add" ? "add-friend active" : "add-friend"}
+              onClick={switchTab("add")}
+              disabled={active === "add"}
+            >
               <h3>Add Friend</h3>
             </button>
           </nav>

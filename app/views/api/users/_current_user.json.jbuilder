@@ -4,7 +4,8 @@ json.user do
     json.servers user.servers.map(&:id) 
     json.conversations user.conversations.map(&:id)
     json.friends user.friends.map(&:id)
-    json.pending user.requested_friends.map(&:id) + user.pending_friends.map(&:id)
+    json.pendingIn user.requested_friends.map(&:id)
+    json.pendingOut user.pending_friends.map(&:id)
     json.blocked user.blocked_friends.map(&:id)
   end
 end
