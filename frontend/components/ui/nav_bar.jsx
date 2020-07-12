@@ -69,10 +69,10 @@ const NavBar = ({ channel, memberBar, toggleMemberBar, otherUser, home }) => {
             <button type="button" className="friends-tab">
               <h3>Blocked</h3>
             </button>
+            <button type="button" className="add-friend">
+              <h3>Add Friend</h3>
+            </button>
           </nav>
-          <button type="button" className="add-friend">
-            <h3>Add Friend</h3>
-          </button>
         </div>
       )}
 

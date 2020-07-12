@@ -3,6 +3,33 @@ json.user do
     json.extract! user, :id, :username, :discriminator, :email, :avatar
     json.servers user.servers.map(&:id) 
     json.conversations user.conversations.map(&:id)
+    json.friends user.friends.map(&:id)
+    json.pending user.requested_friends.map(&:id) + user.pending_friends.map(&:id)
+    json.blocked user.blocked_friends.map(&:id)
+  end
+end
+
+user.friends.each do |f|
+  json.users do 
+    json.set! f.id do
+      json.extract! f, :id, :username, :discriminator, :avatar
+    end
+  end
+end
+
+user.requested_friends.concat(user.pending_friends).each do |f|
+  json.users do 
+    json.set! f.id do
+      json.extract! f, :id, :username, :discriminator, :avatar
+    end
+  end
+end
+
+user.blocked_friends.each do |f|
+  json.users do 
+    json.set! f.id do
+      json.extract! f, :id, :username, :discriminator, :avatar
+    end
   end
 end
 

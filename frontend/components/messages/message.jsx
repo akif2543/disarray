@@ -16,13 +16,14 @@ const Message = ({
   a,
   history,
   openModal,
+  toggleEditing,
 }) => {
   const el = useRef(null);
   const mesEl = useRef(null);
 
   const [popout, setPopout] = useState(false);
   const [options, setOptions] = useState(false);
-  const [editting, setEditting] = useState(false);
+  const [editing, setEditing] = useState(false);
 
   const [dropdown, setDropdown] = useState(false);
 
@@ -32,8 +33,8 @@ const Message = ({
   const toggleOptions = (bool) => () => setOptions(bool);
 
   const toggleEdit = () => {
-    // hideTooltip("edit");
-    setEditting(!editting);
+    // toggleEditing();
+    setEditing(!editing);
   };
 
   const isAuthor = u.id === m.author;
@@ -48,7 +49,7 @@ const Message = ({
       onBlur={toggleOptions(false)}
       ref={mesEl}
     >
-      {options && !editting && (
+      {options && !editing && (
         <MessageOpts
           isAuthor={isAuthor}
           toggleEdit={toggleEdit}
@@ -68,7 +69,7 @@ const Message = ({
       )}
       <img src={a.avatar} alt="" className="avatar" />
       {short && (
-        <span className={editting ? "date edit" : "date"}>
+        <span className={editing ? "date edit" : "date"}>
           {shortDate(m.createdAt)}
         </span>
       )}
@@ -87,7 +88,7 @@ const Message = ({
           )}
           <span className="date">{formatDate(m.createdAt)}</span>
         </header>
-        {editting ? (
+        {editing ? (
           <EditMessageForm
             m={m}
             toggleEdit={toggleEdit}

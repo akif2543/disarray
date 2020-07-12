@@ -28,7 +28,7 @@ const SplashBar = ({ loggedIn, startLoading }) => (
         <FontAwesomeIcon icon={["fab", "linkedin"]} className="splash-icon" />
       </a>
       <a
-        href="https://angel.co/u/akif-saifi"
+        href="https://angel.co/u/akifsaifi"
         target="_blank"
         rel="noopener noreferrer"
         className="splash-nav-link"

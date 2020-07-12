@@ -30,10 +30,7 @@ const UserSettingsSidebar = ({ logout }) => (
               className="splash-icon"
             />
           </a>
-          <a
-            href="https://www.instagram.com/discord"
-            className="splash-nav-link"
-          >
+          <a href="https://angel.co/u/akifsaifi" className="splash-nav-link">
             <FontAwesomeIcon
               icon={["fab", "angellist"]}
               className="splash-icon"

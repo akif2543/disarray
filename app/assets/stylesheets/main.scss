@@ -74,7 +74,7 @@
       border-right: 0.1px solid rgb(66, 69, 74);
 
       h3 {
-        font-family: "Whitney Bold";
+        font-family: "Whitney Medium";
       }
     }
 
@@ -82,7 +82,7 @@
       display: flex;
       align-items: center;
 
-      .friends-tab {
+      button {
         margin: 0 8px;
         padding: 2px 8px;
         height: 25px;
@@ -91,9 +91,14 @@
 
         h3 {
           font-size: 16px;
-          color: $dk-icons;
           padding: 0;
           height: 80%;
+        }
+      }
+
+      .friends-tab {
+        h3 {
+          color: $dk-icons;
         }
 
         &:hover {
@@ -101,20 +106,9 @@
           color: rgb(220, 221, 222);
         }
       }
-    }
 
-    .add-friend {
-      margin: 0 8px;
-      padding: 2px 8px;
-      height: 25px;
-
-      border-radius: 5px;
-      background: $dk-green;
-      font-size: 16px;
-
-      h3 {
-        padding: 0;
-        height: 80%;
+      .add-friend {
+        background: $dk-green;
       }
     }
   }

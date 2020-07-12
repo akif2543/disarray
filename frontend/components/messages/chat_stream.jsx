@@ -13,7 +13,7 @@ class ChatStream extends React.Component {
       lastTime: 1,
       loading: false,
       scrolling: false,
-      editting: false,
+      editing: false,
     };
     this.bottom = React.createRef();
     this.scroller = React.createRef();
@@ -22,7 +22,7 @@ class ChatStream extends React.Component {
     this.setSlice = this.setSlice.bind(this);
     this.handleLoad = this.handleLoad.bind(this);
     this.jumpBack = this.jumpBack.bind(this);
-    this.toggleEditting = this.toggleEditting.bind(this);
+    this.toggleEditing = this.toggleEditing.bind(this);
   }
 
   componentDidMount() {
@@ -54,12 +54,16 @@ class ChatStream extends React.Component {
       return;
     }
 
+    if (
+      prevProps.messages[0] !== this.props.messages[0] ||
+      !prevProps.messages.length
+    )
+      this.setTimestamp();
+
     if (snapshot) {
       this.scroller.current.scrollTop =
         this.scroller.current.scrollHeight - snapshot;
       this.setSlice("loading", false);
-    } else if (prevProps.messages[0] !== this.props.messages[0]) {
-      this.setTimestamp();
     } else if (this.state.loading && !prevState.loading) {
       this.handleLoad();
     } else if (
@@ -80,7 +84,7 @@ class ChatStream extends React.Component {
 
   setTimestamp() {
     const ts = this.props.messages[0];
-    if (ts) this.setSlice("timestamp", ts.createdAt);
+    if (ts) this.setState({ timestamp: ts.createdAt });
   }
 
   setSlice(slice, update) {
@@ -101,6 +105,8 @@ class ChatStream extends React.Component {
   }
 
   handleScroll() {
+    const { loading, editing } = this.state;
+
     if (!this.scroller.current) return;
     if (
       this.scroller.current.scrollHeight === this.scroller.current.clientHeight
@@ -108,16 +114,17 @@ class ChatStream extends React.Component {
       return;
     if (
       this.scroller.current.scrollHeight - this.scroller.current.scrollTop ===
-      this.scroller.current.clientHeight
+        this.scroller.current.clientHeight &&
+      !editing
     )
       this.jumpBack();
-    if (this.state.loading || this.scroller.current.scrollTop !== 0) return;
+    if (loading || this.scroller.current.scrollTop !== 0) return;
     this.triggerLoad();
   }
 
-  toggleEditting() {
-    const { editting } = this.state;
-    this.setState({ editting: !editting });
+  toggleEditing() {
+    const { editing } = this.state;
+    this.setState({ editing: !editing });
   }
 
   jumpBack() {
@@ -127,7 +134,7 @@ class ChatStream extends React.Component {
   handleLoad() {
     const { loading, timestamp, lastTime } = this.state;
     if (!loading || timestamp === lastTime) return;
-    this.setSlice("lastTime", timestamp);
+    this.setState({ lastTime: timestamp });
     const { id, fetchMessages, type } = this.props;
     const time = new Date(timestamp).getTime();
     fetchMessages(type, id, time);
@@ -136,7 +143,7 @@ class ChatStream extends React.Component {
   render() {
     const seen = [];
     const last = [];
-    const { memberbar, messages, user, updateMessage } = this.props;
+    const { memberbar, messages } = this.props;
     const { scrolling } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
@@ -153,7 +160,7 @@ class ChatStream extends React.Component {
                 m={m}
                 bottom={this.bottom}
                 short={last[1] === m.author}
-                toggleEditting={this.toggleEditting}
+                toggleEditing={this.toggleEditing}
               />
             );
           })}

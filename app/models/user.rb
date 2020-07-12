@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :channels, through: :servers, source: :channels
   has_many :messages, foreign_key: :author_id, class_name: :Message, dependent: :destroy
 
+  has_friendship
+
   def self.discordify_errors(errors)
     errors.map do |e|
       case e
@@ -40,6 +42,14 @@ class User < ApplicationRecord
 
   def is_member?(server)
     self.servers.include?(server)
+  end
+
+  def mutual_friends(other_user)
+    self.friends.select { |f| other_user.friends.include?(f) }
+  end
+
+  def mutual_servers(other_user)
+    self.servers.select { |s| other_user.servers.include?(s) }
   end
 
   def password=(password)
