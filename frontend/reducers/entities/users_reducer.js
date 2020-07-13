@@ -54,7 +54,8 @@ const usersReducer = (state = {}, action) => {
       );
       return newState;
     case RECEIVE_PENDING:
-      newState[action.id].pendingOut.push(action.otherId);
+      newState[action.id].pendingOut.push(action.user.id);
+      newState[action.user.id] = action.user;
       return newState;
     case RECEIVE_DECLINE:
       newState[action.id].pendingIn.splice(

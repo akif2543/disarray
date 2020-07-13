@@ -10,6 +10,7 @@ const Home = ({
   pendingIn,
   pendingOut,
   blocked,
+  friendError,
   requestFriend,
   respondToRequest,
   removeFriend,
@@ -36,6 +37,7 @@ const Home = ({
         pendingIn={pendingIn}
         pendingOut={pendingOut}
         blocked={blocked}
+        friendError={friendError}
         requestFriend={requestFriend}
         respondToRequest={respondToRequest}
         removeFriend={removeFriend}

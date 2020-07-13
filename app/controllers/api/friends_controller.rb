@@ -17,10 +17,11 @@ class Api::FriendsController < ApplicationController
   end
 
   def create
-    @user = User.find_by(id: params[:id])
+    @user = params[:id] ? User.find_by(id: params[:id]) : User.find_by(username: params[:user][:username], discriminator: params[:user][:discriminator])
     if @user
       current_user.friend_request(@user)
-      render json: {success: "request sent", id: current_user.id, otherId: @user.id }, status: 201
+      # render(partial: "api/users/user", locals: @user)
+      render json: {success: "request sent", id: current_user.id, user: {id: @user.id, username: @user.username, discriminator: @user.discriminator, avatar: @user.avatar}  }, status: 201
     else
       render json: ["User not found"], status: 404
     end

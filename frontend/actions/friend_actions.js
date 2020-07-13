@@ -43,8 +43,8 @@ const receiveFriendError = (error) => ({
   error,
 });
 
-export const requestFriend = (id) => (dispatch) =>
-  FriendsAPI.requestFriend(id)
+export const requestFriend = (id, user) => (dispatch) =>
+  FriendsAPI.requestFriend(id, user)
     .then((res) => dispatch(receivePending(res)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 

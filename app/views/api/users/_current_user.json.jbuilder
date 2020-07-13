@@ -18,7 +18,7 @@ user.friends.each do |f|
   end
 end
 
-user.requested_friends.concat(user.pending_friends).each do |f|
+(user.requested_friends + user.pending_friends).each do |f|
   json.users do 
     json.set! f.id do
       json.extract! f, :id, :username, :discriminator, :avatar

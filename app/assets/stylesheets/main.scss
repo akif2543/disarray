@@ -117,6 +117,11 @@
       .add-friend {
         background: $dk-green;
       }
+
+      .add-friend.active {
+        background: rgb(58, 82, 76);
+        color: $dk-green;
+      }
     }
   }
 

@@ -25,12 +25,13 @@ const mSTP = (state, ownProps) => ({
   pendingIn: getUserIncomingPendingFriends(state),
   pendingOut: getUserOutgoingPendingFriends(state),
   blocked: getUserBlockedFriends(state),
+  friendError: state.errors.friends,
 });
 
 const mDTP = (dispatch) => ({
   stopLoading: () => dispatch(stopLoading()),
   openSettings: (settings) => dispatch(openSettings(settings)),
-  requestFriend: (id) => dispatch(requestFriend(id)),
+  requestFriend: (id, user) => dispatch(requestFriend(id, user)),
   removeFriend: (id) => dispatch(unfriend(id)),
   createConversation: (convo) => dispatch(createConversation(convo)),
   directMessage: (id, message) => dispatch(directMessage(id, message)),
