@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
 import DMDropdownContainer from "./dm_dropdown";
 
-const ConversationList = ({ conversations, currentUser }) => {
+const ConversationList = ({ conversations, currentUser, fetchCurrentUser }) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
   const [dropdown, setDropdown] = useState(false);
@@ -16,11 +16,16 @@ const ConversationList = ({ conversations, currentUser }) => {
 
   const seen = [];
 
+  const handleClick = (e) => {
+    if (e.currentTarget.classList.contains("active")) return;
+    fetchCurrentUser();
+  };
+
   return (
     <div className="channel-list-wrapper">
       <nav className="channel-list convo">
         <div className="tabs">
-          <NavLink exact to="/@me">
+          <NavLink exact to="/@me" onClick={handleClick}>
             <button type="button" className="friends-btn">
               <FontAwesomeIcon icon="users" size="lg" />
               <h2>Friends</h2>

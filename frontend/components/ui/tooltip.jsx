@@ -88,6 +88,18 @@ const Tooltip = ({ text, className, el }) => {
           left: `${572.5}px`,
         };
         break;
+      case "fl-tt msg":
+        style = {
+          top: `${top - 45}px`,
+          right: `calc(100vw - ${right + 22.5}px)`,
+        };
+        break;
+      case "fl-tt more":
+        style = {
+          top: `${top - 45}px`,
+          right: `calc(100vw - ${right + 12.5}px)`,
+        };
+        break;
       default:
         break;
     }

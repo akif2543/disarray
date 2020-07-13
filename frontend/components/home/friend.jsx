@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Tooltip from "../ui/tooltip";
 
 const Friend = ({
   f,
@@ -11,11 +12,45 @@ const Friend = ({
   incoming,
   outgoing,
   blocked,
+  push,
 }) => {
+  const mesEl = useRef(null);
+  const morEl = useRef(null);
+  const accEl = useRef(null);
+  const igEl = useRef(null);
+
   const [disc, setDisc] = useState(false);
+  const [tooltips, setTooltips] = useState({
+    message: false,
+    more: false,
+    accept: false,
+    ignore: false,
+  });
 
   const showDisc = () => setDisc(true);
   const hideDisc = () => setDisc(false);
+
+  const showTooltip = (t) => () => setTooltips({ ...tooltips, [t]: true });
+  const hideTooltip = (t) => () => setTooltips({ ...tooltips, [t]: false });
+
+  const findConversation = () =>
+    f.conversations.find((id) => u.conversations.includes(id));
+
+  const handleMessage = () => {
+    const c = findConversation();
+
+    if (c > 0) {
+      push(`/@me/${c}`);
+    } else {
+      const convo = { user1_id: u.id, user2_id: f.id };
+      createConversation(convo).then((action) => {
+        const [cv] = Object.values(action.conversation);
+        return push(`/@me/${cv.id}`);
+      });
+    }
+  };
+
+  const { message, more, accept, ignore } = tooltips;
 
   return (
     <li
@@ -41,24 +76,59 @@ const Friend = ({
         </div>
         {all && (
           <div className={disc ? "actions hover" : "actions"}>
-            <button type="button">
+            <button
+              type="button"
+              onFocus={showTooltip("message")}
+              onMouseEnter={showTooltip("message")}
+              onMouseLeave={hideTooltip("message")}
+              onBlur={hideTooltip("message")}
+              onClick={handleMessage}
+              ref={mesEl}
+            >
               <FontAwesomeIcon icon="comment-alt" className="dm-icon" />
             </button>
-            <button type="button">
+            {message && (
+              <Tooltip text="Message" className="fl-tt msg" el={mesEl} />
+            )}
+            <button
+              type="button"
+              onFocus={showTooltip("more")}
+              onMouseEnter={showTooltip("more")}
+              onMouseLeave={hideTooltip("more")}
+              onBlur={hideTooltip("more")}
+              ref={morEl}
+            >
               <FontAwesomeIcon icon="ellipsis-v" />
             </button>
+            {more && <Tooltip text="More" className="fl-tt more" el={morEl} />}
           </div>
         )}
         {pending && (
           <div className={disc ? "actions hover" : "actions"}>
             {incoming && (
-              <button type="button">
+              <button
+                type="button"
+                onFocus={showTooltip("accept")}
+                onMouseEnter={showTooltip("accept")}
+                onMouseLeave={hideTooltip("accept")}
+                onBlur={hideTooltip("accept")}
+                ref={accEl}
+              >
                 <FontAwesomeIcon icon="check" />
               </button>
             )}
-            <button type="button">
+            {accept && <Tooltip text="Accept" className="fl-tt" el={accEl} />}
+            <button
+              type="button"
+              onFocus={showTooltip("ignore")}
+              onMouseEnter={showTooltip("ignore")}
+              onMouseLeave={hideTooltip("ignore")}
+              onBlur={hideTooltip("ignore")}
+              ref={igEl}
+            >
               <FontAwesomeIcon icon="ellipsis-v" />
             </button>
+            {ignore && <Tooltip text="Ignore" className="fl-tt" el={igEl} />}
           </div>
         )}
         {blocked && <div className={disc ? "actions hover" : "actions"} />}
