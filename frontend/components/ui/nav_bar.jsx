@@ -297,9 +297,7 @@ const NavBar = ({
           >
             <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
           </button>
-          {contact && (
-            <Tooltip text="Contact" className="nav-tt git" el={gitEl} />
-          )}
+          {contact && <Tooltip text="Repo" className="nav-tt git" el={gitEl} />}
         </div>
       </div>
     </nav>
