@@ -33,9 +33,12 @@ class Api::FriendsController < ApplicationController
       if params[:accept]
         current_user.accept_request(@user)
         render json: {accept: "request accepted", id: current_user.id, otherId: @user.id }, status: 201
-      else
+      elsif params[:decline]
         current_user.decline_request(@user)
         render json: {decline: "request declined", id: current_user.id, otherId: @user.id }, status: 200
+      else
+        @user.decline_request(current_user)
+        render json: {cancel: "request canceled", id: current_user.id, otherId: @user.id  }, status: 200
       end
     else
       render json: ["User not found"], status: 404

@@ -146,12 +146,20 @@ const Friend = ({
               onMouseEnter={showTooltip("ignore")}
               onMouseLeave={hideTooltip("ignore")}
               onBlur={hideTooltip("ignore")}
-              onClick={() => respondToRequest(f.id, "ignore")}
+              onClick={() =>
+                respondToRequest(f.id, incoming ? "decline" : "cancel")
+              }
               ref={igEl}
             >
               <FontAwesomeIcon icon="times" />
             </button>
-            {ignore && <Tooltip text="Ignore" className="fl-tt ig" el={igEl} />}
+            {ignore && (
+              <Tooltip
+                text={incoming ? "Ignore" : "Cancel"}
+                className="fl-tt ig"
+                el={igEl}
+              />
+            )}
           </div>
         )}
         {blocked && <div className={disc ? "actions hover" : "actions"} />}

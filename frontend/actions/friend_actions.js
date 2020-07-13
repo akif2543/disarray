@@ -3,6 +3,7 @@ import FriendsAPI from "../util/friends_api_util";
 export const RECEIVE_FRIEND = "RECEIVE_FRIEND";
 export const RECEIVE_PENDING = "RECEIVE_PENDING";
 export const RECEIVE_DECLINE = "RECEIVE_DECLINE";
+export const RECEIVE_CANCEL = "RECEIVE_CANCEL";
 export const REMOVE_FRIEND = "REMOVE_FRIEND";
 export const RECEIVE_BLOCK = "RECEIVE_BLOCK";
 export const RECEIVE_USER = "RECEIVE_USER";
@@ -20,6 +21,11 @@ const receivePending = (res) => ({
 
 const receiveDecline = (res) => ({
   type: RECEIVE_DECLINE,
+  ...res,
+});
+
+const receiveCancel = (res) => ({
+  type: RECEIVE_CANCEL,
   ...res,
 });
 
@@ -50,9 +56,10 @@ export const requestFriend = (id, user) => (dispatch) =>
 
 export const respondToRequest = (id, type) => (dispatch) =>
   FriendsAPI.respondToRequest(id, type)
-    .then((res) =>
-      dispatch(res.accept ? receiveFriend(res) : receiveDecline(res))
-    )
+    .then((res) => {
+      if (res.accept) return dispatch(receiveFriend(res));
+      return dispatch(res.cancel ? receiveCancel(res) : receiveDecline(res));
+    })
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 
 export const unfriend = (id) => (dispatch) =>

@@ -18,6 +18,7 @@ import {
   RECEIVE_PENDING,
   RECEIVE_DECLINE,
   REMOVE_FRIEND,
+  RECEIVE_CANCEL,
 } from "../../actions/friend_actions";
 
 const usersReducer = (state = {}, action) => {
@@ -60,6 +61,12 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_DECLINE:
       newState[action.id].pendingIn.splice(
         newState[action.id].pendingIn.indexOf(action.otherId),
+        1
+      );
+      return newState;
+    case RECEIVE_CANCEL:
+      newState[action.id].pendingOut.splice(
+        newState[action.id].pendingOut.indexOf(action.otherId),
         1
       );
       return newState;
