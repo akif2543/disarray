@@ -1,11 +1,13 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
+import FriendMenu from "./friend_menu";
 
 const Friend = ({
   f,
   u,
   createConversation,
+  respondToRequest,
   openModal,
   all,
   pending,
@@ -20,6 +22,7 @@ const Friend = ({
   const igEl = useRef(null);
 
   const [disc, setDisc] = useState(false);
+  const [menu, setMenu] = useState(false);
   const [tooltips, setTooltips] = useState({
     message: false,
     more: false,
@@ -29,6 +32,8 @@ const Friend = ({
 
   const showDisc = () => setDisc(true);
   const hideDisc = () => setDisc(false);
+
+  const toggleMenu = () => setMenu(!menu);
 
   const showTooltip = (t) => () => setTooltips({ ...tooltips, [t]: true });
   const hideTooltip = (t) => () => setTooltips({ ...tooltips, [t]: false });
@@ -78,6 +83,7 @@ const Friend = ({
           <div className={disc ? "actions hover" : "actions"}>
             <button
               type="button"
+              className="friend-action-btn"
               onFocus={showTooltip("message")}
               onMouseEnter={showTooltip("message")}
               onMouseLeave={hideTooltip("message")}
@@ -92,14 +98,25 @@ const Friend = ({
             )}
             <button
               type="button"
+              className="friend-action-btn"
               onFocus={showTooltip("more")}
               onMouseEnter={showTooltip("more")}
               onMouseLeave={hideTooltip("more")}
               onBlur={hideTooltip("more")}
+              onClick={toggleMenu}
               ref={morEl}
             >
               <FontAwesomeIcon icon="ellipsis-v" />
             </button>
+            {menu && (
+              <FriendMenu
+                openModal={openModal}
+                toggleMenu={toggleMenu}
+                el={morEl}
+                id={f.id}
+                push={push}
+              />
+            )}
             {more && <Tooltip text="More" className="fl-tt more" el={morEl} />}
           </div>
         )}
@@ -108,27 +125,33 @@ const Friend = ({
             {incoming && (
               <button
                 type="button"
+                className="friend-action-btn"
                 onFocus={showTooltip("accept")}
                 onMouseEnter={showTooltip("accept")}
                 onMouseLeave={hideTooltip("accept")}
                 onBlur={hideTooltip("accept")}
+                onClick={() => respondToRequest(f.id, "accept")}
                 ref={accEl}
               >
                 <FontAwesomeIcon icon="check" />
               </button>
             )}
-            {accept && <Tooltip text="Accept" className="fl-tt" el={accEl} />}
+            {accept && (
+              <Tooltip text="Accept" className="fl-tt acc" el={accEl} />
+            )}
             <button
               type="button"
+              className="friend-action-btn"
               onFocus={showTooltip("ignore")}
               onMouseEnter={showTooltip("ignore")}
               onMouseLeave={hideTooltip("ignore")}
               onBlur={hideTooltip("ignore")}
+              onClick={() => respondToRequest(f.id, "ignore")}
               ref={igEl}
             >
-              <FontAwesomeIcon icon="ellipsis-v" />
+              <FontAwesomeIcon icon="times" />
             </button>
-            {ignore && <Tooltip text="Ignore" className="fl-tt" el={igEl} />}
+            {ignore && <Tooltip text="Ignore" className="fl-tt ig" el={igEl} />}
           </div>
         )}
         {blocked && <div className={disc ? "actions hover" : "actions"} />}

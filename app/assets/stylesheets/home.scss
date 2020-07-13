@@ -86,7 +86,7 @@
       }
 
       .actions {
-        button {
+        .friend-action-btn {
           margin: 0 8px;
           border-radius: 50%;
           height: 36px;
@@ -102,7 +102,7 @@
       }
 
       .actions.hover {
-        button {
+        .friend-action-btn {
           background: rgb(32, 34, 37);
         }
       }
@@ -112,4 +112,7 @@
       background: rgb(58, 62, 68);
     }
   }
+}
+
+.friend-menu {
 }

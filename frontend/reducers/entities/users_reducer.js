@@ -48,17 +48,17 @@ const usersReducer = (state = {}, action) => {
       return Object.assign(newState, action.user);
     case RECEIVE_FRIEND:
       newState[action.id].friends.push(action.otherId);
-      newState[action.id].pending.splice(
-        newState[action.id].pending.indexOf(action.otherId),
+      newState[action.id].pendingIn.splice(
+        newState[action.id].pendingIn.indexOf(action.otherId),
         1
       );
       return newState;
     case RECEIVE_PENDING:
-      newState[action.id].pending.push(action.otherId);
+      newState[action.id].pendingOut.push(action.otherId);
       return newState;
     case RECEIVE_DECLINE:
-      newState[action.id].pending.splice(
-        newState[action.id].pending.indexOf(action.otherId),
+      newState[action.id].pendingIn.splice(
+        newState[action.id].pendingIn.indexOf(action.otherId),
         1
       );
       return newState;

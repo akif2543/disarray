@@ -45,21 +45,19 @@ const receiveFriendError = (error) => ({
 
 export const requestFriend = (id) => (dispatch) =>
   FriendsAPI.requestFriend(id)
-    .then((res) => dispatch(receivePending(res.data)))
+    .then((res) => dispatch(receivePending(res)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 
 export const respondToRequest = (id, type) => (dispatch) =>
   FriendsAPI.respondToRequest(id, type)
     .then((res) =>
-      dispatch(
-        res.data.accept ? receiveFriend(res.data) : receiveDecline(res.data)
-      )
+      dispatch(res.accept ? receiveFriend(res) : receiveDecline(res))
     )
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 
 export const unfriend = (id) => (dispatch) =>
   FriendsAPI.unfriend(id)
-    .then((res) => dispatch(removeFriend(res.data)))
+    .then((res) => dispatch(removeFriend(res)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 
 export const mutualFriends = (id) => (dispatch) =>

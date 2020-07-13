@@ -14,6 +14,7 @@ const FriendList = ({
   removeFriend,
   directMessage,
   createConversation,
+  openModal,
   push,
 }) => {
   useEffect(() => {}, [active]);
@@ -46,6 +47,7 @@ const FriendList = ({
                 createConversation={createConversation}
                 removeFriend={removeFriend}
                 push={push}
+                openModal={openModal}
                 all
               />
             ))}
@@ -61,6 +63,7 @@ const FriendList = ({
                 u={user}
                 createConversation={createConversation}
                 removeFriend={removeFriend}
+                openModal={openModal}
                 push={push}
                 all
               />

@@ -157,3 +157,11 @@ export const getUserBlockedFriends = (state) => {
   const { blocked } = user;
   return blocked.map((f) => state.entities.users[f]);
 };
+
+export const getFriendFromPath = (state, props) => {
+  const {
+    location: { search },
+  } = props;
+  const [full, id] = search.match(/^\?id=(\d+)$/);
+  return state.entities.users[id];
+};

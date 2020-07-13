@@ -6,6 +6,7 @@ import ServerModalContainer from "../server/modals/server_modal_container";
 import ServerActionsContainer from "../server/modals/server_actions_container";
 import MessageModalContainer from "../messages/message_modal_container";
 import DeleteAccountContainer from "../user/delete_account_container";
+import RemoveFriendContainer from "../home/remove_friend";
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
@@ -46,6 +47,9 @@ const Modal = ({ modal, closeModal }) => {
       break;
     case "accountDelete":
       component = <DeleteAccountContainer />;
+      break;
+    case "unfriend":
+      component = <RemoveFriendContainer />;
       break;
     default:
       return null;

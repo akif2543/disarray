@@ -100,6 +100,18 @@ const Tooltip = ({ text, className, el }) => {
           right: `calc(100vw - ${right + 12.5}px)`,
         };
         break;
+      case "fl-tt acc":
+        style = {
+          top: `${top - 45}px`,
+          right: `calc(100vw - ${right + 17}px)`,
+        };
+        break;
+      case "fl-tt ig":
+        style = {
+          top: `${top - 45}px`,
+          right: `calc(100vw - ${right + 15}px)`,
+        };
+        break;
       default:
         break;
     }

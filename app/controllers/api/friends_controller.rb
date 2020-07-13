@@ -29,7 +29,7 @@ class Api::FriendsController < ApplicationController
   def update
     @user = User.find_by(id: params[:id])
     if @user
-      if params[:add]
+      if params[:accept]
         current_user.accept_request(@user)
         render json: {accept: "request accepted", id: current_user.id, otherId: @user.id }, status: 201
       else

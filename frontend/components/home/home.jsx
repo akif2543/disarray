@@ -15,6 +15,7 @@ const Home = ({
   removeFriend,
   directMessage,
   createConversation,
+  openModal,
   history: { push },
 }) => {
   const [active, setActive] = useState("online");
@@ -40,6 +41,7 @@ const Home = ({
         removeFriend={removeFriend}
         directMessage={directMessage}
         createConversation={createConversation}
+        openModal={openModal}
         push={push}
       />
     </div>

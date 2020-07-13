@@ -35,6 +35,7 @@ const mDTP = (dispatch) => ({
   createConversation: (convo) => dispatch(createConversation(convo)),
   directMessage: (id, message) => dispatch(directMessage(id, message)),
   respondToRequest: (id, type) => dispatch(respondToRequest(id, type)),
+  openModal: (modal) => dispatch(openModal(modal)),
 });
 
 const HomeContainer = connect(mSTP, mDTP)(Home);
