@@ -235,6 +235,7 @@
       line-height: 1rem;
 
       h1 {
+        white-space: nowrap;
         color: $dk-white;
         font: {
           family: "Whitney Bold";
@@ -323,7 +324,7 @@
   left: 280px;
 
   .dmd-head {
-    height: 100px;
+    height: 128px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -332,8 +333,8 @@
     h4 {
       color: $dk-white;
       cursor: default;
-      padding-bottom: 8px;
-      padding-left: 2px;
+      line-height: normal;
+
       font: {
         size: 16px;
         family: "Whitney Medium";
@@ -343,10 +344,17 @@
       }
     }
 
+    p {
+      color: rgb(183, 185, 188);
+      padding-bottom: 8px;
+      font-family: "Whitney";
+    }
+
     input {
       box-sizing: border-box;
       background: $dk-search-bg;
-      color: rgb(108, 109, 110);
+      color: rgb(220, 221, 222);
+      // color: rgb(108, 109, 110);
       border: 1px solid rgb(35, 38, 42);
       border-radius: 3px;
       height: 35px;
@@ -398,7 +406,29 @@
       }
 
       &:hover {
-        background: rgb(62, 65, 67);
+        background: rgb(62, 65, 72);
+      }
+    }
+  }
+
+  .dmd-foot {
+    padding: 20px;
+
+    .grp-dm-btn {
+      width: 100%;
+      height: 40px;
+      background: $dk-blue;
+      color: $dk-white;
+      border-radius: 4px;
+      justify-content: center;
+
+      font: {
+        family: "Whitney Medium";
+        size: 14px;
+      }
+
+      &:hover {
+        background: rgb(104, 125, 194);
       }
     }
   }

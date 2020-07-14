@@ -34,6 +34,7 @@ const Home = ({
       { channel: "FriendsChannel", id: user.id },
       {
         received: (data) => {
+          debugger;
           switch (data.action) {
             case "request":
               return receiveRequest(data);

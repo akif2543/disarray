@@ -125,7 +125,7 @@ const Friend = ({
             {incoming && (
               <button
                 type="button"
-                className="friend-action-btn"
+                className="friend-action-btn yes"
                 onFocus={showTooltip("accept")}
                 onMouseEnter={showTooltip("accept")}
                 onMouseLeave={hideTooltip("accept")}
@@ -141,7 +141,7 @@ const Friend = ({
             )}
             <button
               type="button"
-              className="friend-action-btn"
+              className="friend-action-btn no"
               onFocus={showTooltip("ignore")}
               onMouseEnter={showTooltip("ignore")}
               onMouseLeave={hideTooltip("ignore")}

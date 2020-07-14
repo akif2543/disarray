@@ -104,6 +104,14 @@
       .actions.hover {
         .friend-action-btn {
           background: rgb(32, 34, 37);
+          color: rgb(220, 221, 222);
+        }
+
+        .friend-action-btn.yes:hover {
+          color: $dk-green;
+        }
+        .friend-action-btn.no:hover {
+          color: $dk-red;
         }
       }
     }
