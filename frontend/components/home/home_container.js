@@ -13,6 +13,11 @@ import {
   requestFriend,
   unfriend,
   respondToRequest,
+  receiveRequest,
+  receiveAcceptance,
+  receiveRejection,
+  receiveRetraction,
+  loseFriend,
 } from "../../actions/friend_actions";
 import {
   createConversation,
@@ -32,11 +37,16 @@ const mDTP = (dispatch) => ({
   stopLoading: () => dispatch(stopLoading()),
   openSettings: (settings) => dispatch(openSettings(settings)),
   requestFriend: (id, user) => dispatch(requestFriend(id, user)),
-  removeFriend: (id) => dispatch(unfriend(id)),
+  unfriend: (id) => dispatch(unfriend(id)),
   createConversation: (convo) => dispatch(createConversation(convo)),
   directMessage: (id, message) => dispatch(directMessage(id, message)),
   respondToRequest: (id, type) => dispatch(respondToRequest(id, type)),
   openModal: (modal) => dispatch(openModal(modal)),
+  receiveRequest: (res) => dispatch(receiveRequest(res)),
+  receiveAcceptance: (res) => dispatch(receiveAcceptance(res)),
+  receiveRejection: (res) => dispatch(receiveRejection(res)),
+  receiveRetraction: (res) => dispatch(receiveRetraction(res)),
+  loseFriend: (res) => dispatch(loseFriend(res)),
 });
 
 const HomeContainer = connect(mSTP, mDTP)(Home);

@@ -281,7 +281,7 @@ const NavBar = ({
           {mentions && (
             <Tooltip
               text="Recent Mentions [NYI]"
-              className="nav-tt at"
+              className={home ? "nav-tt ath" : "nav-tt at"}
               el={atEl}
             />
           )}
@@ -297,7 +297,13 @@ const NavBar = ({
           >
             <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
           </button>
-          {contact && <Tooltip text="Repo" className="nav-tt git" el={gitEl} />}
+          {contact && (
+            <Tooltip
+              text="Repo"
+              className={home ? "nav-tt gith" : "nav-tt git"}
+              el={gitEl}
+            />
+          )}
         </div>
       </div>
     </nav>

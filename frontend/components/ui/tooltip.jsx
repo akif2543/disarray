@@ -72,14 +72,25 @@ const Tooltip = ({ text, className, el }) => {
           left: `${right - 83 - width / 2}px`,
         };
         break;
+      case "nav-tt ath":
+        style = {
+          right: `calc(100vw - ${right + 75}px)`,
+        };
+        break;
       case "nav-tt git":
         style = {
           left: `${right - 30 - width / 2}px`,
         };
         break;
+      case "nav-tt gith":
+        style = {
+          right: `calc(100vw - ${right + 20}px)`,
+        };
+        break;
       case "nav-tt dm":
         style = {
-          left: `${right - 60 - width / 2}px`,
+          right: `calc(100vw - ${right + 52.5}px)`,
+          // left: `${right - 60 - width / 2}px`,
         };
         break;
       case "ue-tt":

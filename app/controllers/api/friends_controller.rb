@@ -18,12 +18,11 @@ class Api::FriendsController < ApplicationController
 
   def create
     @user = params[:id] ? User.find_by(id: params[:id]) : User.find_by(username: params[:user][:username], discriminator: params[:user][:discriminator])
-    if @user
-      current_user.friend_request(@user)
-      # render(partial: "api/users/user", locals: @user)
-      render json: {success: "request sent", id: current_user.id, user: {id: @user.id, username: @user.username, discriminator: @user.discriminator, avatar: @user.avatar}  }, status: 201
-    else
+    if !@user || @user == current_user
       render json: ["User not found"], status: 404
+    else
+      current_user.friend_request(@user)
+      FriendsChannel.broadcast_to(@user, format_request)
     end
   end
 
@@ -31,15 +30,16 @@ class Api::FriendsController < ApplicationController
     @user = User.find_by(id: params[:id])
     if @user
       if params[:accept]
+        @request = "accept"
         current_user.accept_request(@user)
-        render json: {accept: "request accepted", id: current_user.id, otherId: @user.id }, status: 201
       elsif params[:decline]
+        @request = "decline"
         current_user.decline_request(@user)
-        render json: {decline: "request declined", id: current_user.id, otherId: @user.id }, status: 200
       else
+        @request = "cancel"
         @user.decline_request(current_user)
-        render json: {cancel: "request canceled", id: current_user.id, otherId: @user.id  }, status: 200
       end
+      FriendsChannel.broadcast_to(@user, format_response)
     else
       render json: ["User not found"], status: 404
     end
@@ -49,9 +49,24 @@ class Api::FriendsController < ApplicationController
     @user = User.find_by(id: params[:id])
     if @user && current_user.friends_with?(@user)
      @current_user.remove_friend(@user)
-     render json: {success: "User unfriended", id: current_user.id, otherId: @user.id }, status: 200
+     FriendsChannel.broadcast_to(@user, format_unfriend)
     else
       render json: ["User not found"], status: 404
     end
   end
+
+  private
+
+  def format_request
+    JSON.parse(render("api/friends/create.json.jbuilder"))
+  end
+
+  def format_response
+    JSON.parse(render("api/friends/update.json.jbuilder"))
+  end
+
+  def format_unfriend
+    JSON.parse(render("api/friends/destroy.json.jbuilder"))
+  end
+
 end
