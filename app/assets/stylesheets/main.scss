@@ -324,7 +324,8 @@
   left: 280px;
 
   .dmd-head {
-    height: 128px;
+    height: auto;
+    // height: 128px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -350,22 +351,79 @@
       font-family: "Whitney";
     }
 
-    input {
-      box-sizing: border-box;
+    .input-wrapper {
       background: $dk-search-bg;
-      color: rgb(220, 221, 222);
-      // color: rgb(108, 109, 110);
-      border: 1px solid rgb(35, 38, 42);
+      // border: 1px solid rgb(35, 38, 42);
       border-radius: 3px;
-      height: 35px;
+      display: flex;
+      flex-flow: row wrap;
+      align-items: center;
+      min-height: 34px;
       width: 100%;
-      padding: 8px 10px;
-      cursor: text;
 
-      font: {
-        family: "Whitney";
-        size: 16px;
-        weight: 700;
+      .dm-members {
+        display: flex;
+        flex-flow: row wrap;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        padding: 0;
+        margin: 1px;
+
+        .selected-mem {
+          margin: 1px;
+
+          .remove-btn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            background: $dk-main-bg;
+            border-radius: 3px;
+            height: 30px;
+            white-space: nowrap;
+            padding: 12px;
+            color: rgb(220, 221, 222);
+            margin-bottom: 0;
+
+            h4 {
+              cursor: pointer;
+              font: {
+                family: "Whitney";
+              }
+            }
+
+            svg {
+              margin-left: 8px;
+            }
+          }
+        }
+
+        .search-li {
+          height: 34px;
+          width: 100%;
+          max-width: 250px;
+          min-width: 50px;
+          flex: 1;
+          .friend-search {
+            box-sizing: border-box;
+            background: $dk-search-bg;
+            color: rgb(220, 221, 222);
+            border-radius: 3px;
+            height: 100%;
+            width: 100%;
+            max-width: 250px;
+            min-width: 50px;
+            padding: 8px 10px;
+            cursor: text;
+            overflow-x: scroll;
+
+            font: {
+              family: "Whitney";
+              size: 16px;
+              weight: 700;
+            }
+          }
+        }
       }
     }
   }
@@ -375,12 +433,21 @@
     overflow-y: scroll;
     padding: 0 12px;
 
+    ul {
+      padding: 0;
+    }
+
     .dmd-user-li {
       display: flex;
       flex-direction: row;
-      justify-content: flex-start;
+      justify-content: space-between;
+      align-items: center;
       height: 40px;
       padding: 5px 10px;
+
+      .user {
+        align-items: center;
+      }
 
       img {
         width: 32px;
@@ -407,6 +474,58 @@
 
       &:hover {
         background: rgb(62, 65, 72);
+        .tick {
+          color: rgb(62, 65, 72);
+        }
+      }
+
+      .container {
+        display: block;
+        position: relative;
+        transform: translateY(-5px);
+        margin-right: 22px;
+        margin-bottom: 12px;
+        cursor: pointer;
+        font-size: 22px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 22px;
+        width: 22px;
+        border: 1px solid rgb(114, 118, 125);
+        border-radius: 5px;
+
+        .tick {
+          font-size: 16px;
+          transform: translateY(-1px);
+          color: $dk-main-bg;
+          display: none;
+        }
+      }
+
+      input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+
+        &:checked {
+          & ~ .checkmark {
+            background: $dk-white;
+            border: none;
+            .tick {
+              display: inline-block;
+            }
+          }
+        }
       }
     }
   }

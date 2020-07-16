@@ -34,8 +34,8 @@ export const fetchConversation = (id) => (dispatch) =>
     .then((convo) => dispatch(receiveConversation(convo)))
     .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));
 
-export const createConversation = (convo) => (dispatch) =>
-  ConversationAPI.createConversation(convo)
+export const createConversation = (convo, group) => (dispatch) =>
+  ConversationAPI.createConversation(convo, group)
     .then((newConvo) => dispatch(receiveConversation(newConvo)))
     .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));
 

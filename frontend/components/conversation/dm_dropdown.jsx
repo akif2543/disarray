@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import shortid from "shortid";
 
 import { getCurrentUser, getUserFriends } from "../../reducers/selectors";
@@ -10,7 +11,6 @@ const DMDropdown = ({
   createConversation,
   toggleDropdown,
   friends,
-  users,
   currentUser,
   history,
 }) => {
@@ -32,27 +32,38 @@ const DMDropdown = ({
     }
   };
 
-  const getConversation = (user) =>
-    user.conversations.find((id) => currentUser.conversations.includes(id));
+  useEffect(() => {
+    setRemaining(9 - members.length);
+  }, [members]);
+
+  // const getConversation = (user) =>
+  //   user.conversations.find((id) => currentUser.conversations.includes(id));
 
   const handleChange = (e) => {
     setUsername(e.target.value);
     filterFriends(e.target.value);
   };
 
-  const handleCreate = (user) => () => {
-    // const c = getConversation(user);
-    // if (c > 0) {
-    //   history.push(`/@me/${c}`);
-    //   toggleDropdown();
-    // } else {
-    const convo = { user1_id: currentUser.id, user2_id: user.id };
-    createConversation(convo).then((action) => {
+  const handleCreate = () => {
+    const ids = members.map((m) => m.id);
+    debugger;
+    createConversation({ ids }, true).then((action) => {
+      debugger;
       const [cv] = Object.values(action.conversation);
       toggleDropdown();
       return history.push(`/@me/${cv.id}`);
     });
-    // }
+  };
+
+  const handleCheck = (friend) => () => {
+    const i = members.indexOf(friend);
+    if (i === -1) {
+      if (remaining) setMembers([...members, friend]);
+    } else {
+      const m = Array.from(members);
+      m.splice(i, 1);
+      setMembers(m);
+    }
   };
 
   return (
@@ -68,17 +79,33 @@ const DMDropdown = ({
               : "This group has a 10 member limit."}
           </p>
           <div className="input-wrapper">
-            <ul className="members">
+            <ul className="dm-members">
               {members.map((m) => (
-                <li></li>
+                <li key={shortid.generate()} className="selected-mem">
+                  <button
+                    type="button"
+                    onClick={handleCheck(m)}
+                    className="remove-btn"
+                  >
+                    <h4 className="member-name">{m.username}</h4>
+                    <FontAwesomeIcon icon="times" />
+                  </button>
+                </li>
               ))}
+              <li className="search-li">
+                <input
+                  type="text"
+                  value={username}
+                  className="friend-search"
+                  placeholder={
+                    members.length
+                      ? "Find or start a conversation"
+                      : "Type the username of a friend"
+                  }
+                  onChange={handleChange}
+                />
+              </li>
             </ul>
-            <input
-              type="text"
-              value={username}
-              placeholder="Type the username of a friend"
-              onChange={handleChange}
-            />
           </div>
         </section>
         <main className="dmd-users">
@@ -87,7 +114,7 @@ const DMDropdown = ({
               <button
                 type="button"
                 className="dmd-user-li"
-                onClick={handleCreate(f)}
+                onClick={handleCheck(f)}
                 key={shortid.generate()}
               >
                 <div className="user">
@@ -95,13 +122,25 @@ const DMDropdown = ({
                   <h4>{f.username}</h4>
                   <h5>{`${f.username}#${f.discriminator}`}</h5>
                 </div>
-                <input type="checkbox" value={f.id} onChange={handleAdd} />
+                <label className="container" htmlFor="check">
+                  <input
+                    id="check"
+                    type="checkbox"
+                    checked={members.includes(f)}
+                    name={f.username}
+                    value={f.id}
+                    onChange={handleCheck(f)}
+                  />
+                  <span className="checkmark">
+                    <FontAwesomeIcon icon="check" className="tick" />
+                  </span>
+                </label>
               </button>
             ))}
           </ul>
         </main>
         <footer className="dmd-foot">
-          <button type="button" className="grp-dm-btn">
+          <button type="button" className="grp-dm-btn" onClick={handleCreate}>
             Create Group DM
           </button>
         </footer>
@@ -116,7 +155,8 @@ const mSTP = (state) => ({
 });
 
 const mDTP = (dispatch) => ({
-  createConversation: (convo) => dispatch(createConversation(convo)),
+  createConversation: (convo, group) =>
+    dispatch(createConversation(convo, group)),
 });
 
 const DMDropdownContainer = withRouter(connect(mSTP, mDTP)(DMDropdown));

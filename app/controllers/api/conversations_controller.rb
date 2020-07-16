@@ -16,7 +16,11 @@ class Api::ConversationsController < ApplicationController
   def create
     @conversation = Conversation.new
     if @conversation.save
-      @conversation.bundle(params[:conversation][:user1_id], params[:conversation][:user2_id], params[:conversation][:body])
+      if params[:group]
+        @conversation.group_bundle([current_user.id, *params[:conversation][:ids]])
+      else
+        @conversation.bundle(params[:conversation][:user1_id], params[:conversation][:user2_id], params[:conversation][:body])
+      end
       render :show
     else
       render json: @conversation.errors.full_messages, status: 422
@@ -26,7 +30,7 @@ class Api::ConversationsController < ApplicationController
   private
 
   def convo_params
-    params.require(:conversation).permit(:user1_id, :user2_id, :body)
+    params.require(:conversation).permit(:user1_id, :user2_id, :body, :ids)
   end
 
 end

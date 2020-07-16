@@ -3,9 +3,9 @@ const ConversationAPI = {
     $.ajax({ url: "/api/conversations", method: "GET" }),
   fetchConversation: (id) =>
     $.ajax({ url: `/api/conversations/${id}`, method: "GET" }),
-  createConversation: (conversation) =>
+  createConversation: (conversation, group) =>
     $.ajax({
-      url: "/api/conversations",
+      url: `/api/conversations${group ? "?group=true" : ""}`,
       method: "POST",
       data: { conversation },
     }),

@@ -57,13 +57,13 @@ const FriendList = ({
   const listName = () => {
     switch (active) {
       case "online":
-        return `ONLINE—${friends.length}`;
+        return `ONLINE — ${friends.length}`;
       case "all":
-        return `ALL FRIENDS—${friends.length}`;
+        return `ALL FRIENDS — ${friends.length}`;
       case "pending":
-        return `PENDING—${pendingIn.length + pendingOut.length}`;
+        return `PENDING — ${pendingIn.length + pendingOut.length}`;
       case "blocked":
-        return `BLOCKED—${blocked.length}`;
+        return `BLOCKED — ${blocked.length}`;
       default:
         break;
     }

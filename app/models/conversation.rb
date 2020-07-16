@@ -8,4 +8,8 @@ class Conversation < ApplicationRecord
     Membership.create([{member_id: user1_id, subscribeable: self}, {member_id: user2_id, subscribeable: self}])
     Message.create(author_id: user1_id, body: body, messageable: self) if body
   end
+
+  def group_bundle(ids)
+    Membership.create(ids.map { |id| { member_id: id, subscribeable: self } })
+  end
 end
