@@ -320,12 +320,9 @@
   display: flex;
   flex-direction: column;
   position: absolute;
-  top: 90px;
-  left: 280px;
 
   .dmd-head {
     height: auto;
-    // height: 128px;
     display: flex;
     flex-direction: column;
     padding: 20px;
@@ -353,7 +350,6 @@
 
     .input-wrapper {
       background: $dk-search-bg;
-      // border: 1px solid rgb(35, 38, 42);
       border-radius: 3px;
       display: flex;
       flex-flow: row wrap;
@@ -444,8 +440,10 @@
       align-items: center;
       height: 40px;
       padding: 5px 10px;
+      width: 100%;
 
       .user {
+        display: flex;
         align-items: center;
       }
 
@@ -533,7 +531,8 @@
   .dmd-foot {
     padding: 20px;
 
-    .grp-dm-btn {
+    .grp-dm-btn,
+    .grp-dm-friend-btn {
       width: 100%;
       height: 40px;
       background: $dk-blue;
@@ -550,13 +549,24 @@
         background: rgb(104, 125, 194);
       }
     }
+
+    .grp-dm-friend-btn {
+      background: $dk-green;
+      &:hover {
+        background: rgb(65, 162, 117);
+      }
+    }
   }
 }
 
 .channel-list.convo {
-  header {
+  .dm-list-head {
     h2 {
       padding-left: 10px;
+    }
+
+    &:hover {
+      color: rgb(220, 221, 222);
     }
   }
   .convo-li {

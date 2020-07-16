@@ -4,15 +4,15 @@ import shortid from "shortid";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
-import DMDropdownContainer from "./dm_dropdown";
+import NewGroupDMContainer from "./new_group_dm";
 
 const ConversationList = ({ conversations, currentUser, fetchCurrentUser }) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
-  const [dropdown, setDropdown] = useState(false);
+  const [popout, setPopout] = useState(false);
   const showTooltip = () => setTooltip(true);
   const hideTooltip = () => setTooltip(false);
-  const toggleDropdown = () => setDropdown(!dropdown);
+  const togglePopout = () => setPopout(!popout);
 
   const seen = [];
 
@@ -32,7 +32,7 @@ const ConversationList = ({ conversations, currentUser, fetchCurrentUser }) => {
             </button>
           </NavLink>
         </div>
-        <header>
+        <header className="dm-list-head">
           <h2>DIRECT MESSAGES</h2>
           <div className="add-channel-group" ref={el}>
             {tooltip && (
@@ -41,14 +41,14 @@ const ConversationList = ({ conversations, currentUser, fetchCurrentUser }) => {
             <FontAwesomeIcon
               icon="plus"
               className="add-channel"
-              onClick={toggleDropdown}
+              onClick={togglePopout}
               onMouseOver={showTooltip}
               onFocus={showTooltip}
               onMouseOut={hideTooltip}
               onBlur={hideTooltip}
             />
-            {dropdown && (
-              <DMDropdownContainer toggleDropdown={toggleDropdown} />
+            {popout && (
+              <NewGroupDMContainer togglePopout={togglePopout} el={el} />
             )}
           </div>
         </header>

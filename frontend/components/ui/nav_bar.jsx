@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "./tooltip";
+import NewGroupDMContainer from "../conversation/new_group_dm";
 
 const NavBar = ({
   channel,
@@ -21,6 +22,9 @@ const NavBar = ({
     call: false,
     dm: false,
   });
+
+  const [popout, setPopout] = useState(false);
+  const togglePopout = () => setPopout(!popout);
 
   const muteEl = useRef(null);
   const callEl = useRef(null);
@@ -252,12 +256,21 @@ const NavBar = ({
               onFocus={showTooltip("dm")}
               onMouseOut={hideTooltip("dm")}
               onBlur={hideTooltip("dm")}
+              onClick={togglePopout}
               ref={dmEl}
             >
               <FontAwesomeIcon icon="comment-alt" size="lg" />
             </button>
             {dm && (
               <Tooltip text="New Group DM" className="nav-tt dm" el={dmEl} />
+            )}
+            {popout && (
+              <NewGroupDMContainer
+                togglePopout={togglePopout}
+                el={dmEl}
+                nav
+                switchTab={switchTab}
+              />
             )}
           </div>
         ) : (
