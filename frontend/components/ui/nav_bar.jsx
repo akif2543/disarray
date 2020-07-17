@@ -7,8 +7,11 @@ const NavBar = ({
   channel,
   memberBar,
   toggleMemberBar,
-  otherUser,
+  conversationName,
   home,
+  convo,
+  group,
+  isOwner,
   switchTab,
   active,
 }) => {
@@ -55,10 +58,14 @@ const NavBar = ({
         </div>
       )}
 
-      {otherUser && (
+      {convo && (
         <div className="dm-name">
-          <FontAwesomeIcon icon="at" size="lg" />
-          <h3>{otherUser.username}</h3>
+          {group ? (
+            <FontAwesomeIcon icon="user-friends" size="lg" />
+          ) : (
+            <FontAwesomeIcon icon="at" size="lg" />
+          )}
+          <h3>{conversationName}</h3>
         </div>
       )}
 
@@ -185,7 +192,7 @@ const NavBar = ({
             )}
           </div>
         )}
-        {otherUser && (
+        {convo && (
           <div className="channel">
             <button
               type="button"
@@ -234,6 +241,7 @@ const NavBar = ({
               onFocus={showTooltip("add")}
               onMouseOut={hideTooltip("add")}
               onBlur={hideTooltip("add")}
+              onClick={togglePopout}
               ref={addEl}
             >
               <FontAwesomeIcon icon="user-plus" />
@@ -244,6 +252,38 @@ const NavBar = ({
                 className="nav-tt add-user"
                 el={addEl}
               />
+            )}
+            {popout && (
+              <NewGroupDMContainer
+                togglePopout={togglePopout}
+                el={addEl}
+                nav
+                more
+                switchTab={switchTab}
+              />
+            )}
+            {group && (
+              <div>
+                <button
+                  type="button"
+                  className={memberBar ? "nav-icon active" : "nav-icon"}
+                  onClick={toggleMemberBar}
+                  onMouseOver={showTooltip("members")}
+                  onFocus={showTooltip("members")}
+                  onMouseOut={hideTooltip("members")}
+                  onBlur={hideTooltip("members")}
+                  ref={memEl}
+                >
+                  <FontAwesomeIcon icon="user-friends" size="lg" />
+                </button>
+                {members && (
+                  <Tooltip
+                    text="Member List"
+                    className="nav-tt members"
+                    el={memEl}
+                  />
+                )}
+              </div>
             )}
           </div>
         )}

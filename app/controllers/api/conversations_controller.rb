@@ -14,7 +14,7 @@ class Api::ConversationsController < ApplicationController
   end
 
   def create
-    @conversation = Conversation.new
+    @conversation = Conversation.new(owner_id: current_user.id, group: !!params[:group])
     if @conversation.save
       if params[:group]
         @conversation.group_bundle([current_user.id, *params[:conversation][:ids]])

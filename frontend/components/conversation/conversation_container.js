@@ -5,7 +5,7 @@ import {
   getCurrentConversation,
   getConversationMessages,
   getConversationMembers,
-  getOtherUser,
+  getConversationName,
 } from "../../reducers/selectors";
 import {
   fetchConversation,
@@ -24,7 +24,8 @@ import Conversation from "./conversation";
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
   conversation: getCurrentConversation(state, ownProps),
-  otherUser: getOtherUser(state, ownProps),
+  name: getConversationName(state, ownProps),
+  members: getConversationMembers(state, ownProps),
   messages: getConversationMessages(state, ownProps),
   sidebarOpen: state.ui.sidebar,
 });

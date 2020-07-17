@@ -80,7 +80,7 @@ const NewGroupDM = ({
   const handleAdd = () => {
     if (nav) {
       switchTab("add");
-      // togglePopout();
+      togglePopout();
     }
   };
 

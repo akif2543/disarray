@@ -38,13 +38,10 @@ const Friend = ({
   const showTooltip = (t) => () => setTooltips({ ...tooltips, [t]: true });
   const hideTooltip = (t) => () => setTooltips({ ...tooltips, [t]: false });
 
-  const findConversation = () =>
-    f.conversations.find((id) => u.conversations.includes(id));
-
   const handleMessage = () => {
-    const c = findConversation();
+    const c = currentUser.conversees[f.id];
 
-    if (c > 0) {
+    if (c) {
       push(`/@me/${c}`);
     } else {
       const convo = { user1_id: u.id, user2_id: f.id };

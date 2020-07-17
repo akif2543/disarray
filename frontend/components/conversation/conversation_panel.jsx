@@ -8,6 +8,7 @@ const ConversationPanel = ({
   openSettings,
   conversations,
   fetchCurrentUser,
+  match,
 }) => (
   <section className="side-bar convo">
     <header className="convo-search">
@@ -18,6 +19,7 @@ const ConversationPanel = ({
         conversations={conversations}
         currentUser={currentUser}
         fetchCurrentUser={fetchCurrentUser}
+        match={match}
       />
     </main>
     <UserBar currentUser={currentUser} openSettings={openSettings} />

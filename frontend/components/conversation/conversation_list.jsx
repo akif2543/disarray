@@ -5,8 +5,16 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
 import NewGroupDMContainer from "./new_group_dm";
+import ConversationListItem from "./conversation_list_item";
 
-const ConversationList = ({ conversations, currentUser, fetchCurrentUser }) => {
+const ConversationList = ({
+  conversations,
+  currentUser,
+  fetchCurrentUser,
+  match: {
+    params: { conversationId },
+  },
+}) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
   const [popout, setPopout] = useState(false);
@@ -57,14 +65,13 @@ const ConversationList = ({ conversations, currentUser, fetchCurrentUser }) => {
             if (convo === undefined) return null;
             if (seen.includes(convo.id)) return null;
             seen.push(convo.id);
-
-            const [m] = convo.members.filter((user) => user !== currentUser);
             return (
               <NavLink to={`/@me/${convo.id}`} key={shortid.generate()}>
-                <button type="button" className="convo-li">
-                  <img src={m.avatar} alt="" />
-                  <h2>{m.username}</h2>
-                </button>
+                <ConversationListItem
+                  convo={convo}
+                  isActive={parseInt(conversationId) === convo.id}
+                  currentUser={currentUser}
+                />
               </NavLink>
             );
           })}

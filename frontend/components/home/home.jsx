@@ -24,7 +24,7 @@ const Home = ({
   loseFriend,
   history: { push },
 }) => {
-  const [active, setActive] = useState("online");
+  const [active, setActive] = useState(friends.length ? "online" : "add");
 
   const switchTab = (tab) => () => setActive(tab);
 

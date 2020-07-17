@@ -9,12 +9,12 @@ class Api::UsersController < ApplicationController
     if params[:cu]
       render( partial: "api/users/current_user", locals: {user: current_user})
     else
-      begin
+      # begin
         @user = User.includes(:servers).find(params[:id])
         render :show
-      rescue
-        render json: ["User not found."], status: 404
-      end
+      # rescue
+      #   render json: ["User not found."], status: 404
+      # end
     end
   end
 

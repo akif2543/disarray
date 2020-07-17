@@ -3,13 +3,14 @@ import React, { useEffect } from "react";
 import NavBar from "../ui/nav_bar";
 import ChatStream from "../messages/chat_stream";
 import NewMessageForm from "../messages/new_message_form";
-// import MemberBar from "../channel/member_bar";
+import MemberBar from "../channel/member_bar";
 
 const Conversation = ({
   currentUser,
   conversation,
   messages,
-  otherUser,
+  name,
+  members,
   fetchConversation,
   fetchMessages,
   receiveMessage,
@@ -18,10 +19,10 @@ const Conversation = ({
   sidebarOpen,
   hideSidebar,
   showSidebar,
-  match,
+  match: {
+    params: { conversationId },
+  },
 }) => {
-  const { conversationId } = match.params;
-
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
   useEffect(() => {
@@ -44,29 +45,36 @@ const Conversation = ({
   return (
     <div className="text-channel">
       <NavBar
-        otherUser={otherUser}
+        conversationName={name}
+        group={conversation.group}
         memberbar={sidebarOpen}
         toggleMemberBar={toggleMemberBar}
+        isOwner={currentUser.id === conversation.owner}
+        convo
       />
-      {/* {sidebarOpen && <MemberBar members={members}/>} */}
-      <div className="chat-room">
-        <ChatStream
-          messages={messages || []}
-          memberbar={false}
-          fetchMessages={fetchMessages}
-          id={conversationId}
-          type="Conversation"
-          user={currentUser}
-          updateMessage={updateMessage}
-        />
-        {conversation && (
-          <NewMessageForm
-            name={otherUser ? `@${otherUser.username}` : ""}
+      <div className="chat-group">
+        <div className="chat-room">
+          <ChatStream
+            messages={messages || []}
+            memberbar={sidebarOpen}
+            fetchMessages={fetchMessages}
             id={conversationId}
-            memberbar={false}
             type="Conversation"
-            author={currentUser}
+            user={currentUser}
+            updateMessage={updateMessage}
           />
+          {conversation && (
+            <NewMessageForm
+              name={name}
+              id={conversationId}
+              memberbar={sidebarOpen}
+              type="Conversation"
+              author={currentUser}
+            />
+          )}
+        </div>
+        {sidebarOpen && (
+          <MemberBar members={members} owner={conversation.owner} />
         )}
       </div>
     </div>

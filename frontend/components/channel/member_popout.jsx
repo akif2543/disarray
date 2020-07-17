@@ -68,14 +68,11 @@ const MemberPopout = ({
     }
   }
 
-  const getConversation = () =>
-    m.conversations.find((id) => currentUser.conversations.includes(id));
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    const c = getConversation();
+    const c = currentUser.conversees[m.id];
 
-    if (c > 0) {
+    if (c) {
       const message = { body };
       directMessage(c, message).then(history.push(`/@me/${c}`));
     } else {

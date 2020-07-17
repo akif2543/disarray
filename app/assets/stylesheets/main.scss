@@ -33,8 +33,9 @@
   .friends-bar {
     display: flex;
     flex-flow: row nowrap;
-    // overflow: hidden;
     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     max-height: inherit;
     max-width: calc(100vw - 730px);
 
@@ -571,24 +572,44 @@
   }
   .convo-li {
     height: 45px;
+    display: flex;
     justify-content: flex-start;
     border-radius: 4px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     img {
       height: 35px;
       width: 35px;
       margin-right: 12px;
     }
-    h2 {
-      color: rgb(138, 141, 146);
-      font: {
-        family: "Whitney Medium";
-        size: 16px;
+
+    .convo-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+
+      h2 {
+        color: rgb(138, 141, 146);
+        font: {
+          family: "Whitney Medium";
+          size: 16px;
+        }
+      }
+      h3 {
+        padding-top: 2px;
+        padding-left: 2px;
+        color: rgb(138, 141, 146);
+        font: {
+          size: 12px;
+        }
       }
     }
   }
 
   .active {
-    h2 {
+    h2,
+    h3 {
       color: $dk-white;
     }
   }

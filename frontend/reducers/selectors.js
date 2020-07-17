@@ -77,8 +77,9 @@ export const getCurrentConversation = (state, props) => {
 
 export const getConversations = (state) => {
   const { conversations } = getCurrentUser(state);
+
   return conversations
-    .map((id) => state.entities.conversations[id])
+    .map((c) => state.entities.conversations[c])
     .map((c) => ({
       ...c,
       members: c.members.map((id) => state.entities.users[id]),
@@ -90,28 +91,25 @@ export const getConversationMembers = (state, props) => {
   return members.map((m) => state.entities.users[m]);
 };
 
-export const getOtherUser = (state, props) => {
-  const { members } = getCurrentConversation(state, props);
+export const getConversationName = (state, props) => {
+  const { members, name } = getCurrentConversation(state, props);
+  if (name) return name;
   return members
     .filter((m) => m !== parseInt(state.session.id))
-    .map((id) => state.entities.users[id])[0];
+    .map((id) => state.entities.users[id].username)
+    .join(", ");
 };
 
 export const getConversationMessages = (state, props) => {
   const convo = getCurrentConversation(state, props);
   if (convo === undefined) return null;
   const { messages } = convo;
-  return (
-    messages
-      .map((id) => state.entities.messages[id])
-      // .map((m) =>
-      //   m === undefined ? null : { ...m, author: state.entities.users[m.author] }
-      // )
-      .sort((a, b) => {
-        if (!a || !b) return;
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      })
-  );
+  return messages
+    .map((id) => state.entities.messages[id])
+    .sort((a, b) => {
+      if (!a || !b) return;
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
 };
 
 export const getMessageAuthor = (state, props) => {

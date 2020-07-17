@@ -7,12 +7,14 @@ class User < ApplicationRecord
 
   after_initialize :ensure_session_token, :ensure_discriminator, :ensure_avatar
 
-  has_many :owned_servers, foreign_key: :owner_id, class_name: :Server
+  has_many :owned_servers, foreign_key: :owner_id, class_name: :Server, dependent: :destroy
   has_many :memberships, foreign_key: :member_id, class_name: :Membership, dependent: :destroy
   has_many :servers, through: :memberships, source: :subscribeable, source_type: :Server
   has_many :conversations, through: :memberships, source: :subscribeable, source_type: :Conversation
   has_many :channels, through: :servers, source: :channels
   has_many :messages, foreign_key: :author_id, class_name: :Message, dependent: :destroy
+
+  has_many :owned_conversations, foreign_key: :owner_id, class_name: :Conversation, dependent: :destroy
 
   has_friendship
 
