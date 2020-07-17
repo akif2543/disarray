@@ -1,13 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "./tooltip";
 import NewGroupDMContainer from "../conversation/new_group_dm";
+import EditConversationName from "../conversation/edit_conversation_name";
 
 const NavBar = ({
   channel,
   memberBar,
   toggleMemberBar,
   conversationName,
+  customizeConversation,
+  id,
   home,
   convo,
   group,
@@ -26,8 +29,11 @@ const NavBar = ({
     dm: false,
   });
 
+  const [edit, setEdit] = useState(false);
   const [popout, setPopout] = useState(false);
   const togglePopout = () => setPopout(!popout);
+
+  const toggleEdit = () => setEdit(!edit);
 
   const muteEl = useRef(null);
   const callEl = useRef(null);
@@ -61,11 +67,29 @@ const NavBar = ({
       {convo && (
         <div className="dm-name">
           {group ? (
-            <FontAwesomeIcon icon="user-friends" size="lg" />
+            <FontAwesomeIcon
+              icon="user-friends"
+              size="lg"
+              style={{ height: "20px", width: "auto" }}
+            />
           ) : (
             <FontAwesomeIcon icon="at" size="lg" />
           )}
-          <h3>{conversationName}</h3>
+          {edit ? (
+            <EditConversationName
+              conversationName={conversationName}
+              id={id}
+              customizeConversation={customizeConversation}
+              toggleEdit={toggleEdit}
+            />
+          ) : (
+            <h3
+              className={group && isOwner ? "convo-name owner" : "convo-name"}
+              onClick={group && isOwner ? toggleEdit : null}
+            >
+              {conversationName}
+            </h3>
+          )}
         </div>
       )}
 

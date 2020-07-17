@@ -12,6 +12,7 @@ const Conversation = ({
   name,
   members,
   fetchConversation,
+  customizeConversation,
   fetchMessages,
   receiveMessage,
   removeMessage,
@@ -52,6 +53,8 @@ const Conversation = ({
         memberbar={sidebarOpen}
         toggleMemberBar={toggleMemberBar}
         isOwner={currentUser.id === owner}
+        customizeConversation={customizeConversation}
+        id={conversationId}
         convo
       />
       <div className="chat-group">

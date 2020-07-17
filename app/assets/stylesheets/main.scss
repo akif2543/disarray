@@ -38,6 +38,7 @@
     text-overflow: ellipsis;
     max-height: inherit;
     max-width: calc(100vw - 730px);
+    flex: 1;
 
     svg {
       color: rgb(114, 118, 125);
@@ -50,6 +51,44 @@
       white-space: nowrap;
       max-width: 100%;
       overflow: hidden;
+    }
+
+    .convo-name {
+      color: rgb(220, 221, 222);
+    }
+
+    .convo-name.owner {
+      cursor: text;
+      padding: 0 5px;
+      margin-left: 5px;
+
+      &:hover {
+        border: 1px solid black;
+        border-radius: 3px;
+      }
+    }
+
+    form {
+      width: 100%;
+      height: 26px;
+    }
+
+    .convo-name-change {
+      width: 100%;
+      max-width: 400px;
+      height: 25px;
+      padding: 0 5px;
+      margin: 0 5px;
+      box-sizing: border-box;
+
+      font: {
+        family: "Whitney Medium";
+        size: 16px;
+      }
+
+      color: rgb(220, 221, 222);
+      border: 1px solid black;
+      border-radius: 3px;
     }
 
     .topic {

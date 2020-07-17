@@ -16,6 +16,7 @@ const Home = ({
   unfriend,
   directMessage,
   createConversation,
+  customizeConversation,
   openModal,
   receiveRequest,
   receiveAcceptance,
@@ -55,7 +56,12 @@ const Home = ({
 
   return (
     <div className="main">
-      <NavBar home switchTab={switchTab} active={active} />
+      <NavBar
+        home
+        switchTab={switchTab}
+        active={active}
+        customizeConversation={customizeConversation}
+      />
       <FriendList
         active={active}
         user={user}

@@ -188,11 +188,50 @@ const FriendList = ({
           </button>
         </div>
       </form>
+      <div className="doodle no-friends">
+        <h2 className="doodle-sub">
+          Wumpus is waiting on friends. You don&apos;t have to though!
+        </h2>
+      </div>
     </div>
   ) : (
     <div className="friends">
-      <h2 className="list-head">{listName()}</h2>
-      {generateList()}
+      {active === "blocked" && blocked.length && (
+        <div>
+          <h2 className="list-head">{listName()}</h2>
+          {generateList()}
+        </div>
+      )}
+      {active === "pending" && (pendingIn.length || pendingOut.length) && (
+        <div>
+          <h2 className="list-head">{listName()}</h2>
+          {generateList()}
+        </div>
+      )}
+      {active === "online" && friends.length && (
+        <div>
+          <h2 className="list-head">{listName()}</h2>
+          {generateList()}
+        </div>
+      )}
+      {active === "all" && friends.length && (
+        <div>
+          <h2 className="list-head">{listName()}</h2>
+          {generateList()}
+        </div>
+      )}
+      {active === "blocked" && !blocked.length && (
+        <div className="doodle blocked">
+          <h2 className="doodle-sub">You can&apos;t unblock the Wumpus.</h2>
+        </div>
+      )}
+      {active === "pending" && !(pendingIn.length || pendingOut.length) && (
+        <div className="doodle pending">
+          <h2 className="doodle-sub">
+            There are no pending requests. Here&apos;s Wumpus for now.
+          </h2>
+        </div>
+      )}
     </div>
   );
 };

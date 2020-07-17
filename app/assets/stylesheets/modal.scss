@@ -346,6 +346,7 @@
         width: 116px;
         height: 33px;
         border-radius: 3px;
+        font-family: "Whitney Medium";
       }
 
       .save {
@@ -472,6 +473,11 @@
 
   .info.channel {
     margin: 0;
+    width: 100%;
+
+    .channel-info {
+      width: 100%;
+    }
 
     label {
       display: flex;

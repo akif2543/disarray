@@ -48,3 +48,8 @@ export const addToConversation = (id, ids) => (dispatch) =>
   ConversationAPI.addToConversation(id, ids)
     .then((convo) => dispatch(receiveConversation(convo)))
     .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));
+
+export const customizeConversation = (id, conversation) => (dispatch) =>
+  ConversationAPI.customizeConversation(id, conversation)
+    .then((convo) => dispatch(receiveConversation(convo)))
+    .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));

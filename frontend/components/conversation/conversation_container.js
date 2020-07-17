@@ -10,6 +10,7 @@ import {
 import {
   fetchConversation,
   fetchConversations,
+  customizeConversation,
 } from "../../actions/conversation_actions";
 import {
   receiveMessage,
@@ -39,6 +40,8 @@ const mDTP = (dispatch) => ({
   showSidebar: () => dispatch(showSidebar()),
   hideSidebar: () => dispatch(hideSidebar()),
   removeMessage: (message) => dispatch(removeMessage(message)),
+  customizeConversation: (id, conversation) =>
+    dispatch(customizeConversation(id, conversation)),
 });
 
 const ConversationContainer = connect(mSTP, mDTP)(Conversation);
