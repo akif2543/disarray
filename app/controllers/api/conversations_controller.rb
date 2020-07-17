@@ -27,10 +27,26 @@ class Api::ConversationsController < ApplicationController
     end
   end
 
+  def update
+    @conversation = Conversation.find_by(id: params[:id])
+    if @conversation
+      if params[:add]
+        @conversation.update(group: true) unless @conversation.group
+        @conversation.group_bundle(params[:conversation][:ids])
+        render :show
+      else
+       @conversation.update(convo_params)
+       render :show
+      end
+    else
+      render json: ["DM not found"], status: 404
+    end
+  end
+
   private
 
   def convo_params
-    params.require(:conversation).permit(:user1_id, :user2_id, :body, :ids)
+    params.require(:conversation).permit(:user1_id, :user2_id, :body, :ids, :name, :icon)
   end
 
 end

@@ -4,34 +4,52 @@ import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import shortid from "shortid";
 
-import { getCurrentUser, getUserFriends } from "../../reducers/selectors";
-import { createConversation } from "../../actions/conversation_actions";
+import {
+  getCurrentUser,
+  getUserFriends,
+  getCurrentConversation,
+  getConversationMembers,
+} from "../../reducers/selectors";
+import {
+  createConversation,
+  addToConversation,
+} from "../../actions/conversation_actions";
 
 const NewGroupDM = ({
   createConversation,
+  addToConversation,
   togglePopout,
   friends,
   currentUser,
+  currentMembers,
+  conversation,
   history: { push },
   el,
   nav,
   switchTab,
+  more,
 }) => {
-  const [remaining, setRemaining] = useState(9);
+  const starter = more
+    ? friends.filter((f) => !currentMembers.includes(f))
+    : friends;
+
+  const [remaining, setRemaining] = useState(
+    more ? 10 - currentMembers.length : 9
+  );
   const [username, setUsername] = useState("");
-  const [found, setFound] = useState(friends);
+  const [found, setFound] = useState(starter);
   const [members, setMembers] = useState([]);
 
   const filterFriends = (input) => {
     if (username.length) {
-      const f = friends.filter(
+      const f = starter.filter(
         (u) =>
           u.username.toLowerCase().includes(input.toLowerCase()) &&
           u.id !== currentUser.id
       );
       setFound(f);
     } else {
-      setFound(friends);
+      setFound(starter);
     }
   };
 
@@ -47,7 +65,9 @@ const NewGroupDM = ({
   }, []);
 
   useEffect(() => {
-    setRemaining(9 - members.length);
+    setRemaining(
+      more ? 10 - currentMembers.length - members.length : 9 - members.length
+    );
   }, [members]);
 
   const handleChange = (e) => {
@@ -64,12 +84,18 @@ const NewGroupDM = ({
     });
   };
 
+  const handleMore = () => {
+    const ids = members.map((m) => m.id);
+    const { id } = conversation;
+    addToConversation(id, { ids }).then(togglePopout());
+  };
+
   const handleCheck = (friend) => () => {
     const i = members.indexOf(friend);
     if (i === -1) {
       if (remaining) setMembers([...members, friend]);
       setUsername("");
-      setFound(friends);
+      setFound(starter);
     } else {
       const m = Array.from(members);
       m.splice(i, 1);
@@ -78,10 +104,7 @@ const NewGroupDM = ({
   };
 
   const handleAdd = () => {
-    if (nav) {
-      switchTab("add");
-      togglePopout();
-    }
+    push("/@me");
   };
 
   let style;
@@ -94,7 +117,7 @@ const NewGroupDM = ({
       : { top: `${bottom}px`, left: `${left}px` };
   }
 
-  const hasFriends = Boolean(friends.length);
+  const hasFriends = Boolean(starter.length);
 
   return (
     <div className="dropdown-bg" onClick={togglePopout}>
@@ -183,11 +206,21 @@ const NewGroupDM = ({
           </main>
         )}
         <footer className="dmd-foot">
-          {hasFriends ? (
-            <button type="button" className="grp-dm-btn" onClick={handleCreate}>
-              Create Group DM
-            </button>
-          ) : (
+          {hasFriends &&
+            (more ? (
+              <button type="button" className="grp-dm-btn" onClick={handleMore}>
+                {`Add ${members.length === 1 ? "Friend" : "Friends"} to DM`}
+              </button>
+            ) : (
+              <button
+                type="button"
+                className="grp-dm-btn"
+                onClick={handleCreate}
+              >
+                Create Group DM
+              </button>
+            ))}
+          {!hasFriends && (
             <button
               type="button"
               className="grp-dm-friend-btn"
@@ -202,7 +235,9 @@ const NewGroupDM = ({
   );
 };
 
-const mSTP = (state) => ({
+const mSTP = (state, ownProps) => ({
+  conversation: getCurrentConversation(state, ownProps),
+  currentMembers: getConversationMembers(state, ownProps),
   currentUser: getCurrentUser(state),
   friends: getUserFriends(state),
 });
@@ -210,6 +245,7 @@ const mSTP = (state) => ({
 const mDTP = (dispatch) => ({
   createConversation: (convo, group) =>
     dispatch(createConversation(convo, group)),
+  addToConversation: (id, ids) => dispatch(addToConversation(id, ids)),
 });
 
 const NewGroupDMContainer = withRouter(connect(mSTP, mDTP)(NewGroupDM));

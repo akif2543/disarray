@@ -101,6 +101,7 @@ const MemberPopout = ({
               placeholder={`Message @${m.username}`}
               value={body}
               onChange={handleChange}
+              autoFocus
             />
           </form>
         )}

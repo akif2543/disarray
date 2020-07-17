@@ -43,3 +43,8 @@ export const directMessage = (id, message) => (dispatch) =>
   ConversationAPI.directMessage(id, message)
     .then((convo) => dispatch(receiveConversation(convo)))
     .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));
+
+export const addToConversation = (id, ids) => (dispatch) =>
+  ConversationAPI.addToConversation(id, ids)
+    .then((convo) => dispatch(receiveConversation(convo)))
+    .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));

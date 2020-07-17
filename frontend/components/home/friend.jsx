@@ -39,7 +39,7 @@ const Friend = ({
   const hideTooltip = (t) => () => setTooltips({ ...tooltips, [t]: false });
 
   const handleMessage = () => {
-    const c = currentUser.conversees[f.id];
+    const c = u.conversees[f.id];
 
     if (c) {
       push(`/@me/${c}`);

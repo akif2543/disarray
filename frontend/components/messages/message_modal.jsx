@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import { formatDate } from "../../util/date_util";
-import { REMOVE_MESSAGE } from "../../actions/message_actions";
 
 const MessageModal = ({
   history: { push },
@@ -13,22 +12,8 @@ const MessageModal = ({
   location: { pathname },
 }) => {
   const handleClose = () => {
-    let other, serverId, channelId, conversationId;
-    // debugger;
-    const server = /\/channels\//.test(pathname);
-    // debugger;
-    if (server) {
-      [other, serverId] = pathname.match(/\/channels\/(\d+)\//);
-      [other, channelId] = pathname.match(/\/channels\/\d+\/(\d+)/);
-    } else {
-      [other, conversationId] = pathname.match(/\/@me\/(\d+)\//);
-    }
-    // debugger;
-
     closeModal();
-    push(
-      serverId ? `/channels/${serverId}/${channelId}` : `/@me/${conversationId}`
-    );
+    push(pathname);
   };
 
   const handleEsc = (e) => {

@@ -1,7 +1,10 @@
 export const loading = (state) => state.ui.loading;
 export const settings = (state) => state.ui.settings;
 
-export const getCurrentUser = (state) => state.entities.users[state.session.id];
+export const getCurrentUser = (state) => {
+  const user = state.entities.users[state.session.id];
+  return { ...user, ...state.session.info };
+};
 
 export const getUserServers = (state) => {
   const { servers } = getCurrentUser(state);
@@ -50,34 +53,28 @@ export const getTextChannelMessages = (state, props) => {
   const channel = getCurrentChannel(state, props);
   if (channel === undefined) return null;
   const { messages } = channel;
-  return (
-    messages
-      .map((id) => state.entities.messages[id])
-      // .map((m) =>
-      //   m === undefined ? null : { ...m, author: state.entities.users[m.author] }
-      // )
-      .sort((a, b) => {
-        if (!a || !b) return;
-        return new Date(a.createdAt) - new Date(b.createdAt);
-      })
-  );
+  return messages
+    .map((id) => state.entities.messages[id])
+    .sort((a, b) => {
+      if (!a || !b) return;
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
 };
 
 export const getCurrentConversation = (state, props) => {
   if (props.match.params.conversationId) {
     return state.entities.conversations[props.match.params.conversationId];
   }
-  if (props.location) {
-    const re = /\/@me\/(\d+)\//;
-    const id = props.location.pathname.match(re)[1];
-    return state.entities.conversations[id];
-  }
   return null;
+  // if (props.location) {
+  //   const re = /\/@me\/(\d+)\//;
+  //   const id = props.location.pathname.match(re)[1];
+  //   return state.entities.conversations[id];
+  // }
 };
 
 export const getConversations = (state) => {
   const { conversations } = getCurrentUser(state);
-
   return conversations
     .map((c) => state.entities.conversations[c])
     .map((c) => ({
@@ -87,8 +84,14 @@ export const getConversations = (state) => {
 };
 
 export const getConversationMembers = (state, props) => {
-  const { members } = getCurrentConversation(state, props);
-  return members.map((m) => state.entities.users[m]);
+  const convo = getCurrentConversation(state, props);
+  if (!convo) return [];
+  const { members } = convo;
+  return members
+    .map((m) => state.entities.users[m])
+    .sort((a, b) =>
+      a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+    );
 };
 
 export const getConversationName = (state, props) => {
@@ -119,11 +122,9 @@ export const getMessageAuthor = (state, props) => {
 
 export const getMessageFromPath = (state, props) => {
   const {
-    location: { pathname },
+    location: { search },
   } = props;
-  // debugger;
-  const id = pathname.match(/\/@?[a-z]+\/\d+\/\d*\/*(\d+)/)[1];
-  // debugger;
+  const id = search.slice(3);
   return state.entities.messages[id];
 };
 
@@ -135,7 +136,11 @@ export const getAuthorFromMessage = (state, props) => {
 export const getUserFriends = (state) => {
   const user = getCurrentUser(state);
   const { friends } = user;
-  return friends.map((f) => state.entities.users[f]);
+  return friends
+    .map((f) => state.entities.users[f])
+    .sort((a, b) =>
+      a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
+    );
 };
 
 export const getUserIncomingPendingFriends = (state) => {

@@ -15,6 +15,18 @@ const ConversationAPI = {
       method: "POST",
       data: { message },
     }),
+  addToConversation: (id, conversation) =>
+    $.ajax({
+      url: `/api/conversations/${id}?add=true`,
+      method: "PATCH",
+      data: { conversation },
+    }),
+  customizeConversation: (id, conversation) =>
+    $.ajax({
+      url: `/api/conversations/${id}`,
+      method: "PATCH",
+      data: { conversation },
+    }),
 };
 
 export default ConversationAPI;

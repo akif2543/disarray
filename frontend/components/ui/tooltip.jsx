@@ -64,7 +64,7 @@ const Tooltip = ({ text, className, el }) => {
         break;
       case "nav-tt add-user":
         style = {
-          left: `${right - 90 - width / 2}px`,
+          left: `${right - 71 - width / 2}px`,
         };
         break;
       case "nav-tt at":

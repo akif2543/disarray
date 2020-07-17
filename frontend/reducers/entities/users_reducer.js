@@ -54,47 +54,11 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_USER:
       return Object.assign(newState, action.user);
     case RECEIVE_PENDING:
-      newState[action.requester.id].pendingOut.push(action.requestee.id);
       [user] = Object.values(action.requestee);
-      newState[user.id] = user;
+      newState[action.requestee.id] = action.requestee;
       return newState;
     case RECEIVE_REQUEST:
-      newState[action.requestee.id].pendingIn.push(action.requester.id);
       newState[action.requester.id] = action.requester;
-      return newState;
-    case RECEIVE_FRIEND:
-      newState[action.requestee.id].friends.push(action.requester.id);
-      i = newState[action.requestee.id].pendingIn.indexOf(action.requester.id);
-      newState[action.requestee.id].pendingIn.splice(i, 1);
-      return newState;
-    case RECEIVE_ACCEPTANCE:
-      newState[action.requester.id].friends.push(action.requestee.id);
-      i = newState[action.requester.id].pendingOut.indexOf(action.requestee.id);
-      newState[action.requester.id].pendingOut.splice(i, 1);
-      return newState;
-    case RECEIVE_DECLINE:
-      i = newState[action.requestee.id].pendingIn.indexOf(action.requester.id);
-      newState[action.requestee.id].pendingIn.splice(i, 1);
-      return newState;
-    case RECEIVE_REJECTION:
-      i = newState[action.requester.id].pendingOut.indexOf(action.requestee.id);
-      newState[action.requester.id].pendingOut.splice(i, 1);
-      return newState;
-    case RECEIVE_CANCEL:
-      i = newState[action.requester.id].pendingOut.indexOf(action.requestee.id);
-      newState[action.requester.id].pendingOut.splice(i, 1);
-      return newState;
-    case RECEIVE_RETRACTION:
-      i = newState[action.requestee.id].pendingIn.indexOf(action.requester.id);
-      newState[action.requestee.id].pendingIn.splice(i, 1);
-      return newState;
-    case REMOVE_FRIEND:
-      i = newState[action.unfriender.id].friends.indexOf(action.unfriendee.id);
-      newState[action.unfriender.id].friends.splice(i, 1);
-      return newState;
-    case LOSE_FRIEND:
-      i = newState[action.unfriendee.id].friends.indexOf(action.unfriender.id);
-      newState[action.unfriendee.id].friends.splice(i, 1);
       return newState;
     default:
       return state;

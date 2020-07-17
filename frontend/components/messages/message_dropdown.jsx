@@ -48,7 +48,7 @@ const MessageDropdown = ({
       push,
       location: { pathname },
     } = history;
-    push(`${pathname}/${id}`);
+    push(`${pathname}?m=${id}`);
     openModal("messageDelete");
   };
 

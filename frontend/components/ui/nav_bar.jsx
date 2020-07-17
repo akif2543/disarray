@@ -248,7 +248,7 @@ const NavBar = ({
             </button>
             {add && (
               <Tooltip
-                text="Add Friends to DM [NYI]"
+                text="Add Friends to DM"
                 className="nav-tt add-user"
                 el={addEl}
               />

@@ -42,21 +42,23 @@ const Conversation = ({
     );
   }, []);
 
+  const { group, owner } = conversation;
+
   return (
     <div className="text-channel">
       <NavBar
         conversationName={name}
-        group={conversation.group}
+        group={group}
         memberbar={sidebarOpen}
         toggleMemberBar={toggleMemberBar}
-        isOwner={currentUser.id === conversation.owner}
+        isOwner={currentUser.id === owner}
         convo
       />
       <div className="chat-group">
         <div className="chat-room">
           <ChatStream
             messages={messages || []}
-            memberbar={sidebarOpen}
+            memberbar={group ? sidebarOpen : false}
             fetchMessages={fetchMessages}
             id={conversationId}
             type="Conversation"
@@ -67,15 +69,13 @@ const Conversation = ({
             <NewMessageForm
               name={name}
               id={conversationId}
-              memberbar={sidebarOpen}
+              memberbar={group ? sidebarOpen : false}
               type="Conversation"
               author={currentUser}
             />
           )}
         </div>
-        {sidebarOpen && (
-          <MemberBar members={members} owner={conversation.owner} />
-        )}
+        {sidebarOpen && group && <MemberBar members={members} owner={owner} />}
       </div>
     </div>
   );

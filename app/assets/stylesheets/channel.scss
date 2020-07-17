@@ -149,7 +149,6 @@
         box-sizing: border-box;
         background: $dk-main-bg;
         color: $dk-icons;
-        // color: rgb(108, 109, 110);
         border: 1px solid rgb(35, 38, 42);
         border-radius: 3px;
         height: 35px;
@@ -159,6 +158,10 @@
           family: "Whitney";
           size: 14px;
           weight: 700;
+        }
+
+        &:focus {
+          border-color: $dk-blue;
         }
       }
     }
@@ -191,7 +194,7 @@
   overflow-y: scroll;
 
   header {
-    padding: 0 5px;
+    padding: 10px 5px 0;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
