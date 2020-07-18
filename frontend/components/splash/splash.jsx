@@ -35,7 +35,16 @@ class Splash extends React.Component {
           startLoading={startLoading}
         />
         <div className="splash-frame">
-          <img src={window.splashURL} alt="" className="splash-img" />
+          <div className="splash-img-frame">
+            <img src={window.splashURL} alt="" className="splash-img" />
+            <img src={window.splashWifiURL} alt="" className="splash-wifi" />
+            <img
+              src={window.splashPromptURL}
+              alt=""
+              className="splash-prompt"
+            />
+            <img src={window.splashNetworkURL} alt="" className="splash-net" />
+          </div>
         </div>
         <footer className="footer-frame">
           <div>
@@ -43,7 +52,9 @@ class Splash extends React.Component {
             <h3>JOIN TODAY</h3>
           </div>
           <Link to="/register">
-            <button type="button">Sign Up Now</button>
+            <button type="button" className="splash-signup-btn">
+              Sign Up Now
+            </button>
           </Link>
         </footer>
       </section>
