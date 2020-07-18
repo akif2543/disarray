@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { generate } from "shortid";
+
 import Friend from "./friend";
-import shortid, { generate } from "shortid";
 
 const FriendList = ({
   active,
@@ -13,7 +14,6 @@ const FriendList = ({
   requestFriend,
   respondToRequest,
   removeFriend,
-  directMessage,
   createConversation,
   openModal,
   push,
@@ -54,21 +54,6 @@ const FriendList = ({
     });
   };
 
-  const listName = () => {
-    switch (active) {
-      case "online":
-        return `ONLINE — ${friends.length}`;
-      case "all":
-        return `ALL FRIENDS — ${friends.length}`;
-      case "pending":
-        return `PENDING — ${pendingIn.length + pendingOut.length}`;
-      case "blocked":
-        return `BLOCKED — ${blocked.length}`;
-      default:
-        break;
-    }
-  };
-
   const generateList = () => {
     switch (active) {
       case "online":
@@ -76,7 +61,7 @@ const FriendList = ({
           <ul className="friends-list">
             {friends.map((f) => (
               <Friend
-                key={shortid.generate()}
+                key={generate()}
                 f={f}
                 u={user}
                 createConversation={createConversation}
@@ -93,7 +78,7 @@ const FriendList = ({
           <ul className="friends-list">
             {friends.map((f) => (
               <Friend
-                key={shortid.generate()}
+                key={generate()}
                 f={f}
                 u={user}
                 createConversation={createConversation}
@@ -111,7 +96,7 @@ const FriendList = ({
             {pendingIn
               .map((f) => (
                 <Friend
-                  key={shortid.generate()}
+                  key={generate()}
                   f={f}
                   u={user}
                   respondToRequest={respondToRequest}
@@ -122,7 +107,7 @@ const FriendList = ({
               .concat(
                 pendingOut.map((f) => (
                   <Friend
-                    key={shortid.generate()}
+                    key={generate()}
                     f={f}
                     u={user}
                     respondToRequest={respondToRequest}
@@ -137,7 +122,7 @@ const FriendList = ({
         return (
           <ul className="friends-list">
             {blocked.map((f) => (
-              <Friend key={shortid.generate()} f={f} u={user} blocked />
+              <Friend key={generate()} f={f} u={user} blocked />
             ))}
           </ul>
         );
@@ -165,6 +150,93 @@ const FriendList = ({
     );
   };
 
+  const noFriends = (
+    <div className="doodle no-friends">
+      <h2 className="doodle-sub">
+        Wumpus is waiting on friends. You don&apos;t have to though!
+      </h2>
+    </div>
+  );
+
+  const generateContent = () => {
+    switch (active) {
+      // case "add":
+      //   return (
+      //     <div className="friends add">
+      //       <form className="friend-request" onSubmit={handleSubmit}>
+      //         <h1>ADD FRIEND</h1>
+      //         {text()}
+      //         <div className="input-wrapper">
+      //           <input
+      //             type="text"
+      //             value={tag}
+      //             onChange={handleChange}
+      //             placeholder="Enter a Username#0000"
+      //           />
+      //           <button
+      //             type="submit"
+      //             className={
+      //               tag.trim().length
+      //                 ? "friend-req-btn"
+      //                 : "friend-req-btn disabled"
+      //             }
+      //             disabled={!tag.trim().length}
+      //           >
+      //             Send Friend Request
+      //           </button>
+      //         </div>
+      //       </form>
+      //       {noFriends}
+      //     </div>
+      //   );
+      case "online":
+        return (
+          <div className="doodle online">
+            <h2 className="doodle-sub">
+              No one&apos;s around to play with Wumpus.
+            </h2>
+          </div>
+        );
+      case "all":
+        return friends.length ? (
+          <div>
+            <h2 className="list-head">{`ALL FRIENDS — ${friends.length}`}</h2>
+            {generateList()}
+          </div>
+        ) : (
+          noFriends
+        );
+      case "pending":
+        return pendingIn.length || pendingOut.length ? (
+          <div>
+            <h2 className="list-head">{`PENDING — ${
+              pendingIn.length + pendingOut.length
+            }`}</h2>
+            {generateList()}
+          </div>
+        ) : (
+          <div className="doodle pending">
+            <h2 className="doodle-sub">
+              There are no pending requests. Here&apos;s Wumpus for now.
+            </h2>
+          </div>
+        );
+      case "blocked":
+        return blocked.length ? (
+          <div>
+            <h2 className="list-head">{`BLOCKED — ${blocked.length}`}</h2>
+            {generateList()}
+          </div>
+        ) : (
+          <div className="doodle blocked">
+            <h2 className="doodle-sub">You can&apos;t unblock the Wumpus.</h2>
+          </div>
+        );
+      default:
+        break;
+    }
+  };
+
   return active === "add" ? (
     <div className="friends add">
       <form className="friend-request" onSubmit={handleSubmit}>
@@ -188,51 +260,10 @@ const FriendList = ({
           </button>
         </div>
       </form>
-      <div className="doodle no-friends">
-        <h2 className="doodle-sub">
-          Wumpus is waiting on friends. You don&apos;t have to though!
-        </h2>
-      </div>
+      {noFriends}
     </div>
   ) : (
-    <div className="friends">
-      {active === "blocked" && blocked.length && (
-        <div>
-          <h2 className="list-head">{listName()}</h2>
-          {generateList()}
-        </div>
-      )}
-      {active === "pending" && (pendingIn.length || pendingOut.length) && (
-        <div>
-          <h2 className="list-head">{listName()}</h2>
-          {generateList()}
-        </div>
-      )}
-      {active === "online" && friends.length && (
-        <div>
-          <h2 className="list-head">{listName()}</h2>
-          {generateList()}
-        </div>
-      )}
-      {active === "all" && friends.length && (
-        <div>
-          <h2 className="list-head">{listName()}</h2>
-          {generateList()}
-        </div>
-      )}
-      {active === "blocked" && !blocked.length && (
-        <div className="doodle blocked">
-          <h2 className="doodle-sub">You can&apos;t unblock the Wumpus.</h2>
-        </div>
-      )}
-      {active === "pending" && !(pendingIn.length || pendingOut.length) && (
-        <div className="doodle pending">
-          <h2 className="doodle-sub">
-            There are no pending requests. Here&apos;s Wumpus for now.
-          </h2>
-        </div>
-      )}
-    </div>
+    <div className="friends">{generateContent()}</div>
   );
 };
 

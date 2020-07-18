@@ -200,15 +200,11 @@
       }
     }
   }
-
-  .no-friends {
-    background-image: image-url("ph_nofriends.svg");
-  }
 }
 
 .doodle {
-  width: 40%;
-  height: 40%;
+  width: 430px;
+  height: 245px;
   margin: 5% auto 0;
   background-repeat: no-repeat;
   display: flex;
@@ -216,6 +212,7 @@
   justify-content: center;
 
   .doodle-sub {
+    transform: translateY(50px);
     color: rgb(103, 107, 114);
     font: {
       family: "Whitney";
@@ -224,22 +221,22 @@
   }
 }
 
-.doodle.blocked {
-  width: 50%;
-  height: 50%;
-  background-image: image-url("ph_blocked.svg");
+.doodle.no-friends {
+  background-image: image-url("ph_nofriends.svg");
+  width: 385px;
+  height: 180px;
+}
 
-  .doodle-sub {
-    transform: translateY(50px);
-  }
+.doodle.blocked {
+  background-image: image-url("ph_blocked.svg");
 }
 
 .doodle.pending {
-  width: 45%;
-  height: 50%;
+  height: 210px;
   background-image: image-url("ph_pending.svg");
+}
 
-  .doodle-sub {
-    transform: translateY(50px);
-  }
+.doodle.online {
+  height: 230px;
+  background-image: image-url("ph_noonline.svg");
 }
