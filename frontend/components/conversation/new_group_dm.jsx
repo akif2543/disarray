@@ -167,12 +167,11 @@ const NewGroupDM = ({
             </div>
           </section>
         ) : (
-          <section className="dmd-head">
+          <section className="dmd-head no-friends">
             <h4>SELECT FRIENDS</h4>
-            <p>You don&apos;t have any friends to add!</p>
           </section>
         )}
-        {hasFriends && (
+        {hasFriends ? (
           <main className="dmd-users">
             <ul>
               {found.map((f) => (
@@ -203,6 +202,11 @@ const NewGroupDM = ({
                 </button>
               ))}
             </ul>
+          </main>
+        ) : (
+          <main className="dmd-users no-friends">
+            <div className="doodle add-dm" />
+            <p>You don&apos;t have any friends to add!</p>
           </main>
         )}
         <footer className="dmd-foot">

@@ -568,6 +568,19 @@
     }
   }
 
+  .dmd-head.no-friends {
+    border-bottom: none;
+  }
+
+  .dmd-users.no-friends {
+    height: auto;
+
+    p {
+      text-align: center;
+      margin-top: 20px;
+    }
+  }
+
   .dmd-foot {
     padding: 20px;
 
