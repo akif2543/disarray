@@ -37,13 +37,21 @@ class Splash extends React.Component {
         <div className="splash-frame">
           <div className="splash-img-frame">
             <img src={window.splashURL} alt="" className="splash-img" />
-            <img src={window.splashWifiURL} alt="" className="splash-wifi" />
+            <img
+              src={window.splashWifiURL}
+              alt=""
+              className="splash-wifi floater"
+            />
             <img
               src={window.splashPromptURL}
               alt=""
-              className="splash-prompt"
+              className="splash-prompt floater"
             />
-            <img src={window.splashNetworkURL} alt="" className="splash-net" />
+            <img
+              src={window.splashNetworkURL}
+              alt=""
+              className="splash-net floater"
+            />
           </div>
         </div>
         <footer className="footer-frame">
