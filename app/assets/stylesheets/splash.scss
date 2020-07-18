@@ -147,6 +147,10 @@ a {
       }
       .splash-jumbo-right {
         background: $dk-blue;
+        @include button-transition;
+        &:hover {
+          background: $dk-blue-hover;
+        }
       }
       & :hover {
         transform: translateY(2px);
@@ -238,7 +242,9 @@ a {
     height: 45px;
     background: $dk-blue;
     border-radius: 3px;
+    @include button-transition;
     &:hover {
+      background: $dk-blue-hover;
       transform: translateY(-2px);
     }
   }

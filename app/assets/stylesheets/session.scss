@@ -140,14 +140,15 @@
 
       button {
         height: 44px;
-        background: $dk-session-blue;
+        background: $dk-blue;
         margin-top: 5px;
         font: {
           family: "Whitney Medium";
           size: 16px;
         }
+        @include button-transition;
         &:hover {
-          background: rgb(105, 125, 194);
+          background: $dk-blue-hover;
         }
       }
 

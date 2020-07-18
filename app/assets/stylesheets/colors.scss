@@ -1,6 +1,25 @@
+@mixin flex(
+  $direction: row,
+  $justify-content: flex-start,
+  $align-items: flex-start,
+  $flex-wrap: nowrap
+) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-wrap: $flex-wrap;
+}
+
+@mixin button-transition {
+  transition: background-color 0.2s ease-in-out;
+}
+
 $dk-splash-bg: rgb(38, 38, 43);
 $dk-blue: rgb(115, 139, 216);
+$dk-blue-hover: rgb(104, 125, 194);
 $dk-white: rgb(255, 255, 255);
+$dk-off-white: rgb(220, 221, 222);
 $dk-splash-nav-color: rgb(212, 212, 213); // also message text
 $dk-main-bg: rgb(54, 57, 63); // main/nav bg
 $dk-session-input-bg: rgb(48, 51, 57);
@@ -11,6 +30,7 @@ $dk-sidebar: rgb(
 ); // also members/activity/conversations/channels/scroll bg &
 $dk-login-label: rgb(142, 146, 151);
 $dk-green: rgb(73, 180, 131);
+$dk-green-hover: rgb(65, 162, 117);
 $dk-icons: rgb(185, 187, 190); // also tabs
 $dk-owner-icon: rgb(248, 165, 50);
 $dk-msg-input-bg: rgb(64, 68, 75);

@@ -592,6 +592,7 @@
       color: $dk-white;
       border-radius: 4px;
       justify-content: center;
+      @include button-transition;
 
       font: {
         family: "Whitney Medium";
@@ -599,14 +600,14 @@
       }
 
       &:hover {
-        background: rgb(104, 125, 194);
+        background: $dk-blue-hover;
       }
     }
 
     .grp-dm-friend-btn {
       background: $dk-green;
       &:hover {
-        background: rgb(65, 162, 117);
+        background: $dk-green-hover;
       }
     }
   }

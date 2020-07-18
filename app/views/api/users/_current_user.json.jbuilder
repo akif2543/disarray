@@ -61,7 +61,8 @@ end
 user.conversations.each do |c|
   json.conversations do
     json.set! c.id do
-      json.id c.id
+      json.extract! c, :id, :group, :icon, :name
+      json.owner c.owner_id
       json.members c.members.map(&:id)
       json.messages []
     end

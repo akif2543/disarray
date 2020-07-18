@@ -10,7 +10,9 @@ class ServerPanel extends React.Component {
     super(props);
     this.state = {
       dropdown: false,
+      clicked: false,
     };
+    this.setDropdown = this.setDropdown.bind(this);
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
@@ -25,9 +27,18 @@ class ServerPanel extends React.Component {
     if (serverId !== prevId) this.props.requestServer(serverId);
   }
 
-  toggleDropdown() {
+  setDropdown() {
     const { dropdown } = this.state;
     this.setState({ dropdown: !dropdown });
+  }
+
+  toggleDropdown() {
+    this.setState({ clicked: true });
+
+    setTimeout(() => {
+      this.setState({ clicked: false });
+      this.setDropdown();
+    }, 350);
   }
 
   render() {
@@ -39,18 +50,30 @@ class ServerPanel extends React.Component {
       channels,
       match,
     } = this.props;
-    const { dropdown } = this.state;
+    const { dropdown, clicked } = this.state;
     const isOwner = currentUser.id === server.owner;
 
     return (
       <section className="side-bar server">
-        <header onClick={this.toggleDropdown} className="dropdown-trigger">
-          <h1>{server.name}</h1>
-          <button type="button">
+        <header className="server-head">
+          <button
+            type="button"
+            onClick={this.toggleDropdown}
+            className="dropdown-trigger"
+          >
+            <h1>{server.name}</h1>
             {dropdown ? (
-              <FontAwesomeIcon icon="times" size="lg" />
+              <FontAwesomeIcon
+                icon="times"
+                size="lg"
+                className={clicked ? "close-dropdown" : ""}
+              />
             ) : (
-              <FontAwesomeIcon icon="angle-down" size="lg" spin={dropdown} />
+              <FontAwesomeIcon
+                icon="angle-down"
+                size="lg"
+                className={clicked ? "open-dropdown" : ""}
+              />
             )}
           </button>
         </header>

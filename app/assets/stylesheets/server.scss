@@ -8,9 +8,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  // z-index: 5;
   overflow-y: scroll;
-  // overflow-x: visible;
   -ms-overflow-style: none;
   &::-webkit-scrollbar {
     display: none;
@@ -100,10 +98,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-
-  button {
-    font-family: "Whitney Medium";
-  }
+  overflow: hidden;
 
   h1 {
     font-size: 24px;
@@ -142,17 +137,25 @@
       }
 
       button {
+        font-family: "Whitney Medium";
         width: 100%;
         height: 38px;
         border-radius: 3px;
+        @include button-transition;
       }
 
       .sp-left {
         background: $dk-blue;
+        &:hover {
+          background: $dk-blue-hover;
+        }
       }
 
       .sp-right {
         background: $dk-green;
+        &:hover {
+          background: $dk-green-hover;
+        }
       }
     }
   }
@@ -262,6 +265,11 @@
       width: 98px;
       height: 38px;
       font-family: "Whitney Medium";
+
+      @include button-transition;
+      &:hover {
+        background: $dk-blue-hover;
+      }
     }
 
     h4 {
@@ -331,7 +339,6 @@
       font: {
         size: 14px;
         family: "Whitney";
-        // weight: 400;
       }
     }
 
@@ -343,6 +350,9 @@
   .server-join {
     background: $dk-green;
     font-family: "Whitney Medium";
+    &:hover {
+      background: $dk-green-hover;
+    }
   }
 }
 
@@ -352,27 +362,68 @@
   background: $dk-sidebar;
 }
 
+@keyframes rotate-forward {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(-90deg);
+    margin-right: 1px;
+  }
+}
+
+@keyframes rotate-back {
+  100% {
+    transform: rotate(90deg);
+  }
+}
+
 .server {
   position: relative;
 
-  .dropdown-trigger {
+  .server-head {
     height: 50px;
     border-bottom: 1px solid rgb(35, 36, 40);
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
     width: 100%;
-    padding: 15px;
-    font-size: 16px;
-    cursor: pointer;
 
-    button {
-      color: $dk-icons;
-    }
+    .dropdown-trigger {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      padding: 15px;
 
-    &:hover {
-      background: rgb(52, 55, 60);
+      h1 {
+        color: $dk-white;
+        font-size: 16px;
+      }
+
+      svg {
+        color: $dk-icons;
+      }
+
+      .open-dropdown {
+        -webkit-animation: rotate-forward 0.4s ease-out,
+          stroke-dasharray 0.4s ease-out, -webkit-transform 0.4s ease-out;
+        -moz-animation: rotate-forward 0.4s ease-out,
+          stroke-dasharray 0.4s ease-out, -webkit-transform 0.4s ease-out;
+        animation: rotate-forward 0.4s ease-out, stroke-dasharray 0.4s ease-out,
+          -webkit-transform 0.4s ease-out;
+      }
+
+      .close-dropdown {
+        -webkit-animation: rotate-back 0.4s ease-out,
+          stroke-dasharray 0.4s ease-out, -webkit-transform 0.4s ease-out;
+        -moz-animation: rotate-back 0.4s ease-out,
+          stroke-dasharray 0.4s ease-out, -webkit-transform 0.4s ease-out;
+        animation: rotate-back 0.4s ease-out, stroke-dasharray 0.4s ease-out,
+          -webkit-transform 0.4s ease-out;
+      }
+
+      &:hover {
+        background: rgb(52, 55, 60);
+      }
     }
   }
 }
@@ -525,6 +576,10 @@
           font: {
             family: "Whitney Medium";
           }
+          @include button-transition;
+          &:hover {
+            background: $dk-blue-hover;
+          }
         }
       }
 
@@ -571,7 +626,6 @@
 
     h1 {
       font-family: "Whitney Medium";
-      // font-weight: 400;
       padding-bottom: 16px;
     }
 
