@@ -13,7 +13,7 @@ const NewMessageForm = ({ name, memberbar, type, id, author, sub }) => {
       messageable_type: type,
       messageable_id: id,
     };
-    App.cable.subscriptions.subscriptions[0].speak({ message });
+    sub.speak({ message });
     setMessageBody("");
   };
 

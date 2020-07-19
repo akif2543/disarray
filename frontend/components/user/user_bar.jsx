@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
+import AvatarWithStatus from "./avatar_with_status";
 
 const UserBar = ({ currentUser, openSettings }) => {
   const [settings, setSettings] = useState(false);
@@ -14,15 +15,17 @@ const UserBar = ({ currentUser, openSettings }) => {
   const showMute = () => setMute(true);
   const hideMute = () => setMute(false);
 
+  const { avatar, online, username, discriminator } = currentUser;
+
   return (
     <div className="user-bar">
       <div className="user">
-        <div className="avatar">
-          <img src={currentUser.avatar} alt="" />
-        </div>
+        {/* <div className="avatar-frame"> */}
+        <AvatarWithStatus avatar={avatar} online={online} u />
+        {/* </div> */}
         <ul className="info">
-          <h1>{currentUser.username}</h1>
-          <h2>#{currentUser.discriminator}</h2>
+          <h1>{username}</h1>
+          <h2>#{discriminator}</h2>
         </ul>
       </div>
       <ul className="user-bar-ilist">

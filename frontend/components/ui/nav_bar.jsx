@@ -339,7 +339,11 @@ const NavBar = ({
           </div>
         ) : (
           <div className="search-wrapper">
-            <input type="text" placeholder="Search" className="search-bar" />
+            <input
+              type="text"
+              placeholder="Search [NYI]"
+              className="search-bar"
+            />
             <FontAwesomeIcon icon="search" className="search-icon" />
           </div>
         )}

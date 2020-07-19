@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import AvatarWithStatus from "../user/avatar_with_status";
 
 const ConversationListItem = ({ convo, isActive, currentUser }) => {
   const [maxLength, setMaxLength] = useState(22);
@@ -35,7 +36,11 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
       onMouseOut={normalLength}
       onBlur={normalLength}
     >
-      <img src={m.avatar} alt="" />
+      {group ? (
+        <img src={convo.icon || m.avatar} alt="" className="avatar" />
+      ) : (
+        <AvatarWithStatus avatar={m.avatar} online={m.online} sidebar />
+      )}
       <div className="convo-info">
         <h2>{formatName(convo.name || convoMembers)}</h2>
         {group && (

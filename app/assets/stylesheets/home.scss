@@ -33,7 +33,11 @@
         justify-content: flex-start;
         align-items: center;
 
-        img {
+        .avatar-with-status {
+          height: 34px;
+        }
+
+        .avatar {
           height: 34px;
           width: 34px;
           border-radius: 50%;

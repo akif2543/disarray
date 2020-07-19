@@ -20,44 +20,38 @@ const Application = ({ loading, settings, loggedIn, user, receiveStatus }) => {
       App.cable.subscriptions.create(
         { channel: "AppearanceChannel", id: user.id },
         {
-          // initialized() {
-          //   this.update = this.update.bind(this);
-          // },
+          initialized() {
+            this.update = this.update.bind(this);
+          },
           connected() {
-            // this.install();
-            this.perform("appear");
-            // this.update();
+            this.install();
+            this.update();
           },
-          // disconnected() {
-          //   this.uninstall();
-          // },
-          // rejected() {
-          //   this.uninstall();
-          // },
+          disconnected() {
+            this.uninstall();
+          },
+          update() {
+            if (this.documentIsActive) this.appear();
+          },
           appear() {
-            return this.perform("appear");
+            this.perform("appear");
           },
-          away() {
-            return this.perform("away");
+          get documentIsActive() {
+            return (
+              document.visibilityState === "visible" && document.hasFocus()
+            );
           },
-          // get documentIsActive() {
-          //   return (
-          //     document.visibilityState === "visible" && document.hasFocus()
-          //   );
-          // },
-          // update() {
-          //   this.documentIsActive ? this.appear() : this.away();
-          // },
-          // install() {
-          //   window.addEventListener("focus", this.update);
-          //   window.addEventListener("blur", this.update);
-          //   document.addEventListener("visibilitychange", this.update);
-          // },
-          // uninstall() {
-          //   window.removeEventListener("focus", this.update);
-          //   window.removeEventListener("blur", this.update);
-          //   document.removeEventListener("visibilitychange", this.update);
-          // },
+          install() {
+            window.addEventListener("focus", this.update);
+            window.addEventListener("blur", this.update);
+            document.addEventListener("visibilitychange", this.update);
+          },
+
+          uninstall() {
+            window.removeEventListener("focus", this.update);
+            window.removeEventListener("blur", this.update);
+            document.removeEventListener("visibilitychange", this.update);
+          },
           received: (status) => receiveStatus(status),
         }
       );

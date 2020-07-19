@@ -34,6 +34,8 @@ const FriendList = ({
     if (active === "add") resetState();
   }, [active]);
 
+  const online = friends.filter((f) => f.online);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(null);
@@ -59,7 +61,7 @@ const FriendList = ({
       case "online":
         return (
           <ul className="friends-list">
-            {friends.map((f) => (
+            {online.map((f) => (
               <Friend
                 key={generate()}
                 f={f}
@@ -160,37 +162,13 @@ const FriendList = ({
 
   const generateContent = () => {
     switch (active) {
-      // case "add":
-      //   return (
-      //     <div className="friends add">
-      //       <form className="friend-request" onSubmit={handleSubmit}>
-      //         <h1>ADD FRIEND</h1>
-      //         {text()}
-      //         <div className="input-wrapper">
-      //           <input
-      //             type="text"
-      //             value={tag}
-      //             onChange={handleChange}
-      //             placeholder="Enter a Username#0000"
-      //           />
-      //           <button
-      //             type="submit"
-      //             className={
-      //               tag.trim().length
-      //                 ? "friend-req-btn"
-      //                 : "friend-req-btn disabled"
-      //             }
-      //             disabled={!tag.trim().length}
-      //           >
-      //             Send Friend Request
-      //           </button>
-      //         </div>
-      //       </form>
-      //       {noFriends}
-      //     </div>
-      //   );
       case "online":
-        return (
+        return online.length ? (
+          <div>
+            <h2 className="list-head">{`ONLINE — ${online.length}`}</h2>
+            {generateList()}
+          </div>
+        ) : (
           <div className="doodle online">
             <h2 className="doodle-sub">
               No one&apos;s around to play with Wumpus.

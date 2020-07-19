@@ -1,6 +1,7 @@
 import {
   RECEIVE_CURRENT_USER,
   RECEIVE_USERS,
+  RECEIVE_STATUS,
 } from "../../actions/session_actions";
 import {
   RECEIVE_SERVER,
@@ -66,6 +67,12 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_ALIAS:
       newState[action.userId].servers[action.subscribeableId] = action.alias;
       return newState;
+    case RECEIVE_STATUS:
+      if (newState[action.id]) {
+        newState[action.id].online = action.online;
+        return newState;
+      }
+      return state;
     default:
       return state;
   }

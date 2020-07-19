@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
 import FriendMenu from "./friend_menu";
+import AvatarWithStatus from "../user/avatar_with_status";
 
 const Friend = ({
   f,
@@ -61,16 +62,21 @@ const Friend = ({
       onMouseEnter={showDisc}
       onMouseLeave={hideDisc}
       onBlur={hideDisc}
+      onClick={all ? handleMessage : null}
     >
       <div className="friend">
         <div className="user">
-          <img src={f.avatar} alt="" />
+          {all ? (
+            <AvatarWithStatus avatar={f.avatar} online={f.online} />
+          ) : (
+            <img src={f.avatar} alt="" />
+          )}
           <div className="user-info">
             <div className="identifier">
               <h2 className="name">{f.username}</h2>
               <span className={disc ? "show" : "hide"}>#{f.discriminator}</span>
             </div>
-            {all && <h3 className="sub">Status</h3>}
+            {all && <h3 className="sub">{f.online ? "Online" : "Offline"}</h3>}
             {incoming && <h3 className="sub">Incoming Friend Request</h3>}
             {outgoing && <h3 className="sub">Outgoing Friend Request</h3>}
             {blocked && <h3 className="sub">Blocked</h3>}

@@ -10,13 +10,11 @@ const Member = ({ m, owner, s }) => {
 
   const togglePopout = () => setPopout(!popout);
 
-  const isOnline = m.status === "Online";
-
   return (
-    <div className={isOnline ? "member" : "member offline"}>
+    <div className={m.online ? "member" : "member offline"}>
       <button type="button" onClick={togglePopout} ref={el}>
-        {isOnline ? (
-          <AvatarWithStatus avatar={m.avatar} status={m.status} sidebar />
+        {m.online ? (
+          <AvatarWithStatus avatar={m.avatar} online={m.online} sidebar />
         ) : (
           <img src={m.avatar} alt="" className="avatar" />
         )}

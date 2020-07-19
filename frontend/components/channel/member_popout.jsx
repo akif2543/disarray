@@ -7,6 +7,7 @@ import {
   createConversation,
   directMessage,
 } from "../../actions/conversation_actions";
+import AvatarWithStatus from "../user/avatar_with_status";
 
 const MemberPopout = ({
   m,
@@ -90,7 +91,7 @@ const MemberPopout = ({
   return (
     <div className="popout" ref={node} style={style}>
       <header className="popout-head">
-        <img src={m.avatar} alt="" />
+        <AvatarWithStatus avatar={m.avatar} online={m.online} m />
         {hasAlias && <h1 className="member-alias">{m.servers[s.id]}</h1>}
         <div className={hasAlias ? "user with-alias" : "user"}>
           <h1>{m.username}</h1>

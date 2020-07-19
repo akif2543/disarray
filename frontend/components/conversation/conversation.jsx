@@ -26,6 +26,8 @@ const Conversation = ({
 }) => {
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
+  let sub;
+
   useEffect(() => {
     fetchConversation(conversationId);
   }, [conversationId]);
@@ -75,6 +77,9 @@ const Conversation = ({
               memberbar={group ? sidebarOpen : false}
               type="Conversation"
               author={currentUser}
+              sub={App.cable.subscriptions.subscriptions.find((s) =>
+                s.identifier.includes(`"conversation_id":"${conversationId}"`)
+              )}
             />
           )}
         </div>

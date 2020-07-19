@@ -54,7 +54,7 @@ const TextChannel = ({
             messages={messages || []}
             memberbar={sidebarOpen}
             fetchMessages={fetchMessages}
-            id={channel ? channel.id : null}
+            id={channel ? channelId : null}
             type="Channel"
             user={currentUser}
             updateMessage={updateMessage}
@@ -62,10 +62,13 @@ const TextChannel = ({
           {channel && (
             <NewMessageForm
               name={`#${channel.name}`}
-              id={channel.id}
+              id={channelId}
               memberbar={sidebarOpen}
               type="Channel"
               author={currentUser}
+              sub={App.cable.subscriptions.subscriptions.find((s) =>
+                s.identifier.includes(`"channel_id":"${channelId}"`)
+              )}
             />
           )}
         </div>
