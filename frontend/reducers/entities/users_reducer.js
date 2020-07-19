@@ -2,7 +2,11 @@ import {
   RECEIVE_CURRENT_USER,
   RECEIVE_USERS,
 } from "../../actions/session_actions";
-import { RECEIVE_SERVER, REMOVE_SERVER } from "../../actions/server_actions";
+import {
+  RECEIVE_SERVER,
+  REMOVE_SERVER,
+  RECEIVE_ALIAS,
+} from "../../actions/server_actions";
 import { RECEIVE_CHANNEL } from "../../actions/channel_actions";
 import {
   RECEIVE_MESSAGE,
@@ -38,8 +42,7 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_SERVER:
       return Object.assign(newState, action.users);
     case REMOVE_SERVER:
-      i = newState[action.userId].servers.indexOf(action.subscribeableId);
-      newState[action.userId].servers.splice(i, 1);
+      delete newState[action.userId].servers[action.subscribeableId];
       return newState;
     case RECEIVE_CHANNEL:
       return Object.assign(newState, action.users);
@@ -59,6 +62,9 @@ const usersReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_REQUEST:
       newState[action.requester.id] = action.requester;
+      return newState;
+    case RECEIVE_ALIAS:
+      newState[action.userId].servers[action.subscribeableId] = action.alias;
       return newState;
     default:
       return state;

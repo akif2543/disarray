@@ -1,7 +1,7 @@
 json.user do
   json.set! user.id do
     json.extract! user, :id, :username, :discriminator, :email, :avatar
-    json.servers user.servers.map(&:id) 
+    json.servers user.server_aliases
 
     conversations = []
     conversees = {}
@@ -54,6 +54,7 @@ json.servers do
       json.joinCode server.join_code
       json.members []
       json.channels server.channels.map(&:id)
+      json.active server.channels.first.id
     end
   end
 end
@@ -73,8 +74,7 @@ user.conversations.each do |c|
       if m.id != user.id
         json.set! m.id do
           json.extract! m, :id, :username, :discriminator, :avatar
-          json.servers m.servers.map(&:id)
-          json.conversations m.conversations.map(&:id)
+          json.servers m.server_aliases
         end
       end
     end

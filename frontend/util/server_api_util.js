@@ -18,6 +18,12 @@ const ServerAPI = {
       url: "/api/memberships",
       data: { membership },
     }),
+  changeNickname: (membership) =>
+    $.ajax({
+      method: "PATCH",
+      url: "/api/memberships",
+      data: { membership },
+    }),
 };
 
 export default ServerAPI;

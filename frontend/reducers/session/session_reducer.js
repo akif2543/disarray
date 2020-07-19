@@ -30,7 +30,7 @@ const sessionReducer = (state = { id: null, info: null }, action) => {
         pendingIn,
         pendingOut,
         blocked,
-        servers,
+        email,
       } = user;
       return {
         id,
@@ -41,7 +41,7 @@ const sessionReducer = (state = { id: null, info: null }, action) => {
           pendingIn,
           pendingOut,
           blocked,
-          servers,
+          email,
         },
       };
     case LOGOUT_CURRENT_USER:

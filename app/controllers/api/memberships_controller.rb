@@ -19,6 +19,21 @@ class Api::MembershipsController < ApplicationController
     end
   end
 
+  def update
+    @membership = Membership.find_by(member_id: current_user.id, subscribeable_type: "Server", subscribeable_id: params[:membership][:subscribeable_id])
+
+    if @membership
+      new_alias = params[:membership][:alias].length > 0 ? params[:membership][:alias] : nil
+      if @membership.update(alias: new_alias )
+        render :update
+      else
+        render json: @membership.errors.full_messages, status: 422
+      end
+    else
+       render json: ["Record not found"], status: 404
+    end
+  end
+
   def destroy
     @membership = Membership.find_by(member_id: current_user.id, subscribeable_type: params[:membership][:subscribeable_type], subscribeable_id: params[:membership][:subscribeable_id])
 

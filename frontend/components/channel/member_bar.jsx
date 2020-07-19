@@ -3,7 +3,7 @@ import shortid from "shortid";
 
 import Member from "./member";
 
-const MemberBar = ({ members, owner }) => {
+const MemberBar = ({ members, owner, s }) => {
   return (
     <div className="member-bar-wrapper">
       <nav className="member-bar">
@@ -11,7 +11,9 @@ const MemberBar = ({ members, owner }) => {
         <ul>
           {members.map((m) => {
             if (m === undefined) return null;
-            return <Member m={m} owner={owner} key={shortid.generate()} />;
+            return (
+              <Member m={m} owner={owner} key={shortid.generate()} s={s} />
+            );
           })}
         </ul>
       </nav>

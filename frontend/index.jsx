@@ -10,7 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
   if (window.currentUser) {
     const [user] = Object.values(window.currentUser.user);
     const { servers, conversations, users } = window.currentUser;
-    const { id, conversees, friends, pendingIn, pendingOut, blocked } = user;
+    const {
+      id,
+      conversees,
+      friends,
+      pendingIn,
+      pendingOut,
+      blocked,
+      email,
+    } = user;
     const preloadedState = {
       entities: {
         users: { ...users, [user.id]: user },
@@ -20,13 +28,13 @@ document.addEventListener("DOMContentLoaded", () => {
       session: {
         id,
         info: {
+          conversations: user.conversations,
           conversees,
           friends,
           pendingIn,
           pendingOut,
           blocked,
-          servers: user.servers,
-          conversations: user.conversations,
+          email,
         },
       },
     };

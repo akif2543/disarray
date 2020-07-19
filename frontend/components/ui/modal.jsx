@@ -42,6 +42,9 @@ const Modal = ({ modal, closeModal }) => {
     case "delete channel":
       component = <ServerActionsContainer action="delete channel" />;
       break;
+    case "alias":
+      component = <ServerActionsContainer action="alias" />;
+      break;
     case "messageDelete":
       component = <MessageModalContainer del />;
       break;

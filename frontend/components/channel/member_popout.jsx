@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { getCurrentUser } from "../../reducers/selectors";
+import { getCurrentUser, getCurrentServer } from "../../reducers/selectors";
 import {
   createConversation,
   directMessage,
@@ -10,8 +10,9 @@ import {
 
 const MemberPopout = ({
   m,
+  s,
   togglePopout,
-  currentUser,
+  u,
   createConversation,
   history,
   directMessage,
@@ -70,13 +71,13 @@ const MemberPopout = ({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const c = currentUser.conversees[m.id];
+    const c = u.conversees[m.id];
 
     if (c) {
       const message = { body };
       directMessage(c, message).then(history.push(`/@me/${c}`));
     } else {
-      const convo = { user1_id: currentUser.id, user2_id: m.id, body };
+      const convo = { user1_id: u.id, user2_id: m.id, body };
       createConversation(convo).then((action) => {
         const [cv] = Object.values(action.conversation);
         return history.push(`/@me/${cv.id}`);
@@ -84,17 +85,20 @@ const MemberPopout = ({
     }
   };
 
+  const hasAlias = s && m.servers[s.id];
+
   return (
     <div className="popout" ref={node} style={style}>
       <header className="popout-head">
         <img src={m.avatar} alt="" />
-        <div className="user">
+        {hasAlias && <h1 className="member-alias">{m.servers[s.id]}</h1>}
+        <div className={hasAlias ? "user with-alias" : "user"}>
           <h1>{m.username}</h1>
           <h2>#{m.discriminator}</h2>
         </div>
       </header>
       <footer className="popout-foot">
-        {m.id !== currentUser.id && (
+        {m.id !== u.id && (
           <form onSubmit={handleSubmit} className="dm-message-form">
             <input
               type="text"
@@ -115,8 +119,9 @@ const MemberPopout = ({
   );
 };
 
-const mSTP = (state) => ({
-  currentUser: getCurrentUser(state),
+const mSTP = (state, ownProps) => ({
+  u: getCurrentUser(state),
+  s: getCurrentServer(state, ownProps),
 });
 
 const mDTP = (dispatch) => ({

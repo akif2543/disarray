@@ -11,6 +11,7 @@ import {
   updateServer,
   deleteServer,
   leaveServer,
+  receiveActive,
 } from "../../../actions/server_actions";
 // import Server from "./server";
 import { logout } from "../../../actions/session_actions";
@@ -20,6 +21,7 @@ import {
   closeSettings,
 } from "../../../actions/ui_actions";
 import ServerPanel from "./server_panel";
+import { fetchChannel } from "../../../actions/channel_actions";
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
@@ -31,6 +33,7 @@ const mSTP = (state, ownProps) => ({
 
 const mDTP = (dispatch) => ({
   requestServer: (id) => dispatch(requestServer(id)),
+  fetchChannel: (id) => dispatch(fetchChannel(id)),
   updateServer: (server) => dispatch(updateServer(server)),
   deleteServer: (id) => dispatch(deleteServer(id)),
   leaveServer: (id) => dispatch(leaveServer(id)),
@@ -38,6 +41,7 @@ const mDTP = (dispatch) => ({
   openModal: (modal) => dispatch(openModal(modal)),
   openSettings: (settings) => dispatch(openSettings(settings)),
   closeSettings: () => dispatch(closeSettings()),
+  setActive: (server) => dispatch(receiveActive(server)),
 });
 
 const ServerPanelContainer = connect(mSTP, mDTP)(ServerPanel);

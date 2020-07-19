@@ -11,10 +11,9 @@ class User < ApplicationRecord
   has_many :memberships, foreign_key: :member_id, class_name: :Membership, dependent: :destroy
   has_many :servers, through: :memberships, source: :subscribeable, source_type: :Server
   has_many :conversations, through: :memberships, source: :subscribeable, source_type: :Conversation
+  has_many :owned_conversations, foreign_key: :owner_id, class_name: :Conversation, dependent: :destroy
   has_many :channels, through: :servers, source: :channels
   has_many :messages, foreign_key: :author_id, class_name: :Message, dependent: :destroy
-
-  has_many :owned_conversations, foreign_key: :owner_id, class_name: :Conversation, dependent: :destroy
 
   has_friendship
 
@@ -42,6 +41,14 @@ class User < ApplicationRecord
     user && user.is_password?(password) ? user : nil
   end
 
+  def server_aliases
+    aliases = {}
+    self.memberships.each do |m|
+      aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
+    end
+    aliases
+  end
+
   def is_member?(server)
     self.servers.include?(server)
   end
@@ -50,8 +57,9 @@ class User < ApplicationRecord
     self.friends.select { |f| other_user.friends.include?(f) }
   end
 
-  def mutual_servers(other_user)
-    self.servers.select { |s| other_user.servers.include?(s) }
+  def mutual_server_aliases(other_user)
+    other_aliases = other_user.server_aliases
+    self.server_aliases.select { |k, v| other_aliases[k] }
   end
 
   def password=(password)

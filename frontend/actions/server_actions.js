@@ -2,6 +2,8 @@ import ServerAPI from "../util/server_api_util";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
+export const RECEIVE_ALIAS = "RECEIVE_ALIAS";
+export const RECEIVE_ACTIVE = "RECEIVE_ACTIVE";
 export const REMOVE_SERVER = "REMOVE_SERVER";
 export const RECEIVE_SERVER_ERRORS = "RECEIVE_SERVER_ERRORS";
 export const CLEAR_SERVER_ERRORS = "CLEAR_SERVER_ERRORS";
@@ -16,8 +18,18 @@ const receiveServer = (server) => ({
   ...server,
 });
 
+export const receiveActive = (server) => ({
+  type: RECEIVE_ACTIVE,
+  ...server,
+});
+
 const removeServer = (server) => ({
   type: REMOVE_SERVER,
+  ...server,
+});
+
+const receiveAlias = (server) => ({
+  type: RECEIVE_ALIAS,
   ...server,
 });
 
@@ -42,7 +54,7 @@ export const requestServer = (id) => (dispatch) =>
 
 export const createServer = (server) => (dispatch) =>
   ServerAPI.createServer(server)
-    .then((server) => dispatch(receiveServer(server)))
+    .then((newServer) => dispatch(receiveServer(newServer)))
     .fail((e) => dispatch(receiveServers(e.responseJSON)));
 
 export const updateServer = (server) => (dispatch) =>
@@ -65,4 +77,9 @@ export const leaveServer = (membership) => (dispatch) =>
     .then((server) => {
       dispatch(removeServer(server));
     })
+    .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
+
+export const changeNickname = (membership) => (dispatch) =>
+  ServerAPI.changeNickname(membership)
+    .then((server) => dispatch(receiveAlias(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));

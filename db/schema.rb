@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_17_001541) do
+ActiveRecord::Schema.define(version: 2020_07_18_214240) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(version: 2020_07_17_001541) do
     t.bigint "subscribeable_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "alias"
     t.index ["member_id"], name: "index_memberships_on_member_id"
     t.index ["subscribeable_type", "subscribeable_id"], name: "index_memberships_on_subscribeable_type_and_subscribeable_id"
   end

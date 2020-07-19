@@ -2,7 +2,7 @@ import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MemberPopoutContainer from "./member_popout";
 
-const Member = ({ m, owner }) => {
+const Member = ({ m, owner, s }) => {
   const el = useRef(null);
 
   const [popout, setPopout] = useState(false);
@@ -13,7 +13,7 @@ const Member = ({ m, owner }) => {
     <div className="member">
       <button type="button" onClick={togglePopout} ref={el}>
         <img src={m.avatar} alt="" />
-        <h2>{m.username}</h2>
+        <h2>{s ? m.servers[s] || m.username : m.username}</h2>
         {owner === m.id && <FontAwesomeIcon icon="crown" size="sm" />}
       </button>
       {popout && (

@@ -2,6 +2,7 @@ import {
   RECEIVE_SERVERS,
   RECEIVE_SERVER,
   REMOVE_SERVER,
+  RECEIVE_ACTIVE,
 } from "../../actions/server_actions";
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 import { RECEIVE_CHANNEL } from "../../actions/channel_actions";
@@ -22,6 +23,9 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_CHANNEL:
       [channel] = Object.values(action.channel);
       newState[channel.server].channels.push(channel.id);
+      return newState;
+    case RECEIVE_ACTIVE:
+      newState[action.id].active = action.active;
       return newState;
     default:
       return state;

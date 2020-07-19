@@ -37,9 +37,8 @@ const ServerDropdown = ({
               <FontAwesomeIcon icon="plus-circle" />
             </button>
           )}
-          <button type="button">
-            {/* onClick={openModal("nickname")} */}
-            <h3>Change Nickname [NYI]</h3>
+          <button type="button" onClick={handleClick("alias")}>
+            <h3>Change Nickname</h3>
             <FontAwesomeIcon icon="pen" />
           </button>
           {!isOwner && (

@@ -16,7 +16,7 @@ const Message = ({
   a,
   history,
   openModal,
-  toggleEditing,
+  s,
 }) => {
   const el = useRef(null);
   const mesEl = useRef(null);
@@ -76,7 +76,7 @@ const Message = ({
       <div className={short ? "content short" : "content"}>
         <header className="msg-head">
           <h2 className="author-name" ref={el} onClick={togglePopout}>
-            {a.username}
+            {m.textChannel ? a.servers[s.id] || a.username : a.username}
           </h2>
           {popout && (
             <MemberPopoutContainer

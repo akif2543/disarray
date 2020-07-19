@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
     resources :memberships, only: [:create]
     delete 'memberships', to: 'memberships#destroy'
+    patch 'memberships', to: 'memberships#update'
 
     resources :channels, only: [:show, :create, :update, :destroy] do
       resources :messages, only: [:index]

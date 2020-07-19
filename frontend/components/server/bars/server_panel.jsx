@@ -22,9 +22,26 @@ class ServerPanel extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const { serverId } = this.props.match.params;
-    const prevId = prevProps.match.params.serverId;
-    if (serverId !== prevId) this.props.requestServer(serverId);
+    const {
+      requestServer,
+      fetchChannel,
+      match: {
+        params: { serverId, channelId },
+      },
+    } = this.props;
+    const prevServer = prevProps.match.params.serverId;
+    const prevChannel = prevProps.match.params.channelId;
+    if (serverId !== prevServer) {
+      requestServer(serverId);
+      // .then(() => {
+      //   if (channelId !== prevChannel) {
+      //     fetchChannel(channelId);
+      //   }
+      // });
+    }
+    // else if (channelId !== prevChannel) {
+    //   fetchChannel(channelId);
+    // }
   }
 
   setDropdown() {
@@ -47,6 +64,7 @@ class ServerPanel extends React.Component {
       currentUser,
       openModal,
       openSettings,
+      setActive,
       channels,
       match,
     } = this.props;
@@ -90,6 +108,7 @@ class ServerPanel extends React.Component {
           isOwner={isOwner}
           openModal={openModal}
           openSettings={openSettings}
+          setActive={setActive}
           server={server}
           match={match}
         />

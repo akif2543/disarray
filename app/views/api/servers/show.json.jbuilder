@@ -6,6 +6,7 @@ json.server do
     json.joinCode @server.join_code
     json.members @server.members.map(&:id)
     json.channels @server.channels.map(&:id)
+    json.active @server.channels.first.id
   end
 end
 

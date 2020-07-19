@@ -791,6 +791,83 @@
   }
 }
 
+.modal-confirm.alias {
+  header {
+    padding: 16px;
+    height: auto;
+    h1 {
+      padding-bottom: 0;
+    }
+  }
+  main {
+    padding: 0 16px 20px;
+
+    .label,
+    form {
+      width: 100%;
+    }
+
+    .alias-label {
+      color: $dk-login-label;
+      margin-bottom: 8px;
+      font: {
+        family: "Whitney Medium";
+        size: 12px;
+      }
+    }
+
+    #alias-input {
+      box-sizing: border-box;
+      height: 40px;
+      width: 100%;
+      padding: 12px;
+      border: 1px solid rgb(34, 36, 40);
+      border-radius: 3px;
+      background: $dk-session-input-bg;
+      color: $dk-off-white;
+      margin-bottom: 10px;
+
+      font: {
+        family: "Whitney Medium";
+        size: 14px;
+      }
+
+      &:hover {
+        border-color: rgb(29, 30, 34);
+      }
+
+      &:focus {
+        border-color: $dk-blue;
+      }
+    }
+
+    .alias-reset {
+      color: rgb(91, 106, 155);
+      font: {
+        family: "Whitney Medium";
+        size: 12px;
+      }
+
+      &:hover {
+        color: $dk-blue;
+        text-decoration: underline;
+      }
+    }
+  }
+
+  footer {
+    padding: 16px;
+
+    .leave {
+      background: $dk-blue;
+      @include button-transition;
+      &:hover {
+        background: $dk-blue-hover;
+      }
+    }
+  }
+}
+
 .s-icon {
   height: 128px;
   width: 128px;

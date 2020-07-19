@@ -16,7 +16,7 @@ const ServerBarIcon = ({ server, active }) => {
 
   return (
     <div>
-      <Link to={`/channels/${server.id}/${server.channels[0]}`}>
+      <Link to={`/channels/${server.id}/${server.active}`}>
         <button
           className={active ? "server-icon active" : "server-icon"}
           type="button"

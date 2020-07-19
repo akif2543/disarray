@@ -8,7 +8,8 @@ export const getCurrentUser = (state) => {
 
 export const getUserServers = (state) => {
   const { servers } = getCurrentUser(state);
-  return servers.map((id) => state.entities.servers[id]);
+  const ids = Object.keys(servers);
+  return ids.map((id) => state.entities.servers[id]);
 };
 
 export const getCurrentServer = (state, props) => {
@@ -16,9 +17,12 @@ export const getCurrentServer = (state, props) => {
     return state.entities.servers[props.match.params.serverId];
   }
   if (props.location) {
-    const re = /\/channels\/(\d+)\//;
-    const id = props.location.pathname.match(re)[1];
-    return state.entities.servers[id];
+    if (props.location.pathname.includes("channels")) {
+      const re = /\/channels\/(\d+)\//;
+      const id = props.location.pathname.match(re)[1];
+      return state.entities.servers[id];
+    }
+    return null;
   }
   return null;
 };
@@ -28,9 +32,12 @@ export const getCurrentChannel = (state, props) => {
     return state.entities.channels[props.match.params.channelId];
   }
   if (props.location) {
-    const re = /\/channels\/\d+\/(\d+)/;
-    const id = props.location.pathname.match(re)[1];
-    return state.entities.channels[id];
+    if (props.location.pathname.includes("channels")) {
+      const re = /\/channels\/\d+\/(\d+)/;
+      const id = props.location.pathname.match(re)[1];
+      return state.entities.channels[id];
+    }
+    return null;
   }
   return null;
 };

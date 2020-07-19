@@ -69,7 +69,9 @@ const TextChannel = ({
             />
           )}
         </div>
-        {sidebarOpen && <MemberBar members={members} owner={server.owner} />}
+        {sidebarOpen && (
+          <MemberBar members={members} owner={server.owner} s={server.id} />
+        )}
       </div>
     </div>
   );

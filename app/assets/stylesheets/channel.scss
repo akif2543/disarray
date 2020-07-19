@@ -87,7 +87,8 @@
   z-index: 999;
 
   .popout-head {
-    height: 150px;
+    height: auto;
+    padding: 15px;
     background: $dk-search-bg;
     border: {
       top-right-radius: 4px;
@@ -102,6 +103,14 @@
       height: 80px;
       width: 80px;
       margin-bottom: 12px;
+    }
+
+    .member-alias {
+      font: {
+        size: 16px;
+        family: "Whitney Medium";
+      }
+      color: $dk-white;
     }
 
     .user {
@@ -122,6 +131,13 @@
           size: 16px;
           family: "Whitney Medium";
         }
+      }
+    }
+
+    .user.with-alias {
+      margin-top: -3px;
+      h1 {
+        color: rgb(167, 167, 168);
       }
     }
   }

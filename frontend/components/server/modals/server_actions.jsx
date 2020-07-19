@@ -3,6 +3,7 @@ import React from "react";
 import ServerInvite from "./server_invite";
 import ServerLeaveDelete from "./server_leave_delete";
 import AddChannel from "../../channel/add_channel";
+import EditServerNickName from "./edit_server_nickname";
 
 const ServerActions = ({
   server,
@@ -15,6 +16,8 @@ const ServerActions = ({
   channel,
   deleteChannel,
   history,
+  changeNickname,
+  user,
 }) => {
   let component;
 
@@ -68,6 +71,15 @@ const ServerActions = ({
         />
       );
       break;
+    case "alias":
+      component = (
+        <EditServerNickName
+          closeModal={closeModal}
+          user={user}
+          changeNickname={changeNickname}
+          s={server.id}
+        />
+      );
     default:
       break;
   }
