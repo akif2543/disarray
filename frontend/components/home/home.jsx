@@ -31,27 +31,27 @@ const Home = ({
 
   useEffect(() => {
     stopLoading();
-    App.cable.subscriptions.create(
-      { channel: "FriendsChannel", id: user.id },
-      {
-        received: (data) => {
-          switch (data.action) {
-            case "request":
-              return receiveRequest(data);
-            case "accept":
-              return receiveAcceptance(data);
-            case "decline":
-              return receiveRejection(data);
-            case "cancel":
-              return receiveRetraction(data);
-            case "unfriend":
-              return loseFriend(data);
-            default:
-              break;
-          }
-        },
-      }
-    );
+    // App.cable.subscriptions.create(
+    //   { channel: "FriendsChannel", id: user.id },
+    //   {
+    //     received: (data) => {
+    //       switch (data.action) {
+    //         case "request":
+    //           return receiveRequest(data);
+    //         case "accept":
+    //           return receiveAcceptance(data);
+    //         case "decline":
+    //           return receiveRejection(data);
+    //         case "cancel":
+    //           return receiveRetraction(data);
+    //         case "unfriend":
+    //           return loseFriend(data);
+    //         default:
+    //           break;
+    //       }
+    //     },
+    //   }
+    // );
   }, []);
 
   return (

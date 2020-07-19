@@ -14,7 +14,18 @@ import TextChannelContainer from "../channel/text_channel_container";
 import ConversationContainer from "../conversation/conversation_container";
 import ConversationPanelContainer from "../conversation/conversation_panel_container";
 
-const Application = ({ loading, settings, loggedIn, user, receiveStatus }) => {
+const Application = ({
+  loading,
+  settings,
+  loggedIn,
+  user,
+  receiveStatus,
+  receiveRequest,
+  receiveAcceptance,
+  receiveRejection,
+  receiveRetraction,
+  loseFriend,
+}) => {
   useEffect(() => {
     if (loggedIn && App) {
       App.cable.subscriptions.create(
@@ -53,6 +64,27 @@ const Application = ({ loading, settings, loggedIn, user, receiveStatus }) => {
             document.removeEventListener("visibilitychange", this.update);
           },
           received: (status) => receiveStatus(status),
+        }
+      );
+      App.cable.subscriptions.create(
+        { channel: "FriendsChannel", id: user.id },
+        {
+          received: (data) => {
+            switch (data.action) {
+              case "request":
+                return receiveRequest(data);
+              case "accept":
+                return receiveAcceptance(data);
+              case "decline":
+                return receiveRejection(data);
+              case "cancel":
+                return receiveRetraction(data);
+              case "unfriend":
+                return loseFriend(data);
+              default:
+                break;
+            }
+          },
         }
       );
     }
