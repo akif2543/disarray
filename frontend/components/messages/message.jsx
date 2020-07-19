@@ -81,6 +81,7 @@ const Message = ({
           {popout && (
             <MemberPopoutContainer
               m={a}
+              s={m.textChannel ? s : null}
               togglePopout={togglePopout}
               el={el}
               chat
