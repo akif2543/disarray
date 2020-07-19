@@ -3,7 +3,11 @@ export const settings = (state) => state.ui.settings;
 
 export const getCurrentUser = (state) => {
   const user = state.entities.users[state.session.id];
-  return { ...user, ...state.session.info };
+  return {
+    ...user,
+    ...state.session.info,
+    status: state.session.status[state.session.id],
+  };
 };
 
 export const getUserServers = (state) => {
@@ -45,7 +49,10 @@ export const getCurrentChannel = (state, props) => {
 export const getServerMembers = (state, props) => {
   const { members } = getCurrentServer(state, props);
   return members
-    .map((m) => state.entities.users[m])
+    .map((m) => ({
+      ...state.entities.users[m],
+      status: state.session.status[m] || "Offline",
+    }))
     .sort((a, b) =>
       a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
     );
@@ -86,7 +93,10 @@ export const getConversations = (state) => {
     .map((c) => state.entities.conversations[c])
     .map((c) => ({
       ...c,
-      members: c.members.map((id) => state.entities.users[id]),
+      members: c.members.map((id) => ({
+        ...state.entities.users[id],
+        status: state.session.status[id] || "Offline",
+      })),
     }));
 };
 
@@ -95,7 +105,10 @@ export const getConversationMembers = (state, props) => {
   if (!convo) return [];
   const { members } = convo;
   return members
-    .map((m) => state.entities.users[m])
+    .map((m) => ({
+      ...state.entities.users[m],
+      status: state.session.status[m] || "Offline",
+    }))
     .sort((a, b) =>
       a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
     );
@@ -124,7 +137,10 @@ export const getConversationMessages = (state, props) => {
 
 export const getMessageAuthor = (state, props) => {
   const { author } = props.m;
-  return state.entities.users[author];
+  return {
+    ...state.entities.users[author],
+    status: state.session.status[author] || "Offline",
+  };
 };
 
 export const getMessageFromPath = (state, props) => {
@@ -137,7 +153,10 @@ export const getMessageFromPath = (state, props) => {
 
 export const getAuthorFromMessage = (state, props) => {
   const m = getMessageFromPath(state, props);
-  return state.entities.users[m.author];
+  return {
+    ...state.entities.users[m.author],
+    status: state.session.status[m.author] || "Offline",
+  };
 };
 
 export const getUserFriends = (state) => {
@@ -173,5 +192,8 @@ export const getFriendFromPath = (state, props) => {
     location: { search },
   } = props;
   const [full, id] = search.match(/^\?id=(\d+)$/);
-  return state.entities.users[id];
+  return {
+    ...state.entities.users[id],
+    status: state.session.status[id] || "Offline",
+  };
 };

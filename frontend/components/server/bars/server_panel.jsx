@@ -31,17 +31,7 @@ class ServerPanel extends React.Component {
     } = this.props;
     const prevServer = prevProps.match.params.serverId;
     const prevChannel = prevProps.match.params.channelId;
-    if (serverId !== prevServer) {
-      requestServer(serverId);
-      // .then(() => {
-      //   if (channelId !== prevChannel) {
-      //     fetchChannel(channelId);
-      //   }
-      // });
-    }
-    // else if (channelId !== prevChannel) {
-    //   fetchChannel(channelId);
-    // }
+    if (serverId !== prevServer) requestServer(serverId);
   }
 
   setDropdown() {

@@ -37,7 +37,7 @@ const ChannelList = ({
         to={`/channels/${server.id}/${channel.id}`}
         key={shortid.generate()}
         className={collapse ? "hide" : ""}
-        onClick={handleActive(channel.id)}
+        // onClick={handleActive(channel.id)}
       >
         <ChannelListItem
           channel={channel}

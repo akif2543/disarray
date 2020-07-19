@@ -10,13 +10,13 @@ class UserSettings extends React.Component {
     this.handleLogout = this.handleLogout.bind(this);
   }
 
-  componentDidMount() {
-    const {
-      currentUser: { id },
-      fetchCurrentUser,
-    } = this.props;
-    fetchCurrentUser(id);
-  }
+  // componentDidMount() {
+  //   const {
+  //     currentUser: { id },
+  //     fetchCurrentUser,
+  //   } = this.props;
+  //   fetchCurrentUser(id);
+  // }
 
   handleLogout() {
     const { logout, startLoading } = this.props;
