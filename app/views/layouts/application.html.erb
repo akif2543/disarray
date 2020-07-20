@@ -10,10 +10,8 @@
     <meta property="og:image" content="https://i.gyazo.com/3fcd2e94316f9f810e53188f13172606.gif" />
     <meta property="og:description" content="A chat application" />
 
-    <link rel="apple-touch-icon" sizes="180x180" href="<%= image_url('favicon//apple-touch-icon.png') %>">
-    <link rel="icon" type="image/png" sizes="32x32" href="<%= image_url('favicon/favicon-32x32.png') %>">
-    <link rel="icon" type="image/png" sizes="16x16" href="<%= image_url('/favicon/favicon-16x16.png') %>">
-    <link rel="manifest" href="<%= image_url('/favicon/site.webmanifest') %>">
+    <%= favicon_link_tag asset_path('apple-touch-icon.png'), :rel => 'icon', :type =>  'image/png' %>
+    <%= favicon_link_tag asset_path('favicon.ico'), :rel => 'icon', :type => "image/x-icon" %>
     
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
