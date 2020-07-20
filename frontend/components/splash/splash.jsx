@@ -52,6 +52,11 @@ class Splash extends React.Component {
               alt=""
               className="splash-net floater"
             />
+            <img
+              src={window.splashWifiAltURL}
+              alt=""
+              className="splash-wifi-alt floater"
+            />
           </div>
         </div>
         <footer className="footer-frame">

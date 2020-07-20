@@ -201,6 +201,13 @@ a {
     bottom: 270px;
   }
 
+  .splash-wifi-alt {
+    width: 175px;
+    right: -20px;
+    bottom: 60px;
+    animation: none;
+  }
+
   .splash-prompt {
     width: 100px;
     right: 250px;
@@ -209,8 +216,9 @@ a {
 
   .splash-net {
     width: 175px;
-    left: -40px;
+    left: -37.5px;
     bottom: 32px;
+    animation: none;
   }
 }
 

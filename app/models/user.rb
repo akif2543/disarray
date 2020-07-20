@@ -15,7 +15,7 @@ class User < ApplicationRecord
   has_many :channels, through: :servers, source: :channels
   has_many :messages, foreign_key: :author_id, class_name: :Message, dependent: :destroy
 
-  has_one_attached :avatar
+  # has_one_attached :avatar
 
   has_friendship
 
