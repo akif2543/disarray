@@ -115,7 +115,7 @@ cubber, boots, gritz, pide, dojo, = User.create([
     owner_id: hiker.id
   }, {
     name: "No Pandas",
-    owner_id: sewp.id
+    owner_id: sewpra.id
   }, {
     name: "z 1 1",
     owner_id: toosh.id
@@ -135,6 +135,22 @@ demo.friend_request(sinus)
 sinus.accept_request(demo)
 demo.friend_request(can)
 can.accept_request(demo)
+demo.friend_request(dojobuns)
+dojobuns.accept_request(demo)
+demo.friend_request(mul)
+mul.accept_request(demo)
+demo.friend_request(cubber)
+cubber.accept_request(demo)
+demo.friend_request(wrath)
+wrath.accept_request(demo)
+demo.friend_request(ecter)
+ecter.accept_request(demo)
+demo.friend_request(van)
+van.accept_request(demo)
+demo.friend_request(zaroky)
+zaroky.accept_request(demo)
+demo.friend_request(kimky)
+kimky.accept_request(demo)
 
 ggang, gnp, gz, gst, memes, strats, bb, post = Channel.create([
   {
@@ -194,7 +210,7 @@ Membership.create([
     subscribeable: np,
   }, {
     member_id: ribs.id,
-    alias: "Big Chillin"
+    alias: "Big Chillin",
     subscribeable: np,
   }, {
     member_id: north.id,
@@ -249,18 +265,18 @@ Membership.create([
     subscribeable: gang,
   }, {
     member_id: can.id,
-    alias: "Quackmeister"
+    alias: "Quackmeister",
     subscribeable: gang,
   }, {
     member_id: sinus.id,
-    alias: "Jake the Cake"
+    alias: "Jake the Cake",
     subscribeable: gang,
   }, {
     member_id: marre.id,
     subscribeable: gang,
   }, {
     member_id: toosh.id,
-    alias: "DAB"
+    alias: "DAB",
     subscribeable: gang,
   }, {
     member_id: buth.id,
@@ -270,7 +286,7 @@ Membership.create([
     subscribeable: z,
   }, {
     member_id: marre.id,
-    alias: "Toffla"
+    alias: "Toffla",
     subscribeable: z,
   }, {
     member_id: demo.id,
@@ -301,7 +317,7 @@ Membership.create([
     alias: "Morini",
     subscribeable: st,
   }, {
-    member_id: sewp.id,
+    member_id: sewpra.id,
     alias: "Espinoza",
     subscribeable: st,
   }
@@ -323,7 +339,7 @@ kale, dodo, gsquad = Conversation.create([
 
 kale.group_bundle([demo.id, dojo.id, can.id, cubber.id, mul.id])
 dodo.bundle(demo.id, toosh.id)
-gsquad.group_bundle([wrath.id, van.id, ecter.id, mul.id, zaroky.id, demo.id])
+gsquad.group_bundle([wrath.id, van.id, ecter.id, mul.id, zaroky.id, demo.id, kimky.id])
 
 Message.create([
   {
@@ -631,7 +647,7 @@ Message.create([
   messageable: ggang,
   body: "'You! hypocrite lecteur!—mon semblable,—mon frère!'"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: gnp,
   body: "The Chair she sat in, like a burnished throne,"
   }, {
@@ -679,7 +695,7 @@ Message.create([
   messageable: gnp,
   body: "Unguent, powdered, or liquid—troubled, confused"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: gnp,
   body: "And drowned the sense in odours; stirred by the air"
   }, {
@@ -743,7 +759,7 @@ Message.create([
   messageable: gnp,
   body: "And other withered stumps of time"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: gnp,
   body: "And other withered stumps of time"
   }, {
@@ -783,11 +799,11 @@ Message.create([
   messageable: gnp,
   body: "'I never know what you are thinking. Think.'"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: gnp,
   body: "I think we are in rats’ alley"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: gnp,
   body: "Where the dead men lost their bones."
   }, {
@@ -827,7 +843,7 @@ Message.create([
   messageable: gnp,
   body: "Those are pearls that were his eyes."
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: gnp,
   body: "'Are you alive, or not? Is there nothing in your head?'"
   }, {
@@ -863,7 +879,7 @@ Message.create([
   messageable: gnp,
   body: "'What shall we ever do?'"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: strats,
   body: "The hot water at ten."
   }, {
@@ -915,7 +931,7 @@ Message.create([
   messageable: strats,
   body: "And no more can’t I, I said, and think of poor Albert,"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: strats,
   body: "He’s been in the army four years, he wants a good time,"
   }, {
@@ -955,7 +971,7 @@ Message.create([
   messageable: strats,
   body: "(And her only thirty-one.)"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: strats,
   body: "I can’t help it, she said, pulling a long face,"
   }, {
@@ -1003,7 +1019,7 @@ Message.create([
   messageable: strats,
   body: "HURRY UP PLEASE ITS TIME"
   }, {
-  author_id: sewp.id,
+  author_id: sewpra.id,
   messageable: strats,
   body: "Goonight Bill. Goonight Lou. Goonight May. Goonight."
   }, {
