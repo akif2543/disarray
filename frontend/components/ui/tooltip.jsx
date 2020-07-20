@@ -4,7 +4,6 @@ const Tooltip = ({ text, className, el }) => {
   let style;
 
   if (el && el.current) {
-    console.log(el.current.getBoundingClientRect());
     const {
       top,
       bottom,
