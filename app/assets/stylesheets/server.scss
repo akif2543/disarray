@@ -868,6 +868,68 @@
   }
 }
 
+.leave-server {
+  width: 442px;
+
+  & > * {
+    padding: 16px 20px 20px;
+  }
+
+  header {
+    height: 120px;
+    background: $dk-main-bg;
+
+    border: {
+      top-left-radius: 4px;
+      top-right-radius: 4px;
+    }
+
+    h1 {
+      font-family: "Whitney Medium";
+      padding-bottom: 16px;
+    }
+
+    h2 {
+      color: rgb(211, 213, 214);
+      line-height: 1.25rem;
+    }
+  }
+
+  footer {
+    height: 78px;
+    background: rgb(47, 49, 54);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+    border: {
+      bottom-left-radius: 4px;
+      bottom-right-radius: 4px;
+    }
+
+    button {
+      width: 108px;
+      height: 39px;
+      border-radius: 3px;
+      font-family: "Whitney Medium";
+    }
+
+    .leave {
+      background: $dk-red;
+      @include button-transition;
+
+      &:hover {
+        background: $dk-red-hover;
+      }
+    }
+
+    .cancel:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
 .s-icon {
   height: 128px;
   width: 128px;
