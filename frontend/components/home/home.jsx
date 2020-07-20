@@ -18,11 +18,6 @@ const Home = ({
   createConversation,
   customizeConversation,
   openModal,
-  receiveRequest,
-  receiveAcceptance,
-  receiveRejection,
-  receiveRetraction,
-  loseFriend,
   history: { push },
 }) => {
   const [active, setActive] = useState(friends.length ? "online" : "add");
@@ -31,27 +26,6 @@ const Home = ({
 
   useEffect(() => {
     stopLoading();
-    // App.cable.subscriptions.create(
-    //   { channel: "FriendsChannel", id: user.id },
-    //   {
-    //     received: (data) => {
-    //       switch (data.action) {
-    //         case "request":
-    //           return receiveRequest(data);
-    //         case "accept":
-    //           return receiveAcceptance(data);
-    //         case "decline":
-    //           return receiveRejection(data);
-    //         case "cancel":
-    //           return receiveRetraction(data);
-    //         case "unfriend":
-    //           return loseFriend(data);
-    //         default:
-    //           break;
-    //       }
-    //     },
-    //   }
-    // );
   }, []);
 
   return (

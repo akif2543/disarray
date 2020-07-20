@@ -13,18 +13,13 @@ import {
   requestFriend,
   unfriend,
   respondToRequest,
-  receiveRequest,
-  receiveAcceptance,
-  receiveRejection,
-  receiveRetraction,
-  loseFriend,
 } from "../../actions/friend_actions";
 import {
   createConversation,
   directMessage,
 } from "../../actions/conversation_actions";
 
-const mSTP = (state, ownProps) => ({
+const mSTP = (state) => ({
   user: getCurrentUser(state),
   friends: getUserFriends(state),
   pendingIn: getUserIncomingPendingFriends(state),
@@ -42,11 +37,6 @@ const mDTP = (dispatch) => ({
   directMessage: (id, message) => dispatch(directMessage(id, message)),
   respondToRequest: (id, type) => dispatch(respondToRequest(id, type)),
   openModal: (modal) => dispatch(openModal(modal)),
-  receiveRequest: (res) => dispatch(receiveRequest(res)),
-  receiveAcceptance: (res) => dispatch(receiveAcceptance(res)),
-  receiveRejection: (res) => dispatch(receiveRejection(res)),
-  receiveRetraction: (res) => dispatch(receiveRetraction(res)),
-  loseFriend: (res) => dispatch(loseFriend(res)),
 });
 
 const HomeContainer = connect(mSTP, mDTP)(Home);
