@@ -29,34 +29,36 @@ class Splash extends React.Component {
           handleDemo={this.handleDemo}
           startLoading={startLoading}
         />
-        <SplashJumbotron
-          loggedIn={loggedIn}
-          handleDemo={this.handleDemo}
-          startLoading={startLoading}
-        />
-        <div className="splash-frame">
-          <div className="splash-img-frame">
-            <img src={window.splashURL} alt="" className="splash-img" />
-            <img
-              src={window.splashWifiURL}
-              alt=""
-              className="splash-wifi floater"
-            />
-            <img
-              src={window.splashPromptURL}
-              alt=""
-              className="splash-prompt floater"
-            />
-            <img
-              src={window.splashNetworkURL}
-              alt=""
-              className="splash-net floater"
-            />
-            <img
-              src={window.splashWifiAltURL}
-              alt=""
-              className="splash-wifi-alt floater"
-            />
+        <div>
+          <SplashJumbotron
+            loggedIn={loggedIn}
+            handleDemo={this.handleDemo}
+            startLoading={startLoading}
+          />
+          <div className="splash-frame">
+            <div className="splash-img-frame">
+              <img src={window.splashURL} alt="" className="splash-img" />
+              <img
+                src={window.splashWifiURL}
+                alt=""
+                className="splash-wifi floater"
+              />
+              <img
+                src={window.splashPromptURL}
+                alt=""
+                className="splash-prompt floater"
+              />
+              <img
+                src={window.splashNetworkURL}
+                alt=""
+                className="splash-net floater"
+              />
+              <img
+                src={window.splashWifiAltURL}
+                alt=""
+                className="splash-wifi-alt floater"
+              />
+            </div>
           </div>
         </div>
         <footer className="footer-frame">

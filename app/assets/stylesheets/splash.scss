@@ -11,7 +11,8 @@ $xl-screen: 1200px;
   background-repeat: no-repeat;
   width: 100vw;
   height: auto;
-  @include flex(column);
+  min-height: 100vh;
+  @include flex(column, space-between);
 }
 
 a {
@@ -280,13 +281,13 @@ a {
   }
 }
 
-@media screen and (min-device-width: 1920px) and (max-device-width: 2560px) {
+@media screen and (min-device-width: 1921px) and (max-device-width: 2560px) {
   .splash-container {
     background-size: cover;
   }
   .splash-frame {
     .splash-img-frame {
-      width: 45% !important;
+      width: 45%;
     }
   }
 }
