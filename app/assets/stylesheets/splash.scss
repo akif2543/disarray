@@ -9,6 +9,9 @@ $xl-screen: 1200px;
   background-size: contain;
   background-position: bottom;
   background-repeat: no-repeat;
+  width: 100vw;
+  height: auto;
+  @include flex(column);
 }
 
 a {
@@ -274,6 +277,15 @@ a {
       transform: translateX(19px);
       width: 60%;
     }
+  }
+}
+
+@media screen and (min-device-width: 1920px) and (max-device-width: 2560px) {
+  .splash-container {
+    background-size: cover;
+  }
+  .splash-img-frame {
+    width: 45%;
   }
 }
 

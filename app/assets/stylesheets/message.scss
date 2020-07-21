@@ -298,7 +298,10 @@
   }
 }
 
-.chat.wide,
+.chat.wide {
+  width: calc(100vw - 318px);
+}
+
 .new-message-form.wide {
   width: calc(100vw - 314px);
 }
