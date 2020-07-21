@@ -151,10 +151,28 @@
 }
 
 .chat {
-  width: calc(100vw - 554px);
+  width: calc(100vw - 558px);
   height: calc(100vh - 120px);
   overflow-y: scroll;
-  padding: 0 17px 25px 0;
+  padding: 0 4px 22px 0;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: $dk-sidebar;
+    -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    margin: 4px 0;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 20px;
+    border-radius: 20px;
+    background: $dk-search-bg;
+  }
 
   .unread-alert {
     position: absolute;

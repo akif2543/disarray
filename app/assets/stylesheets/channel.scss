@@ -25,6 +25,11 @@
   overflow-y: scroll;
   padding: 10px 0;
 
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   h4 {
     font: {
       size: 12px;
@@ -304,6 +309,11 @@
   color: rgb(114, 118, 125);
   height: calc(100vh - 50px - 53px);
   overflow-y: scroll;
+
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   header {
     padding: 10px 5px 0;

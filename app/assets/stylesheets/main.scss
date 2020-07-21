@@ -453,7 +453,9 @@
             min-width: 50px;
             padding: 8px 10px;
             cursor: text;
-            overflow-x: scroll;
+            overflow-x: auto;
+
+            -ms-overflow-style: none;
 
             font: {
               family: "Whitney";

@@ -147,24 +147,22 @@ class ChatStream extends React.Component {
     const { scrolling } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
-        <ul className="message-list">
-          <div ref={this.bottom} />
-          {messages.map((m) => {
-            if (m === undefined || !m) return null;
-            if (seen.includes(m.id)) return;
-            seen.push(m.id);
-            last.unshift(m.author);
-            return (
-              <MessageContainer
-                key={shortid.generate()}
-                m={m}
-                bottom={this.bottom}
-                short={last[1] === m.author}
-                toggleEditing={this.toggleEditing}
-              />
-            );
-          })}
-        </ul>
+        <div ref={this.bottom} />
+        {messages.map((m) => {
+          if (m === undefined || !m) return null;
+          if (seen.includes(m.id)) return;
+          seen.push(m.id);
+          last.unshift(m.author);
+          return (
+            <MessageContainer
+              key={shortid.generate()}
+              m={m}
+              bottom={this.bottom}
+              short={last[1] === m.author}
+              toggleEditing={this.toggleEditing}
+            />
+          );
+        })}
         {scrolling && (
           <div className={memberbar ? "unread-alert" : "unread-alert wide"}>
             <button onClick={this.jumpBack} type="button">

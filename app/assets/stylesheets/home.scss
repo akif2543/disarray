@@ -5,6 +5,11 @@
   height: calc(100vh - 50px);
   width: calc(100vw - 72px - 242px);
 
+  -ms-overflow-style: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   .list-head {
     color: rgb(185, 187, 190);
     margin-left: 10px;

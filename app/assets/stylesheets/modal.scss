@@ -16,10 +16,7 @@
 }
 
 .settings {
-  // position: fixed;
-  overflow-y: scroll;
-  // top: 0;
-  // right: 0;
+  overflow-y: auto;
   height: 100vh;
   width: 100vw;
   z-index: 10;
