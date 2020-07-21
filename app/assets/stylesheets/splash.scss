@@ -284,8 +284,10 @@ a {
   .splash-container {
     background-size: cover;
   }
-  .splash-img-frame {
-    width: 45%;
+  .splash-frame {
+    .splash-img-frame {
+      width: 45% !important;
+    }
   }
 }
 
