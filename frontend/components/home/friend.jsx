@@ -62,14 +62,13 @@ const Friend = ({
       onMouseEnter={showDisc}
       onMouseLeave={hideDisc}
       onBlur={hideDisc}
-      onClick={all ? handleMessage : null}
     >
       <div className="friend">
-        <div className="user">
+        <div className="user" onClick={all ? handleMessage : null}>
           {all ? (
             <AvatarWithStatus avatar={f.avatar} online={f.online} />
           ) : (
-            <img src={f.avatar} alt="" />
+            <img src={f.avatar} alt="" className="avatar" />
           )}
           <div className="user-info">
             <div className="identifier">

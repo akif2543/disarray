@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
 
-const MessageOpts = ({ isAuthor, toggleEdit, toggleDropdown }) => {
+const MessageOpts = ({ isAuthor, toggleEdit, toggleDropdown, short }) => {
   const [tooltips, setTooltips] = useState({ edit: false, more: false });
 
   const showTooltip = (type) => () =>
@@ -14,7 +14,7 @@ const MessageOpts = ({ isAuthor, toggleEdit, toggleDropdown }) => {
   const { edit, more } = tooltips;
 
   return (
-    <div className="msg-options">
+    <div className={short ? "msg-options short" : "msg-options"}>
       {isAuthor && (
         <button
           type="button"

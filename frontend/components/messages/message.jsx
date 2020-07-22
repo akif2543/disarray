@@ -54,6 +54,7 @@ const Message = ({
           isAuthor={isAuthor}
           toggleEdit={toggleEdit}
           toggleDropdown={toggleDropdown}
+          short={short}
         />
       )}
       {dropdown && (

@@ -102,6 +102,7 @@
     }
     .msg-edit {
       border-radius: 8px 0 0 8px;
+      z-index: 2;
     }
 
     .msg-more {
@@ -111,6 +112,10 @@
     .msg-more.solo {
       border-radius: 8px;
     }
+  }
+
+  .msg-options.short {
+    top: -28px;
   }
 }
 

@@ -91,11 +91,11 @@ class User < ApplicationRecord
 
   def discriminate
     disc = []
-    4.times { disc << rand(10)}
-    disc = disc.join
-    discriminate if disc.length != 4
+    disc << rand(1...10)
+    3.times { disc << rand(10)}
+    disc = disc.join.to_i
     discriminate if User.find_by(discriminator: disc)
-    disc.to_i
+    disc
   end
 
   def ensure_avatar

@@ -4,7 +4,7 @@ const MessageAPI = {
       url:
         type === "Channel"
           ? `/api/channels/${id}/messages?before=${time}&t=true`
-          : `/api/conversations/${id}/messages?before=${time}&t=false`,
+          : `/api/conversations/${id}/messages?before=${time}`,
       method: "GET",
     }),
   updateMessage: (message) =>
