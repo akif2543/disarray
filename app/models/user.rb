@@ -1,7 +1,9 @@
+require "open-uri"
+
 class User < ApplicationRecord
   attr_reader :password
   validates :discriminator, :email, :session_token, presence: true, uniqueness: true
-  validates :password_digest, :avatar, presence: true
+  validates :password_digest, presence: true
   validates :username, presence: true, length: {minimum: 2, maximum: 32}
   validates :password, length: {minimum: 6, maximum: 128}, allow_nil: true
 
@@ -15,7 +17,7 @@ class User < ApplicationRecord
   has_many :channels, through: :servers, source: :channels
   has_many :messages, foreign_key: :author_id, class_name: :Message, dependent: :destroy
 
-  # has_one_attached :avatar
+  has_one_attached :avatar
 
   has_friendship
 
@@ -99,7 +101,7 @@ class User < ApplicationRecord
   end
 
   def ensure_avatar
-    self.avatar ||= random_avatar
+    self.avatar.attach(io: random_avatar, filename: "default_avatar.png") unless self.avatar.attached?
   end
 
   def generate_session_token
@@ -107,7 +109,7 @@ class User < ApplicationRecord
   end
 
   def random_avatar
-    av = ['user_1.png', 'user_2.png', 'user_3.png', 'user_4.png'].sample
-    ActionController::Base.helpers.asset_url(av, type: :image)
+    av = ['https://disarray-chat-seeds.s3.amazonaws.com/user_1.png', 'https://disarray-chat-seeds.s3.amazonaws.com/user_2.png', 'https://disarray-chat-seeds.s3.amazonaws.com/user_3.png', 'https://disarray-chat-seeds.s3.amazonaws.com/user_4.png'].sample
+    open(av)
   end
 end
