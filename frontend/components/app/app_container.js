@@ -16,6 +16,7 @@ const mSTP = (state) => ({
   settings: Boolean(settings(state)),
   loggedIn: Boolean(state.session.id),
   user: getCurrentUser(state),
+  modal: state.ui.modal,
 });
 
 const mDTP = (dispatch) => ({

@@ -19,6 +19,7 @@ const Application = ({
   settings,
   loggedIn,
   user,
+  modal,
   receiveStatus,
   receiveRequest,
   receiveAcceptance,
@@ -92,10 +93,10 @@ const Application = ({
 
   return (
     <div className="app">
+      <Route exact path="/" component={SplashContainer} />
       {loading && <Loading />}
       {settings && <SettingsContainer />}
-      <ProtectedRoute path="/" component={ModalContainer} />
-      <Route exact path="/" component={SplashContainer} />
+      {modal && <ModalContainer />}
       <AuthRoute
         exact
         path={["/register", "/login"]}
