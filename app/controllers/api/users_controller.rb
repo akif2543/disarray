@@ -25,7 +25,6 @@ class Api::UsersController < ApplicationController
   end
 
   def update
-    p params
     if current_user
       if @current_user.is_password?(params[:user][:currentPassword])
         if @current_user.update(user_params)

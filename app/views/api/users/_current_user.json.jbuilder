@@ -55,6 +55,7 @@ json.servers do
     json.set! server.id do
       json.id server.id
       json.name server.name
+      json.icon(url_for(server.icon)) if server.icon.attached?
       json.joinCode server.join_code
       json.members []
       json.channels server.channels.map(&:id)
@@ -66,7 +67,8 @@ end
 user.conversations.each do |c|
   json.conversations do
     json.set! c.id do
-      json.extract! c, :id, :group, :icon, :name
+      json.extract! c, :id, :group, :name
+      json.icon(url_for(c.icon)) if c.group && c.icon.attached?
       json.owner c.owner_id
       json.members c.members.map(&:id)
       json.messages []
