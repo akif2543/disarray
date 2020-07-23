@@ -26,7 +26,8 @@ end
 user.friends.each do |f|
   json.users do 
     json.set! f.id do
-      json.extract! f, :id, :username, :discriminator, :avatar
+      json.extract! f, :id, :username, :discriminator
+      json.avatar url_for(f.avatar)
     end
   end
 end
@@ -34,7 +35,8 @@ end
 (user.requested_friends + user.pending_friends).each do |f|
   json.users do 
     json.set! f.id do
-      json.extract! f, :id, :username, :discriminator, :avatar
+      json.extract! f, :id, :username, :discriminator
+      json.avatar url_for(f.avatar)
     end
   end
 end
@@ -42,7 +44,8 @@ end
 user.blocked_friends.each do |f|
   json.users do 
     json.set! f.id do
-      json.extract! f, :id, :username, :discriminator, :avatar
+      json.extract! f, :id, :username, :discriminator
+      json.avatar url_for(f.avatar)
     end
   end
 end
@@ -74,7 +77,8 @@ user.conversations.each do |c|
     c.members.each do |m|
       if m.id != user.id
         json.set! m.id do
-          json.extract! m, :id, :username, :discriminator, :avatar
+          json.extract! m, :id, :username, :discriminator
+          json.avatar url_for(m.avatar)
           json.servers m.server_aliases
         end
       end

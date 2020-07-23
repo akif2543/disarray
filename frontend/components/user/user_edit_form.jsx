@@ -1,4 +1,6 @@
 import React, { useState, useRef } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 import Tooltip from "../ui/tooltip";
 
@@ -12,13 +14,13 @@ const UserEditForm = ({
   const initialUser = {
     username: currentUser.username,
     email: currentUser.email,
-    // avatar: currentUser.avatar,
     currentPassword: "",
   };
 
   const el = useRef(null);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialUser);
+  const [avatar, setAvatar] = useState({ url: currentUser.avatar, file: null });
   const [focused, setFocused] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
   const [password, setPassword] = useState("");
@@ -37,10 +39,25 @@ const UserEditForm = ({
     setLocalErrors([]);
     clearErrors();
     setUser(initialUser);
+    handleReset();
   };
 
   const handleChange = (field) => (e) =>
     setUser({ ...user, [field]: e.target.value });
+
+  const handleAvatar = (e) => {
+    const reader = new FileReader();
+    const [file] = e.currentTarget.files;
+    reader.onloadend = () => setAvatar({ url: reader.result, file });
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      setAvatar({ url: currentUser.avatar, file: null });
+    }
+  };
+
+  const handleReset = () => setAvatar({ url: currentUser.avatar, file: null });
 
   const validateEmail = (email) =>
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
@@ -64,15 +81,20 @@ const UserEditForm = ({
     setLocalErrors([]);
     if (isValid()) {
       const { id } = currentUser;
-      updateUser(
-        passwordChange ? { ...user, id, password } : { ...user, id }
-      ).then((action) => {
+      const formData = new FormData();
+      const keys = Object.keys(user);
+      keys.forEach((key) => formData.append(`user[${key}]`, user[key]));
+      if (passwordChange) formData.append("user[password]", password);
+      if (currentUser.avatar !== avatar.url)
+        formData.append("user[avatar]", avatar.file);
+      updateUser(id, formData).then((action) => {
         if (action.type === RECEIVE_CURRENT_USER) handleClose();
       });
     }
   };
 
   const { username, email, currentPassword } = user;
+  const { url } = avatar;
 
   const { discriminator } = currentUser;
 
@@ -112,7 +134,29 @@ const UserEditForm = ({
     <div className={edit ? "user-account edit" : "user-account"}>
       <form className="user-edit">
         <div className="info">
-          <img src={currentUser.avatar} alt="" className="avatar" />
+          {edit ? (
+            <label htmlFor="edit-avatar" className="avatar-label">
+              <div className="img-upload">
+                <FontAwesomeIcon icon={["far", "file-image"]} size="lg" />
+              </div>
+              <img src={url} alt="" className="avatar" />
+              <input
+                type="file"
+                id="edit-avatar"
+                onChange={handleAvatar}
+                accept=".jpg,.jpeg,.png,.gif"
+              />
+              <button
+                type="button"
+                onClick={handleReset}
+                className="reset-avatar"
+              >
+                Remove
+              </button>
+            </label>
+          ) : (
+            <img src={currentUser.avatar} alt="" className="avatar" />
+          )}
           <div className="inputs">
             <div className="input-grp">
               <label htmlFor="edit-username">

@@ -43,9 +43,13 @@ import {
   faUsers,
   faCheck,
 } from "@fortawesome/free-solid-svg-icons";
-import { faTimesCircle } from "@fortawesome/free-regular-svg-icons";
+import {
+  faTimesCircle,
+  faFileImage,
+} from "@fortawesome/free-regular-svg-icons";
 
 library.add(
+  faFileImage,
   faTimes,
   faCheck,
   faArrowLeft,

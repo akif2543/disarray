@@ -84,6 +84,75 @@
         display: flex;
       }
 
+      .avatar-label {
+        @include flex(column);
+        margin-right: 16px;
+
+        .img-upload {
+          height: 28px;
+          width: 28px;
+          border-radius: 50%;
+          background: $dk-off-white;
+          color: $dk-main-bg;
+          position: absolute;
+          z-index: 3;
+          @include flex(row, center, center);
+          cursor: pointer;
+        }
+
+        .avatar {
+          margin-right: 0;
+        }
+
+        #edit-avatar {
+          position: absolute;
+          background: transparent;
+          height: 100px;
+          width: 100px;
+          border-radius: 50%;
+          z-index: 2;
+          cursor: pointer;
+
+          &::-webkit-file-upload-button {
+            visibility: hidden;
+          }
+
+          &:hover {
+            box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.75);
+
+            &:before {
+              content: "CHANGE AVATAR";
+              text-align: center;
+              transform: translateY(95%);
+              color: $dk-white;
+              font: {
+                family: "Whitney Medium";
+                size: 12px;
+              }
+            }
+          }
+
+          &:focus {
+            border: none;
+          }
+        }
+
+        .reset-avatar {
+          align-self: center;
+          margin-top: 15px;
+          color: rgb(185, 187, 190);
+          font: {
+            family: "Whitney Bold";
+            size: 14px;
+          }
+
+          &:hover {
+            color: rgb(115, 119, 126);
+            text-decoration: underline;
+          }
+        }
+      }
+
       .avatar {
         height: 100px;
         width: 100px;

@@ -55,8 +55,8 @@ export const fetchCurrentUser = (id) => (dispatch) =>
     .then((user) => dispatch(receiveCurrentUser(user)))
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
 
-export const updateUser = (user) => (dispatch) =>
-  SessionAPI.updateUser(user)
+export const updateUser = (id, user) => (dispatch) =>
+  SessionAPI.updateUser(id, user)
     .then((updatedUser) => dispatch(receiveCurrentUser(updatedUser)))
     .fail((e) => dispatch(receiveSessionErrors(e.responseJSON)));
 

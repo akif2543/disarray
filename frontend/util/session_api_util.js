@@ -7,11 +7,13 @@ const SessionAPI = {
   fetchCurrentUser: (id) =>
     $.ajax({ url: `/api/users/${id}?cu=true`, method: "GET" }),
   fetchUsers: () => $.ajax({ url: "/api/users", method: "GET" }),
-  updateUser: (user) =>
+  updateUser: (id, user) =>
     $.ajax({
-      url: `/api/users/${user.id}`,
+      url: `/api/users/${id}`,
       method: "PATCH",
-      data: { user },
+      data: user,
+      contentType: false,
+      processData: false,
     }),
   deleteUser: (user) =>
     $.ajax({ url: `/api/users/${user.id}`, method: "DELETE", data: { user } }),

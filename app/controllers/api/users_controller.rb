@@ -9,12 +9,8 @@ class Api::UsersController < ApplicationController
     if params[:cu]
       render( partial: "api/users/current_user", locals: {user: current_user})
     else
-      # begin
         @user = User.includes(:servers).find(params[:id])
         render :show
-      # rescue
-      #   render json: ["User not found."], status: 404
-      # end
     end
   end
 
@@ -29,6 +25,7 @@ class Api::UsersController < ApplicationController
   end
 
   def update
+    p params
     if current_user
       if @current_user.is_password?(params[:user][:currentPassword])
         if @current_user.update(user_params)
@@ -61,6 +58,6 @@ class Api::UsersController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :email, :password)
+    params.require(:user).permit(:username, :email, :password, :avatar)
   end
 end
