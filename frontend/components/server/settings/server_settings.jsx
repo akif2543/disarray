@@ -1,25 +1,61 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
+  const initialIcon = { url: server.icon || "", file: null };
+
+  const input = useRef(null);
+
   const [name, setName] = useState(server.name);
+  const [icon, setIcon] = useState(initialIcon);
+  const [iconChange, setIconChange] = useState(false);
+
   const handleChange = (e) => setName(e.target.value);
 
   const [error, setError] = useState(false);
 
   const clearError = () => setError(false);
 
+  const handleReset = () => {
+    setIcon(initialIcon);
+    setIconChange(false);
+    input.current.value = "";
+  };
+
   const reset = () => {
     setName(server.name);
+    handleReset();
     clearError();
+  };
+
+  const handleIcon = (e) => {
+    const reader = new FileReader();
+    const [file] = e.currentTarget.files;
+    reader.onloadend = () => setIcon({ url: reader.result, file });
+
+    if (file) {
+      setIconChange(true);
+      reader.readAsDataURL(file);
+    } else {
+      handleReset();
+    }
   };
 
   const handleUpdate = (e) => {
     e.preventDefault();
     clearError();
-    if (name.length) return updateServer({ id: server.id, name });
+    if (name.length) {
+      const formData = new FormData();
+      if (name !== server.name) formData.append("server[name]", name);
+      if (iconChange) formData.append("server[icon]", icon.file);
+      return updateServer(server.id, formData).then(() => {
+        if (iconChange) setIconChange(false);
+      });
+    }
     return setError(true);
   };
+
+  const handleClick = () => input.current.click();
 
   const getInitials = (name) =>
     name
@@ -58,15 +94,49 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
           </div>
         </header>
         <form className="edit-server-form" onSubmit={handleUpdate}>
-          <figure>
-            <div className="s-icon">
-              <h3>{getInitials(name)}</h3>
+          <label htmlFor="edit-server-icon" className="server-icon-label">
+            <div className="img-upload">
+              <FontAwesomeIcon icon={["far", "file-image"]} size="lg" />
             </div>
-            <figcaption>
-              Minimum Size: <strong>128x128</strong>
-            </figcaption>
-          </figure>
-          <div className="info">
+            {iconChange || server.icon ? (
+              <img src={icon.url} className="server-icon-preview" alt="" />
+            ) : (
+              <div className="s-icon">
+                <h3>{getInitials(name)}</h3>
+              </div>
+            )}
+            <input
+              type="file"
+              id="edit-server-icon"
+              onChange={handleIcon}
+              accept=".jpg,.jpeg,.png,.gif"
+              ref={input}
+            />
+            {iconChange || server.icon ? (
+              <button
+                type="button"
+                onClick={handleReset}
+                className="reset-server-icon"
+              >
+                Remove
+              </button>
+            ) : (
+              <figcaption>
+                Minimum Size: <strong>128x128</strong>
+              </figcaption>
+            )}
+          </label>
+          <div className="recommend">
+            <p>We recommend an image of at least 512x512 for the server.</p>
+            <button
+              type="button"
+              className="upload-extra"
+              onClick={handleClick}
+            >
+              Upload Image
+            </button>
+          </div>
+          <div className="inputs">
             <div className="username">
               <h2>SERVER NAME</h2>
               <div className="input-wrapper">
@@ -83,7 +153,7 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
             </div>
           </div>
         </form>
-        {name !== server.name && (
+        {(name !== server.name || iconChange) && (
           <div className="unsaved-warning">
             <h3>Careful — you have unsaved changes!</h3>
             <div className="btn-group">

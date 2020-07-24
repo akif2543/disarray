@@ -9,11 +9,13 @@ const ServerAPI = {
       contentType: false,
       processData: false,
     }),
-  updateServer: (server) =>
+  updateServer: (id, server) =>
     $.ajax({
       method: "PATCH",
-      url: `/api/servers/${server.id}`,
-      data: { server },
+      url: `/api/servers/${id}`,
+      data: server,
+      contentType: false,
+      processData: false,
     }),
   deleteServer: (id) => $.ajax({ method: "DELETE", url: `/api/servers/${id}` }),
   joinServer: (membership) =>

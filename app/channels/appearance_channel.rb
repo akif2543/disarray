@@ -6,8 +6,10 @@ class AppearanceChannel < ApplicationCable::Channel
   end
 
   def appear
-    @user.update(online: true) unless @user.online
-    receive({id: params[:id], online: true})
+    unless @user.online
+      @user.update(online: true)
+      receive({id: params[:id], online: true})
+    end
   end
 
   # def away

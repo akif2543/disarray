@@ -43,7 +43,7 @@ const Application = ({
             this.uninstall();
           },
           update() {
-            if (this.documentIsActive) this.appear();
+            if (this.documentIsActive && !user.online) this.appear();
           },
           appear() {
             this.perform("appear");

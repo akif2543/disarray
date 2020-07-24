@@ -87,18 +87,7 @@
       .avatar-label {
         @include flex(column);
         margin-right: 16px;
-
-        .img-upload {
-          height: 28px;
-          width: 28px;
-          border-radius: 50%;
-          background: $dk-off-white;
-          color: $dk-main-bg;
-          position: absolute;
-          z-index: 3;
-          @include flex(row, center, center);
-          cursor: pointer;
-        }
+        position: relative;
 
         .avatar {
           margin-right: 0;
@@ -123,11 +112,11 @@
             &:before {
               content: "CHANGE AVATAR";
               text-align: center;
-              transform: translateY(95%);
+              transform: translateY(120%);
               color: $dk-white;
               font: {
-                family: "Whitney Medium";
-                size: 12px;
+                family: "Whitney Bold";
+                size: 10px;
               }
             }
           }
@@ -213,7 +202,8 @@
       }
     }
 
-    .user-account.edit {
+    .user-account.edit,
+    .edit-server-form {
       height: auto;
 
       .inputs {
@@ -352,14 +342,47 @@
       padding: 0;
       padding-left: 10px;
 
-      .s-icon {
+      .s-icon,
+      #edit-server-icon,
+      .server-icon-preview {
         width: 100px;
         height: 100px;
         border: none;
       }
 
+      #edit-server-icon {
+        top: 0;
+        left: 0;
+      }
+
       figcaption {
         color: rgb(136, 144, 156);
+      }
+
+      .recommend {
+        @include flex(column);
+        margin-left: 30px;
+        margin-right: 20px;
+        min-width: 180px;
+        line-height: 1.25rem;
+
+        p {
+          font-size: 14px;
+          color: rgb(183, 185, 188);
+        }
+
+        .upload-extra {
+          color: $dk-white;
+          border: 1px solid $dk-white;
+          border-radius: 3px;
+          padding: 12px 17px;
+          margin-top: 20px;
+          white-space: nowrap;
+          font: {
+            family: "Whitney Medium";
+            size: 14px;
+          }
+        }
       }
 
       .info {
@@ -417,6 +440,11 @@
 
       .save {
         background: $dk-green;
+        @include button-transition;
+
+        &:hover {
+          background: $dk-green-hover;
+        }
       }
 
       .cancel:hover {
@@ -580,4 +608,17 @@
       }
     }
   }
+}
+
+.img-upload {
+  right: 0;
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  background: $dk-off-white;
+  color: $dk-main-bg;
+  position: absolute;
+  z-index: 3;
+  @include flex(row, center, center);
+  cursor: pointer;
 }

@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NewServerForm = ({ u, createServer, push, handleBack }) => {
-  // useEffect(() => () => clearErrors(), []);
   const initialIcon = { url: "", file: null };
+  const input = useRef(null);
   const [name, setName] = useState(`${u.username}'s server`);
   const [icon, setIcon] = useState(initialIcon);
   const [error, setError] = useState(false);
@@ -21,7 +21,6 @@ const NewServerForm = ({ u, createServer, push, handleBack }) => {
       }
       createServer(formData).then((action) => {
         const [s] = Object.values(action.server);
-        // const [c] = s.channels;
         push(`/channels/${s.id}/${s.active}`);
       });
     } else {
@@ -31,7 +30,10 @@ const NewServerForm = ({ u, createServer, push, handleBack }) => {
 
   const handleChange = (e) => setName(e.target.value);
 
-  const handleReset = () => setIcon(initialIcon);
+  const handleReset = () => {
+    setIcon(initialIcon);
+    input.current.value = "";
+  };
 
   const handleIcon = (e) => {
     const reader = new FileReader();
@@ -100,6 +102,7 @@ const NewServerForm = ({ u, createServer, push, handleBack }) => {
             id="edit-server-icon"
             onChange={handleIcon}
             accept=".jpg,.jpeg,.png,.gif"
+            ref={input}
           />
           {file ? (
             <button

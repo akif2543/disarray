@@ -57,8 +57,8 @@ export const createServer = (server) => (dispatch) =>
     .then((newServer) => dispatch(receiveServer(newServer)))
     .fail((e) => dispatch(receiveServers(e.responseJSON)));
 
-export const updateServer = (server) => (dispatch) =>
-  ServerAPI.updateServer(server)
+export const updateServer = (id, server) => (dispatch) =>
+  ServerAPI.updateServer(id, server)
     .then((updatedServer) => dispatch(receiveServer(updatedServer)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 

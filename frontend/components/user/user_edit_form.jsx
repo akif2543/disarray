@@ -16,7 +16,7 @@ const UserEditForm = ({
     email: currentUser.email,
     currentPassword: "",
   };
-
+  const input = useRef(null);
   const el = useRef(null);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialUser);
@@ -36,6 +36,7 @@ const UserEditForm = ({
   const handleReset = () => {
     setAvatar({ url: currentUser.avatar, file: null });
     setAvatarChange(false);
+    input.current.value = "";
   };
 
   const handleClose = () => {
@@ -60,7 +61,7 @@ const UserEditForm = ({
       setAvatarChange(true);
       reader.readAsDataURL(file);
     } else {
-      setAvatar({ url: currentUser.avatar, file: null });
+      handleReset();
     }
   };
 
@@ -149,6 +150,7 @@ const UserEditForm = ({
                 id="edit-avatar"
                 onChange={handleAvatar}
                 accept=".jpg,.jpeg,.png,.gif"
+                ref={input}
               />
               <button
                 type="button"
