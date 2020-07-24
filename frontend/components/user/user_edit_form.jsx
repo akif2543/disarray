@@ -23,6 +23,7 @@ const UserEditForm = ({
   const [avatar, setAvatar] = useState({ url: currentUser.avatar, file: null });
   const [focused, setFocused] = useState(false);
   const [passwordChange, setPasswordChange] = useState(false);
+  const [avatarChange, setAvatarChange] = useState(false);
   const [password, setPassword] = useState("");
   const [localErrors, setLocalErrors] = useState([]);
   const [tooltip, setTooltip] = useState(false);
@@ -31,6 +32,11 @@ const UserEditForm = ({
   const hideTooltip = () => setTooltip(false);
 
   const toggleEdit = () => setEdit(!edit);
+
+  const handleReset = () => {
+    setAvatar({ url: currentUser.avatar, file: null });
+    setAvatarChange(false);
+  };
 
   const handleClose = () => {
     setEdit(false);
@@ -51,13 +57,12 @@ const UserEditForm = ({
     reader.onloadend = () => setAvatar({ url: reader.result, file });
 
     if (file) {
+      setAvatarChange(true);
       reader.readAsDataURL(file);
     } else {
       setAvatar({ url: currentUser.avatar, file: null });
     }
   };
-
-  const handleReset = () => setAvatar({ url: currentUser.avatar, file: null });
 
   const validateEmail = (email) =>
     /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email);
@@ -85,8 +90,7 @@ const UserEditForm = ({
       const keys = Object.keys(user);
       keys.forEach((key) => formData.append(`user[${key}]`, user[key]));
       if (passwordChange) formData.append("user[password]", password);
-      if (currentUser.avatar !== avatar.url)
-        formData.append("user[avatar]", avatar.file);
+      if (avatarChange) formData.append("user[avatar]", avatar.file);
       updateUser(id, formData).then((action) => {
         if (action.type === RECEIVE_CURRENT_USER) handleClose();
       });

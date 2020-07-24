@@ -2,7 +2,13 @@ const ServerAPI = {
   fetchServers: () => $.ajax("/api/servers"),
   fetchServer: (id) => $.ajax(`/api/servers/${id}`),
   createServer: (server) =>
-    $.ajax({ method: "POST", url: "/api/servers", data: { server } }),
+    $.ajax({
+      method: "POST",
+      url: "/api/servers",
+      data: server,
+      contentType: false,
+      processData: false,
+    }),
   updateServer: (server) =>
     $.ajax({
       method: "PATCH",

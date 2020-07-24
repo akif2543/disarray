@@ -1,24 +1,60 @@
-import React, { useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NewServerForm = ({
-  name,
-  handleChange,
-  handleCreate,
-  handleBack,
-  error,
-  clearErrors,
-}) => {
-  useEffect(() => () => clearErrors(), []);
+const NewServerForm = ({ u, createServer, push, handleBack }) => {
+  // useEffect(() => () => clearErrors(), []);
+  const initialIcon = { url: "", file: null };
+  const [name, setName] = useState(`${u.username}'s server`);
+  const [icon, setIcon] = useState(initialIcon);
+  const [error, setError] = useState(false);
 
-  const getInitials = (name) =>
-    name
+  const handleClear = () => setError(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleClear();
+    if (name.length) {
+      const formData = new FormData();
+      formData.append("server[name]", name);
+      if (icon.file) {
+        formData.append("server[icon]", icon.file);
+      }
+      createServer(formData).then((action) => {
+        const [s] = Object.values(action.server);
+        // const [c] = s.channels;
+        push(`/channels/${s.id}/${s.active}`);
+      });
+    } else {
+      setError(true);
+    }
+  };
+
+  const handleChange = (e) => setName(e.target.value);
+
+  const handleReset = () => setIcon(initialIcon);
+
+  const handleIcon = (e) => {
+    const reader = new FileReader();
+    const [file] = e.currentTarget.files;
+    reader.onloadend = () => setIcon({ url: reader.result, file });
+
+    if (file) {
+      reader.readAsDataURL(file);
+    } else {
+      handleReset();
+    }
+  };
+
+  const getInitials = (str) =>
+    str
       .split(" ")
       .map((w) => w[0])
       .join("");
 
+  const { file, url } = icon;
+
   return (
-    <form onSubmit={handleCreate} className="new-server">
+    <form onSubmit={handleSubmit} className="new-server">
       <header>
         <h1>CREATE YOUR SERVER</h1>
         <h2>
@@ -27,7 +63,7 @@ const NewServerForm = ({
         </h2>
       </header>
       <section className="input-group">
-        <label htmlFor="server-name">
+        <label htmlFor="server-name" className="server-name-label">
           <strong className={error ? "server-name-err" : ""}>
             SERVER NAME{" "}
             {error && (
@@ -38,7 +74,7 @@ const NewServerForm = ({
           <input
             type="text"
             value={name}
-            onChange={handleChange("name")}
+            onChange={handleChange}
             placeholder="Enter a server name"
             id="server-name"
             autoComplete="off"
@@ -51,14 +87,34 @@ const NewServerForm = ({
             .
           </p>
         </label>
-        <figure>
-          <div className="s-icon">
-            <h3>{getInitials(name)}</h3>
-          </div>
-          <figcaption>
-            Minimum Size: <strong>128x128</strong>
-          </figcaption>
-        </figure>
+        <label htmlFor="edit-server-icon" className="server-icon-label">
+          {file ? (
+            <img src={url} className="server-icon-preview" alt="" />
+          ) : (
+            <div className="s-icon">
+              <h3>{getInitials(name)}</h3>
+            </div>
+          )}
+          <input
+            type="file"
+            id="edit-server-icon"
+            onChange={handleIcon}
+            accept=".jpg,.jpeg,.png,.gif"
+          />
+          {file ? (
+            <button
+              type="button"
+              onClick={handleReset}
+              className="reset-server-icon"
+            >
+              Remove
+            </button>
+          ) : (
+            <figcaption>
+              Minimum Size: <strong>128x128</strong>
+            </figcaption>
+          )}
+        </label>
       </section>
       <footer>
         <button className="back" type="button" onClick={handleBack("create")}>

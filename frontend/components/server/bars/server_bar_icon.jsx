@@ -26,7 +26,11 @@ const ServerBarIcon = ({ server, active }) => {
           onBlur={toggleTooltip(false)}
           ref={el}
         >
-          {!server.icon && <h1>{initials}</h1>}
+          {server.icon ? (
+            <img src={server.icon} alt="" className="server-bar-icon" />
+          ) : (
+            <h1>{initials}</h1>
+          )}
         </button>
       </Link>
       {tooltip && <Tooltip text={server.name} className="sb-tt" el={el} />}

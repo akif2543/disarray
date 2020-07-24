@@ -12,7 +12,7 @@ $xl-screen: 1200px;
   width: 100vw;
   height: auto;
   min-height: 100vh;
-  @include flex(column, space-between);
+  @include flex(column, space-between, center);
 }
 
 a {
@@ -22,10 +22,7 @@ a {
 .splash-nav {
   margin: 0 auto;
   padding: 15px 20px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
+  @include flex(row, space-between, center);
 
   nav {
     display: flex;
