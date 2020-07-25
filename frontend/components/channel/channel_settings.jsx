@@ -78,7 +78,7 @@ const ChannelSettings = ({
           </div>
         </header>
         <form className="edit-server-form channel" onSubmit={handleUpdate}>
-          <div className="info channel">
+          <div className="inputs channel">
             <div className="username channel-info">
               <label htmlFor="set-name">
                 <h2>CHANNEL NAME</h2>

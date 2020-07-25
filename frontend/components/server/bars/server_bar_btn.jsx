@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../../ui/tooltip";
@@ -15,9 +15,9 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
     case "home":
       return (
         <div>
-          <Link to="/@me">
+          <NavLink to="/@me">
             <button
-              className={home ? "home-btn active" : "home-btn"}
+              className="home-btn"
               type="button"
               onMouseOver={showTooltip}
               onFocus={showTooltip}
@@ -25,11 +25,11 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
               onBlur={hideTooltip}
               ref={el}
             >
-              <img src={window.logoIconURL} />
+              <img src={window.logoIconURL} alt="" />
             </button>
             {tooltip && <Tooltip text="Home" className="sb-tt" el={el} />}
             <div className="home-btn-divider" />
-          </Link>
+          </NavLink>
         </div>
       );
     case "create":

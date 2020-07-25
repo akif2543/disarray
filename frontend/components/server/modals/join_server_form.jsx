@@ -1,25 +1,34 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const JoinServerForm = ({
-  joinCode,
-  handleChange,
-  handleJoin,
   handleBack,
   errors,
-  error,
-  clearErrors,
+  joinServer,
+  push,
   clearServerErrors,
-  clearCode,
 }) => {
-  useEffect(
-    () => () => {
-      clearErrors();
-      clearServerErrors();
-      clearCode();
-    },
-    []
-  );
+  useEffect(() => () => clearServerErrors(), []);
+
+  const [joinCode, setJoinCode] = useState("");
+  const [error, setError] = useState(false);
+
+  const handleJoin = (e) => {
+    e.preventDefault();
+
+    if (joinCode.length) {
+      setError(false);
+      const membership = { join_code: joinCode };
+      joinServer(membership).then((action) => {
+        const [s] = Object.values(action.server);
+        push(`/channels/${s.id}/${s.active}`);
+      });
+    } else {
+      setError(true);
+    }
+  };
+
+  const handleChange = (e) => setJoinCode(e.target.value);
 
   const joinError = error || errors.length;
 
@@ -40,7 +49,7 @@ const JoinServerForm = ({
         <input
           type="text"
           value={joinCode}
-          onChange={handleChange("joinCode")}
+          onChange={handleChange}
           id="server-code"
           autoComplete="off"
         />

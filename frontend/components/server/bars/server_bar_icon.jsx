@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 import Tooltip from "../../ui/tooltip";
 
@@ -16,9 +16,9 @@ const ServerBarIcon = ({ server, active }) => {
 
   return (
     <div>
-      <Link to={`/channels/${server.id}/${server.active}`}>
+      <NavLink to={`/channels/${server.id}/${server.active}`}>
         <button
-          className={active ? "server-icon active" : "server-icon"}
+          className={server.icon ? "server-icon" : "server-icon none"}
           type="button"
           onMouseOver={toggleTooltip(true)}
           onFocus={toggleTooltip(true)}
@@ -32,7 +32,7 @@ const ServerBarIcon = ({ server, active }) => {
             <h1>{initials}</h1>
           )}
         </button>
-      </Link>
+      </NavLink>
       {tooltip && <Tooltip text={server.name} className="sb-tt" el={el} />}
     </div>
   );

@@ -11,17 +11,9 @@ class ServerModal extends React.Component {
       portal: true,
       create: false,
       join: false,
-      // name: `${this.props.currentUser.username}'s server`,
-      joinCode: "",
-      error: false,
     };
-    // this.handleCreate = this.handleCreate.bind(this);
-    this.handleJoin = this.handleJoin.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleBack = this.handleBack.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.clearErrors = this.clearErrors.bind(this);
-    this.clearCode = this.clearCode.bind(this);
   }
 
   handleClick(type) {
@@ -32,60 +24,16 @@ class ServerModal extends React.Component {
     return () => this.setState({ [type]: false, portal: true });
   }
 
-  handleChange(type) {
-    return (e) => this.setState({ [type]: e.target.value });
-  }
-
-  // handleCreate(e) {
-  //   e.preventDefault();
-  //   const { name } = this.state;
-  //   const { history, createServer, openModal, closeModal } = this.props;
-  //   if (name.length) {
-  //     const server = { name };
-  //     createServer(server).then((action) => {
-  //       const [s] = Object.values(action.server);
-  //       const [c] = s.channels;
-  //       history.push(`/channels/${s.id}/${c}`);
-  //     });
-  //   } else {
-  //     this.setState({ error: true });
-  //   }
-  // }
-
-  handleJoin(e) {
-    e.preventDefault();
-    const { joinCode } = this.state;
-    const { history, joinServer } = this.props;
-    if (joinCode.length) {
-      this.clearErrors();
-      const membership = { join_code: joinCode };
-      joinServer(membership).then((action) => {
-        const [s] = Object.values(action.server);
-        const c = s.channels[0];
-        history.push(`/channels/${s.id}/${c}`);
-      });
-    } else {
-      this.setState({ error: true });
-    }
-  }
-
-  clearErrors() {
-    this.setState({ error: false });
-  }
-
-  clearCode() {
-    this.setState({ joinCode: "" });
-  }
-
   render() {
     const {
       errors,
       clearServerErrors,
       history: { push },
       createServer,
+      joinServer,
       currentUser,
     } = this.props;
-    const { portal, create, join, joinCode, error } = this.state;
+    const { portal, create, join } = this.state;
     return (
       <div className="server-modal">
         {portal && <ServerPortal handleClick={this.handleClick} />}
@@ -94,20 +42,17 @@ class ServerModal extends React.Component {
             u={currentUser}
             handleBack={this.handleBack}
             createServer={createServer}
+            clearServerErrors={clearServerErrors}
             push={push}
           />
         )}
         {join && (
           <JoinServerForm
-            handleJoin={this.handleJoin}
+            joinServer={joinServer}
             errors={errors}
-            error={error}
-            clearErrors={this.clearErrors}
-            joinCode={joinCode}
-            handleChange={this.handleChange}
             handleBack={this.handleBack}
             clearServerErrors={clearServerErrors}
-            clearCode={this.clearCode}
+            push={push}
           />
         )}
       </div>

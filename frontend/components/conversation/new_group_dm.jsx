@@ -182,7 +182,7 @@ const NewGroupDM = ({
                   key={shortid.generate()}
                 >
                   <div className="user">
-                    <img src={f.avatar} alt="" />
+                    <img src={f.avatar} alt="" className="avatar" />
                     <h4>{f.username}</h4>
                     <h5>{`${f.username}#${f.discriminator}`}</h5>
                   </div>

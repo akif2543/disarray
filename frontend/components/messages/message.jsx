@@ -68,7 +68,7 @@ const Message = ({
           openModal={openModal}
         />
       )}
-      <img src={a.avatar} alt="" className="avatar" />
+      <img src={a.avatar} alt="" className="avatar" onClick={togglePopout} />
       {short && (
         <span className={editing ? "date edit" : "date"}>
           {shortDate(m.createdAt)}

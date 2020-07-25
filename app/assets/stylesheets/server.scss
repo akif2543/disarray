@@ -24,11 +24,13 @@
       height: 48px;
       width: 48px;
       border-radius: 50%;
-      background: $dk-main-bg;
       margin: 5px 0;
-      color: $dk-green;
       transition: all 0.5s ease;
+    }
 
+    .server-btn {
+      background: $dk-main-bg;
+      color: $dk-green;
       &:hover {
         background: $dk-green;
         color: $dk-white;
@@ -51,6 +53,7 @@
     }
 
     .server-icon {
+      background: transparent;
       .server-bar-icon {
         height: 48px;
         width: 48px;
@@ -61,9 +64,10 @@
           border-radius: 15px;
         }
       }
-      h1 {
-        font-family: "Whitney Medium";
-        font-size: 18px;
+
+      &:hover {
+        border-radius: 15px;
+        background: transparent;
       }
     }
 
@@ -79,21 +83,31 @@
     }
 
     .home-btn,
-    .server-icon {
+    .server-icon.none {
+      background: $dk-main-bg;
       color: rgb(220, 221, 222);
 
+      h1 {
+        font-family: "Whitney Medium";
+        font-size: 18px;
+      }
+
       &:hover {
+        border-radius: 15px;
         background: $dk-blue;
         color: $dk-white;
       }
     }
 
-    .home-btn.active,
-    .server-icon.active {
-      background: $dk-blue;
-      border-radius: 15px;
-      color: $dk-white;
+    a.active {
+      .home-btn,
+      .server-icon.none {
+        background: $dk-blue;
+        border-radius: 15px;
+        color: $dk-white;
+      }
 
+      .server-icon,
       .server-bar-icon {
         border-radius: 15px;
       }
@@ -333,10 +347,13 @@
     display: flex;
     flex-direction: column;
 
-    input {
+    #server-code {
       border-bottom: 1.5px solid $dk-s-icon-b;
       color: $dk-black;
-      font-size: 16px;
+      font: {
+        size: 16px;
+        family: "Whitney Medium";
+      }
       padding: 10px 4px;
       margin-bottom: 5px;
     }
@@ -542,7 +559,7 @@
 
   footer {
     height: 130px;
-    border-top: 1px solid rgb(71, 74, 77);
+    // border-top: 1px solid rgb(71, 74, 77);
 
     h5 {
       color: rgb(142, 146, 151);
@@ -631,7 +648,9 @@
 }
 
 .modal-confirm {
+  background: $dk-main-bg;
   width: 442px;
+  border-radius: 4px;
 
   & > * {
     padding: 16px 20px 20px;
@@ -639,7 +658,6 @@
 
   header {
     height: 120px;
-    background: $dk-main-bg;
 
     border: {
       top-left-radius: 4px;
@@ -657,13 +675,9 @@
     }
   }
 
-  main {
-    background: $dk-main-bg;
-  }
-
   footer {
     height: 78px;
-    background: rgb(47, 49, 54);
+    background: $dk-sidebar;
     display: flex;
     flex-direction: row;
     justify-content: flex-end;

@@ -12,7 +12,7 @@ export const getCurrentUser = (state) => {
 export const getUserServers = (state) => {
   const { servers } = getCurrentUser(state);
   const ids = Object.keys(servers);
-  return ids.map((id) => state.entities.servers[id]);
+  return ids.reverse().map((id) => state.entities.servers[id]);
 };
 
 export const getCurrentServer = (state, props) => {
@@ -46,12 +46,14 @@ export const getCurrentChannel = (state, props) => {
 };
 
 export const getServerMembers = (state, props) => {
-  const { members } = getCurrentServer(state, props);
+  const { id, members } = getCurrentServer(state, props);
   return members
     .map((m) => state.entities.users[m])
-    .sort((a, b) =>
-      a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1
-    );
+    .sort((a, b) => {
+      const nameA = a.servers[id] || a.username;
+      const nameB = b.servers[id] || b.username;
+      return nameA.toLowerCase() < nameB.toLowerCase() ? -1 : 1;
+    });
 };
 
 export const getServerChannels = (state, props) => {
@@ -86,6 +88,7 @@ export const getCurrentConversation = (state, props) => {
 export const getConversations = (state) => {
   const { conversations } = getCurrentUser(state);
   return conversations
+    .reverse()
     .map((c) => state.entities.conversations[c])
     .map((c) => ({
       ...c,

@@ -19,6 +19,7 @@
     width: 40px;
     margin: 5px 0;
     align-self: flex-start;
+    cursor: pointer;
   }
 
   .content {
@@ -40,7 +41,7 @@
         color: $dk-white;
         cursor: pointer;
         font: {
-          family: inherit;
+          family: "Whitney Medium";
         }
 
         &:hover {

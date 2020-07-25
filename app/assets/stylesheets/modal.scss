@@ -17,20 +17,23 @@
 
 .settings {
   overflow-y: auto;
-  height: 100vh;
-  width: 100vw;
+  height: auto;
+  min-height: 100vh;
+  width: auto;
+  min-width: 100vw;
   z-index: 10;
+  @include flex(row);
+  position: fixed;
 
   main {
-    height: 100%;
-    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    width: 65vw;
     background: $dk-main-bg;
-    position: fixed;
-    left: 349px;
     padding: 60px 40px 80px;
 
     header {
-      width: 60%;
+      width: 700px;
       display: flex;
       justify-content: space-between;
 
@@ -181,11 +184,20 @@
           }
         }
       }
-
       button {
         font-family: "Whitney Medium";
         color: $dk-white;
         border-radius: 3px;
+      }
+
+      .reset-avatar {
+        align-self: center;
+        margin-top: 15px;
+        color: rgb(185, 187, 190);
+        font: {
+          family: "Whitney Bold";
+          size: 14px;
+        }
       }
 
       .edit-btn {
@@ -197,13 +209,15 @@
 
       .edit-btn.demo {
         background: $dk-icons;
-        position: relative;
         cursor: not-allowed;
       }
     }
 
-    .user-account.edit,
-    .edit-server-form {
+    .user-account {
+      position: relative;
+    }
+
+    .user-account.edit {
       height: auto;
 
       .inputs {
@@ -385,9 +399,7 @@
         }
       }
 
-      .info {
-        margin-left: 150px;
-
+      .inputs {
         .input-wrapper {
           display: flex;
           flex-direction: column;
@@ -455,14 +467,12 @@
 }
 
 .settings-sidebar {
-  height: 100%;
-  width: 349px;
-  position: fixed;
-  left: 0;
+  height: auto;
+  min-height: 100vh;
+  width: 35vw;
   background: rgb(47, 49, 54);
   z-index: 10;
-  display: flex;
-  justify-content: flex-end;
+  @include flex(row, flex-end);
 
   nav {
     width: 218px;
@@ -565,7 +575,7 @@
 .edit-server-form.channel {
   padding-left: 0;
 
-  .info.channel {
+  .inputs.channel {
     margin: 0;
     width: 100%;
 
@@ -621,4 +631,28 @@
   z-index: 3;
   @include flex(row, center, center);
   cursor: pointer;
+}
+
+@media screen and (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 1) {
+  .settings {
+    .settings-sidebar {
+      width: 35vw;
+    }
+
+    main {
+      width: 65vw;
+    }
+  }
+}
+
+@media screen and (min-device-width: 1200px) and (-webkit-min-device-pixel-ratio: 2) {
+  .settings {
+    .settings-sidebar {
+      width: 27vw;
+    }
+
+    main {
+      width: 73vw;
+    }
+  }
 }

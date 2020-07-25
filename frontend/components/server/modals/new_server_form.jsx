@@ -1,7 +1,15 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NewServerForm = ({ u, createServer, push, handleBack }) => {
+const NewServerForm = ({
+  u,
+  createServer,
+  push,
+  handleBack,
+  clearServerErrors,
+}) => {
+  useEffect(() => () => clearServerErrors(), []);
+
   const initialIcon = { url: "", file: null };
   const input = useRef(null);
   const [name, setName] = useState(`${u.username}'s server`);

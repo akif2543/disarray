@@ -260,6 +260,73 @@ st_mem = [demo.id, hiker.id, sinus.id, van.id, cinch.id, ribs.id, sewpra.id, mul
 
 Membership.create([
   {
+    member_id: toosh.id,
+    alias: "Tbag",
+    subscribeable: z,
+  }, {
+    member_id: marre.id,
+    alias: "Tups",
+    subscribeable: z,
+  }, {
+    member_id: demo.id,
+    subscribeable: z,
+  }, {
+    member_id: mul.id,
+    alias: "Cub",
+    subscribeable: z,
+  }, {
+    member_id: demo.id,
+    alias: "Archimboldi",
+    subscribeable: st,
+  }, {
+    member_id: hiker.id,
+    alias: "Arturo Belano",
+    subscribeable: st,
+  }, {
+    member_id: sinus.id,
+    alias: "Oscar Fate",
+    subscribeable: st,
+  }, {
+    member_id: van.id,
+    alias: "Norton",
+    subscribeable: st,
+  }, {
+    member_id: cinch.id,
+    alias: "Pelletier",
+    subscribeable: st,
+  }, {
+    member_id: ribs.id,
+    alias: "Morini",
+    subscribeable: st,
+  }, {
+    member_id: sewpra.id,
+    alias: "Espinoza",
+    subscribeable: st,
+  }, {
+    member_id: mul.id,
+    alias: "Lalo Cura",
+    subscribeable: st,
+  }, {
+    member_id: can.id,
+    alias: "Chucho Flores",
+    subscribeable: st,
+  }, {
+    member_id: trap.id,
+    alias: "Cesárea Tinajero",
+    subscribeable: st,
+  }, {
+    member_id: ric.id,
+    alias: "Amalfitano",
+    subscribeable: st,
+  }, {
+    member_id: shy.id,
+    alias: "Ulises Lima",
+    subscribeable: st,
+  }, {
+    member_id: toosh.id,
+    alias: "Laura Jáuregui",
+    subscribeable: st,
+  }, {
     member_id: sewpra.id,
     subscribeable: np,
   }, {
@@ -339,73 +406,6 @@ Membership.create([
     member_id: mul.id,
     alias: "Keith Lightning",
     subscribeable: gang,
-  }, {
-    member_id: toosh.id,
-    alias: "Tbag",
-    subscribeable: z,
-  }, {
-    member_id: marre.id,
-    alias: "Tups",
-    subscribeable: z,
-  }, {
-    member_id: demo.id,
-    subscribeable: z,
-  }, {
-    member_id: mul.id,
-    alias: "Cub",
-    subscribeable: z,
-  }, {
-    member_id: demo.id,
-    alias: "Archimboldi",
-    subscribeable: st,
-  }, {
-    member_id: hiker.id,
-    alias: "Arturo Belano",
-    subscribeable: st,
-  }, {
-    member_id: sinus.id,
-    alias: "Oscar Fate",
-    subscribeable: st,
-  }, {
-    member_id: van.id,
-    alias: "Norton",
-    subscribeable: st,
-  }, {
-    member_id: cinch.id,
-    alias: "Pelletier",
-    subscribeable: st,
-  }, {
-    member_id: ribs.id,
-    alias: "Morini",
-    subscribeable: st,
-  }, {
-    member_id: sewpra.id,
-    alias: "Espinoza",
-    subscribeable: st,
-  }, {
-    member_id: mul.id,
-    alias: "Lalo Cura",
-    subscribeable: st,
-  }, {
-    member_id: can.id,
-    alias: "Chucho Flores",
-    subscribeable: st,
-  }, {
-    member_id: trap.id,
-    alias: "Cesárea Tinajero",
-    subscribeable: st,
-  }, {
-    member_id: ric.id,
-    alias: "Amalfitano",
-    subscribeable: st,
-  }, {
-    member_id: shy.id,
-    alias: "Ulises Lima",
-    subscribeable: st,
-  }, {
-    member_id: toosh.id,
-    alias: "Laura Jáuregui",
-    subscribeable: st,
   }, 
 ])
 
@@ -434,10 +434,11 @@ gsquad.icon.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/gmod_i
 # conversation members
 kale_mem = [demo.id, dojo.id, trap.id, man.id, mul.id, ric.id]
 gsquad_mem = [wrath.id, van.id, ecter.id, mul.id, zaroky.id, demo.id, kimky.id]
-kale.group_bundle(kale_mem)
-dabcity.bundle(demo.id, toosh.id)
+
 shyx.bundle(demo.id, shy.id)
 gsquad.group_bundle(gsquad_mem)
+dabcity.bundle(demo.id, toosh.id)
+kale.group_bundle(kale_mem)
 
 # seed text
 file_names = ["wasteland", "voyage", "prufrock", "abstinence", "contest", "serenity_now", "soup_nazi", "strike", "summer_of_george", "virgin", "yada_yada"]

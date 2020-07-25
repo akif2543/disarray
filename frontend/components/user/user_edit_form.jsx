@@ -17,7 +17,6 @@ const UserEditForm = ({
     currentPassword: "",
   };
   const input = useRef(null);
-  const el = useRef(null);
   const [edit, setEdit] = useState(false);
   const [user, setUser] = useState(initialUser);
   const [avatar, setAvatar] = useState({ url: currentUser.avatar, file: null });
@@ -294,13 +293,12 @@ const UserEditForm = ({
           onMouseEnter={showTooltip}
           onBlur={hideTooltip}
           onMouseLeave={hideTooltip}
-          ref={el}
         >
           Edit
         </button>
       )}
       {isDemo && tooltip && (
-        <Tooltip text="Cannot edit demo user" className="ue-tt" el={el} />
+        <Tooltip text="Cannot edit demo user" className="ue-tt" />
       )}
     </div>
   );

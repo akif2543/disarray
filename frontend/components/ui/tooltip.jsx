@@ -92,12 +92,6 @@ const Tooltip = ({ text, className, el }) => {
           // left: `${right - 60 - width / 2}px`,
         };
         break;
-      case "ue-tt":
-        style = {
-          top: `${85}px`,
-          left: `${572.5}px`,
-        };
-        break;
       case "fl-tt msg":
         style = {
           top: `${top - 45}px`,
