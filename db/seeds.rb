@@ -148,20 +148,20 @@ ric.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/ricjoe_
 shy.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/shy_avatar.png"), filename: "shy_avatar.png")
 
 # servers
- gang, np, z, st = Server.create([
+ z, np, st, gang = Server.create([
   {
-    name: "The Gang",
-    owner_id: hiker.id,
+    name: "z 1 1",
+    owner_id: toosh.id
   }, {
     name: "No Pandas",
     owner_id: sewpra.id,
   }, {
-    name: "z 1 1",
-    owner_id: toosh.id
-  }, {
     name: "Santa Teresa",
     owner_id: demo.id,
-  }
+  }, {
+    name: "The Gang",
+    owner_id: hiker.id,
+  }, 
 ])
 
 # server icons
