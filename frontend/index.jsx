@@ -35,15 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
       },
       session: {
         id,
-        info: {
-          conversations: user.conversations,
-          conversees,
-          friends,
-          pendingIn,
-          pendingOut,
-          blocked,
-          email,
-        },
+        conversations: user.conversations,
+        conversees,
+        friends,
+        pendingIn,
+        pendingOut,
+        blocked,
+        email,
       },
     };
     store = configureStore(preloadedState);

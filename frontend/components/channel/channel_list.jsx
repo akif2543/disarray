@@ -26,12 +26,12 @@ const ChannelList = ({
 
   const handleActive = (active) => () => setActive({ id: server.id, active });
 
-  const seen = [];
+  const seen = new Set();
 
   const c = channels.map((channel) => {
     if (channel === undefined) return null;
-    if (seen.includes(channel.id)) return null;
-    seen.push(channel.id);
+    if (seen.has(channel.id)) return null;
+    seen.add(channel.id);
     return (
       <NavLink
         to={`/channels/${server.id}/${channel.id}`}

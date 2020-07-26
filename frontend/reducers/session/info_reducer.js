@@ -14,15 +14,18 @@ import {
   REMOVE_FRIEND,
   LOSE_FRIEND,
 } from "../../actions/friend_actions";
+import { RECEIVE_CONVERSATION } from "../../actions/conversation_actions";
 
 const infoReducer = (state = {}, action) => {
   const newState = { ...state };
   let user;
   let i;
+  let c;
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       [user] = Object.values(action.user);
       const {
+        id,
         conversations,
         conversees,
         friends,
@@ -32,6 +35,7 @@ const infoReducer = (state = {}, action) => {
         email,
       } = user;
       return {
+        id,
         conversations,
         conversees,
         friends,
@@ -42,6 +46,14 @@ const infoReducer = (state = {}, action) => {
       };
     case LOGOUT_CURRENT_USER:
       return {};
+    case RECEIVE_CONVERSATION:
+      [c] = Object.values(action.conversation);
+      newState.conversations.push(c.id);
+      if (!c.group) {
+        user = c.members.find((m) => m !== newState.id);
+        newState.conversees[user] = c.id;
+      }
+      return newState;
     case RECEIVE_PENDING:
       newState.info.pendingOut.push(action.requestee.id);
       return newState;

@@ -10,7 +10,6 @@ import ConversationListItem from "./conversation_list_item";
 const ConversationList = ({
   conversations,
   currentUser,
-  fetchCurrentUser,
   match: {
     params: { conversationId },
   },
@@ -22,18 +21,13 @@ const ConversationList = ({
   const hideTooltip = () => setTooltip(false);
   const togglePopout = () => setPopout(!popout);
 
-  const seen = [];
-
-  const handleClick = (e) => {
-    if (e.currentTarget.classList.contains("active")) return;
-    fetchCurrentUser();
-  };
+  const seen = new Set();
 
   return (
     <div className="channel-list-wrapper">
       <nav className="channel-list convo">
         <div className="tabs">
-          <NavLink exact to="/@me" onClick={handleClick}>
+          <NavLink exact to="/@me">
             <button type="button" className="friends-btn">
               <FontAwesomeIcon icon="users" size="lg" />
               <h2>Friends</h2>
@@ -63,8 +57,8 @@ const ConversationList = ({
         <ul>
           {conversations.map((convo) => {
             if (convo === undefined) return null;
-            if (seen.includes(convo.id)) return null;
-            seen.push(convo.id);
+            if (seen.has(convo.id)) return null;
+            seen.add(convo.id);
             return (
               <NavLink to={`/@me/${convo.id}`} key={shortid.generate()}>
                 <ConversationListItem

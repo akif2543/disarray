@@ -141,7 +141,7 @@ class ChatStream extends React.Component {
   }
 
   render() {
-    const seen = [];
+    const seen = new Set();
     const last = [];
     const { memberbar, messages } = this.props;
     const { scrolling } = this.state;
@@ -150,8 +150,8 @@ class ChatStream extends React.Component {
         <div ref={this.bottom} />
         {messages.map((m) => {
           if (m === undefined || !m) return null;
-          if (seen.includes(m.id)) return;
-          seen.push(m.id);
+          if (seen.has(m.id)) return;
+          seen.add(m.id);
           last.unshift(m.author);
           return (
             <MessageContainer

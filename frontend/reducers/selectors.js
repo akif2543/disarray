@@ -6,7 +6,7 @@ export const getCurrentUser = (state) => {
   const user = state.entities.users[state.session.id];
   return {
     ...user,
-    ...state.session.info,
+    ...state.session,
   };
 };
 
@@ -91,7 +91,6 @@ export const getConversations = (state) => {
   if (!state.session.id) return [];
   const { conversations } = getCurrentUser(state);
   return conversations
-    .reverse()
     .map((c) => state.entities.conversations[c])
     .map((c) => ({
       ...c,
@@ -101,7 +100,7 @@ export const getConversations = (state) => {
 
 export const getConversationIds = (state) => {
   if (!state.session.id) return [];
-  return state.session.info.conversations;
+  return state.session.conversations;
 };
 
 export const getConversationMembers = (state, props) => {

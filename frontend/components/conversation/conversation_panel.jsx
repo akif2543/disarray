@@ -7,7 +7,6 @@ const ConversationPanel = ({
   currentUser,
   openSettings,
   conversations,
-  fetchCurrentUser,
   match,
 }) => (
   <section className="side-bar convo">
@@ -18,7 +17,6 @@ const ConversationPanel = ({
       <ConversationList
         conversations={conversations}
         currentUser={currentUser}
-        fetchCurrentUser={fetchCurrentUser}
         match={match}
       />
     </main>
