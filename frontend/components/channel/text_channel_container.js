@@ -6,6 +6,7 @@ import {
   getServerMembers,
   getCurrentChannel,
   getTextChannelMessages,
+  getSubscription,
 } from "../../reducers/selectors";
 import { fetchChannel } from "../../actions/channel_actions";
 import TextChannel from "./text_channel";
@@ -24,6 +25,7 @@ const mSTP = (state, ownProps) => ({
   channel: getCurrentChannel(state, ownProps),
   members: getServerMembers(state, ownProps),
   messages: getTextChannelMessages(state, ownProps),
+  sub: getSubscription(state, ownProps),
   sidebarOpen: state.ui.sidebar,
 });
 

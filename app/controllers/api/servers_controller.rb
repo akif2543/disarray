@@ -31,7 +31,8 @@ class Api::ServersController < ApplicationController
     begin
       @server = current_user.servers.includes(:members, :channels).find(params[:id])
       if @server.update(server_params)
-        render :show
+        ServerChannel.broadcast_to(@server, format_response)
+        # render :show
       else
         render json: @server.errors.full_messages, status: 422
       end
@@ -44,13 +45,22 @@ class Api::ServersController < ApplicationController
     begin
       @server = current_user.owned_servers.find(params[:id])
       @server.destroy
-      render :destroy
+      ServerChannel.broadcast_to(@server, format_destroy)
+      # render :destroy
     rescue
       render json: ["Server not found."], status: 404
     end
   end
 
   private
+
+  def format_response
+    JSON.parse(render("api/servers/show.json.jbuilder"))
+  end
+
+  def format_destroy
+    JSON.parse(render("api/servers/destroy.json.jbuilder"))
+  end
 
   def server_params
     params.require(:server).permit(:name, :owner_id, :icon)

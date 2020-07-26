@@ -20,7 +20,8 @@ class Api::ChannelsController < ApplicationController
       @channel = Channel.new(channel_params)
       @channel.server_id = @server.id
       if @channel.save
-        render :show
+        ServerChannel.broadcast_to(@server, format_response)
+        # render :show
       else
         render json: @channel.errors.full_messages, status: 422
       end
@@ -30,11 +31,13 @@ class Api::ChannelsController < ApplicationController
   end
 
   def update
-    if current_user.owned_servers.find_by(id: params[:channel][:server])
-      @channel = Channel.find_by(id: params[:id])
+    @server = current_user.owned_servers.find_by(id: params[:channel][:server])
+    if @server
+      @channel = Channel.includes(messages: :author).find_by(id: params[:id])
       if @channel
         if @channel.update(channel_params)
-          render :show
+          ServerChannel.broadcast_to(@server, format_response)
+          # render :show
         else
           render json: @channel.errors.full_messages, status: 422
         end
@@ -47,11 +50,13 @@ class Api::ChannelsController < ApplicationController
   end
 
   def destroy
-    @channel = Channel.find_by(id: params[:id])
+    @channel = Channel.includes(messages: :author).find_by(id: params[:id])
     if @channel
-      if current_user.owned_servers.find_by(id: @channel.server_id)
+      @server = current_user.owned_servers.find_by(id: @channel.server_id)
+      if @server
         @channel.destroy!
-        render :show
+        ServerChannel.broadcast_to(@server, format_destroy)
+        # render :show
       else
         render json: ["You don't have permission to do that."], status: 403
       end      
@@ -61,6 +66,14 @@ class Api::ChannelsController < ApplicationController
   end
 
   private
+
+  def format_response
+    JSON.parse(render("api/channels/show.json.jbuilder"))
+  end
+
+  def format_destroy
+    JSON.parse(render("api/channels/destroy.json.jbuilder"))
+  end
 
   def channel_params
     params.require(:channel).permit(:name, :topic)

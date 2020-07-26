@@ -19,22 +19,12 @@ import {
 } from "../../actions/conversation_actions";
 import {
   RECEIVE_USER,
-  RECEIVE_FRIEND,
   RECEIVE_PENDING,
-  RECEIVE_DECLINE,
-  REMOVE_FRIEND,
-  RECEIVE_CANCEL,
   RECEIVE_REQUEST,
-  RECEIVE_ACCEPTANCE,
-  RECEIVE_REJECTION,
-  RECEIVE_RETRACTION,
-  LOSE_FRIEND,
 } from "../../actions/friend_actions";
 
 const usersReducer = (state = {}, action) => {
   const newState = { ...state };
-  let user;
-  let i;
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       return Object.assign(newState, action.users, action.user);
@@ -43,7 +33,9 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_SERVER:
       return Object.assign(newState, action.users);
     case REMOVE_SERVER:
-      delete newState[action.userId].servers[action.subscribeableId];
+      action.members.forEach((m) => {
+        if (newState[m]) delete newState[m].servers[action.id];
+      });
       return newState;
     case RECEIVE_CHANNEL:
       return Object.assign(newState, action.users);
@@ -58,14 +50,14 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_USER:
       return Object.assign(newState, action.user);
     case RECEIVE_PENDING:
-      [user] = Object.values(action.requestee);
+      // [user] = Object.values(action.requestee);
       newState[action.requestee.id] = action.requestee;
       return newState;
     case RECEIVE_REQUEST:
       newState[action.requester.id] = action.requester;
       return newState;
     case RECEIVE_ALIAS:
-      newState[action.userId].servers[action.subscribeableId] = action.alias;
+      newState[action.id].servers[action.server] = action.alias;
       return newState;
     case RECEIVE_STATUS:
       if (newState[action.id]) {

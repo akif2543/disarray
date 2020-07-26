@@ -9,7 +9,13 @@ document.addEventListener("DOMContentLoaded", () => {
   let store;
   if (window.currentUser) {
     const [user] = Object.values(window.currentUser.user);
-    const { servers, conversations, users } = window.currentUser;
+    const {
+      servers,
+      conversations,
+      users,
+      channels,
+      messages,
+    } = window.currentUser;
     const {
       id,
       conversees,
@@ -24,6 +30,8 @@ document.addEventListener("DOMContentLoaded", () => {
         users: { ...users, [user.id]: user },
         servers,
         conversations,
+        channels,
+        messages,
       },
       session: {
         id,

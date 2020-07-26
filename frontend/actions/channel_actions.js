@@ -5,12 +5,12 @@ export const REMOVE_CHANNEL = "REMOVE CHANNEL";
 export const RECEIVE_CHANNEL_ERRORS = "RECEIVE_CHANNEL_ERRORS";
 export const CLEAR_CHANNEL_ERRORS = "CLEAR_CHANNEL_ERRORS";
 
-const receiveChannel = (channel) => ({
+export const receiveChannel = (channel) => ({
   type: RECEIVE_CHANNEL,
   ...channel,
 });
 
-const removeChannel = (channel) => ({
+export const removeChannel = (channel) => ({
   type: REMOVE_CHANNEL,
   ...channel,
 });
@@ -31,15 +31,15 @@ export const fetchChannel = (id) => (dispatch) =>
 
 export const createChannel = (channel) => (dispatch) =>
   ChannelAPI.createChannel(channel)
-    .then((newChannel) => dispatch(receiveChannel(newChannel)))
+    // .then((newChannel) => dispatch(receiveChannel(newChannel)))
     .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
 
 export const updateChannel = (channel) => (dispatch) =>
   ChannelAPI.updateChannel(channel)
-    .then((updatedChannel) => dispatch(receiveChannel(updatedChannel)))
+    // .then((updatedChannel) => dispatch(receiveChannel(updatedChannel)))
     .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
 
 export const deleteChannel = (id) => (dispatch) =>
   ChannelAPI.deleteChannel(id)
-    .then((channel) => dispatch(removeChannel(channel)))
+    // .then((channel) => dispatch(removeChannel(channel)))
     .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));

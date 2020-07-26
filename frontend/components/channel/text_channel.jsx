@@ -19,6 +19,7 @@ const TextChannel = ({
   removeMessage,
   members,
   server,
+  sub,
 }) => {
   const { channelId } = match.params;
 
@@ -29,16 +30,16 @@ const TextChannel = ({
   }, [channelId]);
 
   useEffect(() => {
-    App.cable.subscriptions.create(
-      { channel: "ChatChannel", channel_id: channelId },
-      {
-        received: (data) =>
-          data.remove ? removeMessage(data) : receiveMessage(data),
-        speak(data) {
-          return this.perform("speak", data);
-        },
-      }
-    );
+    // App.cable.subscriptions.create(
+    //   { channel: "ChatChannel", channel_id: channelId },
+    //   {
+    //     received: (data) =>
+    //       data.remove ? removeMessage(data) : receiveMessage(data),
+    //     speak(data) {
+    //       return this.perform("speak", data);
+    //     },
+    //   }
+    // );
   }, []);
 
   return (
@@ -66,9 +67,10 @@ const TextChannel = ({
               memberbar={sidebarOpen}
               type="Channel"
               author={currentUser}
-              sub={App.cable.subscriptions.subscriptions.find((s) =>
-                s.identifier.includes(`"channel_id":"${channelId}"`)
-              )}
+              sub={sub}
+              // sub={App.cable.subscriptions.subscriptions.find((s) =>
+              //   s.identifier.includes(`"channel_id":"${channelId}"`)
+              // )}
             />
           )}
         </div>

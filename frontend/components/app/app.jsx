@@ -13,81 +13,26 @@ import SettingsContainer from "../ui/settings";
 import TextChannelContainer from "../channel/text_channel_container";
 import ConversationContainer from "../conversation/conversation_container";
 import ConversationPanelContainer from "../conversation/conversation_panel_container";
+import { appearanceSub, friendsSub, serversSub } from "../../util/socket_util";
 
 const Application = ({
   loading,
   settings,
   loggedIn,
   user,
+  servers,
   modal,
   receiveStatus,
-  receiveRequest,
-  receiveAcceptance,
-  receiveRejection,
-  receiveRetraction,
-  loseFriend,
+  receiveSub,
+  friendActions,
+  serverActions,
+  messageActions,
 }) => {
   useEffect(() => {
     if (loggedIn && App) {
-      App.cable.subscriptions.create(
-        { channel: "AppearanceChannel", id: user.id },
-        {
-          initialized() {
-            this.update = this.update.bind(this);
-          },
-          connected() {
-            this.install();
-            this.update();
-          },
-          disconnected() {
-            this.uninstall();
-          },
-          update() {
-            if (this.documentIsActive && !user.online) this.appear();
-          },
-          appear() {
-            this.perform("appear");
-          },
-          get documentIsActive() {
-            return (
-              document.visibilityState === "visible" && document.hasFocus()
-            );
-          },
-          install() {
-            window.addEventListener("focus", this.update);
-            window.addEventListener("blur", this.update);
-            document.addEventListener("visibilitychange", this.update);
-          },
-
-          uninstall() {
-            window.removeEventListener("focus", this.update);
-            window.removeEventListener("blur", this.update);
-            document.removeEventListener("visibilitychange", this.update);
-          },
-          received: (status) => receiveStatus(status),
-        }
-      );
-      App.cable.subscriptions.create(
-        { channel: "FriendsChannel", id: user.id },
-        {
-          received: (data) => {
-            switch (data.action) {
-              case "request":
-                return receiveRequest(data);
-              case "accept":
-                return receiveAcceptance(data);
-              case "decline":
-                return receiveRejection(data);
-              case "cancel":
-                return receiveRetraction(data);
-              case "unfriend":
-                return loseFriend(data);
-              default:
-                break;
-            }
-          },
-        }
-      );
+      appearanceSub(user.id, receiveStatus);
+      friendsSub(user.id, friendActions);
+      serversSub(servers, serverActions, messageActions, receiveSub);
     }
   }, [loggedIn, Boolean(App)]);
 

@@ -5,6 +5,7 @@ export const RECEIVE_SERVER = "RECEIVE_SERVER";
 export const RECEIVE_ALIAS = "RECEIVE_ALIAS";
 export const RECEIVE_ACTIVE = "RECEIVE_ACTIVE";
 export const REMOVE_SERVER = "REMOVE_SERVER";
+export const REMOVE_MEMBER = "REMOVE_MEMBER";
 export const RECEIVE_SERVER_ERRORS = "RECEIVE_SERVER_ERRORS";
 export const CLEAR_SERVER_ERRORS = "CLEAR_SERVER_ERRORS";
 
@@ -13,7 +14,7 @@ const receiveServers = (servers) => ({
   ...servers,
 });
 
-const receiveServer = (server) => ({
+export const receiveServer = (server) => ({
   type: RECEIVE_SERVER,
   ...server,
 });
@@ -23,12 +24,17 @@ export const receiveActive = (server) => ({
   ...server,
 });
 
-const removeServer = (server) => ({
+export const removeServer = (server) => ({
   type: REMOVE_SERVER,
   ...server,
 });
 
-const receiveAlias = (server) => ({
+export const removeMember = (server) => ({
+  type: REMOVE_MEMBER,
+  ...server,
+});
+
+export const receiveAlias = (server) => ({
   type: RECEIVE_ALIAS,
   ...server,
 });
@@ -59,17 +65,17 @@ export const createServer = (server) => (dispatch) =>
 
 export const updateServer = (id, server) => (dispatch) =>
   ServerAPI.updateServer(id, server)
-    .then((updatedServer) => dispatch(receiveServer(updatedServer)))
+    // .then((updatedServer) => dispatch(receiveServer(updatedServer)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
 export const deleteServer = (id) => (dispatch) =>
   ServerAPI.deleteServer(id)
-    .then((server) => dispatch(removeServer(server)))
+    // .then((server) => dispatch(removeServer(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
 export const joinServer = (membership) => (dispatch) =>
   ServerAPI.joinServer(membership)
-    .then((server) => dispatch(receiveServer(server)))
+    // .then((server) => dispatch(receiveServer(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
 export const leaveServer = (membership) => (dispatch) =>
@@ -81,5 +87,5 @@ export const leaveServer = (membership) => (dispatch) =>
 
 export const changeNickname = (membership) => (dispatch) =>
   ServerAPI.changeNickname(membership)
-    .then((server) => dispatch(receiveAlias(server)))
+    // .then((server) => dispatch(receiveAlias(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));

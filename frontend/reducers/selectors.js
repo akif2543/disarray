@@ -2,6 +2,7 @@ export const loading = (state) => state.ui.loading;
 export const settings = (state) => state.ui.settings;
 
 export const getCurrentUser = (state) => {
+  if (!state.session.id) return {};
   const user = state.entities.users[state.session.id];
   return {
     ...user,
@@ -10,6 +11,7 @@ export const getCurrentUser = (state) => {
 };
 
 export const getUserServers = (state) => {
+  if (!state.session.id) return [];
   const { servers } = getCurrentUser(state);
   const ids = Object.keys(servers);
   return ids.reverse().map((id) => state.entities.servers[id]);
@@ -86,6 +88,7 @@ export const getCurrentConversation = (state, props) => {
 };
 
 export const getConversations = (state) => {
+  if (!state.session.id) return [];
   const { conversations } = getCurrentUser(state);
   return conversations
     .reverse()
@@ -180,4 +183,13 @@ export const getFriendFromPath = (state, props) => {
   } = props;
   const [full, id] = search.match(/^\?id=(\d+)$/);
   return state.entities.users[id];
+};
+
+export const getSubscription = (state, props) => {
+  const {
+    match: {
+      params: { channelId, conversationId },
+    },
+  } = props;
+  return state.subscriptions.channel[channelId || conversationId];
 };

@@ -1,6 +1,12 @@
 import { connect } from "react-redux";
 
-import { loading, settings, getCurrentUser } from "../../reducers/selectors";
+import {
+  loading,
+  settings,
+  getCurrentUser,
+  getUserServers,
+  getConversations,
+} from "../../reducers/selectors";
 import Application from "./app";
 import { receiveStatus } from "../../actions/session_actions";
 import {
@@ -10,6 +16,18 @@ import {
   receiveRetraction,
   loseFriend,
 } from "../../actions/friend_actions";
+import {
+  receiveServer,
+  removeServer,
+  receiveAlias,
+  removeMember,
+} from "../../actions/server_actions";
+import { receiveChannel, removeChannel } from "../../actions/channel_actions";
+import {
+  receiveMessage,
+  removeMessage,
+  receiveSub,
+} from "../../actions/message_actions";
 
 const mSTP = (state) => ({
   loading: loading(state),
@@ -17,15 +35,32 @@ const mSTP = (state) => ({
   loggedIn: Boolean(state.session.id),
   user: getCurrentUser(state),
   modal: state.ui.modal,
+  servers: getUserServers(state),
+  conversations: getConversations(state),
 });
 
 const mDTP = (dispatch) => ({
   receiveStatus: (status) => dispatch(receiveStatus(status)),
-  receiveRequest: (res) => dispatch(receiveRequest(res)),
-  receiveAcceptance: (res) => dispatch(receiveAcceptance(res)),
-  receiveRejection: (res) => dispatch(receiveRejection(res)),
-  receiveRetraction: (res) => dispatch(receiveRetraction(res)),
-  loseFriend: (res) => dispatch(loseFriend(res)),
+  receiveSub: (sub) => dispatch(receiveSub(sub)),
+  friendActions: {
+    receiveRequest: (res) => dispatch(receiveRequest(res)),
+    receiveAcceptance: (res) => dispatch(receiveAcceptance(res)),
+    receiveRejection: (res) => dispatch(receiveRejection(res)),
+    receiveRetraction: (res) => dispatch(receiveRetraction(res)),
+    loseFriend: (res) => dispatch(loseFriend(res)),
+  },
+  serverActions: {
+    receiveServer: (server) => dispatch(receiveServer(server)),
+    removeServer: (server) => dispatch(removeServer(server)),
+    receiveAlias: (alias) => dispatch(receiveAlias(alias)),
+    removeMember: (member) => dispatch(removeMember(member)),
+    receiveChannel: (channel) => dispatch(receiveChannel(channel)),
+    removeChannel: (channel) => dispatch(removeChannel(channel)),
+  },
+  messageActions: {
+    receiveMessage: (message) => dispatch(receiveMessage(message)),
+    removeMessage: (message) => dispatch(removeMessage(message)),
+  },
 });
 
 const AppContainer = connect(mSTP, mDTP)(Application);

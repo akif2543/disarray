@@ -1,3 +1,5 @@
+json.action "receive server"
+
 json.server do
   json.set! @server.id do
     json.id @server.id

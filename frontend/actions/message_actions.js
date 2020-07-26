@@ -4,6 +4,7 @@ import MessageAPI from "../util/message_api_util";
 export const RECEIVE_MESSAGE = "RECEIVE_MESSAGE";
 export const RECEIVE_MESSAGES = "RECEIVE_MESSAGES";
 export const REMOVE_MESSAGE = "REMOVE_MESSAGE";
+export const RECEIVE_SUB = "RECEIVE_SUB";
 
 export const receiveMessage = (message) => ({
   type: RECEIVE_MESSAGE,
@@ -18,6 +19,11 @@ const receiveMessages = (messages) => ({
 export const removeMessage = (message) => ({
   type: REMOVE_MESSAGE,
   ...message,
+});
+
+export const receiveSub = (sub) => ({
+  type: RECEIVE_SUB,
+  ...sub,
 });
 
 export const fetchMessages = (type, id, time) => (dispatch) =>

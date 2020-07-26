@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :logged_in?
 
   def current_user
-    @current_user ||= User.includes(:friends, :pending_friends, :requested_friends, :blocked_friends, servers: [:members, :channels], conversations: :members).find_by(session_token: session[:session_token])
+    @current_user ||= User.includes(:friends, :pending_friends, :requested_friends, :blocked_friends, servers: [:members, :channels], conversations: [:members, :messages], channels: [:messages]).find_by(session_token: session[:session_token])
   end
 
   def ensure_logged_in

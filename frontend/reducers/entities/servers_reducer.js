@@ -3,13 +3,15 @@ import {
   RECEIVE_SERVER,
   REMOVE_SERVER,
   RECEIVE_ACTIVE,
+  REMOVE_MEMBER,
 } from "../../actions/server_actions";
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 import { RECEIVE_CHANNEL } from "../../actions/channel_actions";
 
 const serversReducer = (state = {}, action) => {
-  const newState = Object.assign({}, state);
+  const newState = { ...state };
   let channel;
+  let i;
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       return Object.assign(newState, action.servers);
@@ -18,7 +20,7 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_SERVER:
       return Object.assign(newState, action.server);
     case REMOVE_SERVER:
-      delete newState[action.subscribeableId];
+      delete newState[action.id];
       return newState;
     case RECEIVE_CHANNEL:
       [channel] = Object.values(action.channel);
@@ -26,6 +28,10 @@ const serversReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_ACTIVE:
       newState[action.id].active = action.active;
+      return newState;
+    case REMOVE_MEMBER:
+      i = newState[action.server].members.indexOf(action.id);
+      if (i > -1) newState[action.server].members.splice(i, 1);
       return newState;
     default:
       return state;

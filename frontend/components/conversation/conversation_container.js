@@ -6,6 +6,7 @@ import {
   getConversationMessages,
   getConversationMembers,
   getConversationName,
+  getSubscription,
 } from "../../reducers/selectors";
 import {
   fetchConversation,
@@ -28,6 +29,7 @@ const mSTP = (state, ownProps) => ({
   name: getConversationName(state, ownProps),
   members: getConversationMembers(state, ownProps),
   messages: getConversationMessages(state, ownProps),
+  sub: getSubscription(state, ownProps),
   sidebarOpen: state.ui.sidebar,
 });
 

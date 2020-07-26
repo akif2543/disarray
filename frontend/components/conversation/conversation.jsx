@@ -23,26 +23,25 @@ const Conversation = ({
   match: {
     params: { conversationId },
   },
+  sub,
 }) => {
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
-
-  let sub;
 
   useEffect(() => {
     fetchConversation(conversationId);
   }, [conversationId]);
 
   useEffect(() => {
-    App.cable.subscriptions.create(
-      { channel: "ChatChannel", conversation_id: conversationId },
-      {
-        received: (data) =>
-          data.remove ? removeMessage(data) : receiveMessage(data),
-        speak(data) {
-          return this.perform("speak", data);
-        },
-      }
-    );
+    // App.cable.subscriptions.create(
+    //   { channel: "ChatChannel", conversation_id: conversationId },
+    //   {
+    //     received: (data) =>
+    //       data.remove ? removeMessage(data) : receiveMessage(data),
+    //     speak(data) {
+    //       return this.perform("speak", data);
+    //     },
+    //   }
+    // );
   }, []);
 
   const { group, owner } = conversation;
@@ -77,9 +76,10 @@ const Conversation = ({
               memberbar={group ? sidebarOpen : false}
               type="Conversation"
               author={currentUser}
-              sub={App.cable.subscriptions.subscriptions.find((s) =>
-                s.identifier.includes(`"conversation_id":"${conversationId}"`)
-              )}
+              sub={sub}
+              // sub={App.cable.subscriptions.subscriptions.find((s) =>
+              //   s.identifier.includes(`"conversation_id":"${conversationId}"`)
+              // )}
             />
           )}
         </div>

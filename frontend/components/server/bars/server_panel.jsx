@@ -16,23 +16,23 @@ class ServerPanel extends React.Component {
     this.toggleDropdown = this.toggleDropdown.bind(this);
   }
 
-  componentDidMount() {
-    const { requestServer, match } = this.props;
-    requestServer(match.params.serverId);
-  }
+  // componentDidMount() {
+  //   const { requestServer, match } = this.props;
+  //   requestServer(match.params.serverId);
+  // }
 
-  componentDidUpdate(prevProps) {
-    const {
-      requestServer,
-      fetchChannel,
-      match: {
-        params: { serverId, channelId },
-      },
-    } = this.props;
-    const prevServer = prevProps.match.params.serverId;
-    const prevChannel = prevProps.match.params.channelId;
-    if (serverId !== prevServer) requestServer(serverId);
-  }
+  // componentDidUpdate(prevProps) {
+  //   const {
+  //     requestServer,
+  //     fetchChannel,
+  //     match: {
+  //       params: { serverId, channelId },
+  //     },
+  //   } = this.props;
+  //   const prevServer = prevProps.match.params.serverId;
+  //   const prevChannel = prevProps.match.params.channelId;
+  //   if (serverId !== prevServer) requestServer(serverId);
+  // }
 
   setDropdown() {
     const { dropdown } = this.state;

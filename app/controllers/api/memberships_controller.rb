@@ -6,8 +6,9 @@ class Api::MembershipsController < ApplicationController
       unless current_user.is_member?(@server)
         @membership = Membership.new(member_id: current_user.id, subscribeable: @server)
         if @membership.save
-          @server = Server.includes(:members).find(@server.id)
-          render "api/servers/show"
+          @server = Server.includes(:members, :channels).find(@server.id)
+          ServerChannel.broadcast_to(@server, format_response)
+          # render "api/servers/show"
         else
           render json: @membership.errors.full_messages, status: 422
         end
@@ -24,8 +25,10 @@ class Api::MembershipsController < ApplicationController
 
     if @membership
       new_alias = params[:membership][:alias].length > 0 ? params[:membership][:alias] : nil
-      if @membership.update(alias: new_alias )
-        render :update
+      if @membership.update(alias: new_alias)
+        @server = @membership.subscribeable
+        ServerChannel.broadcast_to(@server, format_update)
+        # render :update
       else
         render json: @membership.errors.full_messages, status: 422
       end
@@ -38,11 +41,27 @@ class Api::MembershipsController < ApplicationController
     @membership = Membership.find_by(member_id: current_user.id, subscribeable_type: params[:membership][:subscribeable_type], subscribeable_id: params[:membership][:subscribeable_id])
 
     if @membership
+      @server = @membership.subscribeable
       @membership.destroy
-      render :show
+      ServerChannel.broadcast_to(@server, format_destroy)
+      # render :show
     else
       render json: ["Record not found"], status: 404
     end
+  end
+
+  private
+
+  def format_response
+    JSON.parse(render("api/servers/show.json.jbuilder"))
+  end
+
+  def format_update
+    JSON.parse(render("api/memberships/update.json.jbuilder"))
+  end
+
+  def format_destroy
+    JSON.parse(render("api/memberships/show.json.jbuilder"))
   end
 
 end

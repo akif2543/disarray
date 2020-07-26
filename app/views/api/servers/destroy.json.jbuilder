@@ -1,2 +1,3 @@
-json.userId @server.owner_id
-json.subscribeableId @server.id
+json.action "remove server"
+json.id @server,id, 
+json.members @server.members.map(&:id)
