@@ -24,7 +24,7 @@ const TextChannel = ({
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
   useEffect(() => {
-    fetchChannel(channelId);
+    if (!channel.visited) fetchChannel(channelId);
   }, [channelId]);
 
   return (

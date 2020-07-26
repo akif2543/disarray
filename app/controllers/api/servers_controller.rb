@@ -43,7 +43,7 @@ class Api::ServersController < ApplicationController
 
   def destroy
     begin
-      @server = current_user.owned_servers.find(params[:id])
+      @server = current_user.owned_servers.includes(:members, :channels).find(params[:id])
       @server.destroy
       ServerChannel.broadcast_to(@server, format_destroy)
       # render :destroy

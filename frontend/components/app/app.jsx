@@ -17,7 +17,7 @@ import {
   appearanceSub,
   friendsSub,
   serverSubs,
-  convoSub,
+  convoChannelSub,
   convoSubs,
 } from "../../util/socket_util";
 
@@ -41,7 +41,7 @@ const Application = ({
       appearanceSub(user.id, receiveStatus);
       friendsSub(user.id, friendActions);
       serverSubs(servers, serverActions, messageActions, receiveSub);
-      convoSub(user.id, receiveConversation);
+      convoChannelSub(user.id, receiveConversation, messageActions, receiveSub);
       convoSubs(convos, messageActions, receiveSub);
     }
   }, [loggedIn, Boolean(App)]);

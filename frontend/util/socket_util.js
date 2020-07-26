@@ -68,12 +68,21 @@ export const friendsSub = (id, actions) => {
   );
 };
 
-export const serverSubs = (
-  servers,
-  serverActions,
-  messageActions,
-  receiveSub
-) => {
+const channelSub = (id, receive, remove, sub) => {
+  App.channel = App.cable.subscriptions.create(
+    { channel: "ChatChannel", channel_id: id },
+    {
+      received: (data) => (data.remove ? remove(data) : receive(data)),
+      speak(data) {
+        return this.perform("speak", data);
+      },
+    }
+  );
+  sub({ id, subType: "Channel", sub: App.channel });
+  delete App.channel;
+};
+
+export const serverSub = (s, serverActions, messageActions, sub) => {
   const {
     receiveServer,
     removeServer,
@@ -83,72 +92,69 @@ export const serverSubs = (
     removeChannel,
   } = serverActions;
   const { removeMessage, receiveMessage } = messageActions;
-
-  servers.forEach((s) => {
-    App.server = App.cable.subscriptions.create(
-      { channel: "ServerChannel", id: s.id },
-      {
-        received: (data) => {
-          switch (data.action) {
-            case "receive server":
-              return receiveServer(data);
-            case "remove server":
-              return removeServer(data);
-            case "receive alias":
-              return receiveAlias(data);
-            case "remove member":
-              return removeMember(data);
-            case "receive channel":
-              return receiveChannel(data);
-            case "remove channel":
-              return removeChannel(data);
-            default:
-              break;
-          }
-        },
-      }
-    );
-
-    receiveSub({ id: s.id, subType: "Server", sub: App.server });
-
-    s.channels.forEach((c) => {
-      App.channel = App.cable.subscriptions.create(
-        { channel: "ChatChannel", channel_id: c },
-        {
-          received: (data) =>
-            data.remove ? removeMessage(data) : receiveMessage(data),
-          speak(data) {
-            return this.perform("speak", data);
-          },
+  let c;
+  App.server = App.cable.subscriptions.create(
+    { channel: "ServerChannel", id: s.id },
+    {
+      received: (data) => {
+        switch (data.action) {
+          case "receive server":
+            return receiveServer(data);
+          case "remove server":
+            return removeServer(data);
+          case "receive alias":
+            return receiveAlias(data);
+          case "remove member":
+            return removeMember(data);
+          case "receive channel":
+            [c] = Object.keys(data.channel);
+            channelSub(c, receiveMessage, removeMessage, sub);
+            return receiveChannel(data);
+          case "remove channel":
+            return removeChannel(data);
+          default:
+            break;
         }
-      );
-      receiveSub({ id: c, subType: "Channel", sub: App.channel });
-    });
-  });
+      },
+    }
+  );
+  sub({ id: s.id, subType: "Server", sub: App.server });
+  s.channels.forEach((c) => channelSub(c, receiveMessage, removeMessage, sub));
+  delete App.server;
 };
 
-export const convoSub = (id, receive) => {
+export const serverSubs = (servers, serverActions, messageActions, sub) =>
+  servers.forEach((s) => serverSub(s, serverActions, messageActions, sub));
+
+const convoSub = (id, receive, remove, sub) => {
+  App.convo = App.cable.subscriptions.create(
+    { channel: "ChatChannel", conversation_id: id },
+    {
+      received: (data) => (data.remove ? remove(data) : receive(data)),
+      speak(data) {
+        return this.perform("speak", data);
+      },
+    }
+  );
+  sub({ id, subType: "Conversation", sub: App.convo });
+  delete App.convo;
+};
+
+export const convoChannelSub = (id, receive, messageActions, sub) => {
+  const { removeMessage, receiveMessage } = messageActions;
   App.cable.subscriptions.create(
     { channel: "ConversationChannel", id },
     {
-      received: (data) => receive(data),
+      received: (data) => {
+        const [c] = Object.values(data.conversation);
+        convoSub(c.id, receiveMessage, removeMessage, sub);
+        return receive(data);
+      },
     }
   );
 };
 
-export const convoSubs = (convos, messageActions, receiveSub) => {
+export const convoSubs = (convos, messageActions, sub) => {
   const { removeMessage, receiveMessage } = messageActions;
-  convos.forEach((c) => {
-    App.convo = App.cable.subscriptions.create(
-      { channel: "ChatChannel", conversation_id: c },
-      {
-        received: (data) =>
-          data.remove ? removeMessage(data) : receiveMessage(data),
-        speak(data) {
-          return this.perform("speak", data);
-        },
-      }
-    );
-    receiveSub({ id: c, subType: "Conversation", sub: App.convo });
-  });
+  convos.forEach((c) => convoSub(c, receiveMessage, removeMessage, sub));
 };

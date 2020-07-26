@@ -9,6 +9,7 @@ import ConversationListItem from "./conversation_list_item";
 
 const ConversationList = ({
   conversations,
+  setActive,
   currentUser,
   match: {
     params: { conversationId },
@@ -23,11 +24,13 @@ const ConversationList = ({
 
   const seen = new Set();
 
+  const handleClick = (id) => () => setActive(id);
+
   return (
     <div className="channel-list-wrapper">
       <nav className="channel-list convo">
         <div className="tabs">
-          <NavLink exact to="/@me">
+          <NavLink exact to="/@me" onClick={handleClick(null)}>
             <button type="button" className="friends-btn">
               <FontAwesomeIcon icon="users" size="lg" />
               <h2>Friends</h2>
@@ -60,7 +63,11 @@ const ConversationList = ({
             if (seen.has(convo.id)) return null;
             seen.add(convo.id);
             return (
-              <NavLink to={`/@me/${convo.id}`} key={shortid.generate()}>
+              <NavLink
+                to={`/@me/${convo.id}`}
+                key={shortid.generate()}
+                onClick={handleClick(convo.id)}
+              >
                 <ConversationListItem
                   convo={convo}
                   isActive={parseInt(conversationId) === convo.id}

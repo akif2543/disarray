@@ -14,7 +14,10 @@ import {
   REMOVE_FRIEND,
   LOSE_FRIEND,
 } from "../../actions/friend_actions";
-import { RECEIVE_CONVERSATION } from "../../actions/conversation_actions";
+import {
+  RECEIVE_CONVERSATION,
+  RECEIVE_ACTIVE_CONVO,
+} from "../../actions/conversation_actions";
 
 const sessionReducer = (state = { id: null }, action) => {
   const newState = { ...state };
@@ -43,6 +46,7 @@ const sessionReducer = (state = { id: null }, action) => {
         pendingOut,
         blocked,
         email,
+        active: null,
       };
     case LOGOUT_CURRENT_USER:
       return { id: null };
@@ -55,6 +59,8 @@ const sessionReducer = (state = { id: null }, action) => {
         newState.conversees[user] = c.id;
       }
       return newState;
+    case RECEIVE_ACTIVE_CONVO:
+      return { ...newState, active: action.convo };
     case RECEIVE_PENDING:
       newState.info.pendingOut.push(action.requestee.id);
       return newState;

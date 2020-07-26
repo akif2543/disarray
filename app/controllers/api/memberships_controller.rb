@@ -1,7 +1,7 @@
 class Api::MembershipsController < ApplicationController
 
   def create
-    @server = Server.includes(:members).find_by(join_code: params[:membership][:join_code])
+    @server = Server.includes(:members, :channels).find_by(join_code: params[:membership][:join_code])
     if @server
       unless current_user.is_member?(@server)
         @membership = Membership.new(member_id: current_user.id, subscribeable: @server)
@@ -61,7 +61,7 @@ class Api::MembershipsController < ApplicationController
   end
 
   def format_destroy
-    JSON.parse(render("api/memberships/show.json.jbuilder"))
+    JSON.parse(render("api/memberships/destroy.json.jbuilder"))
   end
 
 end

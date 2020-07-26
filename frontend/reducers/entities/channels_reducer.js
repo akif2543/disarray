@@ -18,7 +18,7 @@ const channelsReducer = (state = {}, action) => {
     case RECEIVE_SERVER:
       return Object.assign(newState, action.channels);
     case REMOVE_CHANNEL:
-      delete newState[Object.keys(action.channel)[0]];
+      delete newState[action.id];
       return newState;
     case RECEIVE_MESSAGE:
       [message] = Object.values(action.message);

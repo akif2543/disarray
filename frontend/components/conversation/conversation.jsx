@@ -26,7 +26,7 @@ const Conversation = ({
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
   useEffect(() => {
-    fetchConversation(conversationId);
+    if (!conversation.visited) fetchConversation(conversationId);
   }, [conversationId]);
 
   const { group, owner } = conversation;

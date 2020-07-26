@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../../ui/tooltip";
 
-const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
+const ServerBarBtn = ({ type, openModal, modalOpen, active }) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
 
@@ -15,7 +15,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, home }) => {
     case "home":
       return (
         <div>
-          <NavLink to="/@me">
+          <NavLink to={active ? `/@me/${active}` : "/@me"}>
             <button
               className="home-btn"
               type="button"

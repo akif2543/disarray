@@ -1,6 +1,7 @@
 json.conversation do
   json.set! @conversation.id do
     json.partial! "api/conversations/conversation", c: @conversation
+    json.visited true
     json.messages @conversation.messages.map(&:id)
   end
 end

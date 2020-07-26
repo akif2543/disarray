@@ -4,6 +4,7 @@ export const RECEIVE_CONVERSATIONS = "RECEIVE_CONVERSATIONS";
 export const RECEIVE_CONVERSATION = "RECEIVE_CONVERSATION";
 export const RECEIVE_CONVERSATION_ERRORS = "RECEIVE_CONVERSATION_ERRORS";
 export const CLEAR_CONVERSATION_ERRORS = "CLEAR_CONVERSATION_ERRORS";
+export const RECEIVE_ACTIVE_CONVO = "RECEIVE_ACTIVE_CONVO";
 
 const receiveConversations = (convos) => ({
   type: RECEIVE_CONVERSATIONS,
@@ -13,6 +14,11 @@ const receiveConversations = (convos) => ({
 export const receiveConversation = (convo) => ({
   type: RECEIVE_CONVERSATION,
   ...convo,
+});
+
+export const receiveActiveConversation = (convo) => ({
+  type: RECEIVE_ACTIVE_CONVO,
+  convo,
 });
 
 const receiveConversationErrors = (errors) => ({

@@ -1,4 +1,7 @@
 import ServerAPI from "../util/server_api_util";
+import { receiveChannel, removeChannel } from "./channel_actions";
+import { receiveMessage, removeMessage, receiveSub } from "./message_actions";
+import { serverSub } from "../util/socket_util";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
@@ -58,9 +61,28 @@ export const requestServer = (id) => (dispatch) =>
     .then((server) => dispatch(receiveServer(server)))
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
+const serverActions = (dispatch) => ({
+  receiveServer: (server) => dispatch(receiveServer(server)),
+  removeServer: (server) => dispatch(removeServer(server)),
+  receiveAlias: (server) => dispatch(receiveAlias(server)),
+  removeMember: (member) => dispatch(removeMember(member)),
+  receiveChannel: (channel) => dispatch(receiveChannel(channel)),
+  removeChannel: (channel) => dispatch(removeChannel(channel)),
+});
+
+const messageActions = (dispatch) => ({
+  receiveMessage: (message) => dispatch(receiveMessage(message)),
+  removeMessage: (message) => dispatch(removeMessage(message)),
+});
+
 export const createServer = (server) => (dispatch) =>
   ServerAPI.createServer(server)
-    .then((newServer) => dispatch(receiveServer(newServer)))
+    .then((res) => {
+      const [s] = Object.values(res.server);
+      const receive = (sub) => dispatch(receiveSub(sub));
+      serverSub(s, serverActions(dispatch), messageActions(dispatch), receive);
+      return dispatch(receiveServer(res));
+    })
     .fail((e) => dispatch(receiveServers(e.responseJSON)));
 
 export const updateServer = (id, server) => (dispatch) =>
@@ -75,7 +97,12 @@ export const deleteServer = (id) => (dispatch) =>
 
 export const joinServer = (membership) => (dispatch) =>
   ServerAPI.joinServer(membership)
-    // .then((server) => dispatch(receiveServer(server)))
+    .then((res) => {
+      const [s] = Object.values(res.server);
+      const receive = (sub) => dispatch(receiveSub(sub));
+      serverSub(s, serverActions(dispatch), messageActions(dispatch), receive);
+      return dispatch(receiveServer(res));
+    })
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
 export const leaveServer = (membership) => (dispatch) =>

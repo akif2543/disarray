@@ -30,6 +30,7 @@ class ChatStream extends React.Component {
       "scroll",
       debounce(this.handleScroll, 150)
     );
+    if (this.bottom.current) this.bottom.current.scrollIntoView();
   }
 
   getSnapshotBeforeUpdate(prevProps) {

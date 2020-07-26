@@ -7,6 +7,7 @@ const ConversationPanel = ({
   currentUser,
   openSettings,
   conversations,
+  setActive,
   match,
 }) => (
   <section className="side-bar convo">
@@ -17,6 +18,7 @@ const ConversationPanel = ({
       <ConversationList
         conversations={conversations}
         currentUser={currentUser}
+        setActive={setActive}
         match={match}
       />
     </main>
