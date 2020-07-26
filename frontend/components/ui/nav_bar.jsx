@@ -157,7 +157,7 @@ const NavBar = ({
           <div className="channel">
             <button
               type="button"
-              className="nav-icon f"
+              className="nav-icon f disabled"
               onMouseOver={showTooltip("bell")}
               onFocus={showTooltip("bell")}
               onMouseOut={hideTooltip("bell")}
@@ -175,7 +175,7 @@ const NavBar = ({
             )}
             <button
               type="button"
-              className="nav-icon"
+              className="nav-icon disabled"
               onMouseOver={showTooltip("pin")}
               onFocus={showTooltip("pin")}
               onMouseOut={hideTooltip("pin")}
@@ -220,7 +220,7 @@ const NavBar = ({
           <div className="channel">
             <button
               type="button"
-              className="nav-icon f"
+              className="nav-icon f disabled"
               onMouseOver={showTooltip("call")}
               onFocus={showTooltip("call")}
               onMouseOut={hideTooltip("call")}
@@ -238,7 +238,7 @@ const NavBar = ({
             )}
             <button
               type="button"
-              className="nav-icon"
+              className="nav-icon disabled"
               onMouseOver={showTooltip("pin")}
               onFocus={showTooltip("pin")}
               onMouseOut={hideTooltip("pin")}
@@ -350,7 +350,7 @@ const NavBar = ({
         <div className="user-icons">
           <button
             type="button"
-            className="nav-icon"
+            className="nav-icon disabled"
             onMouseOver={showTooltip("mentions")}
             onFocus={showTooltip("mentions")}
             onMouseOut={hideTooltip("mentions")}
@@ -368,7 +368,7 @@ const NavBar = ({
           )}
           <button
             type="button"
-            href="https://www.github.com/akif2543"
+            href="https://github.com/akif2543/disarray"
             className="nav-icon"
             onMouseOver={showTooltip("contact")}
             onFocus={showTooltip("contact")}

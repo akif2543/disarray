@@ -181,7 +181,7 @@
     .nav-icon {
       margin-left: 20px;
       height: 20px;
-      cursor: pointer;
+      // cursor: pointer;
       position: relative;
       color: $dk-icons;
       padding: 1px;
@@ -306,7 +306,7 @@
       box-sizing: content-box;
       width: 33px;
       height: 33px;
-      cursor: pointer;
+      // cursor: pointer;
       border-radius: 4px;
       color: $dk-icons;
       position: relative;
@@ -321,6 +321,10 @@
       }
     }
   }
+}
+
+button.disabled {
+  cursor: not-allowed;
 }
 
 .side-bar.convo {

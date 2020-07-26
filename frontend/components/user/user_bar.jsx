@@ -31,7 +31,7 @@ const UserBar = ({ currentUser, openSettings }) => {
       <ul className="user-bar-ilist">
         <button
           type="button"
-          className="user-bar-icon"
+          className="user-bar-icon disabled"
           onMouseOver={showMute}
           onFocus={showMute}
           onMouseOut={hideMute}
@@ -42,7 +42,7 @@ const UserBar = ({ currentUser, openSettings }) => {
         {mute && <Tooltip text="Mute" className="u-bar-tt mute" />}
         <button
           type="button"
-          className="user-bar-icon"
+          className="user-bar-icon disabled"
           onMouseOver={showDeafen}
           onFocus={showDeafen}
           onMouseOut={hideDeafen}
