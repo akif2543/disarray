@@ -99,6 +99,11 @@ export const getConversations = (state) => {
     }));
 };
 
+export const getConversationIds = (state) => {
+  if (!state.session.id) return [];
+  return state.session.info.conversations;
+};
+
 export const getConversationMembers = (state, props) => {
   const convo = getCurrentConversation(state, props);
   if (!convo) return [];
@@ -191,5 +196,7 @@ export const getSubscription = (state, props) => {
       params: { channelId, conversationId },
     },
   } = props;
-  return state.subscriptions.channel[channelId || conversationId];
+  return channelId
+    ? state.subscriptions.channel[channelId]
+    : state.subscriptions.conversation[conversationId];
 };

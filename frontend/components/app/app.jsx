@@ -13,7 +13,13 @@ import SettingsContainer from "../ui/settings";
 import TextChannelContainer from "../channel/text_channel_container";
 import ConversationContainer from "../conversation/conversation_container";
 import ConversationPanelContainer from "../conversation/conversation_panel_container";
-import { appearanceSub, friendsSub, serversSub } from "../../util/socket_util";
+import {
+  appearanceSub,
+  friendsSub,
+  serverSubs,
+  convoSub,
+  convoSubs,
+} from "../../util/socket_util";
 
 const Application = ({
   loading,
@@ -21,9 +27,11 @@ const Application = ({
   loggedIn,
   user,
   servers,
+  convos,
   modal,
   receiveStatus,
   receiveSub,
+  receiveConversation,
   friendActions,
   serverActions,
   messageActions,
@@ -32,7 +40,9 @@ const Application = ({
     if (loggedIn && App) {
       appearanceSub(user.id, receiveStatus);
       friendsSub(user.id, friendActions);
-      serversSub(servers, serverActions, messageActions, receiveSub);
+      serverSubs(servers, serverActions, messageActions, receiveSub);
+      convoSub(user.id, receiveConversation);
+      convoSubs(convos, messageActions, receiveSub);
     }
   }, [loggedIn, Boolean(App)]);
 

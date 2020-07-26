@@ -1,4 +1,4 @@
-const { RECEIVE_SUB } = require("../../actions/message_actions");
+import { RECEIVE_SUB } from "../../actions/message_actions";
 
 const conversationSubsReducer = (state = {}, action) => {
   const newState = { ...state };

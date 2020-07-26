@@ -16,7 +16,7 @@ class Api::MessagesController < ApplicationController
       @message = Message.new(body: params[:message][:body], author_id: current_user.id, messageable: @conversation)
       if @message.save
         ChatChannel.broadcast_to(@conversation, format_message)
-        render "api/conversations/show"
+        # render "api/conversations/show"
       else
         render json: @message.errors.full_messages, status: 422
       end

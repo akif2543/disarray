@@ -10,12 +10,11 @@ const Conversation = ({
   conversation,
   messages,
   name,
+  sub,
   members,
   fetchConversation,
   customizeConversation,
   fetchMessages,
-  receiveMessage,
-  removeMessage,
   updateMessage,
   sidebarOpen,
   hideSidebar,
@@ -23,26 +22,12 @@ const Conversation = ({
   match: {
     params: { conversationId },
   },
-  sub,
 }) => {
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
   useEffect(() => {
     fetchConversation(conversationId);
   }, [conversationId]);
-
-  useEffect(() => {
-    // App.cable.subscriptions.create(
-    //   { channel: "ChatChannel", conversation_id: conversationId },
-    //   {
-    //     received: (data) =>
-    //       data.remove ? removeMessage(data) : receiveMessage(data),
-    //     speak(data) {
-    //       return this.perform("speak", data);
-    //     },
-    //   }
-    // );
-  }, []);
 
   const { group, owner } = conversation;
 
@@ -71,15 +56,12 @@ const Conversation = ({
           />
           {conversation && (
             <NewMessageForm
-              name={name}
+              name={group ? name : `@${name}`}
               id={conversationId}
               memberbar={group ? sidebarOpen : false}
               type="Conversation"
               author={currentUser}
               sub={sub}
-              // sub={App.cable.subscriptions.subscriptions.find((s) =>
-              //   s.identifier.includes(`"conversation_id":"${conversationId}"`)
-              // )}
             />
           )}
         </div>

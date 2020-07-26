@@ -1,10 +1,10 @@
 import { RECEIVE_SUB } from "../../actions/message_actions";
 
-const channelSubsReducer = (state = {}, action) => {
+const serverSubsReducer = (state = {}, action) => {
   const newState = { ...state };
   switch (action.type) {
     case RECEIVE_SUB:
-      if (action.subType === "Channel") {
+      if (action.subType === "Server") {
         newState[action.id] = action.sub;
       }
       return newState;
@@ -13,4 +13,4 @@ const channelSubsReducer = (state = {}, action) => {
   }
 };
 
-export default channelSubsReducer;
+export default serverSubsReducer;

@@ -5,7 +5,7 @@ import {
   settings,
   getCurrentUser,
   getUserServers,
-  getConversations,
+  getConversationIds,
 } from "../../reducers/selectors";
 import Application from "./app";
 import { receiveStatus } from "../../actions/session_actions";
@@ -28,6 +28,7 @@ import {
   removeMessage,
   receiveSub,
 } from "../../actions/message_actions";
+import { receiveConversation } from "../../actions/conversation_actions";
 
 const mSTP = (state) => ({
   loading: loading(state),
@@ -36,12 +37,13 @@ const mSTP = (state) => ({
   user: getCurrentUser(state),
   modal: state.ui.modal,
   servers: getUserServers(state),
-  conversations: getConversations(state),
+  convos: getConversationIds(state),
 });
 
 const mDTP = (dispatch) => ({
   receiveStatus: (status) => dispatch(receiveStatus(status)),
   receiveSub: (sub) => dispatch(receiveSub(sub)),
+  receiveConversation: (convo) => dispatch(receiveConversation(convo)),
   friendActions: {
     receiveRequest: (res) => dispatch(receiveRequest(res)),
     receiveAcceptance: (res) => dispatch(receiveAcceptance(res)),

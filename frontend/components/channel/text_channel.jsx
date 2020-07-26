@@ -7,7 +7,6 @@ import MemberBar from "./member_bar";
 const TextChannel = ({
   fetchChannel,
   match,
-  receiveMessage,
   channel,
   sidebarOpen,
   showSidebar,
@@ -16,7 +15,6 @@ const TextChannel = ({
   currentUser,
   fetchMessages,
   updateMessage,
-  removeMessage,
   members,
   server,
   sub,
@@ -28,19 +26,6 @@ const TextChannel = ({
   useEffect(() => {
     fetchChannel(channelId);
   }, [channelId]);
-
-  useEffect(() => {
-    // App.cable.subscriptions.create(
-    //   { channel: "ChatChannel", channel_id: channelId },
-    //   {
-    //     received: (data) =>
-    //       data.remove ? removeMessage(data) : receiveMessage(data),
-    //     speak(data) {
-    //       return this.perform("speak", data);
-    //     },
-    //   }
-    // );
-  }, []);
 
   return (
     <div className="text-channel">
@@ -68,9 +53,6 @@ const TextChannel = ({
               type="Channel"
               author={currentUser}
               sub={sub}
-              // sub={App.cable.subscriptions.subscriptions.find((s) =>
-              //   s.identifier.includes(`"channel_id":"${channelId}"`)
-              // )}
             />
           )}
         </div>

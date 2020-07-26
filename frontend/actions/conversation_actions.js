@@ -10,7 +10,7 @@ const receiveConversations = (convos) => ({
   ...convos,
 });
 
-const receiveConversation = (convo) => ({
+export const receiveConversation = (convo) => ({
   type: RECEIVE_CONVERSATION,
   ...convo,
 });
