@@ -10,7 +10,9 @@ json.message do
 end
 
 json.user do
-  json.partial! "api/users/user", user: message.author
+  json.cache! message.author do
+    json.partial! "api/users/user", user: message.author
+  end
 end
 
 if message.remove

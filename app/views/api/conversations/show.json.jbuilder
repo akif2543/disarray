@@ -13,7 +13,9 @@ json.messages do
 end
 
 json.users do
-  @conversation.members.each do |m|
-    json.partial! "api/users/user", user: m
+  @conversation.get_members.each do |m|
+    json.cache! m do
+      json.partial! "api/users/user", user: m
+    end
   end
 end

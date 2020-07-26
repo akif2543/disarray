@@ -3,19 +3,8 @@ json.user do
     json.extract! user, :id, :username, :discriminator, :email, :online
     json.avatar url_for(user.avatar)
     json.servers user.server_aliases
-
-    conversations = []
-    conversees = {}
-    user.conversations.each do |c|
-      conversations << c.id
-      unless c.group
-        u = c.members.find { |m| m.id != user.id}
-        conversees[u.id] = c.id
-      end
-    end
-
-    json.conversations conversations
-    json.conversees conversees
+    json.conversations user.conversation_ids
+    json.conversees user.conversees
     json.friends user.friends.map(&:id)
     json.pendingIn user.requested_friends.map(&:id)
     json.pendingOut user.pending_friends.map(&:id)
@@ -25,9 +14,8 @@ end
 
 json.users do 
   user.friends.each do |f|
-    json.set! f.id do
-      json.extract! f, :id, :username, :discriminator, :online
-      json.avatar url_for(f.avatar)
+    json.cache! f do
+      json.partial! "api/users/user.json.jbuilder", user: f
     end
   end
 
@@ -46,7 +34,7 @@ json.users do
   end
 end
 
-user.servers.each do |server|
+user.get_servers.each do |server|
   json.servers do
     json.set! server.id do
       json.id server.id
@@ -54,79 +42,47 @@ user.servers.each do |server|
       json.icon(url_for(server.icon)) if server.icon.attached?
       json.owner server.owner_id
       json.joinCode server.join_code
-      json.members server.members.map(&:id)
-      json.channels server.channels.map(&:id)
-      json.active server.channels.first.id
+      json.members server.get_members.map(&:id)
+      json.channels server.get_channels.map(&:id)
+      json.active server.get_channels.first.id
     end
   end
 
   json.users do 
-    server.members.each do |m|
-      json.set! m.id do
-        json.extract! m, :id, :username, :discriminator, :online
-        json.avatar url_for(m.avatar)
-        json.servers m.server_aliases
+    server.get_members.each do |m|
+      json.cache! m do
+        json.partial! "api/users/user.json.jbuilder", user: m
+      end
+    end
+  end
+
+  json.channels do
+    server.get_channels.each do |c|
+      json.set! c.id do 
+        json.extract! c, :id, :name, :topic
+        json.server c.server_id
+        json.messages []
       end
     end
   end
 end
 
-user.channels.each do |c|
-  json.channels do
-    json.set! c.id do 
-      json.extract! c, :id, :name, :topic
-      json.server c.server_id
-      json.messages []
-      # c.messages.map(&:id)
-    end
-  end
-
-  # json.messages do
-  #   c.messages.each do |m|
-  #     json.set! m.id do
-  #       json.extract! m, :id, :body
-  #       json.author m.author_id
-  #       json.textChannel true
-  #       json.messageableId m.messageable_id
-  #       json.createdAt m.created_at
-  #       json.updatedAt m.updated_at
-  #     end
-  #   end
-  # end
-end
-
-user.conversations.each do |c|
+user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
       json.extract! c, :id, :group, :name
       json.icon(url_for(c.icon)) if c.group && c.icon.attached?
       json.owner c.owner_id
-      json.members c.members.map(&:id)
+      json.members c.get_members.map(&:id)
       json.messages []
-      # c.messages.map(&:id)
     end
   end
 
   json.users do 
-    c.members.each do |m|
-      json.set! m.id do
-        json.extract! m, :id, :username, :discriminator, :online
-        json.avatar url_for(m.avatar)
-        json.servers m.server_aliases
+    c.get_members.each do |m|
+      json.cache! m do
+        json.partial! "api/users/user.json.jbuilder", user: m
       end
     end
   end
-
-  # json.messages do
-  #   c.messages.each do |m|
-  #     json.set! m.id do
-  #       json.extract! m, :id, :body
-  #       json.author m.author_id
-  #       json.textChannel false
-  #       json.messageableId m.messageable_id
-  #       json.createdAt m.created_at
-  #       json.updatedAt m.updated_at
-  #     end
-  #   end
-  # end
 end

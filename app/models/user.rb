@@ -45,12 +45,37 @@ class User < ApplicationRecord
     user && user.is_password?(password) ? user : nil
   end
 
-  def server_aliases
-    aliases = {}
-    self.memberships.each do |m|
-      aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
+  def get_conversations
+    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
+      self.conversations.includes(:members)
     end
-    aliases
+  end
+
+  def get_servers
+    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
+      self.servers.includes(:members, :channels)
+    end
+  end
+
+  def conversation_ids
+    get_conversations.map(&:id)
+  end
+
+  def conversees
+    conversees = {}
+    get_conversations.each do |c|
+      unless c.group
+        u = c.members.find { |m| m.id != self.id}
+        conversees[u.id] = c.id
+      end
+    end
+    conversees
+  end
+
+  def server_aliases
+    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
+      force_server_aliases
+    end
   end
 
   def is_member?(server)
@@ -82,6 +107,14 @@ class User < ApplicationRecord
   end
 
   private
+
+  def force_server_aliases
+    aliases = {}
+    self.memberships.each do |m|
+      aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
+    end
+    aliases
+  end
 
   def ensure_session_token
     self.session_token ||= generate_session_token

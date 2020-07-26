@@ -111,6 +111,7 @@ GEM
       activerecord (>= 4.2.0, < 6.1)
       activesupport (>= 4.2.0, < 6.1)
       stateful_enum
+    hiredis (0.6.3)
     i18n (1.8.2)
       concurrent-ruby (~> 1.0)
     io-like (0.3.1)
@@ -243,6 +244,7 @@ DEPENDENCIES
   chromedriver-helper
   coffee-rails (~> 4.2)
   has_friendship
+  hiredis
   jbuilder (~> 2.5)
   jquery-rails
   listen (>= 3.0.5, < 3.2)

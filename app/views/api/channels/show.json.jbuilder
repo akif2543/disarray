@@ -13,6 +13,8 @@ end
   end
 
   json.users do
-    json.partial! "api/users/user", user: m.author
+    json.cache! m.author do
+      json.partial! "api/users/user", user: m.author
+    end
   end
 end

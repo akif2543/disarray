@@ -7,14 +7,14 @@ json.server do
     json.icon(url_for(@server.icon)) if @server.icon.attached?
     json.owner @server.owner_id
     json.joinCode @server.join_code
-    json.members @server.members.map(&:id)
-    json.channels @server.channels.map(&:id)
-    json.active @server.channels.first.id
+    json.members @server.get_members.map(&:id)
+    json.channels @server.get_channels.map(&:id)
+    json.active @server.get_channels.first.id
   end
 end
 
 json.channels do
-  @server.channels.each do |c|
+  @server.get_channels.each do |c|
     json.set! c.id do
       json.partial! "api/channels/channel", channel: c
     end
@@ -22,7 +22,9 @@ json.channels do
 end
 
 json.users do
-  @server.members.each do |member|
-    json.partial! "api/users/user", user: member
+  @server.get_members.each do |member|
+    json.cache! member do
+      json.partial! "api/users/user", user: member
+    end
   end
 end
