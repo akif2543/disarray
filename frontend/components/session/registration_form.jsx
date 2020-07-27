@@ -25,6 +25,11 @@ class RegistrationForm extends React.Component {
     stopLoading();
   }
 
+  componentWillUnmount() {
+    const { clearErrors } = this.props;
+    clearErrors();
+  }
+
   handleChange(type) {
     return (e) => this.setState({ [type]: e.target.value });
   }
@@ -64,7 +69,7 @@ class RegistrationForm extends React.Component {
         usernamePresence: false,
         passwordPresence: false,
       };
-      startLoading();
+      // startLoading();
       register({ email, username, password });
     }
   }

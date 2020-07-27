@@ -23,6 +23,11 @@ class LoginForm extends React.Component {
     clearErrors();
   }
 
+  componentWillUnmount() {
+    const { clearErrors } = this.props;
+    clearErrors();
+  }
+
   handleDemo() {
     const { startLoading, login } = this.props;
     startLoading();
@@ -69,8 +74,8 @@ class LoginForm extends React.Component {
   render() {
     const { email, password } = this.state;
     const { errors, loading } = this.props;
-    const emailError = errors.find((e) => e.match(/Email/));
-    const passwordError = errors.find((e) => e.match(/Password/));
+    const emailError = errors.find((e) => e[0].match(/email/));
+    const passwordError = errors.find((e) => e[0].match(/password/));
     const { emailPresence, passwordPresence } = this.errors;
 
     return (
@@ -87,7 +92,7 @@ class LoginForm extends React.Component {
             EMAIL
             {"  "}
             {emailError && (
-              <span className="session-error">{`- ${emailError}`}</span>
+              <span className="session-error">{`- ${emailError[1]}`}</span>
             )}
             {emailPresence && (
               <span className="session-error">- This field is required.</span>
@@ -110,7 +115,7 @@ class LoginForm extends React.Component {
             PASSWORD
             {"  "}
             {passwordError && (
-              <span className="session-error">{`- ${passwordError}`}</span>
+              <span className="session-error">{`- ${passwordError[1]}`}</span>
             )}
             {passwordPresence && (
               <span className="session-error">- This field is required.</span>

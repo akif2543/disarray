@@ -2,15 +2,15 @@ class Api::SessionsController < ApplicationController
 
   def create
     if User.find_by(email: params[:user][:email])
-      @user = User.includes(servers: :channels, conversations: :members).find_by_credentials(params[:user][:email], params[:user][:password])
+      @user = User.includes(:friends, :pending_friends, :requested_friends, :blocked_friends, servers: [:members, :channels], conversations: :members).find_by_credentials(params[:user][:email], params[:user][:password])
       if @user
         login!(@user)
         render( partial: "api/users/current_user", locals: {user: @user})
       else
-        render json: ["Password does not match."], status: 422
+        render json: [["password", "Password does not match."]], status: 422
       end
     else
-      render json: ["Email does not exist."], status: 422
+      render json: [["email", "Email does not exist."]], status: 422
     end
   end
 

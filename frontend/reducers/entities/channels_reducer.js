@@ -5,14 +5,17 @@ import {
   RECEIVE_MESSAGES,
   REMOVE_MESSAGE,
 } from "../../actions/message_actions";
+import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 
 const channelsReducer = (state = {}, action) => {
-  const newState = Object.assign({}, state);
+  const newState = { ...state };
   let message;
   let messages;
   let i;
 
   switch (action.type) {
+    case RECEIVE_CURRENT_USER:
+      return Object.assign(newState, action.channels);
     case RECEIVE_CHANNEL:
       return Object.assign(newState, action.channel);
     case RECEIVE_SERVER:

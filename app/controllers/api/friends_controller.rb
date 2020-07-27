@@ -18,28 +18,35 @@ class Api::FriendsController < ApplicationController
 
   def create
     @user = params[:id] ? User.find_by(id: params[:id]) : User.find_by(username: params[:user][:username], discriminator: params[:user][:discriminator])
-    if !@user || @user == current_user
+    if !@user || @user == current_user || current_user.friends_with?(@user)
       render json: ["User not found"], status: 404
     else
-      current_user.friend_request(@user)
-      FriendsChannel.broadcast_to(@user, format_request)
+      if current_user.friend_request(@user)
+        FriendsChannel.broadcast_to(@user, format_request)
+      else
+        render json: ["Cannot send a friend request to this user"], status: 400
+      end
     end
   end
 
   def update
     @user = User.find_by(id: params[:id])
     if @user
-      if params[:accept]
+      if params[:accept] && current_user.requested_friends.include?(@user)
         @request = "accept"
         current_user.accept_request(@user)
-      elsif params[:decline]
+        FriendsChannel.broadcast_to(@user, format_response)
+      elsif params[:decline] && current_user.requested_friends.include?(@user)
         @request = "decline"
         current_user.decline_request(@user)
-      else
+        FriendsChannel.broadcast_to(@user, format_response)
+      elsif params[:cancel] && current_user.pending_friends.include?(@user)
         @request = "cancel"
         @user.decline_request(current_user)
+        FriendsChannel.broadcast_to(@user, format_response)
+      else 
+        render json: ["User not found"], status: 404
       end
-      FriendsChannel.broadcast_to(@user, format_response)
     else
       render json: ["User not found"], status: 404
     end

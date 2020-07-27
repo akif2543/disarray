@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   private
 
   def get_current_user
-    User.includes(:friends, :pending_friends, :requested_friends, :blocked_friends, servers: [:members, :channels], conversations: [:members, :messages], channels: [:messages]).find_by(session_token: session[:session_token])
+    User.includes(:friends, :pending_friends, :requested_friends, :blocked_friends, servers: [:members, :channels], conversations: :members).find_by(session_token: session[:session_token])
   end
 
 end
