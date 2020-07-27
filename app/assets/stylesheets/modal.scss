@@ -595,6 +595,7 @@
         input {
           width: 100%;
           color: rgb(211, 212, 213);
+          font-family: "Whitney Medium";
         }
 
         .presence-err {
@@ -605,6 +606,7 @@
           height: 85px;
           width: 100%;
           box-sizing: border-box;
+          font-family: "Whitney Medium";
           color: rgb(211, 212, 213);
           background: $dk-session-input-bg;
           border: 0.5px solid $dk-session-input-b;

@@ -19,12 +19,8 @@ class LoginForm extends React.Component {
   }
 
   componentDidMount() {
-    const { clearErrors, stopLoading } = this.props;
+    const { clearErrors } = this.props;
     clearErrors();
-  }
-
-  componentWillUnmount() {
-    return this.props.startLoading();
   }
 
   handleDemo() {
@@ -58,13 +54,14 @@ class LoginForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { login } = this.props;
+    const { login, startLoading } = this.props;
     const { email, password } = this.state;
     if (this.valid(email, password)) {
       this.errors = {
         emailPresence: false,
         passwordPresence: false,
       };
+      startLoading();
       login({ email, password });
     }
   }
