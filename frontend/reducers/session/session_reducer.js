@@ -62,7 +62,7 @@ const sessionReducer = (state = { id: null }, action) => {
     case RECEIVE_ACTIVE_CONVO:
       return { ...newState, active: action.convo };
     case RECEIVE_PENDING:
-      newState.info.pendingOut.push(action.requestee.id);
+      newState.pendingOut.push(action.requestee.id);
       return newState;
     case RECEIVE_REQUEST:
       newState.pendingIn.push(action.requester.id);
