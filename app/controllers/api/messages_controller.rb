@@ -5,7 +5,7 @@ class Api::MessagesController < ApplicationController
     @messages = Message
       .includes(:author)
       .where("messageable_type = :type AND messageable_id = :id AND created_at < :date", { type: params[:t] ? 'Channel' : 'Conversation', id: params[:channel_id] || params[:conversation_id], date: time })
-      .order(:created_at)
+      .order(created_at: :desc)
       .limit(20)
     render :index
   end
@@ -16,7 +16,6 @@ class Api::MessagesController < ApplicationController
       @message = Message.new(body: params[:message][:body], author_id: current_user.id, messageable: @conversation)
       if @message.save
         ChatChannel.broadcast_to(@conversation, format_message)
-        # render "api/conversations/show"
       else
         render json: @message.errors.full_messages, status: 422
       end

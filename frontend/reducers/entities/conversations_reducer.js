@@ -9,7 +9,7 @@ import {
 } from "../../actions/message_actions";
 
 const conversationsReducer = (state = {}, action) => {
-  const newState = Object.assign({}, state);
+  const newState = { ...state };
   let messages;
   let message;
 
@@ -22,23 +22,21 @@ const conversationsReducer = (state = {}, action) => {
       return Object.assign(newState, action.conversations);
     case RECEIVE_MESSAGES:
       if (action.messages) {
-        messages = Object.values(action.messages);
-        if (!messages[0].textChannel) {
-          newState[messages[0].messageableId].messages = messages
-            .map((m) => m.id)
-            .concat(newState[messages[0].messageableId].messages);
-          return newState;
+        messages = Object.keys(action.messages);
+        message = action.messages[messages[0]];
+        if (!message.textChannel) {
+          newState[message.messageableId].messages = messages.concat(
+            newState[message.messageableId].messages
+          );
         }
-        return state;
       }
-      return state;
+      return newState;
     case RECEIVE_MESSAGE:
       [message] = Object.values(action.message);
       if (!message.textChannel) {
         newState[message.messageableId].messages.push(message.id);
-        return newState;
       }
-      return state;
+      return newState;
     default:
       return state;
   }

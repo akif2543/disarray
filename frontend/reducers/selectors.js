@@ -67,12 +67,7 @@ export const getTextChannelMessages = (state, props) => {
   const channel = getCurrentChannel(state, props);
   if (channel === undefined) return null;
   const { messages } = channel;
-  return messages
-    .map((id) => state.entities.messages[id])
-    .sort((a, b) => {
-      if (!a || !b) return;
-      return new Date(a.createdAt) - new Date(b.createdAt);
-    });
+  return messages.map((id) => state.entities.messages[id]);
 };
 
 export const getCurrentConversation = (state, props) => {
@@ -127,12 +122,7 @@ export const getConversationMessages = (state, props) => {
   const convo = getCurrentConversation(state, props);
   if (convo === undefined) return null;
   const { messages } = convo;
-  return messages
-    .map((id) => state.entities.messages[id])
-    .sort((a, b) => {
-      if (!a || !b) return;
-      return new Date(a.createdAt) - new Date(b.createdAt);
-    });
+  return messages.map((id) => state.entities.messages[id]);
 };
 
 export const getMessageAuthor = (state, props) => {
