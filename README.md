@@ -47,7 +47,7 @@ Users can invite their friends to group DMs.
 
 ### Infinite Scroll in a Chat Channel
 
-An obstacle I encountered was implementing infinite scroll in chat channels to load earlier messages. I wanted each channel to only load a batch of the most recent messages, and then allow the user to request earlier messages at their will. The chat component uses refs to scroll to the bottom of the chat whenever a new message is received using `element.scrollIntoView()`. This behavior proved problematic when attempting to load earlier messages though. The user would scroll to the top of the chat, triggering a request to fetch a batch of earlier messages, but when the chat component was updated to include those messages, the most recent message would scroll into view, causing the scrollbar to jump all the way back to the bottom of the component, and forcing the user to have to scroll all the way back up in order to view the messages they requested. Not very user-friendly!
+One of the biggest obstacles I encountered was implementing infinite scroll in chat channels to lazy load earlier messages in the history. Now, I know what you're thinking: "Infinite scroll? But that's easy!" And indeed it is. But my chat component uses refs to scroll to the bottom of the chat whenever a new message is received using `element.scrollIntoView()`, and this behavior proved to be problematic when attempting to load earlier messages. The user would scroll to the top of the chat, triggering a request to fetch a batch of earlier messages, but when the chat component was updated to include those messages, the most recent message would scroll into view, causing the scrollbar to jump all the way back to the bottom of the component, and forcing the user to have to scroll all the way back up in order to view the messages they requested. Not very user-friendly!
 
 To get past this issue, I needed to find a way to temporarily disable the scroll into view call when earlier messages were being fetched. To accomplish this I created `loading` and `scrolling` slices of local state:
 
@@ -194,4 +194,8 @@ And just like that, I had visible tooltips in an `overflow-y: scroll` container!
 
 ![Tooltips](app/assets/images/readme/tooltips.gif "Dynamic tooltips")
 
-Thank you for taking the time to look through this README! Please don't hesitate to get in touch if you found anything interesting.
+## Future Directions
+
+I hope to add functionality for notifications, pinned messages, mentions, and then finally tackle voice chat in the near future. I honestly can't wait!
+
+Thank you for taking the time to look through this README. Please don't hesitate to get in touch if you found it interesting.
