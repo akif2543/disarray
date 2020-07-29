@@ -5,7 +5,7 @@ class Conversation < ApplicationRecord
 
   has_many :memberships, as: :subscribeable, dependent: :destroy
   has_many :members, through: :memberships, source: :member
-  has_many :messages, -> { order("created_at DESC").limit(20) }, as: :messageable, dependent: :destroy
+  has_many :messages, -> { order("created_at DESC").limit(30) }, as: :messageable, dependent: :destroy
 
   has_one_attached :icon
 

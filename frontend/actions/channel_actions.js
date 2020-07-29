@@ -30,16 +30,16 @@ export const fetchChannel = (id) => (dispatch) =>
     .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
 
 export const createChannel = (channel) => (dispatch) =>
-  ChannelAPI.createChannel(channel)
-    // .then((newChannel) => dispatch(receiveChannel(newChannel)))
-    .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
+  ChannelAPI.createChannel(channel).fail((e) =>
+    dispatch(receiveChannelErrors(e.responseJSON))
+  );
 
 export const updateChannel = (channel) => (dispatch) =>
-  ChannelAPI.updateChannel(channel)
-    // .then((updatedChannel) => dispatch(receiveChannel(updatedChannel)))
-    .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
+  ChannelAPI.updateChannel(channel).fail((e) =>
+    dispatch(receiveChannelErrors(e.responseJSON))
+  );
 
 export const deleteChannel = (id) => (dispatch) =>
-  ChannelAPI.deleteChannel(id)
-    // .then((channel) => dispatch(removeChannel(channel)))
-    .fail((e) => dispatch(receiveChannelErrors(e.responseJSON)));
+  ChannelAPI.deleteChannel(id).fail((e) =>
+    dispatch(receiveChannelErrors(e.responseJSON))
+  );

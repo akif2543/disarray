@@ -86,14 +86,14 @@ export const createServer = (server) => (dispatch) =>
     .fail((e) => dispatch(receiveServers(e.responseJSON)));
 
 export const updateServer = (id, server) => (dispatch) =>
-  ServerAPI.updateServer(id, server)
-    // .then((updatedServer) => dispatch(receiveServer(updatedServer)))
-    .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
+  ServerAPI.updateServer(id, server).fail((e) =>
+    dispatch(receiveServerErrors(e.responseJSON))
+  );
 
 export const deleteServer = (id) => (dispatch) =>
-  ServerAPI.deleteServer(id)
-    // .then((server) => dispatch(removeServer(server)))
-    .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
+  ServerAPI.deleteServer(id).fail((e) =>
+    dispatch(receiveServerErrors(e.responseJSON))
+  );
 
 export const joinServer = (membership) => (dispatch) =>
   ServerAPI.joinServer(membership)
@@ -113,6 +113,6 @@ export const leaveServer = (membership) => (dispatch) =>
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 
 export const changeNickname = (membership) => (dispatch) =>
-  ServerAPI.changeNickname(membership)
-    // .then((server) => dispatch(receiveAlias(server)))
-    .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
+  ServerAPI.changeNickname(membership).fail((e) =>
+    dispatch(receiveServerErrors(e.responseJSON))
+  );
