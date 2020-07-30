@@ -50,6 +50,7 @@ export const getCurrentChannel = (state, props) => {
 export const getServerMembers = (state, props) => {
   const { id, members } = getCurrentServer(state, props);
   return members
+    .filter((n, i, a) => a.indexOf(n) === i)
     .map((m) => state.entities.users[m])
     .sort((a, b) => {
       const nameA = a.servers[id] || a.username;
@@ -103,6 +104,7 @@ export const getConversationMembers = (state, props) => {
   if (!convo) return [];
   const { members } = convo;
   return members
+    .filter((n, i, a) => a.indexOf(n) === i)
     .map((m) => state.entities.users[m])
     .sort((a, b) =>
       a.username.toLowerCase() < b.username.toLowerCase() ? -1 : 1

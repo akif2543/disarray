@@ -1,7 +1,7 @@
 const dateDiff = (date) => {
   const now = Date.now();
   const messageDate = date.getTime();
-  return Math.floor((now - messageDate) / (24 * 3600 * 1000));
+  return (now - messageDate) / (24 * 3600 * 1000);
 };
 
 export const formatDate = (date) => {
@@ -16,13 +16,15 @@ export const formatDate = (date) => {
 
   const now = new Date();
 
-  switch (diff) {
+  switch (Math.floor(diff)) {
     case 0:
       return mDate.getDate() === now.getDate()
         ? `Today at ${dStr}`
         : `Yesterday at ${dStr}`;
     case 1:
-      return `Yesterday at ${dStr}`;
+      return Math.round(diff) === 1
+        ? `Yesterday at ${dStr}`
+        : mDate.toLocaleDateString();
     default:
       return mDate.toLocaleDateString();
   }

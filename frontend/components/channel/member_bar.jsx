@@ -21,24 +21,42 @@ const MemberBar = ({ members, owner, s }) => {
     <div className="member-bar-wrapper">
       {s ? (
         <nav className="member-bar">
-          <h4>ONLINE—{online.length}</h4>
-          <ul>
-            {online.map((m) => {
-              if (m === undefined) return null;
-              return (
-                <Member m={m} owner={owner} key={shortid.generate()} s={s} />
-              );
-            })}
-          </ul>
-          <h4>OFFLINE—{offline.length}</h4>
-          <ul>
-            {offline.map((m) => {
-              if (m === undefined) return null;
-              return (
-                <Member m={m} owner={owner} key={shortid.generate()} s={s} />
-              );
-            })}
-          </ul>
+          {online.length && (
+            <>
+              <h4>ONLINE—{online.length}</h4>
+              <ul>
+                {online.map((m) => {
+                  if (m === undefined) return null;
+                  return (
+                    <Member
+                      m={m}
+                      owner={owner}
+                      key={shortid.generate()}
+                      s={s}
+                    />
+                  );
+                })}
+              </ul>
+            </>
+          )}
+          {offline.length && (
+            <>
+              <h4>OFFLINE—{offline.length}</h4>
+              <ul>
+                {offline.map((m) => {
+                  if (m === undefined) return null;
+                  return (
+                    <Member
+                      m={m}
+                      owner={owner}
+                      key={shortid.generate()}
+                      s={s}
+                    />
+                  );
+                })}
+              </ul>
+            </>
+          )}
         </nav>
       ) : (
         <nav className="member-bar">
