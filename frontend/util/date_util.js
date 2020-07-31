@@ -4,6 +4,28 @@ const dateDiff = (date) => {
   return (now - messageDate) / (24 * 3600 * 1000);
 };
 
+const isYesterday = (now, notNow) => {
+  const today = now.getDate();
+  const notToday = notNow.getDate();
+  if (today === 1) {
+    const thisMonth = now.getMonth();
+    switch (thisMonth) {
+      case 2:
+        const year = now.getYear();
+        return year % 4 ? notToday === 28 : notToday === 29;
+      case 3:
+      case 5:
+      case 8:
+      case 10:
+        return notToday === 31;
+      default:
+        return notToday === 30;
+    }
+  } else {
+    return today - notToday === 1;
+  }
+};
+
 export const formatDate = (date) => {
   const mDate = new Date(date);
   const diff = dateDiff(mDate);
@@ -14,15 +36,15 @@ export const formatDate = (date) => {
   });
   dStr = dStr[0] === "0" ? dStr.slice(1) : dStr;
 
-  const now = new Date();
+  const today = new Date();
 
   switch (Math.floor(diff)) {
     case 0:
-      return mDate.getDate() === now.getDate()
+      return mDate.getDate() === today.getDate()
         ? `Today at ${dStr}`
         : `Yesterday at ${dStr}`;
     case 1:
-      return Math.round(diff) === 1
+      return isYesterday(today, mDate)
         ? `Yesterday at ${dStr}`
         : mDate.toLocaleDateString();
     default:

@@ -25,7 +25,7 @@
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
   },
-  "description": "Disarray is a Discord (www.discord.com) clone geared towards programmers.",
+  "description": "Disarray is a Discord clone.",
   "version": "1.0.0",
   "main": "index.js",
   "directories": {
