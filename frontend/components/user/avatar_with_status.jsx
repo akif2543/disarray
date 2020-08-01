@@ -1,4 +1,4 @@
-import React from "react";
+import React, { memo } from "react";
 
 const AvatarWithStatus = ({ avatar, online, sidebar, u, m }) => {
   let className = "status-bg";
@@ -27,4 +27,4 @@ const AvatarWithStatus = ({ avatar, online, sidebar, u, m }) => {
   );
 };
 
-export default AvatarWithStatus;
+export default memo(AvatarWithStatus);

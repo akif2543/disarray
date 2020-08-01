@@ -1,6 +1,9 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
+import "core-js/modules/es.promise";
+import "core-js/modules/es.array.iterator";
+
 import configureStore from "./store/store";
 import "./icons/fa_library";
 import Root from "./components/app/root";
