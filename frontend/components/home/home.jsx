@@ -1,59 +1,33 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
+import { Route } from "react-router-dom";
+import { connect } from "react-redux";
 
-import NavBar from "../ui/nav_bar";
-import FriendList from "./friend_list";
+import { stopLoading } from "../../actions/ui_actions";
 
-const Home = ({
-  stopLoading,
-  user,
-  friends,
-  pendingIn,
-  pendingOut,
-  blocked,
-  friendError,
-  requestFriend,
-  respondToRequest,
-  unfriend,
-  directMessage,
-  createConversation,
-  customizeConversation,
-  openModal,
-  history: { push },
-}) => {
-  const [active, setActive] = useState(friends.length ? "online" : "add");
+import ServerBarContainer from "../server/bars/server_bar_container";
+import ConversationPanelContainer from "../conversation/conversation_panel_container";
+import FriendsContainer from "../friends/friends_container";
+import ConversationContainer from "../conversation/conversation_container";
 
-  const switchTab = (tab) => () => setActive(tab);
-
+const Home = ({ stopLoad }) => {
   useEffect(() => {
-    stopLoading();
+    stopLoad();
   }, []);
 
   return (
-    <div className="main">
-      <NavBar
-        home
-        switchTab={switchTab}
-        active={active}
-        customizeConversation={customizeConversation}
-      />
-      <FriendList
-        active={active}
-        user={user}
-        friends={friends}
-        pendingIn={pendingIn}
-        pendingOut={pendingOut}
-        blocked={blocked}
-        friendError={friendError}
-        requestFriend={requestFriend}
-        respondToRequest={respondToRequest}
-        removeFriend={unfriend}
-        directMessage={directMessage}
-        createConversation={createConversation}
-        openModal={openModal}
-        push={push}
-      />
-    </div>
+    <>
+      <ServerBarContainer />
+      <ConversationPanelContainer />
+      <Route exact path="/@me" component={FriendsContainer} />
+      <Route path="/@me/:conversationId" component={ConversationContainer} />
+    </>
   );
 };
 
-export default Home;
+const mDTP = (dispatch) => ({
+  stopLoad: () => dispatch(stopLoading()),
+});
+
+const HomeContainer = connect(null, mDTP)(Home);
+
+export default HomeContainer;

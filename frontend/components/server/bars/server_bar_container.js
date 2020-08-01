@@ -1,4 +1,5 @@
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import {
   // getCurrentServer,
@@ -28,6 +29,6 @@ const mDTP = (dispatch) => ({
   leaveServer: (id) => dispatch(leaveServer(id)),
 });
 
-const ServerBarContainer = connect(mSTP, mDTP)(ServerBar);
+const ServerBarContainer = withRouter(connect(mSTP, mDTP)(ServerBar));
 
 export default ServerBarContainer;

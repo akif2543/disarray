@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import { getCurrentUser, getConversations } from "../../reducers/selectors";
@@ -15,6 +16,8 @@ const mDTP = (dispatch) => ({
   setActive: (convo) => dispatch(receiveActiveConversation(convo)),
 });
 
-const ConversationPanelContainer = connect(mSTP, mDTP)(ConversationPanel);
+const ConversationPanelContainer = withRouter(
+  connect(mSTP, mDTP)(ConversationPanel)
+);
 
 export default ConversationPanelContainer;

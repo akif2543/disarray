@@ -1,18 +1,30 @@
-import React, { useEffect } from "react";
-import { Route } from "react-router-dom";
+import React, { useEffect, Suspense, lazy } from "react";
+import { Route, Switch } from "react-router-dom";
+
+import { AuthRoute, ProtectedRoute } from "../../util/route_util";
 
 import SplashContainer from "../splash/splash_container";
 import SessionContainer from "../session/session_container";
-import { AuthRoute, ProtectedRoute } from "../../util/route_util";
-import HomeContainer from "../home/home_container";
+
+const Home = lazy(() =>
+  import(/* webpackPrefetch: true, webpackChunkName: "home" */ "../home/home")
+);
+const Server = lazy(() =>
+  import(
+    /* webpackPrefetch: true, webpackChunkName: "server" */ "../server/server"
+  )
+);
+const Settings = lazy(() =>
+  import(
+    /* webpackPrefetch: true, webpackChunkName: "settings" */ "../ui/settings"
+  )
+);
+const Modal = lazy(() =>
+  import(/* webpackPrefetch: true, webpackChunkName: "modal" */ "../ui/modal")
+);
+
 import Loading from "../ui/loading";
-import ModalContainer from "../ui/modal";
-import ServerPanelContainer from "../server/bars/server_panel_container";
-import ServerBarContainer from "../server/bars/server_bar_container";
-import SettingsContainer from "../ui/settings";
-import TextChannelContainer from "../channel/text_channel_container";
-import ConversationContainer from "../conversation/conversation_container";
-import ConversationPanelContainer from "../conversation/conversation_panel_container";
+
 import {
   appearanceSub,
   friendsSub,
@@ -50,31 +62,22 @@ const Application = ({
     <div className="app">
       <Route exact path="/" component={SplashContainer} />
       {loading && <Loading />}
-      {settings && <SettingsContainer />}
-      {modal && <ModalContainer />}
       <AuthRoute
         exact
         path={["/register", "/login"]}
         component={SessionContainer}
       />
-      <ProtectedRoute
-        path={["/channels/:serverId/:channelId", "/@me"]}
-        component={ServerBarContainer}
-      />
-      <ProtectedRoute
-        path="/channels/:serverId/:channelId"
-        component={ServerPanelContainer}
-      />
-      <ProtectedRoute path="/@me" component={ConversationPanelContainer} />
-      <ProtectedRoute
-        path="/@me/:conversationId"
-        component={ConversationContainer}
-      />
-      <ProtectedRoute exact path="/@me" component={HomeContainer} />
-      <ProtectedRoute
-        path="/channels/:serverId/:channelId"
-        component={TextChannelContainer}
-      />
+      <Suspense fallback={null}>
+        {settings && <Settings />}
+        {modal && <Modal />}
+        <Switch>
+          <ProtectedRoute path="/@me" component={Home} />
+          <ProtectedRoute
+            path="/channels/:serverId/:channelId"
+            component={Server}
+          />
+        </Switch>
+      </Suspense>
     </div>
   );
 };

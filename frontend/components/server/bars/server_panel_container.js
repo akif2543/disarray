@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -44,6 +45,6 @@ const mDTP = (dispatch) => ({
   setActive: (server) => dispatch(receiveActive(server)),
 });
 
-const ServerPanelContainer = connect(mSTP, mDTP)(ServerPanel);
+const ServerPanelContainer = withRouter(connect(mSTP, mDTP)(ServerPanel));
 
 export default ServerPanelContainer;

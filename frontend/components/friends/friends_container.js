@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 
 import { stopLoading, openModal, openSettings } from "../../actions/ui_actions";
-import Home from "./home";
+import Friends from "./friends";
 import {
   getCurrentUser,
   getUserFriends,
@@ -39,6 +39,6 @@ const mDTP = (dispatch) => ({
   openModal: (modal) => dispatch(openModal(modal)),
 });
 
-const HomeContainer = connect(mSTP, mDTP)(Home);
+const FriendsContainer = connect(mSTP, mDTP)(Friends);
 
-export default HomeContainer;
+export default FriendsContainer;

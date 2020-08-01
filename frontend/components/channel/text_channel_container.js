@@ -1,3 +1,4 @@
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
 import {
@@ -40,6 +41,6 @@ const mDTP = (dispatch) => ({
   removeMessage: (message) => dispatch(removeMessage(message)),
 });
 
-const TextChannelContainer = connect(mSTP, mDTP)(TextChannel);
+const TextChannelContainer = withRouter(connect(mSTP, mDTP)(TextChannel));
 
 export default TextChannelContainer;
