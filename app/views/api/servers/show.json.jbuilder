@@ -15,9 +15,7 @@ json.channels do
 end
 
 json.users do
-  @server.get_members.each do |member|
-    json.cache! [member, member.online] do
-      json.partial! "api/users/user", user: member
-    end
+  json.cache_collection! @server.get_members, expires_in: 10.minutes do |m|
+    json.partial! "api/users/user", user: m
   end
 end

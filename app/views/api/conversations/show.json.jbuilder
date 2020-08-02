@@ -12,9 +12,7 @@ json.messages do
 end
 
 json.users do
-  @conversation.get_members.each do |m|
-    json.cache! [m, m.online], expires_in: 10.minutes do
-      json.partial! "api/users/user", user: m
-    end
+  json.cache_collection! @conversation.get_members, expires_in: 10.minutes do |m|
+    json.partial! "api/users/user", user: m
   end
 end
