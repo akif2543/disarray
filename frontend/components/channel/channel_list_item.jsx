@@ -1,7 +1,13 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
+
+const areEqual = (prevProps, nextProps) => {
+  if (prevProps.channel.name !== nextProps.channel.name) return false;
+  if (prevProps.isActive !== nextProps.isActive) return false;
+  return true;
+};
 
 const ChannelListItem = ({
   channel,
@@ -79,4 +85,4 @@ const ChannelListItem = ({
   );
 };
 
-export default ChannelListItem;
+export default memo(ChannelListItem, areEqual);

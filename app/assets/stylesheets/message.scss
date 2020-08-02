@@ -181,6 +181,14 @@
     background: $dk-search-bg;
   }
 
+  .loader {
+    width: 100%;
+    color: $dk-blue;
+    text-align: center;
+    position: absolute;
+    z-index: 3;
+  }
+
   .unread-alert {
     position: absolute;
     bottom: 64px;

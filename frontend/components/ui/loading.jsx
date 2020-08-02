@@ -1,6 +1,6 @@
 import React from "react";
 
-const Loading = (props) => (
+const Loading = () => (
   <main className="loading">
     <div className="loading-group">
       <img src={window.logoIconURL} alt="" />

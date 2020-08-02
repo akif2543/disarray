@@ -1,7 +1,22 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, memo } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MemberPopoutContainer from "./member_popout";
 import AvatarWithStatus from "../user/avatar_with_status";
+
+const areEqual = (prevProps, nextProps) => {
+  if (
+    prevProps.m.username !== nextProps.m.username ||
+    prevProps.m.avatar !== nextProps.m.avatar ||
+    prevProps.m.online !== nextProps.m.online
+  )
+    return false;
+  if (
+    prevProps.s &&
+    prevProps.m.servers[prevProps.s.id] !== nextProps.m.servers[prevProps.s.id]
+  )
+    return false;
+  return prevProps.owner === nextProps.owner;
+};
 
 const Member = ({ m, owner, s }) => {
   const el = useRef(null);
@@ -28,4 +43,4 @@ const Member = ({ m, owner, s }) => {
   );
 };
 
-export default Member;
+export default memo(Member, areEqual);

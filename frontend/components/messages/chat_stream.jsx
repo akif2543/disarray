@@ -134,21 +134,29 @@ class ChatStream extends React.Component {
 
   handleLoad() {
     const { loading, timestamp, lastTime } = this.state;
-    if (!loading || timestamp === lastTime) return;
+    if (!loading) return;
+    if (timestamp === lastTime) {
+      this.setSlice("loading", false);
+      return;
+    }
     this.setState({ lastTime: timestamp });
     const { id, fetchMessages, type } = this.props;
     const time = new Date(timestamp).getTime();
-    fetchMessages(type, id, time);
+    fetchMessages(type, id, time).then((action) => {
+      if (!action.messages) this.setSlice("loading", false);
+    });
   }
 
   render() {
     const seen = new Set();
     const last = [];
     const { memberbar, messages } = this.props;
-    const { scrolling } = this.state;
+    const { scrolling, loading } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
-        <div ref={this.bottom} />
+        <div ref={this.bottom} className="loader">
+          {loading && <FontAwesomeIcon icon="spinner" spin />}
+        </div>
         {messages.map((m) => {
           if (m === undefined || !m) return null;
           if (seen.has(m.id)) return;

@@ -42,8 +42,10 @@ import { faPhoneAlt } from "@fortawesome/free-solid-svg-icons/faPhoneAlt";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons/faTrashAlt";
 import { faUsers } from "@fortawesome/free-solid-svg-icons/faUsers";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons/faSpinner";
 
 library.add(
+  faSpinner,
   faFileImage,
   faTimes,
   faCheck,

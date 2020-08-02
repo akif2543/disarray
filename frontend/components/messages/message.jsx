@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, memo } from "react";
 
 import MemberPopoutContainer from "../channel/member_popout";
 import MessageOpts from "./message_opts";
@@ -6,6 +6,22 @@ import EditMessageForm from "./edit_message_form";
 
 import { shortDate, formatDate } from "../../util/date_util";
 import MessageDropdown from "./message_dropdown";
+
+const areEqual = (prevProps, nextProps) => {
+  if (prevProps.m.updatedAt !== nextProps.m.updatedAt) return false;
+  if (
+    prevProps.a.username !== nextProps.a.username ||
+    prevProps.a.avatar !== nextProps.a.avatar
+  )
+    return false;
+  if (
+    prevProps.s &&
+    prevProps.a.servers[prevProps.s.id] !== nextProps.a.servers[prevProps.s.id]
+  )
+    return false;
+  if (prevProps.openModal !== nextProps.openModal) return false;
+  return true;
+};
 
 const Message = ({
   m,
@@ -109,4 +125,4 @@ const Message = ({
   );
 };
 
-export default Message;
+export default memo(Message, areEqual);

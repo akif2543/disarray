@@ -3,24 +3,20 @@ import { Route, Switch } from "react-router-dom";
 
 import { AuthRoute, ProtectedRoute } from "../../util/route_util";
 
-import SplashContainer from "../splash/splash_container";
-import SessionContainer from "../session/session_container";
+import SettingsContainer from "../ui/settings";
+import ModalContainer from "../ui/modal";
 
-const Home = lazy(() =>
-  import(/* webpackPrefetch: true, webpackChunkName: "home" */ "../home/home")
+const Splash = lazy(() =>
+  import(/* webpackChunkName: "splash" */ "../splash/splash_container")
 );
+
+const Session = lazy(() =>
+  import(/* webpackChunkName: "session" */ "../session/session_container")
+);
+
+const Home = lazy(() => import(/* webpackChunkName: "home" */ "../home/home"));
 const Server = lazy(() =>
-  import(
-    /* webpackPrefetch: true, webpackChunkName: "server" */ "../server/server"
-  )
-);
-const Settings = lazy(() =>
-  import(
-    /* webpackPrefetch: true, webpackChunkName: "settings" */ "../ui/settings"
-  )
-);
-const Modal = lazy(() =>
-  import(/* webpackPrefetch: true, webpackChunkName: "modal" */ "../ui/modal")
+  import(/* webpackChunkName: "server" */ "../server/server")
 );
 
 import Loading from "../ui/loading";
@@ -60,22 +56,18 @@ const Application = ({
 
   return (
     <div className="app">
-      <Route exact path="/" component={SplashContainer} />
       {loading && <Loading />}
-      <AuthRoute
-        exact
-        path={["/register", "/login"]}
-        component={SessionContainer}
-      />
-      <Suspense fallback={null}>
-        {settings && <Settings />}
-        {modal && <Modal />}
+      {settings && <SettingsContainer />}
+      {modal && <ModalContainer />}
+      <Suspense fallback={<Loading />}>
         <Switch>
+          <AuthRoute path={["/register", "/login"]} component={Session} />
           <ProtectedRoute path="/@me" component={Home} />
           <ProtectedRoute
             path="/channels/:serverId/:channelId"
             component={Server}
           />
+          <Route path="/" component={Splash} />
         </Switch>
       </Suspense>
     </div>
