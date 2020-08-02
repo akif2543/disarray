@@ -14,8 +14,8 @@ json.user do
 end
 
 json.users do
-  json.cache_collection! user.friends, expires_in: 10.minutes do |f|
-    json.partial! "api/users/user.json.jbuilder", user: f
+  Rails.cache.fetch_multi(*user.friends, expires_in: 10.minutes) do |friend|
+    json.partial! "api/users/user.json.jbuilder", user: friend
   end
 
   (user.requested_friends + user.pending_friends).each do |f|
@@ -41,7 +41,7 @@ user.get_servers.each do |server|
   end
 
   json.users do
-    json.cache_collection! server.get_members, expires_in: 10.minutes do |m|
+    Rails.cache.fetch_multi(*server.get_members, expires_in: 10.minutes) do |m|
       json.partial! "api/users/user.json.jbuilder", user: m
     end
   end
@@ -70,7 +70,7 @@ user.get_conversations.each do |c|
   end
 
   json.users do 
-    json.cache_collection! c.get_members, expires_in: 10.minutes do |m|
+    Rails.cache.fetch_multi(*c.get_members, expires_in: 10.minutes) do |m|
       json.partial! "api/users/user.json.jbuilder", user: m
     end
   end

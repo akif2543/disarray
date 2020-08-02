@@ -17,14 +17,14 @@ class Server < ApplicationRecord
   end
 
   def get_members
-    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
+    Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
       self.members
     end
   end
 
   def get_channels
-    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
-      self.channels.includes(:messages)
+    Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
+      self.channels
     end
   end
 

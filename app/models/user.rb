@@ -46,14 +46,14 @@ class User < ApplicationRecord
   end
 
   def get_conversations
-    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
-      self.conversations.includes(:members, :messages)
+    Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
+      self.conversations.includes(:members)
     end
   end
 
   def get_servers
-    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
-      self.servers.includes(:members, channels: :messages)
+    Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
+      self.servers.includes(:members, :channels)
     end
   end
 
@@ -73,7 +73,7 @@ class User < ApplicationRecord
   end
 
   def server_aliases
-    Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
+    Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
       force_server_aliases
     end
   end

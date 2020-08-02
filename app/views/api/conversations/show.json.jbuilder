@@ -12,7 +12,7 @@ json.messages do
 end
 
 json.users do
-  json.cache_collection! @conversation.get_members, expires_in: 10.minutes do |m|
+  Rails.cache.fetch_multi(*@conversation.get_members, expires_in: 10.minutes) do |m|
     json.partial! "api/users/user", user: m
   end
 end

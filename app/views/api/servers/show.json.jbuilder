@@ -15,7 +15,7 @@ json.channels do
 end
 
 json.users do
-  json.cache_collection! @server.get_members, expires_in: 10.minutes do |m|
+  Rails.cache.fetch_multi(*@server.get_members, expires_in: 10.minutes) do |m|
     json.partial! "api/users/user", user: m
   end
 end
