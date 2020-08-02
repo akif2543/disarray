@@ -46,7 +46,9 @@ const conversationsReducer = (state = {}, action) => {
       }
       return state;
     case RECEIVE_ACTIVE_CONVO:
-      newState[action.convo].hasUnreads = false;
+      if (action.convo) {
+        newState[action.convo].hasUnreads = false;
+      }
       return newState;
     default:
       return state;

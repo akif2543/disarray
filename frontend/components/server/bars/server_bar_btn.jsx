@@ -4,17 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../../ui/tooltip";
 
-const ServerBarBtn = ({ type, openModal, modalOpen, active }) => {
+const ServerBarBtn = ({
+  type,
+  openModal,
+  modalOpen,
+  active,
+  pending,
+  match,
+}) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
 
   const showTooltip = () => setTooltip(true);
   const hideTooltip = () => setTooltip(false);
 
+  let style = { display: "none" };
+
+  if (
+    (type === "create" && modalOpen) ||
+    (type === "home" && match.path === "/@me")
+  ) {
+    style = { height: "42px" };
+  } else if (tooltip) {
+    style = { height: "22px" };
+  }
+
   switch (type) {
     case "home":
       return (
-        <div>
+        <div className="home-icon-container">
+          <div className="note" style={style} />
           <NavLink to={active ? `/@me/${active}` : "/@me"}>
             <button
               className="home-btn"
@@ -26,15 +45,20 @@ const ServerBarBtn = ({ type, openModal, modalOpen, active }) => {
               ref={el}
             >
               <img src={window.logoIconURL} alt="" />
+              {pending && (
+                <div className="badge-bg">
+                  <div className="notification">{pending}</div>
+                </div>
+              )}
             </button>
             {tooltip && <Tooltip text="Home" className="sb-tt" el={el} />}
-            <div className="home-btn-divider" />
           </NavLink>
         </div>
       );
     case "create":
       return (
-        <div>
+        <div className="server-icon-container">
+          <div className="note" style={style} />
           <button
             className={modalOpen ? "server-btn active" : "server-btn"}
             type="button"
@@ -53,20 +77,18 @@ const ServerBarBtn = ({ type, openModal, modalOpen, active }) => {
     case "explore":
       return (
         <div>
-          <Link to="#">
-            <button
-              className="server-btn"
-              type="button"
-              onMouseOver={showTooltip}
-              onFocus={showTooltip}
-              onMouseOut={hideTooltip}
-              onBlur={hideTooltip}
-              ref={el}
-              style={{ cursor: "not-allowed" }}
-            >
-              <FontAwesomeIcon icon="compass" size="lg" />
-            </button>
-          </Link>
+          <button
+            className="server-btn"
+            type="button"
+            onMouseOver={showTooltip}
+            onFocus={showTooltip}
+            onMouseOut={hideTooltip}
+            onBlur={hideTooltip}
+            ref={el}
+            style={{ cursor: "not-allowed", margin: "5px 0" }}
+          >
+            <FontAwesomeIcon icon="compass" size="lg" />
+          </button>
           {tooltip && (
             <Tooltip
               text="Explore Public Servers [NYI]"
@@ -74,7 +96,6 @@ const ServerBarBtn = ({ type, openModal, modalOpen, active }) => {
               el={el}
             />
           )}
-          <div className="home-btn-divider" />
         </div>
       );
     default:

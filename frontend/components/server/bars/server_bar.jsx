@@ -3,12 +3,25 @@ import shortid from "shortid";
 import ServerBarIcon from "./server_bar_icon";
 import ServerBarBtn from "./server_bar_btn";
 
-const ServerBar = ({ servers, openModal, modalOpen, match, active }) => {
+const ServerBar = ({
+  servers,
+  openModal,
+  modalOpen,
+  match,
+  active,
+  pending,
+}) => {
   return (
     <div className="server-bar-wrapper">
       <section className="server-bar">
         <ul className="server-list">
-          <ServerBarBtn type="home" active={active} />
+          <ServerBarBtn
+            type="home"
+            active={active}
+            pending={pending}
+            match={match}
+          />
+          <div className="home-btn-divider" />
           {servers.map((s) =>
             s === undefined ? null : (
               <ServerBarIcon
@@ -24,6 +37,7 @@ const ServerBar = ({ servers, openModal, modalOpen, match, active }) => {
             openModal={openModal}
           />
           <ServerBarBtn type="explore" />
+          <div className="home-btn-divider" />
         </ul>
       </section>
     </div>

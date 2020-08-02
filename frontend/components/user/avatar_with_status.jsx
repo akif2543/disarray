@@ -1,14 +1,14 @@
 import React, { memo } from "react";
 
 const AvatarWithStatus = ({ avatar, online, sidebar, u, m }) => {
-  let className = "status-bg";
+  let className = "badge-bg";
 
   if (sidebar) {
-    className = "status-bg sidebar";
+    className = "badge-bg sidebar";
   } else if (u) {
-    className = "status-bg u";
+    className = "badge-bg u";
   } else if (m) {
-    className = "status-bg m";
+    className = "badge-bg m";
   }
 
   return (
@@ -16,9 +16,9 @@ const AvatarWithStatus = ({ avatar, online, sidebar, u, m }) => {
       <img src={avatar} alt="" className="avatar" />
       <div className={className}>
         {online ? (
-          <div className="online" />
+          <div className="notification online" />
         ) : (
-          <div className="offline">
+          <div className="notification offline">
             <div className="inner" />
           </div>
         )}

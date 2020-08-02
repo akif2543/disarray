@@ -95,34 +95,37 @@
   border-radius: 50%;
 }
 
+.badge-bg {
+  height: 16px;
+  width: 16px;
+  border-radius: 50%;
+  position: absolute;
+  z-index: 2;
+  bottom: -2px;
+  right: -2px;
+  @include flex(row, center, center);
+
+  .notification {
+    @include flex(row, center, center);
+    border-radius: 50%;
+    height: 10px;
+    width: 10px;
+  }
+}
+
 .avatar-with-status {
   position: relative;
   height: 35px;
 
-  .status-bg {
-    height: 16px;
-    width: 16px;
+  .badge-bg {
     background: $dk-main-bg;
-    border-radius: 50%;
-    position: absolute;
-    z-index: 2;
-    bottom: -2px;
-    right: -2px;
-    @include flex(row, center, center);
 
     .online {
       background: $dk-green;
-      border-radius: 50%;
-      height: 10px;
-      width: 10px;
     }
 
     .offline {
-      @include flex(row, center, center);
       background: $dk-offline-outer;
-      border-radius: 50%;
-      height: 10px;
-      width: 10px;
 
       .inner {
         background: $dk-main-bg;
@@ -133,7 +136,7 @@
     }
   }
 
-  .status-bg.sidebar {
+  .badge-bg.sidebar {
     background: $dk-sidebar;
 
     .offline {
@@ -143,7 +146,7 @@
     }
   }
 
-  .status-bg.u {
+  .badge-bg.u {
     background: $dk-user-set-bg;
 
     .offline {
@@ -153,7 +156,7 @@
     }
   }
 
-  .status-bg.m {
+  .badge-bg.m {
     background: $dk-search-bg;
 
     .offline {
@@ -191,7 +194,7 @@
         width: 80px;
         margin-bottom: 12px;
       }
-      .status-bg {
+      .badge-bg {
         height: 27px;
         width: 27px;
 

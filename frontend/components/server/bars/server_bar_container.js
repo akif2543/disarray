@@ -19,6 +19,7 @@ const mSTP = (state) => ({
   servers: getUserServers(state),
   modalOpen: state.ui.modal === "portal",
   active: state.session.active,
+  pending: state.session.pendingIn.length,
 });
 
 const mDTP = (dispatch) => ({
