@@ -26,6 +26,7 @@ class ChatStream extends React.Component {
   }
 
   componentDidMount() {
+    this.setTimestamp();
     this.scroller.current.addEventListener(
       "scroll",
       debounce(this.handleScroll, 150)
@@ -93,8 +94,9 @@ class ChatStream extends React.Component {
   }
 
   resetState() {
+    const ts = this.props.messages[0];
     this.setState({
-      timestamp: null,
+      timestamp: ts ? ts.createdAt : null,
       lastTime: 1,
       loading: false,
       scrolling: false,

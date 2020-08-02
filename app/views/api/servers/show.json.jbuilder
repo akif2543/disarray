@@ -2,14 +2,7 @@ json.action "receive server"
 
 json.server do
   json.set! @server.id do
-    json.id @server.id
-    json.name @server.name
-    json.icon(url_for(@server.icon)) if @server.icon.attached?
-    json.owner @server.owner_id
-    json.joinCode @server.join_code
-    json.members @server.get_members.map(&:id)
-    json.channels @server.get_channels.map(&:id)
-    json.active @server.get_channels.first.id
+    json.partial! "api/servers/server", server: @server
   end
 end
 

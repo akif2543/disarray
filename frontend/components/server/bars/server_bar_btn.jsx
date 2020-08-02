@@ -62,6 +62,7 @@ const ServerBarBtn = ({ type, openModal, modalOpen, active }) => {
               onMouseOut={hideTooltip}
               onBlur={hideTooltip}
               ref={el}
+              style={{ cursor: "not-allowed" }}
             >
               <FontAwesomeIcon icon="compass" size="lg" />
             </button>

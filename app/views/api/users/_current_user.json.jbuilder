@@ -14,7 +14,7 @@ end
 
 json.users do 
   user.friends.each do |f|
-    json.cache! f do
+    json.cache! f, expires_in: 10.minutes do
       json.partial! "api/users/user.json.jbuilder", user: f
     end
   end
@@ -37,31 +37,29 @@ end
 user.get_servers.each do |server|
   json.servers do
     json.set! server.id do
-      json.id server.id
-      json.name server.name
-      json.icon(url_for(server.icon)) if server.icon.attached?
-      json.owner server.owner_id
-      json.joinCode server.join_code
-      json.members server.get_members.map(&:id)
-      json.channels server.get_channels.map(&:id)
-      json.active server.get_channels.first.id
+      json.partial! "api/servers/server.json.jbuilder", server: server
     end
   end
 
   json.users do 
     server.get_members.each do |m|
-      json.cache! m do
+      json.cache! m, expires_in: 10.minutes do
         json.partial! "api/users/user.json.jbuilder", user: m
       end
     end
   end
 
-  json.channels do
-    server.get_channels.each do |c|
+  
+  server.get_channels.each do |c|
+    json.channels do
       json.set! c.id do 
-        json.extract! c, :id, :name, :topic
-        json.server c.server_id
-        json.messages []
+        json.partial! "api/channels/channel.json.jbuilder", channel: c
+      end
+    end
+
+    json.messages do
+      c.messages.each do |m|
+        json.partial! "api/messages/message.json.jbuilder", message: m
       end
     end
   end
@@ -70,19 +68,21 @@ end
 user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
-      json.extract! c, :id, :group, :name
-      json.icon(url_for(c.icon)) if c.group && c.icon.attached?
-      json.owner c.owner_id
-      json.members c.get_members.map(&:id)
-      json.messages []
+      json.partial! "api/conversations/conversation.json.jbuilder", c: c
     end
   end
 
   json.users do 
     c.get_members.each do |m|
-      json.cache! m do
+      json.cache! m, expires_in: 10.minutes do
         json.partial! "api/users/user.json.jbuilder", user: m
       end
     end
   end
+
+   json.messages do
+      c.messages.each do |m|
+        json.partial! "api/messages/message.json.jbuilder", message: m
+      end
+    end
 end

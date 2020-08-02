@@ -23,13 +23,13 @@ const TextChannel = ({
 
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
-  useEffect(() => {
-    if (channelId && !channel) {
-      fetchChannel(channelId);
-    } else if (channel && !channel.visited) {
-      fetchChannel(channelId);
-    }
-  }, [channelId]);
+  // useEffect(() => {
+  //   if (channelId && !channel) {
+  //     fetchChannel(channelId);
+  //   } else if (channel && !channel.visited) {
+  //     fetchChannel(channelId);
+  //   }
+  // }, [channelId]);
 
   return (
     <div className="text-channel">

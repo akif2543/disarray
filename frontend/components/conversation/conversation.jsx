@@ -25,13 +25,13 @@ const Conversation = ({
 }) => {
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
-  useEffect(() => {
-    if (conversationId && !conversation) {
-      fetchConversation(conversationId);
-    } else if (conversation && !conversation.visited) {
-      fetchConversation(conversationId);
-    }
-  }, [conversationId]);
+  // useEffect(() => {
+  //   if (conversationId && !conversation) {
+  //     fetchConversation(conversationId);
+  //   } else if (conversation && !conversation.visited) {
+  //     fetchConversation(conversationId);
+  //   }
+  // }, [conversationId]);
 
   const { group, owner } = conversation;
 
