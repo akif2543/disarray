@@ -9,12 +9,13 @@ json.user do
     json.pendingIn user.requested_friends.map(&:id)
     json.pendingOut user.pending_friends.map(&:id)
     json.blocked user.blocked_friends.map(&:id)
+    json.updatedAt user.updated_at
   end
 end
 
 json.users do 
   user.friends.each do |f|
-    json.cache! f, expires_in: 10.minutes do
+    json.cache! [f, f.online], expires_in: 10.minutes do
       json.partial! "api/users/user.json.jbuilder", user: f
     end
   end
@@ -43,7 +44,7 @@ user.get_servers.each do |server|
 
   json.users do 
     server.get_members.each do |m|
-      json.cache! m, expires_in: 10.minutes do
+      json.cache! [m, m.online], expires_in: 10.minutes do
         json.partial! "api/users/user.json.jbuilder", user: m
       end
     end
@@ -74,7 +75,7 @@ user.get_conversations.each do |c|
 
   json.users do 
     c.get_members.each do |m|
-      json.cache! m, expires_in: 10.minutes do
+      json.cache! [m, m.online], expires_in: 10.minutes do
         json.partial! "api/users/user.json.jbuilder", user: m
       end
     end

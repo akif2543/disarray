@@ -16,7 +16,7 @@ end
 
 json.users do
   @server.get_members.each do |member|
-    json.cache! member do
+    json.cache! [member, member.online] do
       json.partial! "api/users/user", user: member
     end
   end

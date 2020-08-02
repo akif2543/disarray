@@ -24,10 +24,9 @@ class Server < ApplicationRecord
 
   def get_channels
     Rails.cache.fetch([cache_key, __method__], expires_in: 24.hours) do
-      self.channels
+      self.channels.includes(:messages)
     end
   end
-
 
   private
 

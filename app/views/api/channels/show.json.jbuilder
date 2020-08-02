@@ -13,7 +13,7 @@ end
   end
 
   json.users do
-    json.cache! m.author, expires_in: 10.minutes do
+    json.cache! [m.author, m.author.online], expires_in: 10.minutes do
       json.partial! "api/users/user", user: m.author
     end
   end
