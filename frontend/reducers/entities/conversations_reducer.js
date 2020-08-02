@@ -6,6 +6,7 @@ import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 import {
   RECEIVE_MESSAGES,
   RECEIVE_MESSAGE,
+  RECEIVE_UNREAD,
 } from "../../actions/message_actions";
 
 const conversationsReducer = (state = {}, action) => {
@@ -37,6 +38,12 @@ const conversationsReducer = (state = {}, action) => {
         newState[message.messageableId].messages.push(message.id);
       }
       return newState;
+    case RECEIVE_UNREAD:
+      if (!action.textChannel) {
+        newState[action.messageableId].hasUnreads = true;
+        return newState;
+      }
+      return state;
     default:
       return state;
   }

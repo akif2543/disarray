@@ -68,11 +68,19 @@ export const friendsSub = (id, actions) => {
   );
 };
 
-const channelSub = (id, receive, remove, sub) => {
+const channelSub = (id, receive, remove, unread, sub) => {
   App.channel = App.cable.subscriptions.create(
     { channel: "ChatChannel", channel_id: id },
     {
-      received: (data) => (data.remove ? remove(data) : receive(data)),
+      received: (data) => {
+        if (data.remove) return remove(data);
+        const [message] = Object.values(data.message);
+        const { messageableId, textChannel } = message;
+        const re = new RegExp(`#/channels/\\d+/${messageableId}`);
+        if (!re.test(window.location.hash))
+          unread({ textChannel, messageableId });
+        return receive(data);
+      },
       speak(data) {
         return this.perform("speak", data);
       },
@@ -91,7 +99,7 @@ export const serverSub = (s, serverActions, messageActions, sub) => {
     receiveChannel,
     removeChannel,
   } = serverActions;
-  const { removeMessage, receiveMessage } = messageActions;
+  const { removeMessage, receiveMessage, receiveUnread } = messageActions;
   let c;
   App.server = App.cable.subscriptions.create(
     { channel: "ServerChannel", id: s.id },
@@ -108,7 +116,7 @@ export const serverSub = (s, serverActions, messageActions, sub) => {
             return removeMember(data);
           case "receive channel":
             [c] = Object.keys(data.channel);
-            channelSub(c, receiveMessage, removeMessage, sub);
+            channelSub(c, receiveMessage, removeMessage, receiveUnread, sub);
             return receiveChannel(data);
           case "remove channel":
             return removeChannel(data);
@@ -119,18 +127,28 @@ export const serverSub = (s, serverActions, messageActions, sub) => {
     }
   );
   sub({ id: s.id, subType: "Server", sub: App.server });
-  s.channels.forEach((c) => channelSub(c, receiveMessage, removeMessage, sub));
+  s.channels.forEach((c) =>
+    channelSub(c, receiveMessage, removeMessage, receiveUnread, sub)
+  );
   delete App.server;
 };
 
 export const serverSubs = (servers, serverActions, messageActions, sub) =>
   servers.forEach((s) => serverSub(s, serverActions, messageActions, sub));
 
-const convoSub = (id, receive, remove, sub) => {
+const convoSub = (id, receive, remove, unread, sub) => {
   App.convo = App.cable.subscriptions.create(
     { channel: "ChatChannel", conversation_id: id },
     {
-      received: (data) => (data.remove ? remove(data) : receive(data)),
+      received: (data) => {
+        if (data.remove) return remove(data);
+        const [message] = Object.values(data.message);
+        const { messageableId, textChannel } = message;
+        const re = new RegExp(`#/@me/${messageableId}`);
+        if (!re.test(window.location.hash))
+          unread({ textChannel, messageableId });
+        return receive(data);
+      },
       speak(data) {
         return this.perform("speak", data);
       },
@@ -141,13 +159,13 @@ const convoSub = (id, receive, remove, sub) => {
 };
 
 export const convoChannelSub = (id, receive, messageActions, sub) => {
-  const { removeMessage, receiveMessage } = messageActions;
+  const { removeMessage, receiveMessage, receiveUnread } = messageActions;
   App.cable.subscriptions.create(
     { channel: "ConversationChannel", id },
     {
       received: (data) => {
         const [c] = Object.values(data.conversation);
-        convoSub(c.id, receiveMessage, removeMessage, sub);
+        convoSub(c.id, receiveMessage, removeMessage, receiveUnread, sub);
         return receive(data);
       },
     }
@@ -155,6 +173,8 @@ export const convoChannelSub = (id, receive, messageActions, sub) => {
 };
 
 export const convoSubs = (convos, messageActions, sub) => {
-  const { removeMessage, receiveMessage } = messageActions;
-  convos.forEach((c) => convoSub(c, receiveMessage, removeMessage, sub));
+  const { removeMessage, receiveMessage, receiveUnread } = messageActions;
+  convos.forEach((c) =>
+    convoSub(c, receiveMessage, removeMessage, receiveUnread, sub)
+  );
 };

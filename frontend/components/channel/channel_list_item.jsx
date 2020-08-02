@@ -45,6 +45,7 @@ const ChannelListItem = ({
       onFocus={hoverLength}
       onMouseOut={normalLength}
       onBlur={normalLength}
+      className={channel.hasUnreads ? "channel-tab unread" : "channel-tab"}
     >
       <div>
         <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />

@@ -388,7 +388,7 @@
 
     &:hover {
       background: rgb(52, 55, 60);
-      color: $dk-white;
+      color: $dk-off-white;
 
       .icon-grp {
         display: flex;
@@ -424,6 +424,15 @@
       .icon-grp {
         display: flex;
       }
+    }
+  }
+}
+
+.unread {
+  h3 {
+    color: $dk-white;
+    &:hover {
+      color: $dk-white;
     }
   }
 }

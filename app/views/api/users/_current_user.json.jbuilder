@@ -1,6 +1,6 @@
 json.user do
   json.set! user.id do
-    json.extract! user, :id, :username, :discriminator, :email, :online
+    json.extract! user, :id, :username, :discriminator, :email, :online, :updated_at
     json.avatar url_for(user.avatar)
     json.servers user.server_aliases
     json.conversations user.conversation_ids
@@ -9,7 +9,6 @@ json.user do
     json.pendingIn user.requested_friends.map(&:id)
     json.pendingOut user.pending_friends.map(&:id)
     json.blocked user.blocked_friends.map(&:id)
-    json.updatedAt user.updated_at
   end
 end
 
@@ -37,6 +36,8 @@ user.get_servers.each do |server|
   json.servers do
     json.set! server.id do
       json.partial! "api/servers/server.json.jbuilder", server: server
+      json.extract! server, :updated_at
+      json.hasUnreads user.updated_at < server.updated_at
     end
   end
 
@@ -51,6 +52,8 @@ user.get_servers.each do |server|
     json.channels do
       json.set! c.id do 
         json.partial! "api/channels/channel.json.jbuilder", channel: c
+        json.extract! c, :updated_at
+        json.hasUnreads user.updated_at < c.updated_at
       end
     end
 
@@ -66,6 +69,8 @@ user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
       json.partial! "api/conversations/conversation.json.jbuilder", c: c
+      json.extract! c, :updated_at
+      json.hasUnreads user.updated_at < c.updated_at
     end
   end
 

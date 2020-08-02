@@ -1,9 +1,10 @@
 import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
-import { RECEIVE_SERVER } from "../../actions/server_actions";
+import { RECEIVE_SERVER, RECEIVE_ACTIVE } from "../../actions/server_actions";
 import {
   RECEIVE_MESSAGE,
   RECEIVE_MESSAGES,
   REMOVE_MESSAGE,
+  RECEIVE_UNREAD,
 } from "../../actions/message_actions";
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 
@@ -45,6 +46,15 @@ const channelsReducer = (state = {}, action) => {
       if (message.textChannel) {
         i = newState[message.messageableId].messages.indexOf(message.id);
         newState[message.messageableId].messages.splice(i, 1);
+        return newState;
+      }
+      return state;
+    case RECEIVE_ACTIVE:
+      newState[action.active].hasUnreads = false;
+      return newState;
+    case RECEIVE_UNREAD:
+      if (action.textChannel) {
+        newState[action.messageableId].hasUnreads = true;
         return newState;
       }
       return state;

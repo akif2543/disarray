@@ -7,7 +7,6 @@ import {
   getUserServers,
   getConversationIds,
 } from "../../reducers/selectors";
-import Application from "./app";
 import { receiveStatus } from "../../actions/session_actions";
 import {
   receiveRequest,
@@ -27,8 +26,10 @@ import {
   receiveMessage,
   removeMessage,
   receiveSub,
+  receiveUnread,
 } from "../../actions/message_actions";
 import { receiveConversation } from "../../actions/conversation_actions";
+import Application from "./app";
 
 const mSTP = (state) => ({
   loading: loading(state),
@@ -62,6 +63,7 @@ const mDTP = (dispatch) => ({
   messageActions: {
     receiveMessage: (message) => dispatch(receiveMessage(message)),
     removeMessage: (message) => dispatch(removeMessage(message)),
+    receiveUnread: (unread) => dispatch(receiveUnread(unread)),
   },
 });
 
