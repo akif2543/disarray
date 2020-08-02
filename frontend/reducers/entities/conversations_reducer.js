@@ -1,6 +1,7 @@
 import {
   RECEIVE_CONVERSATIONS,
   RECEIVE_CONVERSATION,
+  RECEIVE_ACTIVE_CONVO,
 } from "../../actions/conversation_actions";
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
 import {
@@ -44,6 +45,9 @@ const conversationsReducer = (state = {}, action) => {
         return newState;
       }
       return state;
+    case RECEIVE_ACTIVE_CONVO:
+      newState[action.convo].hasUnreads = false;
+      return newState;
     default:
       return state;
   }

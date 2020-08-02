@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 
 import Tooltip from "../../ui/tooltip";
 
-const ServerBarIcon = ({ server, active }) => {
+const ServerBarIcon = ({ server }) => {
   const [tooltip, setTooltip] = useState(false);
   const el = useRef(null);
 
