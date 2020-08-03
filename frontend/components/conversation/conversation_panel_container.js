@@ -9,6 +9,7 @@ import { receiveActiveConversation } from "../../actions/conversation_actions";
 const mSTP = (state) => ({
   currentUser: getCurrentUser(state),
   conversations: getConversations(state),
+  pending: state.session.pendingIn.length,
 });
 
 const mDTP = (dispatch) => ({

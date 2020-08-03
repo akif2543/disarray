@@ -11,6 +11,7 @@ const ConversationList = ({
   conversations,
   setActive,
   currentUser,
+  pending,
   match: {
     params: { conversationId },
   },
@@ -32,8 +33,15 @@ const ConversationList = ({
         <div className="tabs">
           <NavLink exact to="/@me" onClick={handleClick(null)}>
             <button type="button" className="friends-btn">
-              <FontAwesomeIcon icon="users" size="lg" />
-              <h2>Friends</h2>
+              <div>
+                <FontAwesomeIcon icon="users" size="lg" />
+                <h2>Friends</h2>
+              </div>
+              {Boolean(pending) && (
+                <div className="notification">
+                  {pending < 10 ? pending : "9+"}
+                </div>
+              )}
             </button>
           </NavLink>
         </div>

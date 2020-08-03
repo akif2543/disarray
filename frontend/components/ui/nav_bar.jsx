@@ -17,6 +17,7 @@ const NavBar = ({
   isOwner,
   switchTab,
   active,
+  pending,
 }) => {
   const [tooltips, setTooltips] = useState({
     bell: false,
@@ -129,6 +130,11 @@ const NavBar = ({
               disabled={active === "pending"}
             >
               <h3>Pending</h3>
+              {Boolean(pending) && (
+                <div className="notification">
+                  {pending < 10 ? pending : "9+"}
+                </div>
+              )}
             </button>
             <button
               type="button"

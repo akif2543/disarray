@@ -35,6 +35,7 @@ const Friends = ({
         switchTab={switchTab}
         active={active}
         customizeConversation={customizeConversation}
+        pending={pendingIn.length}
       />
       <FriendList
         active={active}

@@ -45,9 +45,11 @@ const ServerBarBtn = ({
               ref={el}
             >
               <img src={window.logoIconURL} alt="" />
-              {pending && (
+              {Boolean(pending) && (
                 <div className="badge-bg">
-                  <div className="notification">{pending}</div>
+                  <div className="notification">
+                    {pending < 10 ? pending : "9+"}
+                  </div>
                 </div>
               )}
             </button>
