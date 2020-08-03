@@ -10,13 +10,19 @@ const ServerBarBtn = ({
   modalOpen,
   active,
   pending,
+  setActive,
   match,
+  c,
+  m,
+  n,
 }) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
 
   const showTooltip = () => setTooltip(true);
   const hideTooltip = () => setTooltip(false);
+
+  const handleClick = (id) => () => setActive(id);
 
   let style = { display: "none" };
 
@@ -25,6 +31,8 @@ const ServerBarBtn = ({
     (type === "home" && match.path === "/@me")
   ) {
     style = { height: "42px" };
+  } else if (type === "convo" && !tooltip) {
+    style = { height: "10px", borderRadius: "50%" };
   } else if (tooltip) {
     style = { height: "22px" };
   }
@@ -44,7 +52,7 @@ const ServerBarBtn = ({
               onBlur={hideTooltip}
               ref={el}
             >
-              <img src={window.logoIconURL} alt="" />
+              <img src={window.logoIconURL} alt="" className="home-icon" />
               {Boolean(pending) && (
                 <div className="badge-bg">
                   <div className="notification">
@@ -55,6 +63,31 @@ const ServerBarBtn = ({
             </button>
             {tooltip && <Tooltip text="Home" className="sb-tt" el={el} />}
           </NavLink>
+        </div>
+      );
+    case "convo":
+      return (
+        <div className="server-icon-container">
+          <div className="note" style={style} />
+          <Link to={`/@me/${c.id}`} onClick={handleClick(c.id)}>
+            <button
+              className="convo-btn"
+              type="button"
+              onMouseOver={showTooltip}
+              onFocus={showTooltip}
+              onMouseOut={hideTooltip}
+              onBlur={hideTooltip}
+              ref={el}
+            >
+              <img src={c.icon || m.avatar} alt="" className="avatar" />
+              <div className="badge-bg">
+                <div className="notification">1</div>
+              </div>
+            </button>
+            {tooltip && (
+              <Tooltip text={c.name || n} className="sb-tt" el={el} />
+            )}
+          </Link>
         </div>
       );
     case "create":

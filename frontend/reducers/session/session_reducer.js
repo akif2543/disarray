@@ -18,12 +18,15 @@ import {
   RECEIVE_CONVERSATION,
   RECEIVE_ACTIVE_CONVO,
 } from "../../actions/conversation_actions";
+import { RECEIVE_UNREAD, RECEIVE_MESSAGE } from "../../actions/message_actions";
 
 const sessionReducer = (state = { id: null }, action) => {
   const newState = { ...state };
   let user;
   let i;
   let c;
+  let message;
+
   switch (action.type) {
     case RECEIVE_CURRENT_USER:
       [user] = Object.values(action.user);
@@ -103,6 +106,21 @@ const sessionReducer = (state = { id: null }, action) => {
       i = newState.friends.indexOf(action.unfriender.id);
       newState.friends.splice(i, 1);
       return newState;
+    case RECEIVE_MESSAGE:
+      [message] = Object.values(action.message);
+      if (!message.textChannel) {
+        i = newState.conversations.indexOf(message.messageableId);
+        newState.conversations.splice(i, 1);
+        newState.conversations.unshift(message.messageableId);
+      }
+      return newState;
+    // case RECEIVE_UNREAD:
+    //   if (!action.textChannel) {
+    //     i = newState.conversations.indexOf(action.messageableId);
+    //     newState.conversations.splice(i, 1);
+    //     newState.conversations.unshift(action.messageableId);
+    //   }
+    //   return newState;
     default:
       return state;
   }

@@ -89,15 +89,23 @@ export const getCurrentConversation = (state, props) => {
   // }
 };
 
+export const conversations = (state) => {
+  const { conversations } = getCurrentUser(state);
+  return conversations.map((c) => state.entities.conversations[c]);
+};
+
 export const getConversations = (state) => {
   if (!state.session.id) return [];
-  const { conversations } = getCurrentUser(state);
-  return conversations
-    .map((c) => state.entities.conversations[c])
-    .map((c) => ({
-      ...c,
-      members: c.members.map((id) => state.entities.users[id]),
-    }));
+  const convos = conversations(state);
+  return convos.map((c) => ({
+    ...c,
+    members: c.members.map((id) => state.entities.users[id]),
+  }));
+};
+
+export const unreadConversations = (state) => {
+  const convos = getConversations(state);
+  return convos.filter((c) => c.hasUnreads);
 };
 
 export const getConversationIds = (state) => {

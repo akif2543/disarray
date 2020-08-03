@@ -26,7 +26,7 @@
 
       .note {
         position: absolute;
-        height: 10px;
+        height: 0;
         width: 10px;
         border-radius: 25px;
         left: -5px;
@@ -37,12 +37,27 @@
 
     .home-btn,
     .server-icon,
+    .convo-btn,
+    .avatar,
     .server-btn {
       height: 48px;
       width: 48px;
       border-radius: 50%;
       transition: all 0.5s ease;
+      &:hover {
+        border-radius: 15px;
+      }
     }
+
+    // .convo-btn {
+    //   .avatar {
+    //     height: 48px;
+    //     width: 48px;
+    //     &:hover {
+    //       border-radius: 15px;
+    //     }
+    //   }
+    // }
 
     .server-btn {
       background: $dk-main-bg;
@@ -50,7 +65,7 @@
       &:hover {
         background: $dk-green;
         color: $dk-white;
-        border-radius: 15px;
+        // border-radius: 15px;
       }
     }
 
@@ -90,10 +105,14 @@
 
     .home-icon-container {
       margin-top: 15px;
+    }
 
-      .home-btn {
+    .home-icon-container,
+    .server-icon-container {
+      .home-btn,
+      .convo-btn {
         position: relative;
-        img {
+        .home-icon {
           width: 60%;
           margin: 0 auto;
           object-fit: cover;

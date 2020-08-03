@@ -58,7 +58,10 @@ class User < ApplicationRecord
   end
 
   def conversation_ids
-    get_conversations.map(&:id)
+    get_conversations
+      .sort { |a, b| b.updated_at <=>  a.updated_at }
+      .map(&:id)
+      
   end
 
   def conversees

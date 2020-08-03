@@ -12,8 +12,8 @@ class UserSettings extends React.Component {
 
   handleLogout() {
     const { logout, startLoading } = this.props;
-    logout();
     startLoading();
+    logout();
   }
 
   render() {

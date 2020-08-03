@@ -691,10 +691,13 @@ button.disabled {
     }
   }
 
-  .active {
-    h2,
-    h3 {
-      color: $dk-white;
+  .active,
+  .unread {
+    .convo-info {
+      h2,
+      h3 {
+        color: $dk-white;
+      }
     }
   }
 }

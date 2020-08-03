@@ -9,7 +9,6 @@ import {
 import {
   logout,
   updateUser,
-  deleteUser,
   fetchCurrentUser,
   clearSessionErrors,
 } from "../../actions/session_actions";

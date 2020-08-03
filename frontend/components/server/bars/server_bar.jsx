@@ -10,6 +10,9 @@ const ServerBar = ({
   match,
   active,
   pending,
+  unreads,
+  currentUser,
+  setActive,
 }) => {
   return (
     <div className="server-bar-wrapper">
@@ -21,6 +24,25 @@ const ServerBar = ({
             pending={pending}
             match={match}
           />
+          {unreads.map((c) => {
+            if (c === undefined) return null;
+            const { members } = c;
+            const convoMembers = members
+              .filter((user) => user.id !== currentUser.id)
+              .map((u) => u.username)
+              .join(", ");
+            const m = members.find((u) => u.id !== currentUser.id);
+            return (
+              <ServerBarBtn
+                key={shortid.generate()}
+                type="convo"
+                c={c}
+                m={m}
+                n={convoMembers}
+                setActive={setActive}
+              />
+            );
+          })}
           <div className="home-btn-divider" />
           {servers.map((s) =>
             s === undefined ? null : (

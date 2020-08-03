@@ -30,7 +30,7 @@ const ServerBarIcon = ({ server, active }) => {
   if (active) {
     style = { height: "42px" };
   } else if (server.hasUnreads && !tooltip) {
-    style = { borderRadius: "50%" };
+    style = { height: "10px", borderRadius: "50%" };
   } else if (tooltip) {
     style = { height: "22px" };
   }

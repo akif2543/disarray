@@ -205,6 +205,11 @@
         width: 61px;
         height: 33px;
         justify-self: flex-end;
+        @include button-transition;
+
+        &:hover {
+          background: $dk-blue-hover;
+        }
       }
 
       .edit-btn.demo {

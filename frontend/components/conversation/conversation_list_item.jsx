@@ -19,7 +19,7 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
     return name.length > 22 ? `${trimName(name.slice(0, maxLength))}...` : name;
   };
 
-  const { members, group } = convo;
+  const { members, group, hasUnreads } = convo;
 
   const convoMembers = members
     .filter((user) => user.id !== currentUser.id)
@@ -30,7 +30,7 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
   return (
     <button
       type="button"
-      className="convo-li"
+      className={hasUnreads ? "convo-li unread" : "convo-li"}
       onMouseOver={hoverLength}
       onFocus={hoverLength}
       onMouseOut={normalLength}
