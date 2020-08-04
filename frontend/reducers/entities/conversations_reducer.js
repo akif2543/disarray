@@ -41,13 +41,13 @@ const conversationsReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_UNREAD:
       if (!action.textChannel) {
-        newState[action.messageableId].hasUnreads = true;
+        newState[action.messageableId].hasUnreads += 1;
         return newState;
       }
       return state;
     case RECEIVE_ACTIVE_CONVO:
       if (action.convo) {
-        newState[action.convo].hasUnreads = false;
+        newState[action.convo].hasUnreads = 0;
       }
       return newState;
     default:

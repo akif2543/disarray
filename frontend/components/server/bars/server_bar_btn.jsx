@@ -81,7 +81,7 @@ const ServerBarBtn = ({
             >
               <img src={c.icon || m.avatar} alt="" className="avatar" />
               <div className="badge-bg">
-                <div className="notification">1</div>
+                <div className="notification">{c.hasUnreads}</div>
               </div>
             </button>
             {tooltip && (

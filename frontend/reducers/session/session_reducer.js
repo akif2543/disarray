@@ -114,13 +114,6 @@ const sessionReducer = (state = { id: null }, action) => {
         newState.conversations.unshift(message.messageableId);
       }
       return newState;
-    // case RECEIVE_UNREAD:
-    //   if (!action.textChannel) {
-    //     i = newState.conversations.indexOf(action.messageableId);
-    //     newState.conversations.splice(i, 1);
-    //     newState.conversations.unshift(action.messageableId);
-    //   }
-    //   return newState;
     default:
       return state;
   }
