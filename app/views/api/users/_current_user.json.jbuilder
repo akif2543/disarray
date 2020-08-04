@@ -70,7 +70,7 @@ user.get_conversations.each do |c|
     json.set! c.id do
       json.partial! "api/conversations/conversation.json.jbuilder", c: c
       json.extract! c, :updated_at
-      json.hasUnreads user.updated_at < c.updated_at ? 1 : 0
+      json.hasUnreads user.updated_at < c.updated_at
     end
   end
 
