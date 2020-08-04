@@ -22,7 +22,7 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
   const { members, group, hasUnreads } = convo;
 
   const convoMembers = members
-    .filter((user) => user !== undefined && user.id !== currentUser.id)
+    .filter((user) => user.id !== currentUser.id)
     .map((u) => u.username)
     .join(", ");
   const m = members.find((u) => u.id !== currentUser.id);
