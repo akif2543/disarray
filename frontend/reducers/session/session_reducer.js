@@ -73,9 +73,11 @@ const sessionReducer = (state = { id: null }, action) => {
       if (action.requester.id !== newState.id) newState.pendingIn.push(action.requester.id);
       return newState;
     case RECEIVE_FRIEND:
+      if (action.requester.id !== newState.id) {
       newState.friends.push(action.requester.id);
       i = newState.pendingIn.indexOf(action.requester.id);
       newState.pendingIn.splice(i, 1);
+      }
       return newState;
     case RECEIVE_ACCEPTANCE:
       newState.friends.push(action.requestee.id);

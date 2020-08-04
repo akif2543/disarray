@@ -34,7 +34,7 @@ const FriendList = ({
     if (active === "add") resetState();
   }, [active]);
 
-  const online = friends.filter((f) => f.online);
+  const online = friends.filter((f) => f !== undefined && f.online);
 
   const handleSubmit = (e) => {
     e.preventDefault();
