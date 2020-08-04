@@ -70,7 +70,7 @@ const sessionReducer = (state = { id: null }, action) => {
       newState.pendingOut.push(action.requestee.id);
       return newState;
     case RECEIVE_REQUEST:
-      newState.pendingIn.push(action.requester.id);
+      if (action.requester.id !== newState.id) newState.pendingIn.push(action.requester.id);
       return newState;
     case RECEIVE_FRIEND:
       newState.friends.push(action.requester.id);
