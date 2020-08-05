@@ -2,7 +2,7 @@ json.conversation do
   json.set! @conversation.id do
     json.partial! "api/conversations/conversation", c: @conversation
     json.visited true
-    json.hasUnreads false
+    json.unreads 0
   end
 end
 
@@ -13,7 +13,9 @@ json.messages do
 end
 
 json.users do
-  Rails.cache.fetch_multi(*@conversation.get_members, expires_in: 10.minutes) do |m|
-    json.partial! "api/users/user", user: m
+  @conversation.get_members.each do |m|
+    json.cache! m, expires_in: 10.minutes do
+      json.partial! "api/users/user", user: m
+    end
   end
 end

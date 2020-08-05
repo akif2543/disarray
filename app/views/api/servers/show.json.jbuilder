@@ -21,7 +21,9 @@ end
 end
 
 json.users do
-  Rails.cache.fetch_multi(*@server.get_members, expires_in: 10.minutes) do |m|
-    json.partial! "api/users/user", user: m
+  @server.get_members.each do |m|
+    json.cache! m, expires_in: 10.minutes do
+      json.partial! "api/users/user", user: m
+    end
   end
 end

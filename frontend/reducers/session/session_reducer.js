@@ -99,14 +99,14 @@ const sessionReducer = (state = { id: null }, action) => {
       }
       return newState;
     case RECEIVE_CANCEL:
-      if (action.requestee.id !== newState.id) {
-        i = newState.pendingOut.indexOf(action.requestee.id);
+      if (action.requester.id !== newState.id) {
+        i = newState.pendingOut.indexOf(action.requester.id);
         newState.pendingOut.splice(i, 1);
       }
       return newState;
     case RECEIVE_RETRACTION:
-      if (action.requester.id !== newState.id) {
-        i = newState.pendingIn.indexOf(action.requester.id);
+      if (action.requestee.id !== newState.id) {
+        i = newState.pendingIn.indexOf(action.requestee.id);
         newState.pendingIn.splice(i, 1);
       }
       return newState;

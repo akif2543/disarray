@@ -7,7 +7,7 @@ json.message do
 end
 
 json.user do
-  Rails.cache.fetch(message.author, expires_in: 10.minutes) do
+  json.cache! message.author, expires_in: 10.minutes do
     json.partial! "api/users/user", user: message.author
   end
 end

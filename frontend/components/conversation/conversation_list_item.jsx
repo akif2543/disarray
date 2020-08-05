@@ -19,18 +19,18 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
     return name.length > 22 ? `${trimName(name.slice(0, maxLength))}...` : name;
   };
 
-  const { members, group, hasUnreads } = convo;
+  const { members, group, unreads } = convo;
 
   const convoMembers = members
-    .filter((user) => currentUser !== undefined && user.id !== currentUser.id)
+    .filter((user) => user !== undefined && user.id !== currentUser.id)
     .map((u) => u.username)
     .join(", ");
-  const m = members.find((u) => u.id !== currentUser.id);
+  const m = members.find((u) => u !== undefined && u.id !== currentUser.id);
 
   return (
     <button
       type="button"
-      className={hasUnreads ? "convo-li unread" : "convo-li"}
+      className={unreads ? "convo-li unread" : "convo-li"}
       onMouseOver={hoverLength}
       onFocus={hoverLength}
       onMouseOut={normalLength}

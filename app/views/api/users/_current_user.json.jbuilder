@@ -1,20 +1,24 @@
 json.user do
-  json.set! user.id do
-    json.extract! user, :id, :username, :discriminator, :email, :online, :updated_at
-    json.avatar url_for(user.avatar)
-    json.servers user.server_aliases
-    json.conversations user.conversation_ids
-    json.conversees user.conversees
-    json.friends user.friends.map(&:id)
-    json.pendingIn user.requested_friends.map(&:id)
-    json.pendingOut user.pending_friends.map(&:id)
-    json.blocked user.blocked_friends.map(&:id)
+  json.cache! ['cu', user], expires_in: 1.hour do
+    json.set! user.id do
+      json.extract! user, :id, :username, :discriminator, :email, :online, :updated_at
+      json.avatar url_for(user.avatar)
+      json.servers user.server_aliases
+      json.conversations user.conversation_ids
+      json.conversees user.conversees
+      json.friends user.friends.map(&:id)
+      json.pendingIn user.requested_friends.map(&:id)
+      json.pendingOut user.pending_friends.map(&:id)
+      json.blocked user.blocked_friends.map(&:id)
+    end
   end
 end
 
 json.users do
-  Rails.cache.fetch_multi(*user.friends, expires_in: 10.minutes) do |friend|
-    json.partial! "api/users/user.json.jbuilder", user: friend
+  user.friends.each do |friend|
+    json.cache! friend, expires_in: 10.minutes do
+      json.partial! "api/users/user.json.jbuilder", user: friend
+    end
   end
 
   (user.requested_friends + user.pending_friends).each do |f|
@@ -41,8 +45,10 @@ user.get_servers.each do |server|
   end
 
   json.users do
-    Rails.cache.fetch_multi(*server.get_members, expires_in: 10.minutes) do |m|
-      json.partial! "api/users/user.json.jbuilder", user: m
+    server.get_members.each do |m|
+      json.cache! m, expires_in: 10.minutes do
+        json.partial! "api/users/user.json.jbuilder", user: m
+      end
     end
   end
 
@@ -67,13 +73,15 @@ user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
       json.partial! "api/conversations/conversation.json.jbuilder", c: c
-      json.hasUnreads user.updated_at < c.updated_at
+      json.unreads user.updated_at < c.updated_at ? 1 : 0
     end
   end
 
   json.users do 
-    Rails.cache.fetch_multi(*c.get_members, expires_in: 10.minutes) do |m|
-      json.partial! "api/users/user.json.jbuilder", user: m
+    c.get_members.each do |m|
+      json.cache! m, expires_in: 10.minutes do
+        json.partial! "api/users/user.json.jbuilder", user: m
+      end
     end
   end
 

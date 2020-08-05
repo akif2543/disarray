@@ -35,6 +35,7 @@
   },
   "scripts": {
     "start": "webpack --watch --mode=development",
+    "prod": "webpack --watch --mode=production",
     "postinstall": "webpack"
   },
   "repository": {

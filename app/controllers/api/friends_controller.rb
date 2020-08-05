@@ -34,15 +34,15 @@ class Api::FriendsController < ApplicationController
     if @user
       if params[:accept] && current_user.requested_friends.include?(@user)
         @request = "accept"
-        current_user.accept_request(@user)
+        @current_user.accept_request(@user)
         FriendsChannel.broadcast_to(@user, format_response)
       elsif params[:decline] && current_user.requested_friends.include?(@user)
         @request = "decline"
-        current_user.decline_request(@user)
+        @current_user.decline_request(@user)
         FriendsChannel.broadcast_to(@user, format_response)
       elsif params[:cancel] && current_user.pending_friends.include?(@user)
         @request = "cancel"
-        @user.decline_request(current_user)
+        @user.decline_request(@current_user)
         FriendsChannel.broadcast_to(@user, format_response)
       else 
         render json: ["User not found"], status: 404

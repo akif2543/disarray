@@ -29,11 +29,13 @@ const ServerBar = ({
             const convoMembers = members
               .filter(
                 (user) =>
-                  currentUser !== undefined && user.id !== currentUser.id
+                  user !== undefined && user.id !== currentUser.id
               )
               .map((u) => u.username)
               .join(", ");
-            const m = members.find((u) => u.id !== currentUser.id);
+            const m = members.find(
+              (u) => u !== undefined && u.id !== currentUser.id
+            );
             return (
               <ServerBarBtn
                 key={shortid.generate()}

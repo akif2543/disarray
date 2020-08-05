@@ -107,7 +107,7 @@ export const getConversations = (state) => {
 
 export const unreadConversations = (state) => {
   const convos = getConversations(state);
-  return convos.filter((c) => c.hasUnreads);
+  return convos.filter((c) => c.unreads);
 };
 
 export const getConversationIds = (state) => {
