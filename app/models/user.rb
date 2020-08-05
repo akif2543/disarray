@@ -47,7 +47,7 @@ class User < ApplicationRecord
 
   def get_conversations
     Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
-      self.conversations.includes(:members, :messages)
+      self.conversations.includes(:members)
     end
   end
 
