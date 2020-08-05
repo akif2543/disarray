@@ -12,6 +12,7 @@ import {
   fetchConversation,
   fetchConversations,
   customizeConversation,
+  receiveActiveConversation,
 } from "../../actions/conversation_actions";
 import {
   receiveMessage,
@@ -42,6 +43,7 @@ const mDTP = (dispatch) => ({
   showSidebar: () => dispatch(showSidebar()),
   hideSidebar: () => dispatch(hideSidebar()),
   removeMessage: (message) => dispatch(removeMessage(message)),
+  setActive: (id) => dispatch(receiveActiveConversation(id)),
   customizeConversation: (id, conversation) =>
     dispatch(customizeConversation(id, conversation)),
 });

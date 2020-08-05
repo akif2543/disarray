@@ -19,6 +19,7 @@ import {
   deleteMessage,
 } from "../../actions/message_actions";
 import { showSidebar, hideSidebar } from "../../actions/ui_actions";
+import { receiveActive } from "../../actions/server_actions";
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
@@ -39,6 +40,7 @@ const mDTP = (dispatch) => ({
   updateMessage: (message) => dispatch(updateMessage(message)),
   deleteMessage: (id) => dispatch(deleteMessage(id)),
   removeMessage: (message) => dispatch(removeMessage(message)),
+  setActive: (channel) => dispatch(receiveActive(channel))
 });
 
 const TextChannelContainer = withRouter(connect(mSTP, mDTP)(TextChannel));

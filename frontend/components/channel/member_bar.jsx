@@ -21,7 +21,7 @@ const MemberBar = ({ members, owner, s }) => {
     <div className="member-bar-wrapper">
       {s ? (
         <nav className="member-bar">
-          {online.length && (
+          {Boolean(online.length) && (
             <>
               <h4>ONLINE—{online.length}</h4>
               <ul>
@@ -39,7 +39,7 @@ const MemberBar = ({ members, owner, s }) => {
               </ul>
             </>
           )}
-          {offline.length && (
+          {Boolean(offline.length) && (
             <>
               <h4>OFFLINE—{offline.length}</h4>
               <ul>

@@ -18,7 +18,7 @@ export const getUserServers = (state) => {
     const s = state.entities.servers[id];
     s.hasUnreads =
       s.hasUnreads ||
-      s.channels.some((c) => state.entities.channels[c].hasUnreads);
+      s.channels.some((c) => state.entities.channels[c] && state.entities.channels[c].hasUnreads);
     return s;
   });
 };
@@ -67,7 +67,9 @@ export const getServerMembers = (state, props) => {
 
 export const getServerChannels = (state, props) => {
   const { channels } = getCurrentServer(state, props);
-  return channels.map((c) => state.entities.channels[c]);
+  return channels
+    .sort((a, b) => a - b)
+    .map((c) => state.entities.channels[c]);
 };
 
 export const getTextChannelMessages = (state, props) => {

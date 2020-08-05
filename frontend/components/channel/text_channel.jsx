@@ -5,7 +5,6 @@ import NewMessageForm from "../messages/new_message_form";
 import MemberBar from "./member_bar";
 
 const TextChannel = ({
-  fetchChannel,
   match,
   channel,
   sidebarOpen,
@@ -15,21 +14,18 @@ const TextChannel = ({
   currentUser,
   fetchMessages,
   updateMessage,
+  setActive,
   members,
   server,
   sub,
 }) => {
-  const { channelId } = match.params;
+  const { serverId, channelId } = match.params;
 
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
-  // useEffect(() => {
-  //   if (channelId && !channel) {
-  //     fetchChannel(channelId);
-  //   } else if (channel && !channel.visited) {
-  //     fetchChannel(channelId);
-  //   }
-  // }, [channelId]);
+  useEffect(() => {
+    setActive({id: serverId, active: channelId});
+  }, [channelId]);
 
   return (
     <div className="text-channel">

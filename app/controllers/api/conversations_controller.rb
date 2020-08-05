@@ -23,7 +23,6 @@ class Api::ConversationsController < ApplicationController
       end
       @conversation = Conversation.includes(:members).find(@conversation.id)
       group_broadcast
-      # render :show
     else
       render json: @conversation.errors.full_messages, status: 422
     end

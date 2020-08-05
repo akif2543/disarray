@@ -74,7 +74,6 @@ const ConversationList = ({
               <NavLink
                 to={`/@me/${convo.id}`}
                 key={shortid.generate()}
-                onClick={handleClick(convo.id)}
               >
                 <ConversationListItem
                   convo={convo}

@@ -6,12 +6,18 @@ json.server do
   end
 end
 
-json.channels do
-  @server.get_channels.each do |c|
+@server.get_channels.each do |c|
+  json.channels do
     json.set! c.id do
       json.partial! "api/channels/channel", channel: c
     end
   end
+
+  # json.messages do
+  #   c.messages.each do |m|
+  #     json.partial! "api/messages/message.json.jbuilder", message: m
+  #   end
+  # end
 end
 
 json.users do

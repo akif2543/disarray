@@ -164,9 +164,12 @@ export const convoChannelSub = (id, receive, messageActions, sub) => {
     { channel: "ConversationChannel", id },
     {
       received: (data) => {
+        receive(data);
         const [c] = Object.values(data.conversation);
-        convoSub(c.id, receiveMessage, removeMessage, receiveUnread, sub);
-        return receive(data);
+        const re = new RegExp(`#/@me/${c.id}`);
+        if (!re.test(window.location.hash))
+           receiveUnread({ textChannel: false, messageableId: c.id });
+        return convoSub(c.id, receiveMessage, removeMessage, receiveUnread, sub);
       },
     }
   );

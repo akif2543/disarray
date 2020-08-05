@@ -12,7 +12,6 @@ const ChannelList = ({
   channels,
   server,
   openSettings,
-  setActive,
   match,
 }) => {
   const el = useRef(null);
@@ -23,8 +22,6 @@ const ChannelList = ({
   const toggleCollapse = () => setCollapse(!collapse);
   const showTooltip = () => setTooltip(true);
   const hideTooltip = () => setTooltip(false);
-
-  const handleActive = (active) => () => setActive({ id: server.id, active });
 
   const seen = new Set();
 
@@ -37,7 +34,6 @@ const ChannelList = ({
         to={`/channels/${server.id}/${channel.id}`}
         key={shortid.generate()}
         className={collapse ? "hide" : ""}
-        onClick={handleActive(channel.id)}
       >
         <ChannelListItem
           channel={channel}

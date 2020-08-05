@@ -18,7 +18,7 @@ import {
   RECEIVE_CONVERSATION,
   RECEIVE_ACTIVE_CONVO,
 } from "../../actions/conversation_actions";
-import { RECEIVE_UNREAD, RECEIVE_MESSAGE } from "../../actions/message_actions";
+import { RECEIVE_MESSAGE } from "../../actions/message_actions";
 
 const sessionReducer = (state = { id: null }, action) => {
   const newState = { ...state };
@@ -80,33 +80,47 @@ const sessionReducer = (state = { id: null }, action) => {
       }
       return newState;
     case RECEIVE_ACCEPTANCE:
-      newState.friends.push(action.requestee.id);
-      i = newState.pendingOut.indexOf(action.requestee.id);
-      newState.pendingOut.splice(i, 1);
+      if (action.requestee.id !== newState.id) {
+        newState.friends.push(action.requestee.id);
+        i = newState.pendingOut.indexOf(action.requestee.id);
+        newState.pendingOut.splice(i, 1);
+      }
       return newState;
     case RECEIVE_DECLINE:
-      i = newState.pendingIn.indexOf(action.requester.id);
-      newState.pendingIn.splice(i, 1);
+      if (action.requester.id !== newState.id) {
+        i = newState.pendingIn.indexOf(action.requester.id);
+        newState.pendingIn.splice(i, 1);
+      }
       return newState;
     case RECEIVE_REJECTION:
-      i = newState.pendingOut.indexOf(action.requestee.id);
-      newState.pendingOut.splice(i, 1);
+      if (action.requestee.id !== newState.id) {
+        i = newState.pendingOut.indexOf(action.requestee.id);
+        newState.pendingOut.splice(i, 1);
+      }
       return newState;
     case RECEIVE_CANCEL:
-      i = newState.pendingOut.indexOf(action.requestee.id);
-      newState.pendingOut.splice(i, 1);
+      if (action.requestee.id !== newState.id) {
+        i = newState.pendingOut.indexOf(action.requestee.id);
+        newState.pendingOut.splice(i, 1);
+      }
       return newState;
     case RECEIVE_RETRACTION:
-      i = newState.pendingIn.indexOf(action.requester.id);
-      newState.pendingIn.splice(i, 1);
+      if (action.requester.id !== newState.id) {
+        i = newState.pendingIn.indexOf(action.requester.id);
+        newState.pendingIn.splice(i, 1);
+      }
       return newState;
     case REMOVE_FRIEND:
-      i = newState.friends.indexOf(action.unfriendee.id);
-      newState.friends.splice(i, 1);
+      if (action.unfriendee.id !== newState.id) {
+        i = newState.friends.indexOf(action.unfriendee.id);
+        newState.friends.splice(i, 1);
+      }
       return newState;
     case LOSE_FRIEND:
-      i = newState.friends.indexOf(action.unfriender.id);
-      newState.friends.splice(i, 1);
+      if (action.unfriender.id !== newState.id) {
+        i = newState.friends.indexOf(action.unfriender.id);
+        newState.friends.splice(i, 1);
+      }
       return newState;
     case RECEIVE_MESSAGE:
       [message] = Object.values(action.message);

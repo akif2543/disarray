@@ -12,7 +12,6 @@ const ServerBar = ({
   pending,
   unreads,
   currentUser,
-  setActive,
 }) => {
   return (
     <div className="server-bar-wrapper">
@@ -39,7 +38,6 @@ const ServerBar = ({
                 c={c}
                 m={m}
                 n={convoMembers}
-                setActive={setActive}
               />
             );
           })}

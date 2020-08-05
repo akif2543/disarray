@@ -2,6 +2,7 @@ json.conversation do
   json.set! @conversation.id do
     json.partial! "api/conversations/conversation", c: @conversation
     json.visited true
+    json.hasUnreads false
   end
 end
 

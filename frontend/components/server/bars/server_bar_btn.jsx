@@ -10,7 +10,6 @@ const ServerBarBtn = ({
   modalOpen,
   active,
   pending,
-  setActive,
   match,
   c,
   m,
@@ -21,8 +20,6 @@ const ServerBarBtn = ({
 
   const showTooltip = () => setTooltip(true);
   const hideTooltip = () => setTooltip(false);
-
-  const handleClick = (id) => () => setActive(id);
 
   let style = { display: "none" };
 
@@ -69,7 +66,7 @@ const ServerBarBtn = ({
       return (
         <div className="server-icon-container">
           <div className="note" style={style} />
-          <Link to={`/@me/${c.id}`} onClick={handleClick(c.id)}>
+          <Link to={`/@me/${c.id}`}>
             <button
               className="convo-btn"
               type="button"
@@ -84,10 +81,8 @@ const ServerBarBtn = ({
                 <div className="notification">1</div>
               </div>
             </button>
-            {tooltip && (
-              <Tooltip text={c.name || n} className="sb-tt" el={el} />
-            )}
           </Link>
+          {tooltip && <Tooltip text={c.name || n} className="sb-tt" el={el} />}
         </div>
       );
     case "create":

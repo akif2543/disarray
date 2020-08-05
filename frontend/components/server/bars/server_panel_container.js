@@ -14,7 +14,6 @@ import {
   leaveServer,
   receiveActive,
 } from "../../../actions/server_actions";
-// import Server from "./server";
 import { logout } from "../../../actions/session_actions";
 import {
   openModal,
@@ -33,7 +32,7 @@ const mSTP = (state, ownProps) => ({
 });
 
 const mDTP = (dispatch) => ({
-  requestServer: (id) => dispatch(requestServer(id)),
+  fetchServer: (id) => dispatch(requestServer(id)),
   fetchChannel: (id) => dispatch(fetchChannel(id)),
   updateServer: (server) => dispatch(updateServer(server)),
   deleteServer: (id) => dispatch(deleteServer(id)),

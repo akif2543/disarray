@@ -6,6 +6,7 @@ import {
 import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
 import { RECEIVE_CONVERSATION } from "../../actions/conversation_actions";
 import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
+import { RECEIVE_SERVER } from "../../actions/server_actions";
 
 const messagesReducer = (state = {}, action) => {
   const newState = { ...state };
@@ -31,6 +32,8 @@ const messagesReducer = (state = {}, action) => {
       [message] = Object.values(action.message);
       delete newState[message.id];
       return newState;
+    case RECEIVE_SERVER:
+      return Object.assign(newState, action.messages);
     default:
       return state;
   }

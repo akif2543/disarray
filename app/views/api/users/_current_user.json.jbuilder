@@ -36,7 +36,6 @@ user.get_servers.each do |server|
   json.servers do
     json.set! server.id do
       json.partial! "api/servers/server.json.jbuilder", server: server
-      json.extract! server, :updated_at
       json.hasUnreads user.updated_at < server.updated_at
     end
   end
@@ -52,11 +51,10 @@ user.get_servers.each do |server|
     json.channels do
       json.set! c.id do 
         json.partial! "api/channels/channel.json.jbuilder", channel: c
-        json.extract! c, :updated_at
         json.hasUnreads user.updated_at < c.updated_at
       end
     end
-
+    
     json.messages do
       c.messages.each do |m|
         json.partial! "api/messages/message.json.jbuilder", message: m
@@ -69,7 +67,6 @@ user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
       json.partial! "api/conversations/conversation.json.jbuilder", c: c
-      json.extract! c, :updated_at
       json.hasUnreads user.updated_at < c.updated_at
     end
   end
@@ -80,9 +77,9 @@ user.get_conversations.each do |c|
     end
   end
 
-   json.messages do
-      c.messages.each do |m|
-        json.partial! "api/messages/message.json.jbuilder", message: m
-      end
+  json.messages do
+    c.messages.each do |m|
+      json.partial! "api/messages/message.json.jbuilder", message: m
     end
+  end
 end

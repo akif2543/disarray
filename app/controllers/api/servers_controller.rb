@@ -2,17 +2,15 @@ class Api::ServersController < ApplicationController
 
   def index
     @servers = current_user ? current_user.servers.includes(:channels) : Server.all
-    # @servers = Server.all
     render :index
   end
 
   def show
-    begin
-      # @server = current_user ? current_user.servers.includes(:members).find(params[:id]) : Server.includes(:members).find(params[:id])
-      @server = Server.includes(:members, channels: :messages).find(params[:id])
+    @server = Server.includes(:members, :channels).find_by(id: params[:id])
+    if @server && current_user.is_member?(@server)
       render :show
-    rescue
-      render json: ["Server not found."], status: 404
+    else
+    render json: ["Server not found."], status: 404
     end
   end
 
@@ -32,7 +30,6 @@ class Api::ServersController < ApplicationController
       @server = current_user.servers.includes(:members, :channels).find(params[:id])
       if @server.update(server_params)
         ServerChannel.broadcast_to(@server, format_response)
-        # render :show
       else
         render json: @server.errors.full_messages, status: 422
       end
@@ -46,7 +43,6 @@ class Api::ServersController < ApplicationController
       @server = current_user.owned_servers.includes(:members, :channels).find(params[:id])
       @server.destroy
       ServerChannel.broadcast_to(@server, format_destroy)
-      # render :destroy
     rescue
       render json: ["Server not found."], status: 404
     end

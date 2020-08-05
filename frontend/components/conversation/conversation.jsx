@@ -12,7 +12,7 @@ const Conversation = ({
   name,
   sub,
   members,
-  fetchConversation,
+  setActive,
   customizeConversation,
   fetchMessages,
   updateMessage,
@@ -25,13 +25,9 @@ const Conversation = ({
 }) => {
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
-  // useEffect(() => {
-  //   if (conversationId && !conversation) {
-  //     fetchConversation(conversationId);
-  //   } else if (conversation && !conversation.visited) {
-  //     fetchConversation(conversationId);
-  //   }
-  // }, [conversationId]);
+  useEffect(() => {
+    setActive(conversationId);
+  }, [conversationId]);
 
   const { group, owner } = conversation;
 
