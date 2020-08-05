@@ -27,7 +27,10 @@ const ServerBar = ({
             if (c === undefined) return null;
             const { members } = c;
             const convoMembers = members
-              .filter((user) => user.id !== currentUser.id)
+              .filter(
+                (user) =>
+                  currentUser !== undefined && user.id !== currentUser.id
+              )
               .map((u) => u.username)
               .join(", ");
             const m = members.find((u) => u.id !== currentUser.id);
