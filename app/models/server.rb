@@ -24,7 +24,7 @@ class Server < ApplicationRecord
 
   def get_channels
     Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
-      self.channels
+      self.channels.sort { |a, b| a.id <=> b.id }
     end
   end
 
