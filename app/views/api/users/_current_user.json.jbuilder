@@ -1,5 +1,5 @@
 json.user do
-  # json.cache! ['cu', user], expires_in: 1.hour do
+  json.cache! ['cu', user], expires_in: 1.hour do
     json.set! user.id do
       json.extract! user, :id, :username, :discriminator, :email, :online, :updated_at
       json.avatar url_for(user.avatar)
@@ -11,7 +11,7 @@ json.user do
       json.pendingOut user.pending_friends.map(&:id)
       json.blocked user.blocked_friends.map(&:id)
     end
-  # end
+  end
 end
 
 json.users do
