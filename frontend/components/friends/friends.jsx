@@ -11,6 +11,7 @@ const Friends = ({
   pendingOut,
   blocked,
   friendError,
+  clearError,
   requestFriend,
   respondToRequest,
   unfriend,
@@ -45,6 +46,7 @@ const Friends = ({
         pendingOut={pendingOut}
         blocked={blocked}
         friendError={friendError}
+        clearError={clearError}
         requestFriend={requestFriend}
         respondToRequest={respondToRequest}
         removeFriend={unfriend}

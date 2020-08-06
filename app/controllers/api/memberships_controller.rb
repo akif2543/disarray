@@ -1,14 +1,13 @@
 class Api::MembershipsController < ApplicationController
 
   def create
-    @server = Server.includes(:members, :channels).find_by(join_code: params[:membership][:join_code])
+    @server = Server.includes(:members).find_by(join_code: params[:membership][:join_code])
     if @server
       unless current_user.is_member?(@server)
         @membership = Membership.new(member_id: current_user.id, subscribeable: @server)
         if @membership.save
-          @server = Server.includes(:members, :channels).find(@server.id)
+          @server = Server.includes(:members, channels: :messages).find(@server.id)
           ServerChannel.broadcast_to(@server, format_response)
-          # render "api/servers/show"
         else
           render json: @membership.errors.full_messages, status: 422
         end
@@ -28,7 +27,6 @@ class Api::MembershipsController < ApplicationController
       if @membership.update(alias: new_alias)
         @server = @membership.subscribeable
         ServerChannel.broadcast_to(@server, format_update)
-        # render :update
       else
         render json: @membership.errors.full_messages, status: 422
       end
@@ -44,7 +42,6 @@ class Api::MembershipsController < ApplicationController
       @server = @membership.subscribeable
       @membership.destroy
       ServerChannel.broadcast_to(@server, format_destroy)
-      # render :show
     else
       render json: ["Record not found"], status: 404
     end

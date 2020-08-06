@@ -13,6 +13,7 @@ export const LOSE_FRIEND = "LOSE_FRIEND";
 export const RECEIVE_BLOCK = "RECEIVE_BLOCK";
 export const RECEIVE_USER = "RECEIVE_USER";
 export const RECEIVE_FRIEND_ERROR = "RECEIVE_FRIEND_ERROR";
+export const CLEAR_FRIEND_ERROR = "CLEAR_FRIEND_ERROR";
 
 export const receiveRequest = (res) => ({
   type: RECEIVE_REQUEST,
@@ -77,6 +78,10 @@ export const receiveUser = (user) => ({
 const receiveFriendError = (error) => ({
   type: RECEIVE_FRIEND_ERROR,
   error,
+});
+
+export const clearFriendError = () => ({
+  type: CLEAR_FRIEND_ERROR
 });
 
 export const requestFriend = (id, user) => (dispatch) =>

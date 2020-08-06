@@ -5,20 +5,18 @@ import {
   RECEIVE_PENDING,
   RECEIVE_DECLINE,
   REMOVE_FRIEND,
+  CLEAR_FRIEND_ERROR,
 } from "../../actions/friend_actions";
 
 const friendsErrorsReducer = (state = [], action) => {
   switch (action.type) {
     case RECEIVE_FRIEND_ERROR:
       return action.error;
+    case CLEAR_FRIEND_ERROR:
     case RECEIVE_FRIEND:
-      return [];
     case RECEIVE_USER:
-      return [];
     case RECEIVE_PENDING:
-      return [];
     case RECEIVE_DECLINE:
-      return [];
     case REMOVE_FRIEND:
       return [];
     default:

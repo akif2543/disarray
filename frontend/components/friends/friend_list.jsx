@@ -11,6 +11,7 @@ const FriendList = ({
   pendingOut,
   blocked,
   friendError,
+  clearError,
   requestFriend,
   respondToRequest,
   removeFriend,
@@ -28,6 +29,7 @@ const FriendList = ({
     setTag("");
     setError(null);
     setSuccess(false);
+    clearError();
   };
 
   useEffect(() => {
