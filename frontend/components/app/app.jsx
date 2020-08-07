@@ -3,8 +3,24 @@ import { Route, Switch } from "react-router-dom";
 
 import { AuthRoute, ProtectedRoute } from "../../util/route_util";
 
-import SettingsContainer from "../ui/settings";
-import ModalContainer from "../ui/modal";
+import {
+  appearanceSub,
+  friendsSub,
+  serverSubs,
+  convoChannelSub,
+  convoSubs,
+} from "../../util/socket_util";
+
+import Loading from "../ui/loading";
+
+// import SettingsContainer from "../ui/settings";
+// import ModalContainer from "../ui/modal";
+
+const Settings = lazy(() =>
+  import(/* webpackChunkName: "settings" */ "../ui/settings")
+);
+
+const Modal = lazy(() => import(/* webpackChunkName: "modal" */ "../ui/modal"));
 
 const Splash = lazy(() =>
   import(/* webpackChunkName: "splash" */ "../splash/splash_container")
@@ -18,16 +34,6 @@ const Home = lazy(() => import(/* webpackChunkName: "home" */ "../home/home"));
 const Server = lazy(() =>
   import(/* webpackChunkName: "server" */ "../server/server")
 );
-
-import Loading from "../ui/loading";
-
-import {
-  appearanceSub,
-  friendsSub,
-  serverSubs,
-  convoChannelSub,
-  convoSubs,
-} from "../../util/socket_util";
 
 const Application = ({
   loading,
@@ -57,9 +63,10 @@ const Application = ({
   return (
     <div className="app">
       {loading && <Loading />}
-      {settings && <SettingsContainer />}
-      {modal && <ModalContainer />}
+
       <Suspense fallback={<Loading />}>
+        {settings && <Settings />}
+        {modal && <Modal />}
         <Switch>
           <AuthRoute path={["/register", "/login"]} component={Session} />
           <ProtectedRoute path="/@me" component={Home} />

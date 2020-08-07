@@ -19,8 +19,6 @@
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.2.0",
     "redux": "^4.0.5",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "shortid": "^2.2.15",
     "webpack": "^4.43.0",
@@ -54,6 +52,8 @@
     "npm": "6.12.0"
   },
   "devDependencies": {
+    "redux-devtools-extension": "^2.13.8",
+    "redux-logger": "^3.0.6",
     "webpack-bundle-analyzer": "^3.8.0"
   }
 }
