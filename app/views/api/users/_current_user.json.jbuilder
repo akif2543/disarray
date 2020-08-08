@@ -36,7 +36,7 @@ json.users do
   end
 end
 
-user.get_servers.each do |server|
+user.servers.each do |server|
   json.servers do
     json.set! server.id do
       json.partial! "api/servers/server.json.jbuilder", server: server
@@ -45,7 +45,7 @@ user.get_servers.each do |server|
   end
 
   json.users do
-    server.get_members.each do |m|
+    server.members.each do |m|
       json.cache! [m, m.online], expires_in: 10.minutes do
         json.partial! "api/users/user.json.jbuilder", user: m
       end
@@ -53,7 +53,7 @@ user.get_servers.each do |server|
   end
 
   
-  server.get_channels.each do |c|
+  server.channels.each do |c|
     json.channels do
       json.set! c.id do 
         json.partial! "api/channels/channel.json.jbuilder", channel: c
@@ -69,7 +69,7 @@ user.get_servers.each do |server|
   end
 end
 
-user.get_conversations.each do |c|
+user.conversations.each do |c|
   json.conversations do
     json.set! c.id do
       json.partial! "api/conversations/conversation.json.jbuilder", c: c
@@ -78,7 +78,7 @@ user.get_conversations.each do |c|
   end
 
   json.users do 
-    c.get_members.each do |m|
+    c.members.each do |m|
       json.cache! [m, m.online], expires_in: 10.minutes do
         json.partial! "api/users/user.json.jbuilder", user: m
       end

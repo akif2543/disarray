@@ -8,6 +8,7 @@ export const RECEIVE_SERVER = "RECEIVE_SERVER";
 export const RECEIVE_ALIAS = "RECEIVE_ALIAS";
 export const RECEIVE_ACTIVE = "RECEIVE_ACTIVE";
 export const REMOVE_SERVER = "REMOVE_SERVER";
+export const LEAVE_SERVER = "LEAVE_SERVER";
 export const REMOVE_MEMBER = "REMOVE_MEMBER";
 export const RECEIVE_SERVER_ERRORS = "RECEIVE_SERVER_ERRORS";
 export const CLEAR_SERVER_ERRORS = "CLEAR_SERVER_ERRORS";
@@ -29,6 +30,11 @@ export const receiveActive = (server) => ({
 
 export const removeServer = (server) => ({
   type: REMOVE_SERVER,
+  ...server,
+});
+
+export const removeLeftServer = (server) => ({
+  type: LEAVE_SERVER,
   ...server,
 });
 
@@ -108,7 +114,7 @@ export const joinServer = (membership) => (dispatch) =>
 export const leaveServer = (membership) => (dispatch) =>
   ServerAPI.leaveServer(membership)
     .then((server) => {
-      dispatch(removeServer(server));
+      dispatch(removeLeftServer(server));
     })
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));
 

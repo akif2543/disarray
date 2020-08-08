@@ -21,10 +21,6 @@ const messagesReducer = (state = {}, action) => {
       return Object.assign(newState, action.messages);
     case RECEIVE_CHANNEL:
       return Object.assign(newState, action.messages);
-    case REMOVE_CHANNEL:
-      [channel] = Object.values(action.channel);
-      channel.messages.forEach((id) => delete newState[id]);
-      return newState;
     case RECEIVE_CONVERSATION:
       return Object.assign(newState, action.messages);
     case RECEIVE_MESSAGE:

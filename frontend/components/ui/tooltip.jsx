@@ -89,7 +89,6 @@ const Tooltip = ({ text, className, el }) => {
       case "nav-tt dm":
         style = {
           right: `calc(100vw - ${right + 52.5}px)`,
-          // left: `${right - 60 - width / 2}px`,
         };
         break;
       case "fl-tt msg":
@@ -114,6 +113,11 @@ const Tooltip = ({ text, className, el }) => {
         style = {
           top: `${top - 45}px`,
           right: `calc(100vw - ${right + 15}px)`,
+        };
+        break;
+      case "dc-tt":
+        style = {
+          top: `${top - 41}px`,
         };
         break;
       default:

@@ -62,6 +62,7 @@ const ServerActions = ({
     case "delete channel":
       component = (
         <ServerLeaveDelete
+          server={server}
           channel={channel}
           closeModal={closeModal}
           closeSettings={closeSettings}

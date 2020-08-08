@@ -34,7 +34,7 @@ const ServerLeaveDelete = ({
     deleteChannel(channel.id)
       .then(closeSettings())
       .then(closeModal())
-      .then(history.push("/@me"));
+      .then(history.push(`/channels/${server.id}/${server.channels[0]}`));
 
   const setOptions = () => {
     switch (action) {

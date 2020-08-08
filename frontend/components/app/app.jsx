@@ -1,5 +1,5 @@
 import React, { useEffect, Suspense, lazy } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, useHistory } from "react-router-dom";
 
 import { AuthRoute, ProtectedRoute } from "../../util/route_util";
 
@@ -50,11 +50,13 @@ const Application = ({
   serverActions,
   messageActions,
 }) => {
+  const { push } = useHistory();
+
   useEffect(() => {
     if (loggedIn && App) {
       appearanceSub(user.id, receiveStatus, receiveSub);
       friendsSub(user.id, friendActions, receiveSub);
-      serverSubs(servers, serverActions, messageActions, receiveSub);
+      serverSubs(servers, serverActions, messageActions, receiveSub, push);
       convoChannelSub(user.id, receiveConversation, messageActions, receiveSub);
       convoSubs(convos, messageActions, receiveSub);
     }

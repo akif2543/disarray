@@ -4,6 +4,7 @@ import { withRouter } from "react-router-dom";
 import {
   getCurrentChannel,
   getCurrentChannelJanky,
+  isPrimaryChannel,
 } from "../../reducers/selectors";
 import { closeSettings, openModal } from "../../actions/ui_actions";
 import {
@@ -15,6 +16,7 @@ import ChannelSettings from "./channel_settings";
 
 const mSTP = (state, ownProps) => ({
   channel: getCurrentChannel(state, ownProps),
+  isPrimary: isPrimaryChannel(state, ownProps),
 });
 
 const mDTP = (dispatch) => ({

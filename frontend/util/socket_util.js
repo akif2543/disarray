@@ -95,7 +95,7 @@ const channelSub = (id, receive, remove, unread, sub) => {
   delete App.channel;
 };
 
-export const serverSub = (s, serverActions, messageActions, sub) => {
+export const serverSub = (s, serverActions, messageActions, sub, push) => {
   const {
     receiveServer,
     removeServer,
@@ -110,10 +110,13 @@ export const serverSub = (s, serverActions, messageActions, sub) => {
     { channel: "ServerChannel", id: s.id },
     {
       received: (data) => {
+        let re;
         switch (data.action) {
           case "receive server":
             return receiveServer(data);
           case "remove server":
+            re = new RegExp(`#/channels/${data.id}/\\d+`);
+            if (re.test(window.location.hash)) push("/@me");
             return removeServer(data);
           case "receive alias":
             return receiveAlias(data);
@@ -124,6 +127,9 @@ export const serverSub = (s, serverActions, messageActions, sub) => {
             channelSub(c, receiveMessage, removeMessage, receiveUnread, sub);
             return receiveChannel(data);
           case "remove channel":
+            re = new RegExp(`#/channels/${data.server}/${data.id}`);
+            if (re.test(window.location.hash))
+              push(`/channels/${data.server}/${data.active}`);
             return removeChannel(data);
           default:
             break;
@@ -138,8 +144,10 @@ export const serverSub = (s, serverActions, messageActions, sub) => {
   delete App.server;
 };
 
-export const serverSubs = (servers, serverActions, messageActions, sub) =>
-  servers.forEach((s) => serverSub(s, serverActions, messageActions, sub));
+export const serverSubs = (servers, serverActions, messageActions, sub, push) =>
+  servers.forEach((s) =>
+    serverSub(s, serverActions, messageActions, sub, push)
+  );
 
 const convoSub = (id, receive, remove, unread, sub) => {
   App.convo = App.cable.subscriptions.create(

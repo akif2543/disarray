@@ -1,5 +1,9 @@
 import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
-import { RECEIVE_SERVER, RECEIVE_ACTIVE } from "../../actions/server_actions";
+import {
+  RECEIVE_SERVER,
+  RECEIVE_ACTIVE,
+  LEAVE_SERVER,
+} from "../../actions/server_actions";
 import {
   RECEIVE_MESSAGE,
   RECEIVE_MESSAGES,
@@ -61,6 +65,9 @@ const channelsReducer = (state = {}, action) => {
         return newState;
       }
       return state;
+    case LEAVE_SERVER:
+      action.channels.forEach((id) => delete newState[id]);
+      return newState;
     case LOGOUT_CURRENT_USER:
       return {};
     default:

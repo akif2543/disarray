@@ -1,16 +1,24 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Tooltip from "../ui/tooltip";
 
 const ChannelSettings = ({
   channel,
+  isPrimary,
   updateChannel,
   openModal,
   closeSettings,
 }) => {
+  const el = useRef(null);
+
   const t = channel.topic === null ? "" : channel.topic;
   const [name, setName] = useState(channel.name);
   const [topic, setTopic] = useState(t);
   const [error, setError] = useState(false);
+  const [tooltip, setTooltip] = useState(false);
+
+  const showTooltip = () => setTooltip(true);
+  const hideTooltip = () => setTooltip(false);
 
   const clearError = () => setError(false);
 
@@ -44,7 +52,7 @@ const ChannelSettings = ({
   };
 
   return (
-    <div className="settings">
+    <>
       <section className="settings-sidebar">
         <nav>
           <header className="channel-sidebar-head">
@@ -59,11 +67,23 @@ const ChannelSettings = ({
             <div className="divider" />
             <button
               type="button"
-              className="logout"
-              onClick={() => openModal("delete channel")}
+              className={isPrimary ? "logout disabled" : "logout"}
+              onClick={isPrimary ? null : () => openModal("delete channel")}
+              onMouseEnter={showTooltip}
+              onFocus={showTooltip}
+              onMouseLeave={hideTooltip}
+              onBlur={hideTooltip}
+              ref={el}
             >
               Delete Channel
             </button>
+            {isPrimary && tooltip && (
+              <Tooltip
+                text="Cannot delete primary channel"
+                className="dc-tt"
+                el={el}
+              />
+            )}
           </ul>
         </nav>
       </section>
@@ -124,7 +144,7 @@ const ChannelSettings = ({
           </div>
         )}
       </main>
-    </div>
+    </>
   );
 };
 

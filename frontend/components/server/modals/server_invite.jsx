@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ServerInvite = ({ server, closeModal }) => {
   let code;
+  let timeout;
 
   const [selected, setSelected] = useState(false);
   const [copied, setCopied] = useState(false);
@@ -27,9 +28,11 @@ const ServerInvite = ({ server, closeModal }) => {
 
   useEffect(() => {
     if (copied) {
-      setInterval(revert, 2000);
+      timeout = setTimeout(revert, 2000);
     }
   }, [copied]);
+
+  useEffect(() => () => clearTimeout(timeout));
 
   return (
     <div className="server-inv">

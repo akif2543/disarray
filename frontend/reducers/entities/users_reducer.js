@@ -8,6 +8,7 @@ import {
   RECEIVE_SERVER,
   REMOVE_SERVER,
   RECEIVE_ALIAS,
+  LEAVE_SERVER,
 } from "../../actions/server_actions";
 import { RECEIVE_CHANNEL } from "../../actions/channel_actions";
 import {
@@ -38,6 +39,9 @@ const usersReducer = (state = {}, action) => {
         if (newState[m]) delete newState[m].servers[action.id];
       });
       return newState;
+    case LEAVE_SERVER:
+      delete newState[action.id].servers[action.server];
+      return newState;
     case RECEIVE_CHANNEL:
       return Object.assign(newState, action.users);
     case RECEIVE_CONVERSATIONS:
@@ -51,7 +55,6 @@ const usersReducer = (state = {}, action) => {
     case RECEIVE_USER:
       return Object.assign(newState, action.user);
     case RECEIVE_PENDING:
-      // [user] = Object.values(action.requestee);
       newState[action.requestee.id] = action.requestee;
       return newState;
     case RECEIVE_REQUEST:

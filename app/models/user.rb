@@ -59,7 +59,7 @@ class User < ApplicationRecord
 
   def conversation_ids
     get_conversations
-      .sort { |a, b| b.updated_at <=>  a.updated_at }
+      .sort { |a, b| b.updated_at <=> a.updated_at }
       .map(&:id)
       
   end
@@ -76,9 +76,13 @@ class User < ApplicationRecord
   end
 
   def server_aliases
-    Rails.cache.fetch([cache_key, __method__], expires_in: 10.minutes) do
-      force_server_aliases
-    end
+    # Rails.cache.fetch([cache_key, __method__], expires_in: 10.minutes) do
+      aliases = {}
+      self.memberships.each do |m|
+        aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
+      end
+      aliases
+    # end
   end
 
   def is_member?(server)
@@ -110,14 +114,6 @@ class User < ApplicationRecord
   end
 
   private
-
-  def force_server_aliases
-    aliases = {}
-    self.memberships.each do |m|
-      aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
-    end
-    aliases
-  end
 
   def ensure_session_token
     self.session_token ||= generate_session_token

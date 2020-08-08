@@ -478,6 +478,7 @@
   background: rgb(47, 49, 54);
   z-index: 10;
   @include flex(row, flex-end);
+  position: relative;
 
   nav {
     width: 218px;

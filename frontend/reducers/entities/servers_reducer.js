@@ -4,6 +4,7 @@ import {
   REMOVE_SERVER,
   RECEIVE_ACTIVE,
   REMOVE_MEMBER,
+  LEAVE_SERVER,
 } from "../../actions/server_actions";
 import {
   RECEIVE_CURRENT_USER,
@@ -25,6 +26,9 @@ const serversReducer = (state = {}, action) => {
     case REMOVE_SERVER:
       delete newState[action.id];
       return newState;
+    case LEAVE_SERVER:
+      delete newState[action.server];
+      return newState;
     case RECEIVE_CHANNEL:
       [channel] = Object.values(action.channel);
       i = newState[channel.server].channels.indexOf(channel.id);
@@ -33,6 +37,7 @@ const serversReducer = (state = {}, action) => {
     case REMOVE_CHANNEL:
       i = newState[action.server].channels.indexOf(action.id);
       newState[action.server].channels.splice(i, 1);
+      newState[action.server].active = action.active;
       return newState;
     case RECEIVE_ACTIVE:
       newState[action.id].active = action.active;
