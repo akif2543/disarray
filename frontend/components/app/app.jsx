@@ -52,8 +52,8 @@ const Application = ({
 }) => {
   useEffect(() => {
     if (loggedIn && App) {
-      appearanceSub(user.id, receiveStatus);
-      friendsSub(user.id, friendActions);
+      appearanceSub(user.id, receiveStatus, receiveSub);
+      friendsSub(user.id, friendActions, receiveSub);
       serverSubs(servers, serverActions, messageActions, receiveSub);
       convoChannelSub(user.id, receiveConversation, messageActions, receiveSub);
       convoSubs(convos, messageActions, receiveSub);

@@ -5,7 +5,10 @@ import {
   RECEIVE_ACTIVE,
   REMOVE_MEMBER,
 } from "../../actions/server_actions";
-import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
+import {
+  RECEIVE_CURRENT_USER,
+  LOGOUT_CURRENT_USER,
+} from "../../actions/session_actions";
 import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
 
 const serversReducer = (state = {}, action) => {
@@ -38,6 +41,8 @@ const serversReducer = (state = {}, action) => {
       i = newState[action.server].members.indexOf(action.id);
       if (i > -1) newState[action.server].members.splice(i, 1);
       return newState;
+    case LOGOUT_CURRENT_USER:
+      return {};
     default:
       return state;
   }

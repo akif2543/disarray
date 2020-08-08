@@ -2,6 +2,7 @@ import {
   RECEIVE_CURRENT_USER,
   RECEIVE_USERS,
   RECEIVE_STATUS,
+  LOGOUT_CURRENT_USER,
 } from "../../actions/session_actions";
 import {
   RECEIVE_SERVER,
@@ -65,6 +66,8 @@ const usersReducer = (state = {}, action) => {
         return newState;
       }
       return state;
+    case LOGOUT_CURRENT_USER:
+      return {};
     default:
       return state;
   }

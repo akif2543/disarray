@@ -1,9 +1,11 @@
 import { RECEIVE_SUB } from "../../actions/message_actions";
 import { REMOVE_SERVER } from "../../actions/server_actions";
 import { REMOVE_CHANNEL } from "../../actions/channel_actions";
+import { LOGOUT_CURRENT_USER } from "../../actions/session_actions";
 
 const channelSubsReducer = (state = {}, action) => {
   const newState = { ...state };
+  let subs;
   switch (action.type) {
     case RECEIVE_SUB:
       if (action.subType === "Channel") {
@@ -24,6 +26,10 @@ const channelSubsReducer = (state = {}, action) => {
         delete newState[action.id];
       }
       return newState;
+    case LOGOUT_CURRENT_USER:
+      subs = Object.values(newState);
+      subs.forEach((sub) => sub.unsubscribe());
+      return {};
     default:
       return state;
   }

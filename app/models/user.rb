@@ -76,7 +76,7 @@ class User < ApplicationRecord
   end
 
   def server_aliases
-    Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
+    Rails.cache.fetch([cache_key, __method__], expires_in: 10.minutes) do
       force_server_aliases
     end
   end

@@ -3,7 +3,10 @@ import {
   RECEIVE_CONVERSATION,
   RECEIVE_ACTIVE_CONVO,
 } from "../../actions/conversation_actions";
-import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
+import {
+  RECEIVE_CURRENT_USER,
+  LOGOUT_CURRENT_USER,
+} from "../../actions/session_actions";
 import {
   RECEIVE_MESSAGES,
   RECEIVE_MESSAGE,
@@ -50,6 +53,8 @@ const conversationsReducer = (state = {}, action) => {
         newState[action.convo].unreads = 0;
       }
       return newState;
+    case LOGOUT_CURRENT_USER:
+      return {};
     default:
       return state;
   }

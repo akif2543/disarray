@@ -6,7 +6,10 @@ import {
   REMOVE_MESSAGE,
   RECEIVE_UNREAD,
 } from "../../actions/message_actions";
-import { RECEIVE_CURRENT_USER } from "../../actions/session_actions";
+import {
+  RECEIVE_CURRENT_USER,
+  LOGOUT_CURRENT_USER,
+} from "../../actions/session_actions";
 
 const channelsReducer = (state = {}, action) => {
   const newState = { ...state };
@@ -58,6 +61,8 @@ const channelsReducer = (state = {}, action) => {
         return newState;
       }
       return state;
+    case LOGOUT_CURRENT_USER:
+      return {};
     default:
       return state;
   }

@@ -1,5 +1,5 @@
-export const appearanceSub = (id, receive) => {
-  App.cable.subscriptions.create(
+export const appearanceSub = (id, receive, sub) => {
+  App.appearance = App.cable.subscriptions.create(
     { channel: "AppearanceChannel", id },
     {
       initialized() {
@@ -35,9 +35,12 @@ export const appearanceSub = (id, receive) => {
       received: (status) => receive(status),
     }
   );
+
+  sub({ subType: "Appearance", sub: App.appearance });
+  delete App.appearance;
 };
 
-export const friendsSub = (id, actions) => {
+export const friendsSub = (id, actions, sub) => {
   const {
     receiveRequest,
     receiveAcceptance,
@@ -45,7 +48,7 @@ export const friendsSub = (id, actions) => {
     receiveRetraction,
     loseFriend,
   } = actions;
-  App.cable.subscriptions.create(
+  App.friends = App.cable.subscriptions.create(
     { channel: "FriendsChannel", id },
     {
       received: (data) => {
@@ -66,6 +69,8 @@ export const friendsSub = (id, actions) => {
       },
     }
   );
+  sub({ subType: "Friends", sub: App.friends });
+  delete App.friends;
 };
 
 const channelSub = (id, receive, remove, unread, sub) => {
@@ -160,7 +165,7 @@ const convoSub = (id, receive, remove, unread, sub) => {
 
 export const convoChannelSub = (id, receive, messageActions, sub) => {
   const { removeMessage, receiveMessage, receiveUnread } = messageActions;
-  App.cable.subscriptions.create(
+  App.cc = App.cable.subscriptions.create(
     { channel: "ConversationChannel", id },
     {
       received: (data) => {
@@ -168,11 +173,19 @@ export const convoChannelSub = (id, receive, messageActions, sub) => {
         const [c] = Object.values(data.conversation);
         const re = new RegExp(`#/@me/${c.id}`);
         if (c.owner !== id && !re.test(window.location.hash))
-           receiveUnread({ textChannel: false, messageableId: c.id });
-        return convoSub(c.id, receiveMessage, removeMessage, receiveUnread, sub);
+          receiveUnread({ textChannel: false, messageableId: c.id });
+        return convoSub(
+          c.id,
+          receiveMessage,
+          removeMessage,
+          receiveUnread,
+          sub
+        );
       },
     }
   );
+  sub({ subType: "ConversationChannel", sub: App.cc });
+  delete App.cc;
 };
 
 export const convoSubs = (convos, messageActions, sub) => {

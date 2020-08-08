@@ -19,6 +19,7 @@ class Api::ServersController < ApplicationController
     @server.owner_id = current_user.id
     if @server.save
       @server.bundle
+      @server = Server.includes(:members, :channels).find(@server.id)
       render :show
     else
       render json: @server.errors.full_messages, status: 422
