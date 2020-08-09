@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+
 import AvatarWithStatus from "../user/avatar_with_status";
+import GroupDMIcon from "./group_dm_icon";
 
 const ConversationListItem = ({ convo, isActive, currentUser }) => {
   const [maxLength, setMaxLength] = useState(22);
@@ -19,7 +21,7 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
     return name.length > 22 ? `${trimName(name.slice(0, maxLength))}...` : name;
   };
 
-  const { members, group, unreads } = convo;
+  const { members, group, unreads, id, icon } = convo;
 
   const convoMembers = members
     .filter((user) => user !== undefined && user.id !== currentUser.id)
@@ -36,9 +38,13 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
       onMouseOut={normalLength}
       onBlur={normalLength}
     >
-      {group ? (
-        <img src={convo.icon || m.avatar} alt="" className="avatar" />
-      ) : (
+      {group &&
+        (icon ? (
+          <img src={icon || m.avatar} alt="" className="avatar" />
+        ) : (
+          <GroupDMIcon id={id} sidebar />
+        ))}
+      {!group && (
         <AvatarWithStatus avatar={m.avatar} online={m.online} sidebar />
       )}
       <div className="convo-info">

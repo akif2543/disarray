@@ -36,7 +36,7 @@ json.users do
   end
 end
 
-user.servers.each do |server|
+user.get_servers.each do |server|
   json.servers do
     json.set! server.id do
       json.partial! "api/servers/server.json.jbuilder", server: server
@@ -69,7 +69,7 @@ user.servers.each do |server|
   end
 end
 
-user.conversations.each do |c|
+user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
       json.partial! "api/conversations/conversation.json.jbuilder", c: c

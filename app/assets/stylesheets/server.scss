@@ -39,6 +39,7 @@
     .server-icon,
     .convo-btn,
     .avatar,
+    .group-dm-icon,
     .server-btn {
       height: 48px;
       width: 48px;
@@ -49,23 +50,12 @@
       }
     }
 
-    // .convo-btn {
-    //   .avatar {
-    //     height: 48px;
-    //     width: 48px;
-    //     &:hover {
-    //       border-radius: 15px;
-    //     }
-    //   }
-    // }
-
     .server-btn {
       background: $dk-main-bg;
       color: $dk-green;
       &:hover {
         background: $dk-green;
         color: $dk-white;
-        // border-radius: 15px;
       }
     }
 

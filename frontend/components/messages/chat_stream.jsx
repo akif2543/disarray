@@ -4,6 +4,7 @@ import debounce from "lodash.debounce";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import MessageContainer from "./message_container";
+import ChatBannerContainer from "./chat_banner";
 
 class ChatStream extends React.Component {
   constructor(props) {
@@ -152,10 +153,11 @@ class ChatStream extends React.Component {
   render() {
     const seen = new Set();
     const last = [];
-    const { memberbar, messages } = this.props;
+    const { memberbar, messages, isNew } = this.props;
     const { scrolling, loading } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
+        {isNew && <ChatBannerContainer />}
         <div ref={this.bottom} className="loader">
           {loading && <FontAwesomeIcon icon="spinner" spin />}
         </div>

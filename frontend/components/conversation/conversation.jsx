@@ -53,6 +53,7 @@ const Conversation = ({
             type="Conversation"
             user={currentUser}
             updateMessage={updateMessage}
+            isNew={messages.length < 30}
           />
           {conversation && (
             <NewMessageForm

@@ -3,6 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../../ui/tooltip";
+import GroupDMIcon from "../../conversation/group_dm_icon";
 
 const ServerBarBtn = ({
   type,
@@ -76,7 +77,13 @@ const ServerBarBtn = ({
               onBlur={hideTooltip}
               ref={el}
             >
-              <img src={c.icon || m.avatar} alt="" className="avatar" />
+              {c.group &&
+                (c.icon ? (
+                  <img src={c.icon} alt="" className="avatar" />
+                ) : (
+                  <GroupDMIcon id={c.id} sidebar />
+                ))}
+              {!c.group && <img src={m.avatar} alt="" className="avatar" />}
               <div className="badge-bg">
                 <div className="notification">{c.unreads}</div>
               </div>

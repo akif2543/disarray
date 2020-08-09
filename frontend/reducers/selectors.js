@@ -63,7 +63,9 @@ export const isPrimaryChannel = (state, props) => {
 };
 
 export const getServerMembers = (state, props) => {
-  const { id, members } = getCurrentServer(state, props);
+  const server = getCurrentServer(state, props);
+  if (!server) return [];
+  const { members, id } = server;
   return members
     .filter((n, i, a) => a.indexOf(n) === i)
     .map((m) => state.entities.users[m])

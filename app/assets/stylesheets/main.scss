@@ -656,9 +656,11 @@ button.disabled {
     overflow: hidden;
     text-overflow: ellipsis;
 
-    .avatar {
+    .avatar,
+    .group-dm-icon {
       height: 35px;
       width: 35px;
+      min-width: 35px;
     }
 
     .convo-info {
@@ -683,21 +685,67 @@ button.disabled {
         }
       }
     }
+
     &:hover {
-      h2,
-      h3 {
-        color: rgb(220, 221, 222);
+      .avatar-with-status {
+        .badge-bg.sidebar {
+          background: rgb(52, 55, 60);
+        }
+      }
+      .convo-info {
+        h2,
+        h3 {
+          color: rgb(220, 221, 222);
+        }
       }
     }
   }
 
   .active,
   .unread {
+    .avatar-with-status {
+      .badge-bg.sidebar {
+        background: rgb(58, 60, 67);
+      }
+    }
     .convo-info {
       h2,
       h3 {
         color: $dk-white;
       }
     }
+    &:hover {
+      .avatar-with-status {
+        .badge-bg.sidebar {
+          background: rgb(58, 60, 67);
+        }
+      }
+    }
   }
+}
+
+.group-dm-icon {
+  border-radius: 50%;
+  @include flex(row, center, center);
+  color: $dk-white;
+}
+
+.group-dm-icon.blue {
+  background: $dk-blue-dm;
+}
+
+.group-dm-icon.yellow {
+  background: $dk-yellow-dm;
+}
+
+.group-dm-icon.green {
+  background: $dk-green;
+}
+
+.group-dm-icon.red {
+  background: $dk-red;
+}
+
+.group-dm-icon.pink {
+  background: $dk-pink-dm;
 }

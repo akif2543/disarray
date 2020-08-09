@@ -369,3 +369,30 @@
     }
   }
 }
+
+.chat-banner {
+  margin: 15px 17px 0;
+  padding-bottom: 15px;
+  border-bottom: 0.1px solid rgb(66, 69, 74);
+
+  .avatar {
+    height: 80px;
+    width: 80px;
+  }
+
+  .group-dm-icon {
+    height: 80px;
+    width: 80px;
+  }
+
+  .hed {
+    font-size: 32px;
+    cursor: default;
+    margin: 15px 0;
+  }
+
+  .sub {
+    color: $dk-icons;
+    cursor: default;
+  }
+}
