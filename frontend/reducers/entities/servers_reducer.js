@@ -41,6 +41,7 @@ const serversReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_ACTIVE:
       newState[action.id].active = action.active;
+      newState[action.id].hasUnreads = false;
       return newState;
     case REMOVE_MEMBER:
       i = newState[action.server].members.indexOf(action.id);

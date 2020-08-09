@@ -16,11 +16,11 @@ end
     end
   end
 
-  # json.messages do
-  #   c.messages.each do |m|
-  #     json.partial! "api/messages/message.json.jbuilder", message: m
-  #   end
-  # end
+  json.messages do
+    c.messages.each do |m|
+      json.partial! "api/messages/message.json.jbuilder", message: m
+    end
+  end
 end
 
 json.users do

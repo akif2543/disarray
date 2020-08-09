@@ -374,7 +374,7 @@
   margin: 15px 17px 0;
   padding-bottom: 15px;
   max-height: 100%;
-  min-height: auto;
+  min-height: 175px;
   @include flex(column, flex-end, flex-start);
 
   .avatar {
@@ -406,6 +406,7 @@
 
 .chat-banner.server {
   max-width: 370px;
+  min-height: 125px;
   text-align: center;
   @include flex(column, flex-end, center);
   margin: 15px auto 0;
@@ -416,6 +417,8 @@
 }
 
 .chat-banner.channel {
+  min-height: 205px;
+
   .group-dm-icon {
     background: rgb(79, 84, 92);
   }

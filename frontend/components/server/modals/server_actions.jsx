@@ -56,6 +56,7 @@ const ServerActions = ({
           serverId={server.id}
           closeModal={closeModal}
           createChannel={createChannel}
+          history={history}
         />
       );
       break;

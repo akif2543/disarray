@@ -50,7 +50,7 @@ class Api::MembershipsController < ApplicationController
   private
 
   def format_response
-    JSON.parse(render("api/servers/show.json.jbuilder"))
+    JSON.parse(render("api/memberships/show.json.jbuilder"))
   end
 
   def format_update

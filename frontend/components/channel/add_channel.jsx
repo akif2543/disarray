@@ -1,6 +1,11 @@
 import React, { useState } from "react";
 
-const AddChannel = ({ createChannel, closeModal, serverId }) => {
+const AddChannel = ({
+  createChannel,
+  closeModal,
+  serverId,
+  history: { push },
+}) => {
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
 
@@ -12,8 +17,10 @@ const AddChannel = ({ createChannel, closeModal, serverId }) => {
     e.preventDefault();
     setError(false);
     if (name.length) {
-      const server_id = serverId;
-      createChannel({ name, server_id });
+      createChannel({ name, server_id: serverId }).then((action) => {
+        const [c] = Object.keys(action.channel);
+        push(`/channels/${serverId}/${c}`);
+      });
     } else {
       setError(true);
     }

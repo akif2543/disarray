@@ -60,7 +60,7 @@ const ChatBanner = ({
           ) : (
             <h2 className="sub">
               This is the beginning of your direct message history with{" "}
-              <strong>{`@${title}`}</strong>
+              <strong>{`@${title}`}</strong>.
             </h2>
           )}
         </div>
