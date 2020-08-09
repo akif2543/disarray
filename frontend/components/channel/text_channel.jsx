@@ -24,7 +24,7 @@ const TextChannel = ({
   const toggleMemberBar = () => (sidebarOpen ? hideSidebar() : showSidebar());
 
   useEffect(() => {
-    setActive({id: serverId, active: channelId});
+    setActive({ id: serverId, active: channelId });
   }, [channelId]);
 
   return (
@@ -44,6 +44,7 @@ const TextChannel = ({
             type="Channel"
             user={currentUser}
             updateMessage={updateMessage}
+            isNew={messages.length < 30}
           />
           {channel && (
             <NewMessageForm

@@ -373,7 +373,9 @@
 .chat-banner {
   margin: 15px 17px 0;
   padding-bottom: 15px;
-  border-bottom: 0.1px solid rgb(66, 69, 74);
+  max-height: 100%;
+  min-height: auto;
+  @include flex(column, flex-end, flex-start);
 
   .avatar {
     height: 80px;
@@ -394,5 +396,41 @@
   .sub {
     color: $dk-icons;
     cursor: default;
+  }
+}
+
+.border {
+  margin: 0 17px;
+  border-bottom: 0.1px solid rgb(66, 69, 74);
+}
+
+.chat-banner.server {
+  max-width: 370px;
+  text-align: center;
+  @include flex(column, flex-end, center);
+  margin: 15px auto 0;
+
+  .hed {
+    line-height: 40px;
+  }
+}
+
+.chat-banner.channel {
+  .group-dm-icon {
+    background: rgb(79, 84, 92);
+  }
+
+  .edit-btn {
+    margin-top: 10px;
+    line-height: 20px;
+    color: rgb(30, 175, 238);
+    font: {
+      size: 14px;
+      family: "Whitney Medium";
+    }
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
