@@ -1,6 +1,11 @@
 import ServerAPI from "../util/server_api_util";
 import { receiveChannel, removeChannel } from "./channel_actions";
-import { receiveMessage, removeMessage, receiveSub } from "./message_actions";
+import {
+  receiveMessage,
+  removeMessage,
+  receiveSub,
+  receiveUnread,
+} from "./message_actions";
 import { serverSub } from "../util/socket_util";
 
 export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
@@ -79,14 +84,21 @@ const serverActions = (dispatch) => ({
 const messageActions = (dispatch) => ({
   receiveMessage: (message) => dispatch(receiveMessage(message)),
   removeMessage: (message) => dispatch(removeMessage(message)),
+  receiveUnread: (unread) => dispatch(receiveUnread(unread)),
 });
 
-export const createServer = (server) => (dispatch) =>
+export const createServer = (server, push) => (dispatch) =>
   ServerAPI.createServer(server)
     .then((res) => {
       const [s] = Object.values(res.server);
       const receive = (sub) => dispatch(receiveSub(sub));
-      serverSub(s, serverActions(dispatch), messageActions(dispatch), receive);
+      serverSub(
+        s,
+        serverActions(dispatch),
+        messageActions(dispatch),
+        receive,
+        push
+      );
       return dispatch(receiveServer(res));
     })
     .fail((e) => dispatch(receiveServers(e.responseJSON)));
@@ -101,12 +113,18 @@ export const deleteServer = (id) => (dispatch) =>
     dispatch(receiveServerErrors(e.responseJSON))
   );
 
-export const joinServer = (membership) => (dispatch) =>
+export const joinServer = (membership, push) => (dispatch) =>
   ServerAPI.joinServer(membership)
     .then((res) => {
       const [s] = Object.values(res.server);
       const receive = (sub) => dispatch(receiveSub(sub));
-      serverSub(s, serverActions(dispatch), messageActions(dispatch), receive);
+      serverSub(
+        s,
+        serverActions(dispatch),
+        messageActions(dispatch),
+        receive,
+        push
+      );
       return dispatch(receiveServer(res));
     })
     .fail((e) => dispatch(receiveServerErrors(e.responseJSON)));

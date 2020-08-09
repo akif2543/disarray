@@ -27,7 +27,7 @@ const NewServerForm = ({
       if (icon.file) {
         formData.append("server[icon]", icon.file);
       }
-      createServer(formData).then((action) => {
+      createServer(formData, push).then((action) => {
         const [s] = Object.values(action.server);
         push(`/channels/${s.id}/${s.active}`);
       });

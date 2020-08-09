@@ -19,7 +19,7 @@ const JoinServerForm = ({
     if (joinCode.length) {
       setError(false);
       const membership = { join_code: joinCode };
-      joinServer(membership).then((action) => {
+      joinServer(membership, push).then((action) => {
         const [s] = Object.values(action.server);
         push(`/channels/${s.id}/${s.active}`);
       });

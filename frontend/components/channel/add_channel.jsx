@@ -33,7 +33,7 @@ const AddChannel = ({
       </header>
       <label htmlFor="channel-name">
         <h5>CHANNEL NAME</h5>
-        <input type="text" value={name} onChange={handleChange} />
+        <input type="text" value={name} onChange={handleChange} autoFocus />
         {error && <span className="err-msg">This field is required</span>}
       </label>
       <footer>

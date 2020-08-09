@@ -18,8 +18,8 @@ const mSTP = (state) => ({
 const mDTP = (dispatch) => ({
   closeModal: () => dispatch(closeModal()),
   openModal: (modal) => dispatch(openModal(modal)),
-  createServer: (server) => dispatch(createServer(server)),
-  joinServer: (membership) => dispatch(joinServer(membership)),
+  createServer: (server, push) => dispatch(createServer(server, push)),
+  joinServer: (membership, push) => dispatch(joinServer(membership, push)),
   clearServerErrors: () => dispatch(clearServerErrors()),
 });
 
