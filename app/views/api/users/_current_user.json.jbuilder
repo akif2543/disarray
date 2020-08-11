@@ -1,7 +1,7 @@
 json.user do
   json.cache! ['cu', user], expires_in: 1.hour do
     json.set! user.id do
-      json.extract! user, :id, :username, :discriminator, :email, :online, :updated_at
+      json.extract! user, :id, :username, :discriminator, :email, :online
       json.avatar url_for(user.avatar)
       json.servers user.server_aliases
       json.conversations user.conversation_ids
@@ -71,10 +71,13 @@ user.get_servers.each do |server|
   end
 end
 
-user.conversations.each do |c|
+user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
-      json.partial! "api/conversations/conversation.json.jbuilder", c: c
+      json.cache! c, expires_in: 10.minutes do
+        json.partial! "api/conversations/conversation.json.jbuilder", c: c
+      end
+      json.messages c.messages.reverse.map(&:id)
       json.unreads user.updated_at < c.updated_at ? 1 : 0
     end
   end

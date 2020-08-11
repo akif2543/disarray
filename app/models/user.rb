@@ -69,7 +69,7 @@ class User < ApplicationRecord
     get_conversations.each do |c|
       unless c.group
         u = c.members.find { |m| m.id != self.id}
-        conversees[u.id] = c.id
+        conversees[u.id] = c.id unless u.nil?
       end
     end
     conversees

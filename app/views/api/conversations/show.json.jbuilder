@@ -1,6 +1,9 @@
 json.conversation do
   json.set! @conversation.id do
-    json.partial! "api/conversations/conversation", c: @conversation
+    json.cache! @conversation, expires_in: 10.minutes do
+      json.partial! "api/conversations/conversation", c: @conversation
+    end
+    json.messages @conversation.messages.reverse.map(&:id)
     json.visited true
     json.unreads 0
   end
@@ -13,7 +16,7 @@ json.messages do
 end
 
 json.users do
-  @conversation.get_members.each do |m|
+  @conversation.members.each do |m|
     json.cache! m, expires_in: 10.minutes do
       json.partial! "api/users/user", user: m
     end

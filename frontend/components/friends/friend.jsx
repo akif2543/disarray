@@ -45,7 +45,7 @@ const Friend = ({
     if (c) {
       push(`/@me/${c}`);
     } else {
-      const convo = { user1_id: u.id, user2_id: f.id };
+      const convo = { other_id: f.id };
       createConversation(convo).then((action) => {
         const [cv] = Object.values(action.conversation);
         return push(`/@me/${cv.id}`);

@@ -29,14 +29,15 @@ class Api::ConversationsController < ApplicationController
   end
 
   def update
-    @conversation = Conversation.includes(:members, :messages).find_by(id: params[:id])
-    if @conversation
+    @conversation = Conversation.find_by(id: params[:id])
+    if @conversation && @conversation.owner == current_user
       if params[:add]
         @conversation.update(group: true) unless @conversation.group
         @conversation.group_bundle(params[:conversation][:ids])
       else
        @conversation.update(convo_params)
       end
+      @conversation = Conversation.includes(:members, :messages).find(@conversation.id)
       group_broadcast
     else
       render json: ["DM not found"], status: 404

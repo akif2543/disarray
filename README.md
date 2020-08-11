@@ -15,13 +15,13 @@ Disarray was created with a Rails backend and a React frontend. Postgres was use
 
 ![Disarray Registration Errors](app/assets/images/readme/session.gif "Authentication errors")
 
-Users can create an account and then use those same credentials to sign in in the future. Required fields are checked for presence errors on the frontend before a request is made, and then errors are displayed much as they are on Discord. A demo user also exists so that people can access the site and peruse its features without needing to sign up first.
+Users can create an account and then use those same credentials to sign-in in the future. Required fields are checked for presence errors on the frontend before a request is made, and then errors are displayed much as they are on Discord. A demo user also exists so that people can access the site and peruse its features without needing to sign up first. Users can edit their profile, including their password, after their account has been created.
 
 ### Servers
 
 ![Disarray Server Options](app/assets/images/readme/servers.gif "Create or join a server")
 
-Users can create or join a server to chat with their friends. Each server can have multiple distinct chat channels.
+Users can create or join a server to chat with their friends. Each server can have multiple distinct chat channels. Users can set server-specific nicknames.
 
 ### Chat
 
