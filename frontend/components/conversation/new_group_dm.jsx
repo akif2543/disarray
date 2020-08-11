@@ -76,15 +76,33 @@ const NewGroupDM = ({
   };
 
   const handleCreate = () => {
+    if (!members.length) return;
     const ids = members.map((m) => m.id);
-    createConversation({ ids }, true).then((action) => {
-      const [cv] = Object.values(action.conversation);
-      togglePopout();
-      return push(`/@me/${cv.id}`);
-    });
+
+    if (ids.length === 1) {
+      const [id] = ids; 
+      const c = currentUser.conversees[id];
+      if (c) {
+        togglePopout();
+        push(`/@me/${c}`);
+      } else {
+        createConversation({ other_id: id }).then((action) => {
+          const [cv] = Object.values(action.conversation);
+          togglePopout();
+          push(`/@me/${cv.id}`);
+        });
+      }
+    } else {
+      createConversation({ ids }, true).then((action) => {
+        const [cv] = Object.values(action.conversation);
+        togglePopout();
+        return push(`/@me/${cv.id}`);
+      });
+    }
   };
 
   const handleMore = () => {
+    if (!members.length) return;
     const ids = members.map((m) => m.id);
     const { id } = conversation;
     addToConversation(id, { ids }).then(togglePopout());

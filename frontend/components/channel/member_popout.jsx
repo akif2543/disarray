@@ -78,7 +78,7 @@ const MemberPopout = ({
       const message = { body };
       directMessage(c, message).then(history.push(`/@me/${c}`));
     } else {
-      const convo = { user1_id: u.id, user2_id: m.id, body };
+      const convo = { other_id: m.id, body };
       createConversation(convo).then((action) => {
         const [cv] = Object.values(action.conversation);
         return history.push(`/@me/${cv.id}`);

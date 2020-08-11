@@ -19,7 +19,7 @@ class Api::ConversationsController < ApplicationController
       if params[:group]
         @conversation.group_bundle([current_user.id, *params[:conversation][:ids]])
       else
-        @conversation.bundle(params[:conversation][:user1_id], params[:conversation][:user2_id], params[:conversation][:body])
+        @conversation.bundle(current_user.id, params[:conversation][:other_id], params[:conversation][:body])
       end
       @conversation = Conversation.includes(:members).find(@conversation.id)
       group_broadcast
@@ -55,7 +55,7 @@ class Api::ConversationsController < ApplicationController
   end
 
   def convo_params
-    params.require(:conversation).permit(:user1_id, :user2_id, :body, :ids, :name, :icon)
+    params.require(:conversation).permit(:other_id, :body, :ids, :name, :icon)
   end
 
 end
