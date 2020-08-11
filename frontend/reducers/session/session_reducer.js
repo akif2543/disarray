@@ -39,7 +39,6 @@ const sessionReducer = (state = { id: null }, action) => {
         pendingOut,
         blocked,
         email,
-        updatedAt,
       } = user;
       return {
         id,
@@ -51,7 +50,6 @@ const sessionReducer = (state = { id: null }, action) => {
         blocked,
         email,
         active: null,
-        updatedAt: new Date(updatedAt),
       };
     case LOGOUT_CURRENT_USER:
       return { id: null };

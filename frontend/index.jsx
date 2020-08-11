@@ -27,7 +27,6 @@ document.addEventListener("DOMContentLoaded", () => {
       pendingOut,
       blocked,
       email,
-      updatedAt,
     } = user;
     const preloadedState = {
       entities: {
@@ -46,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
         pendingOut,
         blocked,
         email,
-        updatedAt: new Date(updatedAt),
       },
     };
     store = configureStore(preloadedState);
