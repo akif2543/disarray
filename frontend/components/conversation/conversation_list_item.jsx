@@ -4,10 +4,10 @@ import AvatarWithStatus from "../user/avatar_with_status";
 import GroupDMIcon from "./group_dm_icon";
 
 const ConversationListItem = ({ convo, isActive, currentUser }) => {
-  const [maxLength, setMaxLength] = useState(22);
+  const [maxLength, setMaxLength] = useState(19);
 
-  const hoverLength = () => setMaxLength(18);
-  const normalLength = () => setMaxLength(22);
+  const hoverLength = () => setMaxLength(17);
+  const normalLength = () => setMaxLength(19);
 
   const trimName = (name) => {
     const trimmed = name.trim();
@@ -15,13 +15,9 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
     return trimmed[last] === "," ? trimmed.slice(0, last) : trimmed;
   };
 
-  const formatName = (name) => {
-    if (name.length < 18) return name;
-    if (isActive) return `${trimName(name.slice(0, 18))}...`;
-    return name.length > 22 ? `${trimName(name.slice(0, maxLength))}...` : name;
-  };
+  const formatName = (name) => (name.length <= maxLength) ? name : `${trimName(name.slice(0, maxLength))}...`;
 
-  const { members, group, unreads, id, icon } = convo;
+  const { members, group, unreads, id, icon, name } = convo;
 
   const convoMembers = members
     .filter((user) => user !== undefined && user.id !== currentUser.id)
@@ -48,7 +44,7 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
         <AvatarWithStatus avatar={m.avatar} online={m.online} sidebar />
       )}
       <div className="convo-info">
-        <h2>{formatName(convo.name || convoMembers)}</h2>
+        <h2>{formatName(name || convoMembers)}</h2>
         {group && (
           <h3>{`${members.length} ${
             members.length === 1 ? "member" : "members"
