@@ -1,4 +1,4 @@
-import React, { useState, useRef, memo } from "react";
+import React, { useState, useRef, memo, useEffect } from "react";
 
 import MemberPopoutContainer from "../channel/member_popout";
 import MessageOpts from "./message_opts";
@@ -6,6 +6,7 @@ import EditMessageForm from "./edit_message_form";
 
 import { shortDate, formatDate } from "../../util/date_util";
 import MessageDropdown from "./message_dropdown";
+import ContextMenu from "../ui/context_menu";
 
 const areEqual = (prevProps, nextProps) => {
   if (prevProps.m.updatedAt !== nextProps.m.updatedAt) return false;
@@ -42,19 +43,42 @@ const Message = ({
   const [editing, setEditing] = useState(false);
 
   const [dropdown, setDropdown] = useState(false);
+  const [userContext, setUserContext] = useState(false);
+  const [messageContext, setMessageContext] = useState(false);
+
+  const [userClick, setUserClick] = useState([]);
+  const [messageClick, setMessageClick] = useState([]);
 
   const toggleDropdown = () => setDropdown(!dropdown);
+
+  const toggleUserContext = () => setUserContext(!userContext);
 
   const togglePopout = () => setPopout(!popout);
   const toggleOptions = (bool) => () => setOptions(bool);
 
-  const toggleEdit = () => {
-    // toggleEditing();
-    setEditing(!editing);
-  };
+  const toggleEdit = () => setEditing(!editing);
 
   const isAuthor = u.id === m.author;
   const edited = m.createdAt !== m.updatedAt;
+
+  const handleUserContext = (e) => {
+    e.preventDefault();
+    setUserContext(true);
+    setUserClick([e.clientX, e.clientY]);
+  };
+
+  useEffect(() => {
+    if (el && mesEl) {
+      // mesEl.current.addEventListener("contextmenu", handlePrevent);
+      el.current.addEventListener("contextmenu", handleUserContext);
+    }
+    return () => {
+      if (el && mesEl) {
+        // mesEl.current.removeEventListener("contextmenu", handlePrevent);
+        el.current.removeEventListener("contextmenu", handleUserContext);
+      }
+    };
+  }, [mesEl, el]);
 
   return (
     <div
@@ -95,6 +119,14 @@ const Message = ({
           <h2 className="author-name" ref={el} onClick={togglePopout}>
             {m.textChannel ? a.servers[s.id] || a.username : a.username}
           </h2>
+          {userContext && (
+            <ContextMenu
+              type="user"
+              coords={userClick}
+              toggleContext={toggleUserContext}
+              id={a.id}
+            />
+          )}
           {popout && (
             <MemberPopoutContainer
               m={a}

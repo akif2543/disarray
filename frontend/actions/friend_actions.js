@@ -81,7 +81,7 @@ const receiveFriendError = (error) => ({
 });
 
 export const clearFriendError = () => ({
-  type: CLEAR_FRIEND_ERROR
+  type: CLEAR_FRIEND_ERROR,
 });
 
 export const requestFriend = (id, user) => (dispatch) =>
@@ -110,7 +110,12 @@ export const unfriend = (id) => (dispatch) =>
     .then((res) => dispatch(removeFriend(res)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 
-export const mutualFriends = (id) => (dispatch) =>
-  FriendsAPI.getMutuals(id)
+export const blockUser = (id) => (dispatch) =>
+  FriendsAPI.block(id)
+    .then((res) => dispatch(receiveBlock(res)))
+    .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
+
+export const fetchUser = (id) => (dispatch) =>
+  FriendsAPI.fetchUser(id)
     .then((res) => dispatch(receiveUser(res.data)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));

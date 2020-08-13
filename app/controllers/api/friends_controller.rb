@@ -2,10 +2,6 @@ class Api::FriendsController < ApplicationController
 
   before_action :ensure_logged_in
 
-  def index
-
-  end
-
   def show
     @user = User.includes(:friends).find_by(id: params[:id])
     if @user
@@ -18,13 +14,23 @@ class Api::FriendsController < ApplicationController
 
   def create
     @user = params[:id] ? User.find_by(id: params[:id]) : User.find_by(username: params[:user][:username], discriminator: params[:user][:discriminator])
-    if !@user || @user == current_user || current_user.friends_with?(@user)
-      render json: ["User not found"], status: 404
-    else
-      if current_user.friend_request(@user)
-        FriendsChannel.broadcast_to(@user, format_request)
+    unless params[:block]
+      if !@user || @user == current_user || current_user.friends_with?(@user)
+        render json: ["User not found"], status: 404
       else
-        render json: ["Cannot send a friend request to this user"], status: 400
+        if current_user.friend_request(@user)
+          FriendsChannel.broadcast_to(@user, format_request)
+        else
+          render json: ["Cannot send a friend request to this user"], status: 400
+        end
+      end
+    else
+      if !@user || @user == current_user
+        render json: ["User not found"], status: 404
+      else
+        @current_user.remove_friend(@user) if current_user.friends_with?(@user)
+        @current_user.block_friend(@user)  
+        FriendsChannel.broadcast_to(@user, format_block)
       end
     end
   end
@@ -76,4 +82,7 @@ class Api::FriendsController < ApplicationController
     JSON.parse(render("api/friends/destroy.json.jbuilder"))
   end
 
+  def format_block
+    JSON.parse(render("api/friends/block.json.jbuilder"))
+  end
 end

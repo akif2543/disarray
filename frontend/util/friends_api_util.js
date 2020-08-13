@@ -1,5 +1,5 @@
 const FriendsAPI = {
-  getMutuals: (id) => $.ajax({ url: `/api/friends/${id}`, method: "GET" }),
+  fetchUser: (id) => $.ajax({ url: `/api/friends/${id}`, method: "GET" }),
   requestFriend: (id, user) =>
     $.ajax({
       url: `/api/friends${id ? `?id=${id}` : ""}`,
@@ -9,6 +9,8 @@ const FriendsAPI = {
   respondToRequest: (id, type) =>
     $.ajax({ url: `/api/friends/${id}?${type}=true`, method: "PATCH" }),
   unfriend: (id) => $.ajax({ url: `/api/friends/${id}`, method: "DELETE" }),
+  block: (id) =>
+    $.ajax({ url: `/api/friends?id=${id}&block=true}`, method: "POST" }),
 };
 
 export default FriendsAPI;

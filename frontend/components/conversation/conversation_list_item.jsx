@@ -15,7 +15,10 @@ const ConversationListItem = ({ convo, isActive, currentUser }) => {
     return trimmed[last] === "," ? trimmed.slice(0, last) : trimmed;
   };
 
-  const formatName = (name) => (name.length <= maxLength) ? name : `${trimName(name.slice(0, maxLength))}...`;
+  const formatName = (name) =>
+    (name.length <= maxLength)
+      ? name
+      : `${trimName(name.slice(0, maxLength))}...`;
 
   const { members, group, unreads, id, icon, name } = convo;
 

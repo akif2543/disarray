@@ -10,6 +10,11 @@ export const getCurrentUser = (state) => {
   };
 };
 
+export const getOtherUser = (state, props) => {
+  const { id } = props;
+  return state.entities.users[id];
+};
+
 export const getUserServers = (state) => {
   if (!state.session.id) return [];
   const { servers } = getCurrentUser(state);
