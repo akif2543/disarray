@@ -18,11 +18,18 @@ const UserSettingsSidebar = ({ logout }) => (
         </Link>
         <div className="divider" />
         <div className="icons">
-          <a href="https://www.github.com/akif2543" className="splash-nav-link">
+          <a 
+            href="https://www.github.com/akif2543"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="splash-nav-link"
+          >
             <FontAwesomeIcon icon={["fab", "github"]} className="splash-icon" />
           </a>
           <a
             href="https://www.linkedin.com/in/akifsaifi"
+            target="_blank"
+            rel="noopener noreferrer"
             className="splash-nav-link"
           >
             <FontAwesomeIcon
@@ -30,7 +37,12 @@ const UserSettingsSidebar = ({ logout }) => (
               className="splash-icon"
             />
           </a>
-          <a href="https://angel.co/u/akifsaifi" className="splash-nav-link">
+          <a
+            href="https://angel.co/u/akifsaifi"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="splash-nav-link"
+          >
             <FontAwesomeIcon
               icon={["fab", "angellist"]}
               className="splash-icon"

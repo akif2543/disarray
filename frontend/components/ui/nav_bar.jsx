@@ -372,18 +372,24 @@ const NavBar = ({
               el={atEl}
             />
           )}
-          <button
-            type="button"
-            href="https://github.com/akif2543/disarray"
-            className="nav-icon"
-            onMouseOver={showTooltip("contact")}
-            onFocus={showTooltip("contact")}
-            onMouseOut={hideTooltip("contact")}
-            onBlur={hideTooltip("contact")}
-            ref={gitEl}
+          <a
+            href="https://www.github.com/akif2543/disarray"
+            target="_blank"
+            rel="noopener noreferrer"
           >
-            <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
-          </button>
+            <button
+              type="button"
+              
+              className="nav-icon"
+              onMouseOver={showTooltip("contact")}
+              onFocus={showTooltip("contact")}
+              onMouseOut={hideTooltip("contact")}
+              onBlur={hideTooltip("contact")}
+              ref={gitEl}
+            >
+              <FontAwesomeIcon icon={["fab", "github"]} size="lg" />
+            </button>
+          </a>
           {contact && (
             <Tooltip
               text="Repo"
