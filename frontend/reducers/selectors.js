@@ -211,6 +211,24 @@ export const getFriendFromPath = (state, props) => {
   return id ? state.entities.users[id] : null;
 };
 
+export const getMutualServers = (state, props) => {
+  const user = getFriendFromPath(state, props);
+  if (user) {
+    const { servers } = user;
+    return Object.keys(servers).map((id) => state.entities.servers[id]);
+  }
+  return [];
+};
+
+export const getMutualFriends = (state, props) => {
+  const user = getFriendFromPath(state, props);
+  if (user) {
+    const { friends } = user;
+    return friends ? friends.map((id) => state.entities.users[id]) : [];
+  }
+  return [];
+};
+
 export const getSubscription = (state, props) => {
   const {
     match: {

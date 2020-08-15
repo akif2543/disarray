@@ -8,13 +8,14 @@ import {
   getUserServers,
 } from "../../reducers/selectors";
 import { openModal } from "../../actions/ui_actions";
-import { requestFriend } from "../../actions/friend_actions";
+import { requestFriend, unblock } from "../../actions/friend_actions";
 
 const UserContextMenu = ({
   currentUser,
   user,
   servers,
   addFriend,
+  unblockUser,
   openModal,
 }) => {
   const {
@@ -25,6 +26,7 @@ const UserContextMenu = ({
   const { id } = user;
 
   const isFriend = currentUser.friends.includes(id);
+  const isBlocked = currentUser.blocked[id];
 
   const handleModal = (modal) => () => {
     push(`${pathname}?u=${id}`);
@@ -33,7 +35,9 @@ const UserContextMenu = ({
 
   return (
     <>
-      <button type="button">Profile</button>
+      <button type="button" onClick={handleModal("profile")}>
+        Profile
+      </button>
       <div className="menu-divider" />
       <button type="button">Add to Server</button>
       {isFriend ? (
@@ -45,9 +49,15 @@ const UserContextMenu = ({
           Add Friend
         </button>
       )}
-      <button type="button" onClick={handleModal("block")}>
-        Block
-      </button>
+      {isBlocked ? (
+        <button type="button" onClick={unblockUser(id)}>
+          Unblock
+        </button>
+      ) : (
+        <button type="button" onClick={handleModal("block")}>
+          Block
+        </button>
+      )}
     </>
   );
 };
@@ -61,6 +71,7 @@ const mSTP = (state, ownProps) => ({
 const mDTP = (dispatch) => ({
   openModal: (modal) => dispatch(openModal(modal)),
   addFriend: (id) => () => dispatch(requestFriend(id)),
+  unblockUser: (id) => () => dispatch(unblock(id)),
 });
 
 const UserContextMenuContainer = connect(mSTP, mDTP)(UserContextMenu);

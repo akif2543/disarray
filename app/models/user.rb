@@ -96,12 +96,12 @@ class User < ApplicationRecord
   end
 
   def mutual_friends(other_user)
-    self.friends.select { |f| other_user.friends.include?(f) }
+    self.friends.select { |f| other_user.friends.include?(f) }.map(&:id)
   end
 
   def mutual_server_aliases(other_user)
     other_aliases = other_user.server_aliases
-    self.server_aliases.select { |k, v| other_aliases[k] }
+    self.server_aliases.select { |k, v| other_aliases.has_key?(k) }
   end
 
   def password=(password)

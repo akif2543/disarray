@@ -8,6 +8,7 @@ import ServerActionsContainer from "../server/modals/server_actions_container";
 import MessageModalContainer from "../messages/message_modal_container";
 import DeleteAccountContainer from "../user/delete_account_container";
 import FriendModalContainer from "../friends/friend_modal";
+import ProfileContainer from "../user/profile";
 
 const Modal = ({ modal, closeModal }) => {
   const {
@@ -67,6 +68,9 @@ const Modal = ({ modal, closeModal }) => {
       break;
     case "block":
       component = <FriendModalContainer />;
+      break;
+    case "profile":
+      component = <ProfileContainer />;
       break;
     default:
       return null;

@@ -3,9 +3,8 @@ class Api::FriendsController < ApplicationController
   before_action :ensure_logged_in
 
   def show
-    @user = User.includes(:friends).find_by(id: params[:id])
-    if @user
-      @mutuals = current_user.mutual_friends(@user)
+    @user = User.includes(:friends, :servers).find_by(id: params[:id])
+    if @user && @user != current_user
       render "api/users/show"
     else
       render json: ["User not found"], status: 404
