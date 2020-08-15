@@ -28,9 +28,12 @@ class Api::FriendsController < ApplicationController
       if !@user || @user == current_user
         render json: ["User not found"], status: 404
       else
-        @current_user.remove_friend(@user) if current_user.friends_with?(@user)
-        @current_user.block_friend(@user)  
-        FriendsChannel.broadcast_to(@user, format_block)
+        @action = "block"
+        if current_user.block(@user)
+          FriendsChannel.broadcast_to(@user, format_block)
+        else
+          render json: ["Cannot block this user"], status: 400
+        end
       end
     end
   end
@@ -60,11 +63,20 @@ class Api::FriendsController < ApplicationController
 
   def destroy
     @user = User.find_by(id: params[:id])
-    if @user && current_user.friends_with?(@user)
-     @current_user.remove_friend(@user)
-     FriendsChannel.broadcast_to(@user, format_unfriend)
+    unless params[:unblock]
+      if @user && current_user.friends_with?(@user)
+      @current_user.remove_friend(@user)
+      FriendsChannel.broadcast_to(@user, format_unfriend)
+      else
+        render json: ["User not found"], status: 404
+      end
     else
-      render json: ["User not found"], status: 404
+      @action = "unblock"
+      if current_user.blocked_friends.include?(@user) && current_user.unblock_friend(@user)
+        FriendsChannel.broadcast_to(@user, format_block)
+      else
+        render json: ["Cannot unblock this user"], status: 400
+      end
     end
   end
 

@@ -13,6 +13,8 @@ import {
   RECEIVE_RETRACTION,
   REMOVE_FRIEND,
   LOSE_FRIEND,
+  BLOCK_USER,
+  RECEIVE_BLOCK,
 } from "../../actions/friend_actions";
 import {
   RECEIVE_CONVERSATION,
@@ -68,13 +70,14 @@ const sessionReducer = (state = { id: null }, action) => {
       newState.pendingOut.push(action.requestee.id);
       return newState;
     case RECEIVE_REQUEST:
-      if (action.requester.id !== newState.id) newState.pendingIn.push(action.requester.id);
+      if (action.requester.id !== newState.id)
+        newState.pendingIn.push(action.requester.id);
       return newState;
     case RECEIVE_FRIEND:
       if (action.requester.id !== newState.id) {
-      newState.friends.push(action.requester.id);
-      i = newState.pendingIn.indexOf(action.requester.id);
-      newState.pendingIn.splice(i, 1);
+        newState.friends.push(action.requester.id);
+        i = newState.pendingIn.indexOf(action.requester.id);
+        newState.pendingIn.splice(i, 1);
       }
       return newState;
     case RECEIVE_ACCEPTANCE:
@@ -118,6 +121,19 @@ const sessionReducer = (state = { id: null }, action) => {
       if (action.unfriender.id !== newState.id) {
         i = newState.friends.indexOf(action.unfriender.id);
         newState.friends.splice(i, 1);
+      }
+      return newState;
+    case BLOCK_USER:
+      if (action.blocker.id === newState.id) {
+        i = newState.friends.indexOf(action.blockee.id);
+        if (i >= 0) newState.friends.splice(i, 1);
+        newState.blocked[action.blockee.id] = true;
+      }
+      return newState;
+    case RECEIVE_BLOCK:
+      if (action.blockee.id === newState.id) {
+        i = newState.friends.indexOf(action.blocker.id);
+        if (i >= 0) newState.friends.splice(i, 1);
       }
       return newState;
     case RECEIVE_MESSAGE:

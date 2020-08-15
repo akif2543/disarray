@@ -45,6 +45,12 @@ class User < ApplicationRecord
     user && user.is_password?(password) ? user : nil
   end
 
+  def block(user)
+    self.remove_friend(user) if self.friends_with?(user)
+    user.friend_request(self) unless self.pending_friends.include?(user) || self.requested_friends.include?(user)
+    self.block_friend(user)  
+  end
+
   def get_conversations
     Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
       self.conversations.includes(:members)

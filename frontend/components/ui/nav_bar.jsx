@@ -379,7 +379,6 @@ const NavBar = ({
           >
             <button
               type="button"
-              
               className="nav-icon"
               onMouseOver={showTooltip("contact")}
               onFocus={showTooltip("contact")}

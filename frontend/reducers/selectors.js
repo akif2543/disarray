@@ -207,8 +207,9 @@ export const getFriendFromPath = (state, props) => {
   const {
     location: { search },
   } = props;
-  const [full, id] = search.match(/^\?id=(\d+)$/);
-  return state.entities.users[id];
+  const id = search.slice(3);
+  // const [full, id] = search.match(/^\?id=(\d+)$/);
+  return id ? state.entities.users[id] : null;
 };
 
 export const getSubscription = (state, props) => {

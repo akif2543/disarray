@@ -14,6 +14,8 @@ import {
   receiveRejection,
   receiveRetraction,
   loseFriend,
+  receiveBlock,
+  receiveUnblock,
 } from "../../actions/friend_actions";
 import {
   receiveServer,
@@ -51,6 +53,8 @@ const mDTP = (dispatch) => ({
     receiveRejection: (res) => dispatch(receiveRejection(res)),
     receiveRetraction: (res) => dispatch(receiveRetraction(res)),
     loseFriend: (res) => dispatch(loseFriend(res)),
+    receiveBlock: (res) => dispatch(receiveBlock(res)),
+    receiveUnblock: (res) => dispatch(receiveUnblock(res)),
   },
   serverActions: {
     receiveServer: (server) => dispatch(receiveServer(server)),

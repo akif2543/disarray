@@ -11,6 +11,8 @@ const FriendsAPI = {
   unfriend: (id) => $.ajax({ url: `/api/friends/${id}`, method: "DELETE" }),
   block: (id) =>
     $.ajax({ url: `/api/friends?id=${id}&block=true}`, method: "POST" }),
+  unblock: (id) =>
+    $.ajax({ url: `/api/friends/${id}?unblock=true`, method: "DELETE" }),
 };
 
 export default FriendsAPI;

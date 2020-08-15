@@ -47,6 +47,8 @@ export const friendsSub = (id, actions, sub) => {
     receiveRejection,
     receiveRetraction,
     loseFriend,
+    receiveBlock,
+    receiveUnblock,
   } = actions;
   App.friends = App.cable.subscriptions.create(
     { channel: "FriendsChannel", id },
@@ -63,6 +65,10 @@ export const friendsSub = (id, actions, sub) => {
             return receiveRetraction(data);
           case "unfriend":
             return loseFriend(data);
+          case "block":
+            return receiveBlock(data);
+          case "unblock":
+            return receiveUnblock(data);
           default:
             break;
         }

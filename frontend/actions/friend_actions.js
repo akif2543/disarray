@@ -1,27 +1,66 @@
 import FriendsAPI from "../util/friends_api_util";
 
-export const RECEIVE_REQUEST = "RECEIVE_REQUEST";
+// from response
+
 export const RECEIVE_FRIEND = "RECEIVE_FRIEND";
-export const RECEIVE_ACCEPTANCE = "RECEIVE_ACCEPTANCE";
-export const RECEIVE_REJECTION = "RECEIVE_REJECTION";
-export const RECEIVE_RETRACTION = "RECEIVE_RETRACTION";
 export const RECEIVE_PENDING = "RECEIVE_PENDING";
 export const RECEIVE_DECLINE = "RECEIVE_DECLINE";
 export const RECEIVE_CANCEL = "RECEIVE_CANCEL";
 export const REMOVE_FRIEND = "REMOVE_FRIEND";
-export const LOSE_FRIEND = "LOSE_FRIEND";
-export const RECEIVE_BLOCK = "RECEIVE_BLOCK";
-export const RECEIVE_USER = "RECEIVE_USER";
+export const BLOCK_USER = "BLOCK_USER";
+export const UNBLOCK_USER = "UNBLOCK_USER";
 export const RECEIVE_FRIEND_ERROR = "RECEIVE_FRIEND_ERROR";
 export const CLEAR_FRIEND_ERROR = "CLEAR_FRIEND_ERROR";
 
-export const receiveRequest = (res) => ({
-  type: RECEIVE_REQUEST,
-  ...res,
-});
+// from socket
+
+export const RECEIVE_REQUEST = "RECEIVE_REQUEST";
+export const RECEIVE_ACCEPTANCE = "RECEIVE_ACCEPTANCE";
+export const RECEIVE_REJECTION = "RECEIVE_REJECTION";
+export const RECEIVE_RETRACTION = "RECEIVE_RETRACTION";
+export const LOSE_FRIEND = "LOSE_FRIEND";
+export const RECEIVE_BLOCK = "RECEIVE_BLOCK";
+export const RECEIVE_UNBLOCK = "RECEIVE_UNBLOCK";
+
+export const RECEIVE_USER = "RECEIVE_USER";
 
 const receiveFriend = (res) => ({
   type: RECEIVE_FRIEND,
+  ...res,
+});
+
+const receivePending = (res) => ({
+  type: RECEIVE_PENDING,
+  ...res,
+});
+
+const receiveDecline = (res) => ({
+  type: RECEIVE_DECLINE,
+  ...res,
+});
+
+const receiveCancel = (res) => ({
+  type: RECEIVE_CANCEL,
+  ...res,
+});
+
+const blockUser = (res) => ({
+  type: BLOCK_USER,
+  ...res,
+});
+
+const unblockUser = (res) => ({
+  type: UNBLOCK_USER,
+  ...res,
+});
+
+const receiveFriendError = (error) => ({
+  type: RECEIVE_FRIEND_ERROR,
+  error,
+});
+
+export const receiveRequest = (res) => ({
+  type: RECEIVE_REQUEST,
   ...res,
 });
 
@@ -45,23 +84,13 @@ export const loseFriend = (res) => ({
   ...res,
 });
 
-const receivePending = (res) => ({
-  type: RECEIVE_PENDING,
-  ...res,
-});
-
-const receiveDecline = (res) => ({
-  type: RECEIVE_DECLINE,
-  ...res,
-});
-
-const receiveCancel = (res) => ({
-  type: RECEIVE_CANCEL,
-  ...res,
-});
-
-const receiveBlock = (res) => ({
+export const receiveBlock = (res) => ({
   type: RECEIVE_BLOCK,
+  ...res,
+});
+
+export const receiveUnblock = (res) => ({
+  type: RECEIVE_UNBLOCK,
   ...res,
 });
 
@@ -73,11 +102,6 @@ export const removeFriend = (res) => ({
 export const receiveUser = (user) => ({
   type: RECEIVE_USER,
   user,
-});
-
-const receiveFriendError = (error) => ({
-  type: RECEIVE_FRIEND_ERROR,
-  error,
 });
 
 export const clearFriendError = () => ({
@@ -110,9 +134,14 @@ export const unfriend = (id) => (dispatch) =>
     .then((res) => dispatch(removeFriend(res)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 
-export const blockUser = (id) => (dispatch) =>
+export const block = (id) => (dispatch) =>
   FriendsAPI.block(id)
-    .then((res) => dispatch(receiveBlock(res)))
+    .then((res) => dispatch(blockUser(res)))
+    .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
+
+export const unblock = (id) => (dispatch) =>
+  FriendsAPI.unblock(id)
+    .then((res) => dispatch(unblockUser(res)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));
 
 export const fetchUser = (id) => (dispatch) =>

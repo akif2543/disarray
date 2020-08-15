@@ -22,7 +22,7 @@ const FriendMenu = ({ openModal, toggleMenu, el, id, push }) => {
   }, []);
 
   const handleRemove = () => {
-    push(`/@me?id=${id}`);
+    push(`/@me?u=${id}`);
     openModal("unfriend");
   };
 

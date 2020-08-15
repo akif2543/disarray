@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { formatDate } from "../../util/date_util";
 
 const MessageModal = ({
@@ -15,15 +15,6 @@ const MessageModal = ({
     closeModal();
     push(pathname);
   };
-
-  const handleEsc = (e) => {
-    if (e.key === "ESCAPE") handleClose();
-  };
-
-  useEffect(() => {
-    document.addEventListener("keydown", handleEsc, false);
-    return () => document.removeEventListener("keydown", handleEsc, false);
-  }, []);
 
   const handleClick = () => {
     if (del) deleteMessage(m.id).then(handleClose());
