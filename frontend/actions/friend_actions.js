@@ -146,5 +146,5 @@ export const unblock = (id) => (dispatch) =>
 
 export const fetchUser = (id) => (dispatch) =>
   FriendsAPI.fetchUser(id)
-    .then((res) => dispatch(receiveUser(res.data)))
+    .then((res) => dispatch(receiveUser(res)))
     .fail((e) => dispatch(receiveFriendError(e.responseJSON)));

@@ -1,6 +1,6 @@
 .friends {
   background: $dk-main-bg;
-  overflow-y: scroll;
+  overflow-y: auto;
   padding: 15px 20px;
   height: calc(100vh - 50px);
   width: calc(100vw - 72px - 242px);
@@ -217,9 +217,7 @@
   height: 245px;
   margin: 5% auto 0;
   background-repeat: no-repeat;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
+  @include flex(column, flex-end, center);
 
   .doodle-sub {
     transform: translateY(50px);

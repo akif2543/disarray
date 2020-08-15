@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
+import { generate } from "shortid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import AvatarWithStatus from "./avatar_with_status";
 import {
@@ -13,8 +15,6 @@ import { requestFriend, fetchUser } from "../../actions/friend_actions";
 import { openModal, closeModal } from "../../actions/ui_actions";
 import { initials } from "../../util/format_util";
 import { createConversation } from "../../actions/conversation_actions";
-import { generate } from "shortid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Profile = ({
   user,
@@ -50,13 +50,14 @@ const Profile = ({
 
   useEffect(() => {
     if (user && !friends) fetchUser(id);
-  }, []);
+    setMutuals(true);
+  }, [id]);
 
   const toggleMenu = () => setMenu(!menu);
 
   const handleMessage = () => {
     const c = cu.conversees[id];
-
+    closeModal();
     if (c) {
       push(`/@me/${c}`);
     } else {
@@ -108,7 +109,7 @@ const Profile = ({
               </button>
             ))}
           <button type="button" className="menu-btn" onClick={toggleMenu}>
-            <FontAwesomeIcon icon="ellipsis-v" />
+            <FontAwesomeIcon icon="ellipsis-v" size="lg" />
           </button>
         </div>
       </header>
@@ -156,7 +157,7 @@ const Profile = ({
               ))}
             </>
           ) : (
-            <div className="mutuals-doodle servers">
+            <div className="mutuals-doodle mservers">
               <h2>NO SERVERS IN COMMON</h2>
             </div>
           ))}
@@ -170,7 +171,11 @@ const Profile = ({
                   className="mutual"
                   onClick={() => push(`${pathname}?u=${f.id}`)}
                 >
-                  <AvatarWithStatus avatar={f.avatar} online={f.online} />
+                  <AvatarWithStatus
+                    avatar={f.avatar}
+                    online={f.online}
+                    sidebar
+                  />
                   <div className="user-info">
                     <h2>{f.username}</h2>
                     <span>#{f.discriminator}</span>
@@ -179,7 +184,7 @@ const Profile = ({
               ))}
             </>
           ) : (
-            <div className="mutuals-doodle friends">
+            <div className="mutuals-doodle mfriends">
               <h2>NO FRIENDS IN COMMON</h2>
             </div>
           ))}

@@ -14,7 +14,10 @@
     @include flex(row, space-between, center);
 
     .user {
+      @include flex(row, flex-start, center);
       .avatar-with-status {
+        height: 80px;
+        width: 80px;
         .avatar {
           height: 80px;
           width: 80px;
@@ -23,13 +26,16 @@
           background: $dk-search-bg;
           height: 28px;
           width: 28px;
-          bottom: -4px;
-          right: -4px;
+          bottom: -2px;
+          right: -2px;
 
-          .offline {
+          .notification {
+            height: 18px;
+            width: 18px;
             .inner {
-              height: 15px;
-              width: 15px;
+              background: $dk-search-bg;
+              height: 8px;
+              width: 8px;
             }
           }
         }
@@ -37,9 +43,20 @@
 
       .user-info {
         margin-left: 20px;
-        @include flex(row);
+        @include flex(row, flex-start, center);
         h1 {
           color: $dk-white;
+          font: {
+            size: 18px;
+          }
+        }
+        span {
+          color: $dk-prof-disc;
+          font: {
+            family: "Whitney";
+            weight: 700;
+            size: 16px;
+          }
         }
       }
     }
@@ -49,6 +66,7 @@
         height: 34px;
         max-width: 154px;
         min-width: 120px;
+        padding: 10px 18px;
         border-radius: 4px;
         background: $dk-green;
         color: $dk-white;
@@ -64,7 +82,8 @@
       }
 
       .main-btn.disabled {
-        background: $dk-green-hover;
+        background: $dk-green-disabled;
+        color: $dk-text-disabled;
       }
 
       .menu-btn {
@@ -113,8 +132,16 @@
     }
     background: $dk-sidebar;
     padding: 10px;
+    @include flex(column);
+
+    overflow-y: auto;
+    -ms-overflow-style: none;
+    &::-webkit-scrollbar {
+      display: none;
+    }
 
     .mutual {
+      width: 100%;
       border-radius: 4px;
       padding: 5px 10px;
       @include flex(row, flex-start, center);
@@ -132,7 +159,7 @@
         h1 {
           font: {
             family: "Whitney Medium";
-            // size: 18px;
+            size: 14px;
           }
         }
       }
@@ -144,6 +171,7 @@
           color: $dk-off-white;
           font: {
             family: "Whitney Medium";
+            size: 16px;
           }
         }
         span {
@@ -156,6 +184,8 @@
       }
 
       .avatar-with-status {
+        height: 40px;
+        width: 40px;
         .avatar {
           height: 40px;
           width: 40px;
@@ -163,15 +193,18 @@
 
         .badge-bg.sidebar {
           background: $dk-sidebar;
-          height: 18px;
-          width: 18px;
+          height: 20px;
+          width: 20px;
           bottom: -3px;
           right: -3px;
 
-          .offline {
+          .notification {
+            height: 12px;
+            width: 12px;
             .inner {
-              height: 9px;
-              width: 9px;
+              background: $dk-sidebar;
+              height: 6px;
+              width: 6px;
             }
           }
         }
@@ -184,6 +217,7 @@
           color: $dk-off-white;
           font: {
             family: "Whitney Medium";
+            size: 16px;
           }
         }
         span {
@@ -200,6 +234,12 @@
         .avatar-with-status {
           .badge-bg.sidebar {
             background: $dk-channel-hover;
+
+            .notification {
+              .inner {
+                background: $dk-channel-hover;
+              }
+            }
           }
         }
       }
@@ -208,20 +248,25 @@
     .mutuals-doodle {
       height: 175px;
       width: 250px;
-      margin: 40px auto;
+      margin: 32px auto;
       @include flex(row, center, flex-end);
+      background-repeat: no-repeat;
+      background-color: inherit;
 
       h2 {
         color: $dk-icons;
-        font-family: "Whitney Medium";
+        font: {
+          family: "Whitney Medium";
+          size: 14px;
+        }
       }
     }
 
-    .mutuals-doodle.servers {
+    .mutuals-doodle.mservers {
       background-image: image-url("ph_nomutualservers.svg");
     }
 
-    .mutuals-doodle.friends {
+    .mutuals-doodle.mfriends {
       background-image: image-url("ph_nomutualfriends.svg");
     }
   }
