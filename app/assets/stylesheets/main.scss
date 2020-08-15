@@ -689,7 +689,7 @@ button.disabled {
     &:hover {
       .avatar-with-status {
         .badge-bg.sidebar {
-          background: rgb(52, 55, 60);
+          background: $dk-channel-hover;
         }
       }
       .convo-info {
@@ -705,7 +705,7 @@ button.disabled {
   .unread {
     .avatar-with-status {
       .badge-bg.sidebar {
-        background: rgb(58, 60, 67);
+        background: $dk-active-channel-bg;
       }
     }
     .convo-info {
@@ -717,7 +717,7 @@ button.disabled {
     &:hover {
       .avatar-with-status {
         .badge-bg.sidebar {
-          background: rgb(58, 60, 67);
+          background: $dk-active-channel-bg;
         }
       }
     }

@@ -13,6 +13,8 @@ import { requestFriend, fetchUser } from "../../actions/friend_actions";
 import { openModal, closeModal } from "../../actions/ui_actions";
 import { initials } from "../../util/format_util";
 import { createConversation } from "../../actions/conversation_actions";
+import { generate } from "shortid";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Profile = ({
   user,
@@ -23,7 +25,6 @@ const Profile = ({
   addFriend,
   createConversation,
   closeModal,
-  openModal,
   history: {
     push,
     location: { pathname },
@@ -72,15 +73,15 @@ const Profile = ({
     push(`/channels/${sId}/${active}`);
   };
 
-  const isFriend = cu.friends.include(id);
+  const isFriend = cu.friends.includes(id);
   const isBlocked = cu.blocked[id];
-  const isPending = cu.pendingOut.include(id);
+  const isPending = cu.pendingOut.includes(id);
 
   return (
     <div className="user-profile">
       <header className="profile-head">
         <div className="user">
-          <AvatarWithStatus avatar={avatar} online={online} />
+          <AvatarWithStatus avatar={avatar} online={online} prof />
           <div className="user-info">
             <h1>{username}</h1>
             <span>{`#${discriminator}`}</span>
@@ -106,41 +107,44 @@ const Profile = ({
                 {isPending ? "Friend Request Sent" : "Send Friend Request"}
               </button>
             ))}
-          <button type="button">opts</button>
+          <button type="button" className="menu-btn" onClick={toggleMenu}>
+            <FontAwesomeIcon icon="ellipsis-v" />
+          </button>
         </div>
       </header>
+      <nav className="profile-nav">
+        <button
+          type="button"
+          className={mutuals ? "active" : ""}
+          onClick={() => setMutuals(true)}
+          disabled={mutuals}
+        >
+          Mutual Servers
+        </button>
+        <button
+          type="button"
+          className={mutuals ? "" : "active"}
+          onClick={() => setMutuals(false)}
+          disabled={!mutuals}
+        >
+          Mutual Friends
+        </button>
+      </nav>
       <main className="profile-main">
-        <nav className="profile-nav">
-          <button
-            type="button"
-            className={mutuals ? "active" : ""}
-            onClick={() => setMutuals(true)}
-            disabled={mutuals}
-          >
-            Mutual Servers
-          </button>
-          <button
-            type="button"
-            className={mutuals ? "" : "active"}
-            onClick={() => setMutuals(false)}
-            disabled={!mutuals}
-          >
-            Mutual Friends
-          </button>
-        </nav>
         {mutuals &&
           (mutualServers.length ? (
-            <ul className="profile-list">
+            <>
               {mutualServers.map((s) => (
                 <button
                   type="button"
-                  className="mutual-server"
+                  key={generate()}
+                  className="mutual"
                   onClick={handleServer(s.id, s.active)}
                 >
                   {s.icon ? (
                     <img src={s.icon} alt="" className="server-icon" />
                   ) : (
-                    <div className="server-icon">
+                    <div className="server-icon none">
                       <h1>{initials(s.name)}</h1>
                     </div>
                   )}
@@ -150,17 +154,20 @@ const Profile = ({
                   </div>
                 </button>
               ))}
-            </ul>
+            </>
           ) : (
-            <div className="no-mutual-servers" />
+            <div className="mutuals-doodle servers">
+              <h2>NO SERVERS IN COMMON</h2>
+            </div>
           ))}
         {!mutuals &&
           (mutualFriends.length ? (
-            <ul className="profile-list">
+            <>
               {mutualFriends.map((f) => (
                 <button
                   type="button"
-                  className="mutual-friend"
+                  key={generate()}
+                  className="mutual"
                   onClick={() => push(`${pathname}?u=${f.id}`)}
                 >
                   <AvatarWithStatus avatar={f.avatar} online={f.online} />
@@ -170,9 +177,11 @@ const Profile = ({
                   </div>
                 </button>
               ))}
-            </ul>
+            </>
           ) : (
-            <div className="no-mutual-friends" />
+            <div className="mutuals-doodle friends">
+              <h2>NO FRIENDS IN COMMON</h2>
+            </div>
           ))}
       </main>
     </div>

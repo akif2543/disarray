@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 
-const AvatarWithStatus = ({ avatar, online, sidebar, u, m }) => {
+const AvatarWithStatus = ({ avatar, online, sidebar, u, m, prof }) => {
   let className = "badge-bg";
 
   if (sidebar) {
@@ -9,6 +9,8 @@ const AvatarWithStatus = ({ avatar, online, sidebar, u, m }) => {
     className = "badge-bg u";
   } else if (m) {
     className = "badge-bg m";
+  } else if (prof) {
+    className = "badge-bg prof";
   }
 
   return (
