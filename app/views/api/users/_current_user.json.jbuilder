@@ -9,7 +9,7 @@ json.user do
       json.friends user.friends.map(&:id)
       json.pendingIn user.requested_friends.map(&:id)
       json.pendingOut user.pending_friends.map(&:id)
-      json.blocked user.blocked_friends.map(&:id)
+      json.blocked user.blocked_friends.map { |u| [u.id, true] }.to_h
     end
   end
 end
@@ -30,7 +30,7 @@ json.users do
 
   user.blocked_friends.each do |f|
     json.set! f.id do
-      json.extract! f, :id, :username, :discriminator
+      json.extract! f, :id, :username, :discriminator, :online
       json.avatar url_for(f.avatar)
     end
   end

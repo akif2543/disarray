@@ -200,7 +200,7 @@ export const getUserOutgoingPendingFriends = (state) => {
 export const getUserBlockedFriends = (state) => {
   const user = getCurrentUser(state);
   const { blocked } = user;
-  return blocked.map((f) => state.entities.users[f]);
+  return Object.keys(blocked).map((f) => state.entities.users[f]);
 };
 
 export const getFriendFromPath = (state, props) => {
@@ -208,7 +208,6 @@ export const getFriendFromPath = (state, props) => {
     location: { search },
   } = props;
   const id = search.slice(3);
-  // const [full, id] = search.match(/^\?id=(\d+)$/);
   return id ? state.entities.users[id] : null;
 };
 

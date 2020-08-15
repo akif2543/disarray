@@ -115,6 +115,12 @@ const Tooltip = ({ text, className, el }) => {
           right: `calc(100vw - ${right + 15}px)`,
         };
         break;
+      case "fl-tt ub":
+        style = {
+          top: `${top - 45}px`,
+          right: `calc(100vw - ${right + 20}px)`,
+        };
+        break;
       case "dc-tt":
         style = {
           top: `${top - 41}px`,

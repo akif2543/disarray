@@ -5,13 +5,11 @@ import { HashRouter } from "react-router-dom";
 import AppContainer from "./app_container";
 
 const Root = ({ store }) => (
-  <main>
-    <Provider store={store}>
-      <HashRouter>
-        <AppContainer />
-      </HashRouter>
-    </Provider>
-  </main>
+  <Provider store={store}>
+    <HashRouter>
+      <AppContainer />
+    </HashRouter>
+  </Provider>
 );
 
 export default Root;

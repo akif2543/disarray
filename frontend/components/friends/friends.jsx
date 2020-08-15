@@ -15,6 +15,7 @@ const Friends = ({
   requestFriend,
   respondToRequest,
   unfriend,
+  unblockUser,
   directMessage,
   createConversation,
   customizeConversation,
@@ -50,6 +51,7 @@ const Friends = ({
         requestFriend={requestFriend}
         respondToRequest={respondToRequest}
         removeFriend={unfriend}
+        unblockUser={unblockUser}
         directMessage={directMessage}
         createConversation={createConversation}
         openModal={openModal}

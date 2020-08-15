@@ -15,6 +15,7 @@ import {
   LOSE_FRIEND,
   BLOCK_USER,
   RECEIVE_BLOCK,
+  UNBLOCK_USER,
 } from "../../actions/friend_actions";
 import {
   RECEIVE_CONVERSATION,
@@ -134,6 +135,11 @@ const sessionReducer = (state = { id: null }, action) => {
       if (action.blockee.id === newState.id) {
         i = newState.friends.indexOf(action.blocker.id);
         if (i >= 0) newState.friends.splice(i, 1);
+      }
+      return newState;
+    case UNBLOCK_USER:
+      if (action.blocker.id === newState.id) {
+        delete newState.blocked[action.blockee.id];
       }
       return newState;
     case RECEIVE_MESSAGE:

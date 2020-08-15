@@ -15,12 +15,14 @@ const Friend = ({
   incoming,
   outgoing,
   blocked,
+  unblockUser,
   push,
 }) => {
   const mesEl = useRef(null);
   const morEl = useRef(null);
   const accEl = useRef(null);
   const igEl = useRef(null);
+  const blockEl = useRef(null);
 
   const [disc, setDisc] = useState(false);
   const [menu, setMenu] = useState(false);
@@ -29,6 +31,7 @@ const Friend = ({
     more: false,
     accept: false,
     ignore: false,
+    unblock: false,
   });
 
   const showDisc = () => setDisc(true);
@@ -53,7 +56,7 @@ const Friend = ({
     }
   };
 
-  const { message, more, accept, ignore } = tooltips;
+  const { message, more, accept, ignore, unblock } = tooltips;
 
   return (
     <li
@@ -164,7 +167,25 @@ const Friend = ({
             )}
           </div>
         )}
-        {blocked && <div className={disc ? "actions hover" : "actions"} />}
+        {blocked && (
+          <div className={disc ? "actions hover" : "actions"}>
+            <button
+              type="button"
+              className="friend-action-btn no"
+              onFocus={showTooltip("unblock")}
+              onMouseEnter={showTooltip("unblock")}
+              onMouseLeave={hideTooltip("unblock")}
+              onBlur={hideTooltip("unblock")}
+              onClick={unblockUser(f.id)}
+              ref={blockEl}
+            >
+              <FontAwesomeIcon icon="user-times" />
+            </button>
+            {unblock && (
+              <Tooltip text="Unblock" className="fl-tt ub" el={blockEl} />
+            )}
+          </div>
+        )}
       </div>
     </li>
   );

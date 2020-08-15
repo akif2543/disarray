@@ -14,6 +14,7 @@ import {
   unfriend,
   respondToRequest,
   clearFriendError,
+  unblock,
 } from "../../actions/friend_actions";
 import {
   createConversation,
@@ -34,11 +35,12 @@ const mDTP = (dispatch) => ({
   openSettings: (settings) => dispatch(openSettings(settings)),
   requestFriend: (id, user) => dispatch(requestFriend(id, user)),
   unfriend: (id) => dispatch(unfriend(id)),
+  unblockUser: (id) => () => dispatch(unblock(id)),
   createConversation: (convo) => dispatch(createConversation(convo)),
   directMessage: (id, message) => dispatch(directMessage(id, message)),
   respondToRequest: (id, type) => dispatch(respondToRequest(id, type)),
   openModal: (modal) => dispatch(openModal(modal)),
-  clearError: () => dispatch(clearFriendError())
+  clearError: () => dispatch(clearFriendError()),
 });
 
 const FriendsContainer = connect(mSTP, mDTP)(Friends);

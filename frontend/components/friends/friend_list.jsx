@@ -15,6 +15,7 @@ const FriendList = ({
   requestFriend,
   respondToRequest,
   removeFriend,
+  unblockUser,
   createConversation,
   openModal,
   push,
@@ -126,7 +127,13 @@ const FriendList = ({
         return (
           <ul className="friends-list">
             {blocked.map((f) => (
-              <Friend key={generate()} f={f} u={user} blocked />
+              <Friend
+                key={generate()}
+                f={f}
+                u={user}
+                unblockUser={unblockUser}
+                blocked
+              />
             ))}
           </ul>
         );
