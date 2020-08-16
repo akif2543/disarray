@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   getCurrentUser,
@@ -9,6 +10,7 @@ import {
 } from "../../reducers/selectors";
 import { openModal } from "../../actions/ui_actions";
 import { requestFriend, unblock } from "../../actions/friend_actions";
+import ServerListContainer from "../server/menus/server_list";
 
 const UserContextMenu = ({
   currentUser,
@@ -22,6 +24,9 @@ const UserContextMenu = ({
     push,
     location: { pathname },
   } = useHistory();
+
+  const el = useRef(null);
+  const [submenu, setSubmenu] = useState(false);
 
   const { id } = user;
 
@@ -39,7 +44,20 @@ const UserContextMenu = ({
         Profile
       </button>
       <div className="menu-divider" />
-      <button type="button">Add to Server</button>
+      <div
+        type="button"
+        className="server-btn"
+        onMouseEnter={() => setSubmenu(true)}
+        onFocus={() => setSubmenu(true)}
+        onBlur={() => setSubmenu(false)}
+        onMouseLeave={() => setSubmenu(false)}
+        ref={el}
+      >
+        Invite to Server
+        <FontAwesomeIcon icon="angle-down" transform={{ rotate: -90 }} />
+        {submenu && <ServerListContainer id={id} el={el} />}
+      </div>
+
       {isFriend ? (
         <button type="button" onClick={handleModal("unfriend")}>
           Remove Friend

@@ -1,7 +1,17 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const NewMessageForm = ({ name, memberbar, type, id, author, sub }) => {
+const NewMessageForm = ({
+  name,
+  memberbar,
+  type,
+  id,
+  author,
+  sub,
+  otherId,
+  isBlocked,
+  unblock,
+}) => {
   const [messageBody, setMessageBody] = useState("");
   const handleChange = (e) => setMessageBody(e.target.value);
 
@@ -21,22 +31,40 @@ const NewMessageForm = ({ name, memberbar, type, id, author, sub }) => {
     input.length < 70 ? input : input.slice(0, 71).concat("...");
 
   return (
-    <form
-      className={memberbar ? "new-message-form" : "new-message-form wide"}
-      onSubmit={handleSubmit}
+    <div
+      className={
+        memberbar
+          ? `new-message-form ${isBlocked ? "blocked" : ""}`
+          : `new-message-form ${isBlocked ? "blocked " : ""}wide`
+      }
     >
-      <div className="input-wrapper">
-        <button type="button" className="add-file">
-          <FontAwesomeIcon icon="plus-circle" size="lg" />
-        </button>
-        <input
-          type="text"
-          value={messageBody}
-          placeholder={`Message ${formatPlaceholder(name)}`}
-          onChange={handleChange}
-        />
-      </div>
-    </form>
+      {isBlocked ? (
+        <div className="unblock-bar">
+          <h1>You cannot send messages to a user you have blocked.</h1>
+          <button
+            type="button"
+            className="unblock-btn"
+            onClick={unblock(otherId)}
+          >
+            Unblock
+          </button>
+        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div className="input-wrapper">
+            <button type="button" className="add-file">
+              <FontAwesomeIcon icon="plus-circle" size="lg" />
+            </button>
+            <input
+              type="text"
+              value={messageBody}
+              placeholder={`Message ${formatPlaceholder(name)}`}
+              onChange={handleChange}
+            />
+          </div>
+        </form>
+      )}
+    </div>
   );
 };
 

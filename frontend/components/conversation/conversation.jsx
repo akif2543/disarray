@@ -19,6 +19,7 @@ const Conversation = ({
   sidebarOpen,
   hideSidebar,
   showSidebar,
+  unblock,
   match: {
     params: { conversationId },
   },
@@ -30,6 +31,10 @@ const Conversation = ({
   }, [conversationId]);
 
   const { group, owner } = conversation;
+
+  const { id, blocked } = currentUser;
+  const otherId = conversation.members.find((m) => m && m !== id);
+  const isBlocked = !group && blocked[otherId];
 
   return (
     <div className="text-channel">
@@ -59,6 +64,9 @@ const Conversation = ({
             <NewMessageForm
               name={group ? name : `@${name}`}
               id={conversationId}
+              otherId={otherId}
+              isBlocked={isBlocked}
+              unblock={unblock}
               memberbar={group ? sidebarOpen : false}
               type="Conversation"
               author={currentUser}

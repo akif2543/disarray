@@ -86,6 +86,7 @@ const Profile = ({
   const isFriend = cu.friends.includes(id);
   const isBlocked = cu.blocked[id];
   const isPending = cu.pendingOut.includes(id);
+  const isMe = cu.id === id;
 
   return (
     <div className="user-profile">
@@ -99,6 +100,7 @@ const Profile = ({
         </div>
         <div className="btn-grp">
           {!isBlocked &&
+            !isMe &&
             (isFriend ? (
               <button
                 type="button"
@@ -117,14 +119,16 @@ const Profile = ({
                 {isPending ? "Friend Request Sent" : "Send Friend Request"}
               </button>
             ))}
-          <button
-            type="button"
-            className="menu-btn"
-            onClick={toggleMenu}
-            ref={el}
-          >
-            <FontAwesomeIcon icon="ellipsis-v" size="lg" />
-          </button>
+          {!isMe && (
+            <button
+              type="button"
+              className="menu-btn"
+              onClick={toggleMenu}
+              ref={el}
+            >
+              <FontAwesomeIcon icon="ellipsis-v" size="lg" />
+            </button>
+          )}
           {menu && (
             <FriendMenu
               toggleMenu={toggleMenu}

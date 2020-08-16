@@ -10,7 +10,6 @@ import {
 } from "../../reducers/selectors";
 import {
   fetchConversation,
-  fetchConversations,
   customizeConversation,
   receiveActiveConversation,
 } from "../../actions/conversation_actions";
@@ -23,6 +22,7 @@ import {
 } from "../../actions/message_actions";
 import { showSidebar, hideSidebar } from "../../actions/ui_actions";
 import Conversation from "./conversation";
+import { unblock } from "../../actions/friend_actions";
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
@@ -44,6 +44,7 @@ const mDTP = (dispatch) => ({
   hideSidebar: () => dispatch(hideSidebar()),
   removeMessage: (message) => dispatch(removeMessage(message)),
   setActive: (id) => dispatch(receiveActiveConversation(id)),
+  unblock: (id) => () => dispatch(unblock(id)),
   customizeConversation: (id, conversation) =>
     dispatch(customizeConversation(id, conversation)),
 });

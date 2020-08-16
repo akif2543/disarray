@@ -263,8 +263,34 @@
   width: calc(100vw - 554px);
   min-height: 70px;
   max-height: 170px;
-  padding: 0 16px 25px;
+  padding: 0 16px 0;
   z-index: 3;
+
+  .unblock-bar {
+    width: 100%;
+    height: 52px;
+    border-radius: 5px;
+    background: $dk-search-bg;
+    color: $dk-white;
+    padding: 9px 12px;
+    @include flex(row, space-between, center);
+
+    .unblock-btn {
+      background: $dk-blue;
+      color: $dk-white;
+      height: 100%;
+      width: 82px;
+      border-radius: 4px;
+      @include button-transition;
+      font: {
+        family: "Whitney Medium";
+      }
+
+      &:hover {
+        background: $dk-blue-hover;
+      }
+    }
+  }
 
   .input-wrapper {
     min-height: 45px;
