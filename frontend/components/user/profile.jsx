@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { generate } from "shortid";
@@ -11,10 +11,15 @@ import {
   getMutualServers,
   getMutualFriends,
 } from "../../reducers/selectors";
-import { requestFriend, fetchUser } from "../../actions/friend_actions";
+import {
+  requestFriend,
+  fetchUser,
+  unblock,
+} from "../../actions/friend_actions";
 import { openModal, closeModal } from "../../actions/ui_actions";
 import { initials } from "../../util/format_util";
 import { createConversation } from "../../actions/conversation_actions";
+import FriendMenu from "../friends/friend_menu";
 
 const Profile = ({
   user,
@@ -22,14 +27,18 @@ const Profile = ({
   mutualServers,
   mutualFriends,
   fetchUser,
+  unblockUser,
   addFriend,
   createConversation,
+  oModal,
   closeModal,
   history: {
     push,
     location: { pathname },
   },
 }) => {
+  const el = useRef(null);
+
   const [mutuals, setMutuals] = useState(true);
   const [menu, setMenu] = useState(false);
 
@@ -108,9 +117,30 @@ const Profile = ({
                 {isPending ? "Friend Request Sent" : "Send Friend Request"}
               </button>
             ))}
-          <button type="button" className="menu-btn" onClick={toggleMenu}>
+          <button
+            type="button"
+            className="menu-btn"
+            onClick={toggleMenu}
+            ref={el}
+          >
             <FontAwesomeIcon icon="ellipsis-v" size="lg" />
           </button>
+          {menu && (
+            <FriendMenu
+              toggleMenu={toggleMenu}
+              openModal={oModal}
+              el={el}
+              id={id}
+              convos={cu.conversees}
+              closeModal={closeModal}
+              createConversation={createConversation}
+              isFriend={isFriend}
+              isBlocked={isBlocked}
+              unblock={unblockUser}
+              push={push}
+              prof
+            />
+          )}
         </div>
       </header>
       <nav className="profile-nav">
@@ -203,8 +233,9 @@ const mSTP = (state, ownProps) => ({
 const mDTP = (dispatch) => ({
   fetchUser: (id) => dispatch(fetchUser(id)),
   addFriend: (id) => () => dispatch(requestFriend(id)),
+  unblockUser: (id) => () => dispatch(unblock(id)),
   createConversation: (convo) => dispatch(createConversation(convo)),
-  openModal: (modal) => () => dispatch(openModal(modal)),
+  oModal: (modal) => dispatch(openModal(modal)),
   closeModal: () => dispatch(closeModal()),
 });
 
