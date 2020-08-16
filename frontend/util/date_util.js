@@ -1,5 +1,5 @@
-const dateDiff = (date) => {
-  const now = Date.now();
+const dateDiff = (date, now = Date.now()) => {
+  // const now = Date.now();
   const messageDate = date.getTime();
   return (now - messageDate) / (24 * 3600 * 1000);
 };
@@ -24,6 +24,13 @@ const isYesterday = (now, notNow) => {
   } else {
     return today - notToday === 1;
   }
+};
+
+export const sameDay = (prev, now) => {
+  const last = new Date(prev);
+  const curr = new Date(now);
+  const diff = dateDiff(last, curr.getTime());
+  return Math.floor(diff) === 0 && last.getDate() === curr.getDate();
 };
 
 export const formatDate = (date) => {

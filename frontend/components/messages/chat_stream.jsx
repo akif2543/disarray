@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import MessageContainer from "./message_container";
 import ChatBannerContainer from "./chat_banner";
+import { sameDay } from "../../util/date_util";
 
 class ChatStream extends React.Component {
   constructor(props) {
@@ -153,7 +154,12 @@ class ChatStream extends React.Component {
   render() {
     const seen = new Set();
     const last = [];
-    const { memberbar, messages, isNew } = this.props;
+    const {
+      memberbar,
+      messages,
+      isNew,
+      user: { blocked },
+    } = this.props;
     const { scrolling, loading } = this.state;
     return (
       <main className={memberbar ? "chat" : "chat wide"} ref={this.scroller}>
@@ -163,15 +169,20 @@ class ChatStream extends React.Component {
         </div>
         {messages.map((m) => {
           if (m === undefined || !m) return null;
-          if (seen.has(m.id)) return;
+          if (blocked[m.author]) return null;
+          if (seen.has(m.id)) return null;
           seen.add(m.id);
-          last.unshift(m.author);
+          last.unshift([m.author, m.createdAt]);
+          const short =
+            last[1] &&
+            last[1][0] === m.author &&
+            sameDay(last[1][1], m.createdAt);
           return (
             <MessageContainer
               key={shortid.generate()}
               m={m}
               bottom={this.bottom}
-              short={last[1] === m.author}
+              short={short}
               toggleEditing={this.toggleEditing}
             />
           );
