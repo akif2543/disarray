@@ -35,8 +35,9 @@ const Message = ({
   openModal,
   s,
 }) => {
-  const el = useRef(null);
+  const nameEl = useRef(null);
   const mesEl = useRef(null);
+  const imgEl = useRef(null);
 
   const [popout, setPopout] = useState(false);
   const [options, setOptions] = useState(false);
@@ -68,17 +69,19 @@ const Message = ({
   };
 
   useEffect(() => {
-    if (el && mesEl) {
+    if (nameEl && mesEl && imgEl) {
       // mesEl.current.addEventListener("contextmenu", handlePrevent);
-      el.current.addEventListener("contextmenu", handleUserContext);
+      nameEl.current.addEventListener("contextmenu", handleUserContext);
+      imgEl.current.addEventListener("contextmenu", handleUserContext);
     }
     return () => {
-      if (el && mesEl) {
+      if (nameEl && mesEl && imgEl) {
         // mesEl.current.removeEventListener("contextmenu", handlePrevent);
-        el.current.removeEventListener("contextmenu", handleUserContext);
+        nameEl.current.removeEventListener("contextmenu", handleUserContext);
+        imgEl.current.removeEventListener("contextmenu", handleUserContext);
       }
     };
-  }, [mesEl, el]);
+  }, [mesEl, nameEl, imgEl]);
 
   return (
     <div
@@ -108,7 +111,13 @@ const Message = ({
           openModal={openModal}
         />
       )}
-      <img src={a.avatar} alt="" className="avatar" onClick={togglePopout} />
+      <img
+        src={a.avatar}
+        alt=""
+        className="avatar"
+        ref={imgEl}
+        onClick={togglePopout}
+      />
       {short && (
         <span className={editing ? "date edit" : "date"}>
           {shortDate(m.createdAt)}
@@ -116,7 +125,7 @@ const Message = ({
       )}
       <div className={short ? "content short" : "content"}>
         <header className="msg-head">
-          <h2 className="author-name" ref={el} onClick={togglePopout}>
+          <h2 className="author-name" ref={nameEl} onClick={togglePopout}>
             {m.textChannel ? a.servers[s.id] || a.username : a.username}
           </h2>
           {userContext && (
@@ -132,7 +141,7 @@ const Message = ({
               m={a}
               s={m.textChannel ? s : null}
               togglePopout={togglePopout}
-              el={el}
+              el={nameEl}
               chat
             />
           )}

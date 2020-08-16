@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { generate } from "shortid";
 
 import { getUserServers, getCurrentUser } from "../../../reducers/selectors";
 import {
@@ -41,13 +42,20 @@ const ServerList = ({
 
   if (el && el.current) {
     const { width } = el.current.getBoundingClientRect();
-    style = { right: `-${width + 18}px` };
+    style = {
+      right: `-${width + 18}px`,
+      top: 0,
+    };
   }
 
   return (
     <div className="context-menu" style={style}>
       {servers.map((s) => (
-        <button type="button" onClick={handleInvite(s.name, s.joinCode)}>
+        <button
+          type="button"
+          key={generate()}
+          onClick={handleInvite(s.name, s.joinCode)}
+        >
           {s.name}
         </button>
       ))}
