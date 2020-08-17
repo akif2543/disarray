@@ -1,6 +1,6 @@
 import React, { useState, useRef, memo, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import MemberPopoutContainer from "./member_popout";
+import UserPopoutContainer from "../user/user_popout";
 import AvatarWithStatus from "../user/avatar_with_status";
 import ContextMenu from "../ui/context_menu";
 
@@ -69,10 +69,11 @@ const Member = ({ m, owner, s }) => {
           coords={userClick}
           toggleContext={toggleContext}
           id={m.id}
+          s={Boolean(s)}
         />
       )}
       {popout && (
-        <MemberPopoutContainer m={m} togglePopout={togglePopout} el={el} />
+        <UserPopoutContainer m={m} togglePopout={togglePopout} el={el} />
       )}
     </>
   );

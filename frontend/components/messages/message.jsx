@@ -1,6 +1,6 @@
 import React, { useState, useRef, memo, useEffect } from "react";
 
-import MemberPopoutContainer from "../channel/member_popout";
+import UserPopoutContainer from "../user/user_popout";
 import MessageOpts from "./message_opts";
 import EditMessageForm from "./edit_message_form";
 
@@ -135,10 +135,11 @@ const Message = ({
               coords={userClick}
               toggleContext={toggleUserContext}
               id={a.id}
+              s={Boolean(s)}
             />
           )}
           {popout && (
-            <MemberPopoutContainer
+            <UserPopoutContainer
               m={a}
               s={m.textChannel ? s : null}
               togglePopout={togglePopout}

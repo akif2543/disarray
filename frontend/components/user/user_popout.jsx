@@ -7,9 +7,9 @@ import {
   createConversation,
   directMessage,
 } from "../../actions/conversation_actions";
-import AvatarWithStatus from "../user/avatar_with_status";
+import AvatarWithStatus from "./avatar_with_status";
 
-const MemberPopout = ({
+const UserPopout = ({
   m,
   s,
   togglePopout,
@@ -113,7 +113,7 @@ const MemberPopout = ({
         <p>
           <span>PROTIP:</span>
           {"  "}
-          Try restarting webpack
+          Right click user for more actions
         </p>
       </footer>
     </div>
@@ -130,6 +130,6 @@ const mDTP = (dispatch) => ({
   directMessage: (id, message) => dispatch(directMessage(id, message)),
 });
 
-const MemberPopoutContainer = withRouter(connect(mSTP, mDTP)(MemberPopout));
+const UserPopoutContainer = withRouter(connect(mSTP, mDTP)(UserPopout));
 
-export default MemberPopoutContainer;
+export default UserPopoutContainer;

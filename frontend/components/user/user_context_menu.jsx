@@ -21,6 +21,7 @@ const UserContextMenu = ({
   unblockUser,
   openModal,
   dir,
+  s,
 }) => {
   const {
     push,
@@ -56,16 +57,6 @@ const UserContextMenu = ({
       });
     }
   };
-
-  let style;
-
-  if (el && el.current) {
-    const { width } = el.current.getBoundingClientRect();
-    style = {
-      right: `-${width + 18}px`,
-      top: 0,
-    };
-  }
 
   return (
     <>
@@ -110,6 +101,14 @@ const UserContextMenu = ({
               Block
             </button>
           )}
+        </>
+      )}
+      {!notMe && s && (
+        <>
+          <div className="menu-divider" />
+          <button type="button" onClick={handleModal("alias")}>
+            Change Nickname
+          </button>
         </>
       )}
     </>
