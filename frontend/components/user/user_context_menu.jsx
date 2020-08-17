@@ -20,6 +20,7 @@ const UserContextMenu = ({
   addFriend,
   unblockUser,
   openModal,
+  dir,
 }) => {
   const {
     push,
@@ -88,7 +89,7 @@ const UserContextMenu = ({
           >
             Invite to Server
             <FontAwesomeIcon icon="angle-down" transform={{ rotate: -90 }} />
-            {submenu && <ServerListContainer id={id} el={el} />}
+            {submenu && <ServerListContainer id={id} el={el} dir={dir} />}
           </div>
 
           {isFriend ? (

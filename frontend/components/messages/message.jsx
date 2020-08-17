@@ -131,6 +131,7 @@ const Message = ({
           {userContext && (
             <ContextMenu
               type="user"
+              dir="right"
               coords={userClick}
               toggleContext={toggleUserContext}
               id={a.id}
