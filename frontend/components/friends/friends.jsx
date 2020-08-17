@@ -1,10 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 
 import NavBar from "../ui/nav_bar";
 import FriendList from "./friend_list";
 
 const Friends = ({
-  stopLoading,
   user,
   friends,
   pendingIn,
@@ -25,10 +24,6 @@ const Friends = ({
   const [active, setActive] = useState(friends.length ? "online" : "add");
 
   const switchTab = (tab) => () => setActive(tab);
-
-  useEffect(() => {
-    stopLoading();
-  }, []);
 
   return (
     <div className="main">

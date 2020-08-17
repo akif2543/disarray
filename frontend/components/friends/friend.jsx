@@ -1,8 +1,9 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Tooltip from "../ui/tooltip";
 import FriendMenu from "./friend_menu";
 import AvatarWithStatus from "../user/avatar_with_status";
+import ContextMenu from "../ui/context_menu";
 
 const Friend = ({
   f,
@@ -18,6 +19,7 @@ const Friend = ({
   unblockUser,
   push,
 }) => {
+  const friendEl = useRef(null);
   const mesEl = useRef(null);
   const morEl = useRef(null);
   const accEl = useRef(null);
@@ -26,6 +28,8 @@ const Friend = ({
 
   const [disc, setDisc] = useState(false);
   const [menu, setMenu] = useState(false);
+  const [context, setContext] = useState(false);
+  const [userClick, setUserClick] = useState([]);
   const [tooltips, setTooltips] = useState({
     message: false,
     more: false,
@@ -41,6 +45,25 @@ const Friend = ({
 
   const showTooltip = (t) => () => setTooltips({ ...tooltips, [t]: true });
   const hideTooltip = (t) => () => setTooltips({ ...tooltips, [t]: false });
+
+  const toggleContext = () => setContext(!context);
+
+  const handleContext = (e) => {
+    e.preventDefault();
+    setContext(true);
+    setUserClick([e.clientX, e.clientY]);
+  };
+
+  useEffect(() => {
+    if (friendEl && friendEl.current) {
+      friendEl.current.addEventListener("contextmenu", handleContext);
+    }
+    return () => {
+      if (friendEl && friendEl.current) {
+        friendEl.current.removeEventListener("contextmenu", handleContext);
+      }
+    };
+  }, [friendEl]);
 
   const handleMessage = () => {
     const c = u.conversees[f.id];
@@ -66,7 +89,7 @@ const Friend = ({
       onMouseLeave={hideDisc}
       onBlur={hideDisc}
     >
-      <div className="friend">
+      <div className="friend" ref={friendEl}>
         <div className="user" onClick={all ? handleMessage : null}>
           {all ? (
             <AvatarWithStatus avatar={f.avatar} online={f.online} />
@@ -187,6 +210,15 @@ const Friend = ({
           </div>
         )}
       </div>
+      {context && (
+        <ContextMenu
+          type="user"
+          dir="right"
+          coords={userClick}
+          toggleContext={toggleContext}
+          id={f.id}
+        />
+      )}
     </li>
   );
 };

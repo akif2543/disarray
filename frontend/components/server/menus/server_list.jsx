@@ -12,7 +12,6 @@ import {
 const ServerList = ({
   el,
   id,
-  dir,
   servers,
   user,
   directMessage,
@@ -42,9 +41,10 @@ const ServerList = ({
   let style;
 
   if (el && el.current) {
-    const { width } = el.current.getBoundingClientRect();
+    const { width, right } = el.current.getBoundingClientRect();
+    const side = window.innerWidth - right;
     style = {
-      right: dir === "right" ? `-${width + 18}px` : `${width + 18}px`,
+      right: side && side > right ? `-${width + 18}px` : `${width + 18}px`,
     };
   }
 

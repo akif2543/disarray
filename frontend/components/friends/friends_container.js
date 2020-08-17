@@ -31,7 +31,6 @@ const mSTP = (state) => ({
 });
 
 const mDTP = (dispatch) => ({
-  stopLoading: () => dispatch(stopLoading()),
   openSettings: (settings) => dispatch(openSettings(settings)),
   requestFriend: (id, user) => dispatch(requestFriend(id, user)),
   unfriend: (id) => dispatch(unfriend(id)),

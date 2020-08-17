@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import UserContextMenuContainer from "../user/user_context_menu";
 
-const ContextMenu = ({ toggleContext, type, dir, coords, id, s }) => {
+const ContextMenu = ({ toggleContext, type, coords, id, s }) => {
   const el = useRef(null);
 
   const handleClick = (e) => {
@@ -26,7 +26,7 @@ const ContextMenu = ({ toggleContext, type, dir, coords, id, s }) => {
 
   switch (type) {
     case "user":
-      component = <UserContextMenuContainer dir={dir} id={id} s={s} />;
+      component = <UserContextMenuContainer id={id} s={s} />;
       break;
     default:
       break;
@@ -34,11 +34,12 @@ const ContextMenu = ({ toggleContext, type, dir, coords, id, s }) => {
 
   let style;
 
-  if (coords) {
+  if (coords.length) {
     const [x, y] = coords;
 
     const below = window.innerHeight - y;
-    const horizontal = { left: dir === "right" ? x : x - 188 };
+    const right = window.innerWidth - x;
+    const horizontal = { left: right && right > x ? x : x - 188 };
     const vertical = below && below < y ? { bottom: below } : { top: y };
 
     style = { ...horizontal, ...vertical };
