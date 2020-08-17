@@ -1,7 +1,17 @@
 import React, { useRef, useEffect } from "react";
-import UserContextMenuContainer from "../user/user_context_menu";
 
-const ContextMenu = ({ toggleContext, type, coords, id, s }) => {
+import UserContextMenuContainer from "../user/user_context_menu";
+import MessageContextMenuContainer from "../messages/message_context_menu";
+
+const ContextMenu = ({
+  toggleContext,
+  type,
+  coords,
+  id,
+  s,
+  isAuthor,
+  toggleEdit,
+}) => {
   const el = useRef(null);
 
   const handleClick = (e) => {
@@ -27,6 +37,16 @@ const ContextMenu = ({ toggleContext, type, coords, id, s }) => {
   switch (type) {
     case "user":
       component = <UserContextMenuContainer id={id} s={s} />;
+      break;
+    case "message":
+      component = (
+        <MessageContextMenuContainer
+          id={id}
+          isAuthor={isAuthor}
+          toggleEdit={toggleEdit}
+          toggleContext={toggleContext}
+        />
+      );
       break;
     default:
       break;

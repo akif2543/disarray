@@ -32,6 +32,19 @@
     }
   }
 
+  .msg-delete {
+    color: $dk-red-text;
+
+    &:hover {
+      background: $dk-red;
+      color: $dk-white;
+    }
+  }
+
+  button.disabled {
+    cursor: not-allowed;
+  }
+
   .menu-divider {
     width: 164px;
     align-self: center;

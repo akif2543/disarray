@@ -53,6 +53,7 @@ const Message = ({
   const toggleDropdown = () => setDropdown(!dropdown);
 
   const toggleUserContext = () => setUserContext(!userContext);
+  const toggleMessageContext = () => setMessageContext(!messageContext);
 
   const togglePopout = () => setPopout(!popout);
   const toggleOptions = (bool) => () => setOptions(bool);
@@ -64,19 +65,26 @@ const Message = ({
 
   const handleUserContext = (e) => {
     e.preventDefault();
+    e.stopPropagation();
     setUserContext(true);
     setUserClick([e.clientX, e.clientY]);
   };
 
+  const handleMessageContext = (e) => {
+    e.preventDefault();
+    setMessageContext(true);
+    setMessageClick([e.clientX, e.clientY]);
+  };
+
   useEffect(() => {
     if (nameEl && mesEl && imgEl) {
-      // mesEl.current.addEventListener("contextmenu", handlePrevent);
+      mesEl.current.addEventListener("contextmenu", handleMessageContext);
       nameEl.current.addEventListener("contextmenu", handleUserContext);
       imgEl.current.addEventListener("contextmenu", handleUserContext);
     }
     return () => {
       if (nameEl && mesEl && imgEl) {
-        // mesEl.current.removeEventListener("contextmenu", handlePrevent);
+        mesEl.current.removeEventListener("contextmenu", handleMessageContext);
         nameEl.current.removeEventListener("contextmenu", handleUserContext);
         imgEl.current.removeEventListener("contextmenu", handleUserContext);
       }
@@ -164,6 +172,16 @@ const Message = ({
         )}
       </div>
       <div ref={bottom} />
+      {messageContext && (
+        <ContextMenu
+          type="message"
+          coords={messageClick}
+          id={m.id}
+          isAuthor={isAuthor}
+          toggleEdit={toggleEdit}
+          toggleContext={toggleMessageContext}
+        />
+      )}
     </div>
   );
 };
