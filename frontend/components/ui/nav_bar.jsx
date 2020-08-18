@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Tooltip from "./tooltip";
 import NewGroupDMContainer from "../conversation/new_group_dm";
 import EditConversationName from "../conversation/edit_conversation_name";
@@ -55,8 +56,10 @@ const NavBar = ({
   return (
     <nav className="nav-bar">
       {channel && (
-        <div className="channel-name">
-          <FontAwesomeIcon icon="hashtag" size="lg" /> <h3>{channel.name}</h3>
+        <div className="channel">
+          <div className="channel-name">
+            <FontAwesomeIcon icon="hashtag" size="lg" /> <h3>{channel.name}</h3>
+          </div>
           {channel.topic && (
             <button type="button" className="topic">
               <h4>{channel.topic}</h4>

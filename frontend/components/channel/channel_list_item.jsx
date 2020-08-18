@@ -22,7 +22,6 @@ const ChannelListItem = ({
   const el = useRef(null);
 
   const [tooltips, setTooltips] = useState({ invite: false, edit: false });
-  // const [maxLength, setMaxLength] = useState(22);
   const [context, setContext] = useState(false);
   const [userClick, setUserClick] = useState([]);
 
@@ -30,9 +29,6 @@ const ChannelListItem = ({
     setTooltips({ ...tooltips, [type]: true });
   const hideTooltip = (type) => () =>
     setTooltips({ ...tooltips, [type]: false });
-
-  // const hoverLength = () => setMaxLength(18);
-  // const normalLength = () => setMaxLength(22);
 
   const toggleContext = () => setContext(!context);
 
@@ -55,12 +51,6 @@ const ChannelListItem = ({
 
   const { invite, edit } = tooltips;
 
-  // const formatName = (name) => {
-  //   if (name.length < 18) return name;
-  //   if (isActive) return `${name.slice(0, 18)}...`;
-  //   return name.length > 22 ? `${name.slice(0, maxLength)}...` : name;
-  // };
-
   const { id, hasUnreads, name, server } = channel;
 
   const handleInvite = (e) => {
@@ -78,10 +68,6 @@ const ChannelListItem = ({
       <button
         type="button"
         className={hasUnreads ? "channel-tab unread" : "channel-tab"}
-        // onMouseOver={hoverLength}
-        // onFocus={hoverLength}
-        // onMouseOut={normalLength}
-        // onBlur={normalLength}
         ref={el}
       >
         <div>

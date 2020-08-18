@@ -369,7 +369,9 @@
     display: none;
   }
 
-  .channel-tab {
+  .channel-tab,
+  .friends-btn,
+  .convo-li {
     color: rgb(114, 118, 125);
     width: 100%;
     height: 32px;
@@ -390,7 +392,7 @@
       font-size: 16px;
       font-family: "Whitney Medium";
       padding-left: 10px;
-      max-width: 180px;
+      max-width: 190px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -413,7 +415,7 @@
       color: $dk-off-white;
 
       h3 {
-        max-width: 150px;
+        max-width: 153px;
       }
 
       .icon-grp {
@@ -429,10 +431,12 @@
 
   .active {
     display: flex;
-    .channel-tab {
+    .channel-tab,
+    .friends-btn,
+    .convo-li {
       background: rgb(58, 60, 67);
       h3 {
-        max-width: 150px;
+        max-width: 153px;
         color: $dk-white;
       }
 

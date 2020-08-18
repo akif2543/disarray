@@ -80,7 +80,7 @@ const NewGroupDM = ({
     const ids = members.map((m) => m.id);
 
     if (ids.length === 1) {
-      const [id] = ids; 
+      const [id] = ids;
       const c = currentUser.conversees[id];
       if (c) {
         togglePopout();
@@ -179,6 +179,7 @@ const NewGroupDM = ({
                         : "Type the username of a friend"
                     }
                     onChange={handleChange}
+                    autoFocus
                   />
                 </li>
               </ul>

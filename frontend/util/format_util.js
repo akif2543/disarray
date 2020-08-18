@@ -6,7 +6,7 @@ export const initials = (name) =>
 
 export const channelName = (input) =>
   input
-    .replace(/[^\w\s-]/, "")
+    .replace(/[^\w\s-]/g, "")
     .replace(" ", "-")
     .replace("--", "-")
     .replace(/^-/, "")
