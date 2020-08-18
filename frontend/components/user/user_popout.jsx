@@ -8,6 +8,7 @@ import {
   directMessage,
 } from "../../actions/conversation_actions";
 import AvatarWithStatus from "./avatar_with_status";
+import { openModal } from "../../actions/ui_actions";
 
 const UserPopout = ({
   m,
@@ -19,6 +20,7 @@ const UserPopout = ({
   directMessage,
   el,
   chat,
+  modal,
 }) => {
   const [body, setBody] = useState("");
   const node = useRef(null);
@@ -91,7 +93,13 @@ const UserPopout = ({
   return (
     <div className="popout" ref={node} style={style}>
       <header className="popout-head">
-        <AvatarWithStatus avatar={m.avatar} online={m.online} m />
+        <AvatarWithStatus
+          avatar={m.avatar}
+          online={m.online}
+          id={m.id}
+          modal={modal}
+          m
+        />
         {hasAlias && <h1 className="member-alias">{m.servers[s.id]}</h1>}
         <div className={hasAlias ? "user with-alias" : "user"}>
           <h1>{m.username}</h1>
@@ -128,6 +136,7 @@ const mSTP = (state, ownProps) => ({
 const mDTP = (dispatch) => ({
   createConversation: (convo) => dispatch(createConversation(convo)),
   directMessage: (id, message) => dispatch(directMessage(id, message)),
+  modal: (m) => dispatch(openModal(m)),
 });
 
 const UserPopoutContainer = withRouter(connect(mSTP, mDTP)(UserPopout));

@@ -197,6 +197,42 @@
         width: 80px;
         margin-bottom: 12px;
       }
+
+      .hover-cover {
+        height: 80px;
+        width: 80px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-radius: 50%;
+        background: transparent;
+        color: transparent;
+        z-index: 2;
+        cursor: pointer;
+        @include flex(row, center, center);
+
+        &:hover {
+          box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.75);
+
+          &:before {
+            content: "VIEW PROFILE";
+            text-align: center;
+            @include flex(row, center, center);
+            color: $dk-white;
+            position: absolute;
+
+            font: {
+              family: "Whitney Bold";
+              size: 10px;
+            }
+          }
+        }
+
+        &:active {
+          transform: none;
+        }
+      }
+
       .badge-bg {
         height: 27px;
         width: 27px;

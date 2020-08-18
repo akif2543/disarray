@@ -1,6 +1,17 @@
 import React, { memo } from "react";
 
-const AvatarWithStatus = ({ avatar, online, sidebar, u, m, prof }) => {
+const AvatarWithStatus = ({
+  avatar,
+  online,
+  sidebar,
+  u,
+  m,
+  prof,
+  id,
+  modal,
+}) => {
+  const handleClick = () => modal({ name: "profile", id });
+
   let className = "badge-bg";
 
   if (sidebar) {
@@ -16,6 +27,9 @@ const AvatarWithStatus = ({ avatar, online, sidebar, u, m, prof }) => {
   return (
     <div className="avatar-with-status">
       <img src={avatar} alt="" className="avatar" />
+      {m && (
+        <button type="button" className="hover-cover" onClick={handleClick} />
+      )}
       <div className={className}>
         {online ? (
           <div className="notification online" />
