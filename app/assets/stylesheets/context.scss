@@ -32,12 +32,32 @@
     }
   }
 
-  .msg-delete {
+  button.blue {
+    color: $dk-blue-menu-text;
+
+    &:hover {
+      background: $dk-blue-menu-hover;
+      color: $dk-white;
+    }
+  }
+
+  .msg-delete,
+  button.red {
     color: $dk-red-text;
 
     &:hover {
       background: $dk-red;
       color: $dk-white;
+    }
+  }
+
+  button.no-unreads {
+    cursor: default;
+    color: $dk-no-unreads;
+
+    &:hover {
+      background: transparent;
+      color: $dk-no-unreads;
     }
   }
 

@@ -28,8 +28,7 @@ const ServerBar = ({
             const { members } = c;
             const convoMembers = members
               .filter(
-                (user) =>
-                  user !== undefined && user.id !== currentUser.id
+                (user) => user !== undefined && user.id !== currentUser.id
               )
               .map((u) => u.username)
               .join(", ");
@@ -53,6 +52,7 @@ const ServerBar = ({
                 key={shortid.generate()}
                 server={s}
                 active={parseInt(match.params.serverId) === s.id}
+                isOwner={s.owner === currentUser.id}
               />
             )
           )}

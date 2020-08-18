@@ -15,8 +15,7 @@ const ServerPanel = ({
   openSettings,
   setActive,
 }) => {
-
-  const { serverId } = match.params;
+  // const { serverId } = match.params;
 
   const [dropdown, setDropdown] = useState(false);
   const [clicked, setClicked] = useState(false);
@@ -33,7 +32,8 @@ const ServerPanel = ({
     }, 350);
   };
 
-  const isOwner = currentUser.id === server.owner;
+  const { id, name, owner } = server;
+  const isOwner = currentUser.id === owner;
 
   return (
     <section className="side-bar server">
@@ -43,7 +43,7 @@ const ServerPanel = ({
           onClick={toggleDropdown}
           className="dropdown-trigger"
         >
-          <h1>{server.name}</h1>
+          <h1>{name}</h1>
           {dropdown ? (
             <FontAwesomeIcon
               icon="times"
@@ -61,9 +61,10 @@ const ServerPanel = ({
       </header>
       {dropdown && (
         <ServerDropdown
+          id={id}
+          isOwner={isOwner}
           toggleDropdown={toggleDropdown}
           openModal={openModal}
-          isOwner={isOwner}
           openSettings={openSettings}
         />
       )}

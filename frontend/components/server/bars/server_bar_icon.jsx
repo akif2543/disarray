@@ -1,7 +1,10 @@
-import React, { useState, useRef, memo } from "react";
+import React, { useState, useRef, memo, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 
 import Tooltip from "../../ui/tooltip";
+import ContextMenu from "../../ui/context_menu";
+
+import { initials } from "../../../util/format_util";
 
 const areEqual = (prev, next) => {
   if (prev.active !== next.active) return false;
@@ -14,16 +17,38 @@ const areEqual = (prev, next) => {
   return true;
 };
 
-const ServerBarIcon = ({ server, active }) => {
+const ServerBarIcon = ({ server, active, isOwner }) => {
   const [tooltip, setTooltip] = useState(false);
+  const [context, setContext] = useState(false);
+  const [userClick, setUserClick] = useState([]);
+
   const el = useRef(null);
 
   const toggleTooltip = (bool) => () => setTooltip(bool);
 
-  const initials = server.name
-    .split(" ")
-    .map((w) => w[0])
-    .join("");
+  const toggleContext = () => setContext(!context);
+
+  const handleContext = (e) => {
+    e.preventDefault();
+    setContext(true);
+    setUserClick([e.clientX, e.clientY]);
+  };
+
+  useEffect(() => {
+    if (el && el.current) {
+      el.current.addEventListener("contextmenu", handleContext);
+    }
+    return () => {
+      if (el && el.current) {
+        el.current.removeEventListener("contextmenu", handleContext);
+      }
+    };
+  }, [el]);
+
+  // const initials = server.name
+  //   .split(" ")
+  //   .map((w) => w[0])
+  //   .join("");
 
   let style = { display: "none" };
 
@@ -54,11 +79,20 @@ const ServerBarIcon = ({ server, active }) => {
           {server.icon ? (
             <img src={server.icon} alt="" className="server-bar-icon" />
           ) : (
-            <h1>{initials}</h1>
+            <h1>{initials(server.name)}</h1>
           )}
         </button>
       </NavLink>
       {tooltip && <Tooltip text={server.name} className="sb-tt" el={el} />}
+      {context && (
+        <ContextMenu
+          type="server"
+          coords={userClick}
+          toggleContext={toggleContext}
+          id={server.id}
+          isOwner={isOwner}
+        />
+      )}
     </div>
   );
 };

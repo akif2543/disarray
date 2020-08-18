@@ -6,13 +6,13 @@ import { closeModal } from "../../actions/ui_actions";
 import {
   getCurrentUser,
   getAuthorFromMessage,
-  getMessageFromPath,
+  getMessage,
 } from "../../reducers/selectors";
 import MessageModal from "./message_modal";
 
 const mSTP = (state, ownProps) => ({
   u: getCurrentUser(state),
-  m: getMessageFromPath(state, ownProps),
+  m: getMessage(state, ownProps),
   a: getAuthorFromMessage(state, ownProps),
 });
 

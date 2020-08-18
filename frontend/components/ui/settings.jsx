@@ -1,13 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 
-import { settings } from "../../reducers/selectors";
 import UserSettingsContainer from "../user/user_settings_container";
 import ServerSettingsContainer from "../server/settings/server_settings_container";
 import ChannelSettingsContainer from "../channel/channel_settings_container";
 import { closeSettings } from "../../actions/ui_actions";
 
-const Settings = ({ settings, closeSettings, modal }) => {
+const Settings = ({ settings, id, closeSettings, modal }) => {
   if (!settings) return null;
 
   let component;
@@ -27,10 +26,10 @@ const Settings = ({ settings, closeSettings, modal }) => {
       component = <UserSettingsContainer />;
       break;
     case "server":
-      component = <ServerSettingsContainer />;
+      component = <ServerSettingsContainer id={id} />;
       break;
     case "channel":
-      component = <ChannelSettingsContainer />;
+      component = <ChannelSettingsContainer id={id} />;
       break;
     default:
       return null;
@@ -40,8 +39,9 @@ const Settings = ({ settings, closeSettings, modal }) => {
 };
 
 const mSTP = (state) => ({
-  settings: settings(state),
-  modal: state.ui.modal,
+  settings: state.ui.settings.name,
+  modal: state.ui.modal.name,
+  id: state.ui.settings.id,
 });
 
 const mDTP = (dispatch) => ({

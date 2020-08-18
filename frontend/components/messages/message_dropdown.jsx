@@ -6,7 +6,6 @@ const MessageDropdown = ({
   toggleDropdown,
   el,
   toggleEdit,
-  history,
   id,
   openModal,
 }) => {
@@ -43,14 +42,7 @@ const MessageDropdown = ({
     style = top > below ? { bottom: `${16}px` } : { top: `${-16}px` };
   }
 
-  const handleDelete = () => {
-    const {
-      push,
-      location: { pathname },
-    } = history;
-    push(`${pathname}?m=${id}`);
-    openModal("messageDelete");
-  };
+  const handleDelete = () => openModal({ name: "messageDelete", id });
 
   return (
     <div className="msg-dropdown" ref={node} style={style}>

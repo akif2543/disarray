@@ -54,7 +54,7 @@ const UserBar = ({ currentUser, openSettings }) => {
         <button
           type="button"
           className="user-bar-icon"
-          onClick={() => openSettings("user")}
+          onClick={() => openSettings({ name: "user" })}
           onMouseOver={showSettings}
           onFocus={showSettings}
           onMouseOut={hideSettings}

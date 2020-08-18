@@ -38,7 +38,7 @@ const mSTP = (state) => ({
   settings: Boolean(settings(state)),
   loggedIn: Boolean(state.session.id),
   user: getCurrentUser(state),
-  modal: state.ui.modal,
+  modal: state.ui.modal.name,
   servers: getUserServers(state),
   convos: getConversationIds(state),
 });

@@ -1,17 +1,17 @@
 import React, { useState, useRef } from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import {
   getCurrentUser,
-  getOtherUser,
   getUserServers,
+  getUser,
 } from "../../reducers/selectors";
 import { openModal } from "../../actions/ui_actions";
 import { requestFriend, unblock } from "../../actions/friend_actions";
 import ServerListContainer from "../server/menus/server_list";
 import { createConversation } from "../../actions/conversation_actions";
+import { useHistory } from "react-router-dom";
 
 const UserContextMenu = ({
   currentUser,
@@ -22,10 +22,7 @@ const UserContextMenu = ({
   openModal,
   s,
 }) => {
-  const {
-    push,
-    location: { pathname },
-  } = useHistory();
+  const { push } = useHistory();
 
   const el = useRef(null);
   const [submenu, setSubmenu] = useState(false);
@@ -36,10 +33,7 @@ const UserContextMenu = ({
   const isBlocked = currentUser.blocked[id];
   const notMe = currentUser.id !== id;
 
-  const handleModal = (modal) => () => {
-    push(`${pathname}?u=${id}`);
-    openModal(modal);
-  };
+  const handleModal = (name) => () => openModal({ name, id });
 
   const handleMessage = () => {
     const c = currentUser.conversees[id];
@@ -105,7 +99,10 @@ const UserContextMenu = ({
       {!notMe && s && (
         <>
           <div className="menu-divider" />
-          <button type="button" onClick={handleModal("alias")}>
+          <button
+            type="button"
+            onClick={() => openModal({ name: "alias", id: s.id })}
+          >
             Change Nickname
           </button>
         </>
@@ -116,7 +113,7 @@ const UserContextMenu = ({
 
 const mSTP = (state, ownProps) => ({
   currentUser: getCurrentUser(state),
-  user: getOtherUser(state, ownProps),
+  user: getUser(state, ownProps),
   servers: getUserServers(state),
 });
 

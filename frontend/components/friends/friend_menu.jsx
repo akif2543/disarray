@@ -34,10 +34,7 @@ const FriendMenu = ({
     };
   }, []);
 
-  const handleModal = (modal) => () => {
-    if (!prof) push(`/@me?u=${id}`);
-    openModal(modal);
-  };
+  const handleModal = (name) => () => openModal({ name, id });
 
   const handleMessage = () => {
     const c = convos[id];

@@ -1,23 +1,9 @@
 import React from "react";
 import { formatDate } from "../../util/date_util";
 
-const MessageModal = ({
-  history: { push },
-  m,
-  a,
-  u,
-  closeModal,
-  deleteMessage,
-  del,
-  location: { pathname },
-}) => {
-  const handleClose = () => {
-    closeModal();
-    push(pathname);
-  };
-
+const MessageModal = ({ m, a, closeModal, deleteMessage, del }) => {
   const handleClick = () => {
-    if (del) deleteMessage(m.id).then(handleClose());
+    if (del) deleteMessage(m.id).then(closeModal());
   };
   return (
     <div className="modal-confirm msg">
@@ -47,7 +33,7 @@ const MessageModal = ({
         </div>
       </main>
       <footer>
-        <button type="button" onClick={handleClose} className="cancel">
+        <button type="button" onClick={closeModal} className="cancel">
           Cancel
         </button>
         <button type="button" onClick={handleClick} className="leave">

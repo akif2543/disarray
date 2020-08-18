@@ -1,11 +1,7 @@
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import {
-  getCurrentChannel,
-  getCurrentChannelJanky,
-  isPrimaryChannel,
-} from "../../reducers/selectors";
+import { getCurrentChannel, isPrimaryChannel } from "../../reducers/selectors";
 import { closeSettings, openModal } from "../../actions/ui_actions";
 import {
   updateChannel,
@@ -21,7 +17,7 @@ const mSTP = (state, ownProps) => ({
 
 const mDTP = (dispatch) => ({
   closeSettings: () => dispatch(closeSettings()),
-  openModal: (modal) => dispatch(openModal(modal)),
+  openModal: (modal) => () => dispatch(openModal(modal)),
   updateChannel: (channel) => dispatch(updateChannel(channel)),
   deleteChannel: (id) => dispatch(deleteChannel(id)),
   fetchChannel: (id) => dispatch(fetchChannel(id)),

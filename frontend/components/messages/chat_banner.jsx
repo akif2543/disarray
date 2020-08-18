@@ -109,7 +109,7 @@ const ChatBanner = ({
           <button
             type="button"
             className="edit-btn"
-            onClick={() => openSettings("channel")}
+            onClick={openSettings({ name: "channel", id: channel.id })}
           >
             Edit Channel
           </button>
@@ -131,7 +131,7 @@ const mSTP = (state, ownProps) => ({
 });
 
 const mDTP = (dispatch) => ({
-  openSettings: (settings) => dispatch(openSettings(settings)),
+  openSettings: (settings) => () => dispatch(openSettings(settings)),
 });
 
 const ChatBannerContainer = withRouter(connect(mSTP, mDTP)(ChatBanner));

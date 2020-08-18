@@ -1,27 +1,18 @@
 import React from "react";
-import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getFriendFromPath } from "../../reducers/selectors";
 import { unfriend, block } from "../../actions/friend_actions";
 import { closeModal } from "../../actions/ui_actions";
 
 const FriendModal = ({
   user: { username, id },
   unfriend,
-  closeModal,
+  close,
   removeFriend,
   blockUser,
-  history: { push },
-  location: { pathname },
 }) => {
-  const handleClose = () => {
-    closeModal();
-    push(pathname);
-  };
-
   const handleClick = () =>
-    (unfriend ? removeFriend(id) : blockUser(id)).then(handleClose());
+    (unfriend ? removeFriend(id) : blockUser(id)).then(close());
 
   return (
     <div className="modal-confirm unfriend">
@@ -44,7 +35,7 @@ const FriendModal = ({
         )}
       </header>
       <footer>
-        <button type="button" onClick={handleClose} className="cancel">
+        <button type="button" onClick={close} className="cancel">
           Cancel
         </button>
         <button type="button" onClick={handleClick} className="leave">
@@ -56,15 +47,15 @@ const FriendModal = ({
 };
 
 const mSTP = (state, ownProps) => ({
-  user: getFriendFromPath(state, ownProps),
+  user: state.entities.users[ownProps.id],
 });
 
 const mDTP = (dispatch) => ({
   removeFriend: (id) => dispatch(unfriend(id)),
-  closeModal: () => dispatch(closeModal()),
+  close: () => dispatch(closeModal()),
   blockUser: (id) => dispatch(block(id)),
 });
 
-const FriendModalContainer = withRouter(connect(mSTP, mDTP)(FriendModal));
+const FriendModalContainer = connect(mSTP, mDTP)(FriendModal);
 
 export default FriendModalContainer;

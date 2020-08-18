@@ -2,19 +2,20 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ServerDropdown = ({
+  id,
+  isOwner,
   openModal,
   openSettings,
   toggleDropdown,
-  isOwner,
 }) => {
-  const handleClick = (type) => () => {
+  const handleClick = (name) => () => {
     toggleDropdown();
-    return openModal(type);
+    return openModal({ name, id });
   };
 
-  const handleSettings = (type) => () => {
+  const handleSettings = (name) => () => {
     toggleDropdown();
-    return openSettings(type);
+    return openSettings({ name, id });
   };
 
   return (

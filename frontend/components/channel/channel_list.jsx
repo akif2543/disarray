@@ -46,6 +46,8 @@ const ChannelList = ({
     );
   });
 
+  const { id } = server;
+
   return (
     <nav className="channel-list">
       <header>
@@ -62,7 +64,7 @@ const ChannelList = ({
             <FontAwesomeIcon
               icon="plus"
               className="add-channel"
-              onClick={() => openModal("add channel")}
+              onClick={() => openModal({ name: "add channel", id })}
               onMouseOver={showTooltip}
               onFocus={showTooltip}
               onMouseOut={hideTooltip}

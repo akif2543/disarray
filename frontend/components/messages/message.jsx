@@ -3,10 +3,10 @@ import React, { useState, useRef, memo, useEffect } from "react";
 import UserPopoutContainer from "../user/user_popout";
 import MessageOpts from "./message_opts";
 import EditMessageForm from "./edit_message_form";
-
-import { shortDate, formatDate } from "../../util/date_util";
 import MessageDropdown from "./message_dropdown";
 import ContextMenu from "../ui/context_menu";
+
+import { shortDate, formatDate } from "../../util/date_util";
 
 const areEqual = (prevProps, nextProps) => {
   if (prevProps.m.updatedAt !== nextProps.m.updatedAt) return false;

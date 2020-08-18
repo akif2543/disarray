@@ -3,6 +3,7 @@ import {
   RECEIVE_SERVER,
   RECEIVE_ACTIVE,
   LEAVE_SERVER,
+  MARK_READ,
 } from "../../actions/server_actions";
 import {
   RECEIVE_MESSAGE,
@@ -58,6 +59,11 @@ const channelsReducer = (state = {}, action) => {
       return state;
     case RECEIVE_ACTIVE:
       newState[action.active].hasUnreads = false;
+      return newState;
+    case MARK_READ:
+      action.channels.forEach((c) => {
+        newState[c].hasUnreads = false;
+      });
       return newState;
     case RECEIVE_UNREAD:
       if (action.textChannel) {

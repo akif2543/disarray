@@ -10,6 +10,7 @@ import {
   getCurrentUser,
   getMutualServers,
   getMutualFriends,
+  getUser,
 } from "../../reducers/selectors";
 import {
   requestFriend,
@@ -32,20 +33,12 @@ const Profile = ({
   createConversation,
   oModal,
   closeModal,
-  history: {
-    push,
-    location: { pathname },
-  },
+  history: { push },
 }) => {
   const el = useRef(null);
 
   const [mutuals, setMutuals] = useState(true);
   const [menu, setMenu] = useState(false);
-
-  const handleClose = () => {
-    closeModal();
-    push(pathname);
-  };
 
   const {
     id,
@@ -203,7 +196,7 @@ const Profile = ({
                   type="button"
                   key={generate()}
                   className="mutual"
-                  onClick={() => push(`${pathname}?u=${f.id}`)}
+                  onClick={() => oModal({ name: "profile", id: f.id })}
                 >
                   <AvatarWithStatus
                     avatar={f.avatar}
@@ -228,7 +221,7 @@ const Profile = ({
 };
 
 const mSTP = (state, ownProps) => ({
-  user: getFriendFromPath(state, ownProps),
+  user: getUser(state, ownProps),
   cu: getCurrentUser(state),
   mutualServers: getMutualServers(state, ownProps),
   mutualFriends: getMutualFriends(state, ownProps),

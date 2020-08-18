@@ -12,6 +12,7 @@ export const RECEIVE_SERVERS = "RECEIVE_SERVERS";
 export const RECEIVE_SERVER = "RECEIVE_SERVER";
 export const RECEIVE_ALIAS = "RECEIVE_ALIAS";
 export const RECEIVE_ACTIVE = "RECEIVE_ACTIVE";
+export const MARK_READ = "MARK_READ";
 export const REMOVE_SERVER = "REMOVE_SERVER";
 export const LEAVE_SERVER = "LEAVE_SERVER";
 export const REMOVE_MEMBER = "REMOVE_MEMBER";
@@ -56,6 +57,11 @@ export const receiveAlias = (server) => ({
 const receiveServerErrors = (errors) => ({
   type: RECEIVE_SERVER_ERRORS,
   errors,
+});
+
+export const markRead = (s) => ({
+  type: MARK_READ,
+  ...s,
 });
 
 export const clearServerErrors = () => ({

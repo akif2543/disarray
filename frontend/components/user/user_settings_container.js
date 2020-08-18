@@ -24,7 +24,7 @@ const mDTP = (dispatch) => ({
   logout: () => dispatch(logout()),
   fetchCurrentUser: (id) => dispatch(fetchCurrentUser(id)),
   updateUser: (id, user) => dispatch(updateUser(id, user)),
-  openModal: (modal) => dispatch(openModal(modal)),
+  openModal: (modal) => () => dispatch(openModal(modal)),
   startLoading: () => dispatch(startLoading()),
   clearErrors: () => dispatch(clearSessionErrors()),
 });

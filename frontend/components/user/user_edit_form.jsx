@@ -269,7 +269,7 @@ const UserEditForm = ({
             <button
               type="button"
               className="delete-btn"
-              onClick={() => openModal("accountDelete")}
+              onClick={openModal({ name: "accountDelete" })}
             >
               Delete Account
             </button>

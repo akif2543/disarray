@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { openModal } from "../../actions/ui_actions";
@@ -12,20 +11,12 @@ const MessageContextMenu = ({
   id,
   oModal,
 }) => {
-  const {
-    push,
-    location: { pathname },
-  } = useHistory();
-
   const handleEdit = () => {
     toggleEdit();
     toggleContext();
   };
 
-  const handleDelete = () => {
-    push(`${pathname}?m=${id}`);
-    oModal("messageDelete");
-  };
+  const handleDelete = () => oModal({ name: "messageDelete", id });
 
   const handleCopy = () => {
     document.execCommand("copy");

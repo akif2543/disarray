@@ -38,6 +38,18 @@ const ChannelListItem = ({
     return name.length > 22 ? `${name.slice(0, maxLength)}...` : name;
   };
 
+  const { id, hasUnreads, name, server } = channel;
+
+  const handleInvite = (e) => {
+    e.stopPropagation();
+    openModal({ name: "invite", id: server });
+  };
+
+  const handleSettings = (e) => {
+    e.stopPropagation();
+    openSettings({ name: "channel", id });
+  };
+
   return (
     <button
       type="button"
@@ -45,17 +57,17 @@ const ChannelListItem = ({
       onFocus={hoverLength}
       onMouseOut={normalLength}
       onBlur={normalLength}
-      className={channel.hasUnreads ? "channel-tab unread" : "channel-tab"}
+      className={hasUnreads ? "channel-tab unread" : "channel-tab"}
     >
       <div>
         <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />
-        <h3>{formatName(channel.name)}</h3>
+        <h3>{formatName(name)}</h3>
       </div>
       <div className="icon-grp">
         <div ref={inviteEl}>
           <FontAwesomeIcon
             icon="user-plus"
-            onClick={() => openModal("invite")}
+            onClick={handleInvite}
             onMouseOver={showTooltip("invite")}
             onFocus={showTooltip("invite")}
             onMouseOut={hideTooltip("invite")}
@@ -70,7 +82,7 @@ const ChannelListItem = ({
           <div ref={editEl}>
             <FontAwesomeIcon
               icon="cog"
-              onClick={() => openSettings("channel")}
+              onClick={handleSettings}
               onMouseOver={showTooltip("edit")}
               onFocus={showTooltip("edit")}
               onMouseOut={hideTooltip("edit")}

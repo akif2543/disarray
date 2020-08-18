@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Tooltip from "../ui/tooltip";
 import FriendMenu from "./friend_menu";
 import AvatarWithStatus from "../user/avatar_with_status";
@@ -213,7 +214,6 @@ const Friend = ({
       {context && (
         <ContextMenu
           type="user"
-          dir="right"
           coords={userClick}
           toggleContext={toggleContext}
           id={f.id}

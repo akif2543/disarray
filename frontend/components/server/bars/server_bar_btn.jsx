@@ -99,7 +99,7 @@ const ServerBarBtn = ({
           <button
             className={modalOpen ? "server-btn active" : "server-btn"}
             type="button"
-            onClick={() => openModal("portal")}
+            onClick={openModal({ name: "portal" })}
             onMouseOver={showTooltip}
             onFocus={showTooltip}
             onMouseOut={hideTooltip}

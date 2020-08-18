@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 
 import UserContextMenuContainer from "../user/user_context_menu";
 import MessageContextMenuContainer from "../messages/message_context_menu";
+import ServerContextMenuContainer from "../server/menus/server_context_menu";
 
 const ContextMenu = ({
   toggleContext,
@@ -11,6 +12,7 @@ const ContextMenu = ({
   s,
   isAuthor,
   toggleEdit,
+  isOwner,
 }) => {
   const el = useRef(null);
 
@@ -47,6 +49,9 @@ const ContextMenu = ({
           toggleContext={toggleContext}
         />
       );
+      break;
+    case "server":
+      component = <ServerContextMenuContainer id={id} isOwner={isOwner} />;
       break;
     default:
       break;

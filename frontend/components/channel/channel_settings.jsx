@@ -51,6 +51,8 @@ const ChannelSettings = ({
     return setError(true);
   };
 
+  const { id } = channel;
+
   return (
     <>
       <section className="settings-sidebar">
@@ -68,7 +70,9 @@ const ChannelSettings = ({
             <button
               type="button"
               className={isPrimary ? "logout disabled" : "logout"}
-              onClick={isPrimary ? null : () => openModal("delete channel")}
+              onClick={
+                isPrimary ? null : openModal({ name: "delete channel", id })
+              }
               onMouseEnter={showTooltip}
               onFocus={showTooltip}
               onMouseLeave={hideTooltip}

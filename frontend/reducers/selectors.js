@@ -1,5 +1,5 @@
 export const loading = (state) => state.ui.loading;
-export const settings = (state) => state.ui.settings;
+export const settings = (state) => state.ui.settings.name;
 
 export const getCurrentUser = (state) => {
   if (!state.session.id) return {};
@@ -8,11 +8,6 @@ export const getCurrentUser = (state) => {
     ...user,
     ...state.session,
   };
-};
-
-export const getOtherUser = (state, props) => {
-  const { id } = props;
-  return state.entities.users[id];
 };
 
 export const getUserServers = (state) => {
@@ -32,6 +27,7 @@ export const getUserServers = (state) => {
 };
 
 export const getCurrentServer = (state, props) => {
+  if (props.id) return state.entities.servers[props.id];
   if (props.match.params.serverId) {
     return state.entities.servers[props.match.params.serverId];
   }
@@ -47,6 +43,8 @@ export const getCurrentServer = (state, props) => {
 };
 
 export const getCurrentChannel = (state, props) => {
+  if (props.id) return state.entities.channels[props.id];
+
   if (props.match.params.channelId) {
     return state.entities.channels[props.match.params.channelId];
   }
@@ -162,6 +160,8 @@ export const getMessageAuthor = (state, props) => {
   return state.entities.users[author];
 };
 
+export const getMessage = (state, props) => state.entities.messages[props.id];
+
 export const getMessageFromPath = (state, props) => {
   const {
     location: { search },
@@ -171,7 +171,7 @@ export const getMessageFromPath = (state, props) => {
 };
 
 export const getAuthorFromMessage = (state, props) => {
-  const m = getMessageFromPath(state, props);
+  const m = getMessage(state, props);
   return state.entities.users[m.author];
 };
 
@@ -211,8 +211,10 @@ export const getFriendFromPath = (state, props) => {
   return id ? state.entities.users[id] : null;
 };
 
+export const getUser = (state, props) => state.entities.users[props.id];
+
 export const getMutualServers = (state, props) => {
-  const user = getFriendFromPath(state, props);
+  const user = getUser(state, props);
   if (user) {
     const { servers } = user;
     return Object.keys(servers).map((id) => state.entities.servers[id]);
@@ -221,7 +223,7 @@ export const getMutualServers = (state, props) => {
 };
 
 export const getMutualFriends = (state, props) => {
-  const user = getFriendFromPath(state, props);
+  const user = getUser(state, props);
   if (user) {
     const { friends } = user;
     return friends ? friends.map((id) => state.entities.users[id]) : [];

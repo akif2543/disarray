@@ -16,7 +16,7 @@ const mSTP = (state, ownProps) => ({
 
 const mDTP = (dispatch) => ({
   closeSettings: () => dispatch(closeSettings()),
-  openModal: (modal) => dispatch(openModal(modal)),
+  openModal: (modal) => () => dispatch(openModal(modal)),
   updateServer: (id, server) => dispatch(updateServer(id, server)),
   deleteServer: (id) => dispatch(deleteServer(id)),
   requestServer: (id) => dispatch(requestServer(id)),

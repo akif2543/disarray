@@ -5,6 +5,7 @@ import {
   RECEIVE_ACTIVE,
   REMOVE_MEMBER,
   LEAVE_SERVER,
+  MARK_READ,
 } from "../../actions/server_actions";
 import {
   RECEIVE_CURRENT_USER,
@@ -41,6 +42,9 @@ const serversReducer = (state = {}, action) => {
       return newState;
     case RECEIVE_ACTIVE:
       newState[action.id].active = action.active;
+      newState[action.id].hasUnreads = false;
+      return newState;
+    case MARK_READ:
       newState[action.id].hasUnreads = false;
       return newState;
     case REMOVE_MEMBER:

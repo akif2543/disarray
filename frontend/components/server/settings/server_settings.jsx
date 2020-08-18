@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { initials } from "../../../util/format_util";
+
 const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
   const initialIcon = { url: server.icon || "", file: null };
 
@@ -41,6 +43,8 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
     }
   };
 
+  const { id } = server;
+
   const handleUpdate = (e) => {
     e.preventDefault();
     clearError();
@@ -48,7 +52,7 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
       const formData = new FormData();
       if (name !== server.name) formData.append("server[name]", name);
       if (iconChange) formData.append("server[icon]", icon.file);
-      return updateServer(server.id, formData).then(() => {
+      return updateServer(id, formData).then(() => {
         if (iconChange) setIconChange(false);
       });
     }
@@ -56,12 +60,6 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
   };
 
   const handleClick = () => input.current.click();
-
-  const getInitials = (name) =>
-    name
-      .split(" ")
-      .map((w) => w[0])
-      .join("");
 
   return (
     <div className="settings">
@@ -76,7 +74,7 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
             <button
               type="button"
               className="logout"
-              onClick={() => openModal("delete")}
+              onClick={openModal({ name: "delete", id })}
             >
               Delete Server
             </button>
@@ -102,7 +100,7 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
               <img src={icon.url} className="server-icon-preview" alt="" />
             ) : (
               <div className="s-icon">
-                <h3>{getInitials(name)}</h3>
+                <h3>{initials(name)}</h3>
               </div>
             )}
             <input
