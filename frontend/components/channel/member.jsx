@@ -73,7 +73,12 @@ const Member = ({ m, owner, s }) => {
         />
       )}
       {popout && (
-        <UserPopoutContainer m={m} togglePopout={togglePopout} el={el} />
+        <UserPopoutContainer
+          m={m}
+          togglePopout={togglePopout}
+          el={el}
+          id={s ? s : null}
+        />
       )}
     </>
   );

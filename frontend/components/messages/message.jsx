@@ -149,7 +149,7 @@ const Message = ({
           {popout && (
             <UserPopoutContainer
               m={a}
-              s={m.textChannel ? s : null}
+              id={m.textChannel ? s.id : null}
               togglePopout={togglePopout}
               el={nameEl}
               chat

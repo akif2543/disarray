@@ -29,8 +29,9 @@ export const getUserServers = (state) => {
 export const getCurrentServer = (state, props) => {
   if (props.id && !props.s) return state.entities.servers[props.id];
   if (props.s) return state.entities.servers[props.s];
-  if (props.match.params.serverId) {
-    return state.entities.servers[props.match.params.serverId];
+  if (props.match) {
+    if (props.match.params.serverId)
+      return state.entities.servers[props.match.params.serverId];
   }
   if (props.location) {
     if (props.location.pathname.includes("channels")) {

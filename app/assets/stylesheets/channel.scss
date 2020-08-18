@@ -282,9 +282,14 @@
     }
 
     .user.with-alias {
-      margin-top: -3px;
+      margin-top: 3px;
+      line-height: 1;
       h1 {
+        font-size: 14px;
         color: rgb(167, 167, 168);
+      }
+      h2 {
+        font-size: 14px;
       }
     }
   }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
 
 import { getCurrentUser, getCurrentServer } from "../../reducers/selectors";
 import {
@@ -16,12 +16,12 @@ const UserPopout = ({
   togglePopout,
   u,
   createConversation,
-  history,
   directMessage,
   el,
   chat,
   modal,
 }) => {
+  const { push } = useHistory();
   const [body, setBody] = useState("");
   const node = useRef(null);
   const handleChange = (e) => setBody(e.target.value);
@@ -78,12 +78,12 @@ const UserPopout = ({
 
     if (c) {
       const message = { body };
-      directMessage(c, message).then(history.push(`/@me/${c}`));
+      directMessage(c, message).then(push(`/@me/${c}`));
     } else {
       const convo = { other_id: m.id, body };
       createConversation(convo).then((action) => {
         const [cv] = Object.values(action.conversation);
-        return history.push(`/@me/${cv.id}`);
+        return push(`/@me/${cv.id}`);
       });
     }
   };
@@ -139,6 +139,6 @@ const mDTP = (dispatch) => ({
   modal: (m) => dispatch(openModal(m)),
 });
 
-const UserPopoutContainer = withRouter(connect(mSTP, mDTP)(UserPopout));
+const UserPopoutContainer = connect(mSTP, mDTP)(UserPopout);
 
 export default UserPopoutContainer;

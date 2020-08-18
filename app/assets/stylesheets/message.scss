@@ -118,6 +118,16 @@
   .msg-options.short {
     top: -28px;
   }
+
+  .popout {
+    .popout-head {
+      .avatar-with-status {
+        .avatar {
+          margin-top: 0;
+        }
+      }
+    }
+  }
 }
 
 .message.short {
