@@ -56,9 +56,10 @@ const NavBar = ({
   return (
     <nav className="nav-bar">
       {channel && (
-        <div className="channel">
-          <div className="channel-name">
-            <FontAwesomeIcon icon="hashtag" size="lg" /> <h3>{channel.name}</h3>
+        <div className="channel-name">
+          <FontAwesomeIcon icon="hashtag" size="lg" />
+          <div className="name">
+            <h3>{channel.name}</h3>
           </div>
           {channel.topic && (
             <button type="button" className="topic">
