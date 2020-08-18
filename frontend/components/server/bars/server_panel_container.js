@@ -6,6 +6,7 @@ import {
   getServerMembers,
   getCurrentUser,
   getServerChannels,
+  canAct,
 } from "../../../reducers/selectors";
 import {
   requestServer,
@@ -29,6 +30,7 @@ const mSTP = (state, ownProps) => ({
   channels: getServerChannels(state, ownProps),
   members: getServerMembers(state, ownProps),
   sidebarOpen: state.ui.sidebar,
+  canAct: canAct(state, ownProps),
 });
 
 const mDTP = (dispatch) => ({

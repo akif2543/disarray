@@ -27,7 +27,8 @@ export const getUserServers = (state) => {
 };
 
 export const getCurrentServer = (state, props) => {
-  if (props.id) return state.entities.servers[props.id];
+  if (props.id && !props.s) return state.entities.servers[props.id];
+  if (props.s) return state.entities.servers[props.s];
   if (props.match.params.serverId) {
     return state.entities.servers[props.match.params.serverId];
   }
@@ -240,4 +241,12 @@ export const getSubscription = (state, props) => {
   return channelId
     ? state.subscriptions.channel[channelId]
     : state.subscriptions.conversation[conversationId];
+};
+
+const demoServers = ["The Gang", "Santa Teresa", "No Pandas", "z 1 1"];
+
+export const canAct = (state, props) => {
+  const { username } = getCurrentUser(state);
+  const { name } = getCurrentServer(state, props);
+  return username !== "Demogorgon" && !demoServers.includes(name);
 };

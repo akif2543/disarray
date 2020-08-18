@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { initials } from "../../../util/format_util";
+
 const NewServerForm = ({
   u,
   createServer,
@@ -55,12 +57,6 @@ const NewServerForm = ({
     }
   };
 
-  const getInitials = (str) =>
-    str
-      .split(" ")
-      .map((w) => w[0])
-      .join("");
-
   const { file, url } = icon;
 
   return (
@@ -102,7 +98,7 @@ const NewServerForm = ({
             <img src={url} className="server-icon-preview" alt="" />
           ) : (
             <div className="s-icon">
-              <h3>{getInitials(name)}</h3>
+              <h3>{initials(name)}</h3>
             </div>
           )}
           <input

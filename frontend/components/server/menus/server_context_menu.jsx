@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 
 import { openModal, openSettings } from "../../../actions/ui_actions";
 import { markRead } from "../../../actions/server_actions";
+import { canAct, getCurrentServer } from "../../../reducers/selectors";
 
 const ServerContextMenu = ({
   isOwner,
@@ -11,6 +12,7 @@ const ServerContextMenu = ({
   oSettings,
   server,
   read,
+  canAct,
 }) => {
   const { hasUnreads, channels } = server;
 
@@ -36,7 +38,12 @@ const ServerContextMenu = ({
       </button>
       <div className="menu-divider" />
       {isOwner && (
-        <button type="button" onClick={handleSettings}>
+        <button
+          type="button"
+          onClick={canAct ? handleSettings : null}
+          className={canAct ? "" : "disabled"}
+          disabled={!canAct}
+        >
           Server Settings
         </button>
       )}
@@ -53,7 +60,12 @@ const ServerContextMenu = ({
       ) : (
         <>
           <div className="menu-divider" />
-          <button type="button" className="red" onClick={handleModal("leave")}>
+          <button
+            type="button"
+            className={canAct ? "red" : "red disabled"}
+            onClick={canAct ? handleModal("leave") : null}
+            disabled={!canAct}
+          >
             Leave Server
           </button>
         </>
@@ -63,7 +75,8 @@ const ServerContextMenu = ({
 };
 
 const mSTP = (state, ownProps) => ({
-  server: state.entities.servers[ownProps.id],
+  server: getCurrentServer(state, ownProps),
+  canAct: canAct(state, ownProps),
 });
 
 const mDTP = (dispatch) => ({

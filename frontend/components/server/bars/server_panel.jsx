@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import UserBar from "../../user/user_bar";
-import ServerDropdown from "./server_dropdown";
+import ServerDropdown from "../menus/server_dropdown";
 import ChannelList from "../../channel/channel_list";
 
 const ServerPanel = ({
@@ -14,6 +14,7 @@ const ServerPanel = ({
   channels,
   openSettings,
   setActive,
+  canAct,
 }) => {
   // const { serverId } = match.params;
 
@@ -63,6 +64,7 @@ const ServerPanel = ({
         <ServerDropdown
           id={id}
           isOwner={isOwner}
+          canAct={canAct}
           toggleDropdown={toggleDropdown}
           openModal={openModal}
           openSettings={openSettings}

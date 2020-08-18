@@ -1,7 +1,8 @@
-import React, { useState, useRef, memo } from "react";
+import React, { useState, useRef, memo, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
+import ContextMenu from "../ui/context_menu";
 
 const areEqual = (prevProps, nextProps) => {
   if (prevProps.channel.name !== nextProps.channel.name) return false;
@@ -18,9 +19,12 @@ const ChannelListItem = ({
 }) => {
   const inviteEl = useRef(null);
   const editEl = useRef(null);
+  const el = useRef(null);
 
   const [tooltips, setTooltips] = useState({ invite: false, edit: false });
   const [maxLength, setMaxLength] = useState(22);
+  const [context, setContext] = useState(false);
+  const [userClick, setUserClick] = useState([]);
 
   const showTooltip = (type) => () =>
     setTooltips({ ...tooltips, [type]: true });
@@ -29,6 +33,25 @@ const ChannelListItem = ({
 
   const hoverLength = () => setMaxLength(18);
   const normalLength = () => setMaxLength(22);
+
+  const toggleContext = () => setContext(!context);
+
+  const handleContext = (e) => {
+    e.preventDefault();
+    setContext(true);
+    setUserClick([e.clientX, e.clientY]);
+  };
+
+  useEffect(() => {
+    if (el && el.current) {
+      el.current.addEventListener("contextmenu", handleContext);
+    }
+    return () => {
+      if (el && el.current) {
+        el.current.removeEventListener("contextmenu", handleContext);
+      }
+    };
+  }, [el]);
 
   const { invite, edit } = tooltips;
 
@@ -51,50 +74,67 @@ const ChannelListItem = ({
   };
 
   return (
-    <button
-      type="button"
-      onMouseOver={hoverLength}
-      onFocus={hoverLength}
-      onMouseOut={normalLength}
-      onBlur={normalLength}
-      className={hasUnreads ? "channel-tab unread" : "channel-tab"}
-    >
-      <div>
-        <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />
-        <h3>{formatName(name)}</h3>
-      </div>
-      <div className="icon-grp">
-        <div ref={inviteEl}>
-          <FontAwesomeIcon
-            icon="user-plus"
-            onClick={handleInvite}
-            onMouseOver={showTooltip("invite")}
-            onFocus={showTooltip("invite")}
-            onMouseOut={hideTooltip("invite")}
-            onBlur={hideTooltip("invite")}
-          />
+    <>
+      <button
+        type="button"
+        className={hasUnreads ? "channel-tab unread" : "channel-tab"}
+        onMouseOver={hoverLength}
+        onFocus={hoverLength}
+        onMouseOut={normalLength}
+        onBlur={normalLength}
+        ref={el}
+      >
+        <div>
+          <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />
+          <h3>{formatName(name)}</h3>
         </div>
-        {invite && (
-          <Tooltip text="Create Invite" className="cl-tt inv" el={inviteEl} />
-        )}
-
-        {isOwner && (
-          <div ref={editEl}>
+        <div className="icon-grp">
+          <div ref={inviteEl}>
             <FontAwesomeIcon
-              icon="cog"
-              onClick={handleSettings}
-              onMouseOver={showTooltip("edit")}
-              onFocus={showTooltip("edit")}
-              onMouseOut={hideTooltip("edit")}
-              onBlur={hideTooltip("edit")}
+              icon="user-plus"
+              onClick={handleInvite}
+              onMouseOver={showTooltip("invite")}
+              onFocus={showTooltip("invite")}
+              onMouseOut={hideTooltip("invite")}
+              onBlur={hideTooltip("invite")}
             />
-            {edit && (
-              <Tooltip text="Edit Channel" className="cl-tt edit" el={editEl} />
-            )}
           </div>
-        )}
-      </div>
-    </button>
+          {invite && (
+            <Tooltip text="Create Invite" className="cl-tt inv" el={inviteEl} />
+          )}
+
+          {isOwner && (
+            <div ref={editEl}>
+              <FontAwesomeIcon
+                icon="cog"
+                onClick={handleSettings}
+                onMouseOver={showTooltip("edit")}
+                onFocus={showTooltip("edit")}
+                onMouseOut={hideTooltip("edit")}
+                onBlur={hideTooltip("edit")}
+              />
+              {edit && (
+                <Tooltip
+                  text="Edit Channel"
+                  className="cl-tt edit"
+                  el={editEl}
+                />
+              )}
+            </div>
+          )}
+        </div>
+      </button>
+      {context && (
+        <ContextMenu
+          type="channel"
+          coords={userClick}
+          toggleContext={toggleContext}
+          id={id}
+          isOwner={isOwner}
+          s={server}
+        />
+      )}
+    </>
   );
 };
 

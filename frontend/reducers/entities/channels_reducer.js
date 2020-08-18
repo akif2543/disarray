@@ -1,4 +1,8 @@
-import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
+import {
+  RECEIVE_CHANNEL,
+  REMOVE_CHANNEL,
+  MARK_CHANNEL_READ,
+} from "../../actions/channel_actions";
 import {
   RECEIVE_SERVER,
   RECEIVE_ACTIVE,
@@ -64,6 +68,9 @@ const channelsReducer = (state = {}, action) => {
       action.channels.forEach((c) => {
         newState[c].hasUnreads = false;
       });
+      return newState;
+    case MARK_CHANNEL_READ:
+      newState[action.id].hasUnreads = false;
       return newState;
     case RECEIVE_UNREAD:
       if (action.textChannel) {

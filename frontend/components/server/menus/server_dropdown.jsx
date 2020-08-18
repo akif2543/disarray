@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const ServerDropdown = ({
   id,
   isOwner,
+  canAct,
   openModal,
   openSettings,
   toggleDropdown,
@@ -27,7 +28,12 @@ const ServerDropdown = ({
             <FontAwesomeIcon icon="user-plus" />
           </button>
           {isOwner && (
-            <button type="button" onClick={handleSettings("server")}>
+            <button
+              type="button"
+              className={canAct ? "" : "disabled"}
+              onClick={canAct ? handleSettings("server") : null}
+              disabled={!canAct}
+            >
               <h3>Server Settings</h3>
               <FontAwesomeIcon icon="cog" />
             </button>
@@ -45,8 +51,9 @@ const ServerDropdown = ({
           {!isOwner && (
             <button
               type="button"
-              className="leave"
-              onClick={handleClick("leave")}
+              className={canAct ? "leave" : "leave disabled"}
+              onClick={canAct ? handleClick("leave") : null}
+              disabled={!canAct}
             >
               <h3>Leave Server</h3>
               <FontAwesomeIcon icon="arrow-alt-circle-left" />

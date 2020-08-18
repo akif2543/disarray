@@ -45,11 +45,6 @@ const ServerBarIcon = ({ server, active, isOwner }) => {
     };
   }, [el]);
 
-  // const initials = server.name
-  //   .split(" ")
-  //   .map((w) => w[0])
-  //   .join("");
-
   let style = { display: "none" };
 
   if (active) {
