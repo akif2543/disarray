@@ -15,14 +15,14 @@ const ChannelListItem = ({
   openModal,
   openSettings,
   isOwner,
-  isActive,
+  // isActive,
 }) => {
   const inviteEl = useRef(null);
   const editEl = useRef(null);
   const el = useRef(null);
 
   const [tooltips, setTooltips] = useState({ invite: false, edit: false });
-  const [maxLength, setMaxLength] = useState(22);
+  // const [maxLength, setMaxLength] = useState(22);
   const [context, setContext] = useState(false);
   const [userClick, setUserClick] = useState([]);
 
@@ -31,8 +31,8 @@ const ChannelListItem = ({
   const hideTooltip = (type) => () =>
     setTooltips({ ...tooltips, [type]: false });
 
-  const hoverLength = () => setMaxLength(18);
-  const normalLength = () => setMaxLength(22);
+  // const hoverLength = () => setMaxLength(18);
+  // const normalLength = () => setMaxLength(22);
 
   const toggleContext = () => setContext(!context);
 
@@ -55,11 +55,11 @@ const ChannelListItem = ({
 
   const { invite, edit } = tooltips;
 
-  const formatName = (name) => {
-    if (name.length < 18) return name;
-    if (isActive) return `${name.slice(0, 18)}...`;
-    return name.length > 22 ? `${name.slice(0, maxLength)}...` : name;
-  };
+  // const formatName = (name) => {
+  //   if (name.length < 18) return name;
+  //   if (isActive) return `${name.slice(0, 18)}...`;
+  //   return name.length > 22 ? `${name.slice(0, maxLength)}...` : name;
+  // };
 
   const { id, hasUnreads, name, server } = channel;
 
@@ -78,15 +78,15 @@ const ChannelListItem = ({
       <button
         type="button"
         className={hasUnreads ? "channel-tab unread" : "channel-tab"}
-        onMouseOver={hoverLength}
-        onFocus={hoverLength}
-        onMouseOut={normalLength}
-        onBlur={normalLength}
+        // onMouseOver={hoverLength}
+        // onFocus={hoverLength}
+        // onMouseOut={normalLength}
+        // onBlur={normalLength}
         ref={el}
       >
         <div>
           <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />
-          <h3>{formatName(name)}</h3>
+          <h3>{name}</h3>
         </div>
         <div className="icon-grp">
           <div ref={inviteEl}>

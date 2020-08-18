@@ -14,7 +14,7 @@ const ServerPanel = ({
   channels,
   openSettings,
   setActive,
-  canAct,
+  notAllowed,
 }) => {
   // const { serverId } = match.params;
 
@@ -64,7 +64,7 @@ const ServerPanel = ({
         <ServerDropdown
           id={id}
           isOwner={isOwner}
-          canAct={canAct}
+          notAllowed={notAllowed}
           toggleDropdown={toggleDropdown}
           openModal={openModal}
           openSettings={openSettings}

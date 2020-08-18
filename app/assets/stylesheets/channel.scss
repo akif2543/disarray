@@ -390,6 +390,7 @@
       font-size: 16px;
       font-family: "Whitney Medium";
       padding-left: 10px;
+      max-width: 180px;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
@@ -431,6 +432,7 @@
     .channel-tab {
       background: rgb(58, 60, 67);
       h3 {
+        max-width: 150px;
         color: $dk-white;
       }
 

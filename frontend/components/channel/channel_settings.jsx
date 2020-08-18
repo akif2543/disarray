@@ -1,6 +1,8 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Tooltip from "../ui/tooltip";
+import { channelName } from "../../util/format_util";
 
 const ChannelSettings = ({
   channel,
@@ -22,8 +24,6 @@ const ChannelSettings = ({
 
   const clearError = () => setError(false);
 
-  const formatName = (input) => input.replace(" ", "-").toLowerCase();
-
   const viewName = (input) =>
     input.length < 21
       ? input.toUpperCase()
@@ -36,7 +36,7 @@ const ChannelSettings = ({
     return sub.slice(0, name.length - 18).concat("...");
   };
 
-  const handleNameChange = (e) => setName(formatName(e.target.value));
+  const handleNameChange = (e) => setName(channelName(e.target.value));
   const handleTopicChange = (e) => setTopic(e.target.value);
   const reset = () => {
     setName(channel.name);
@@ -47,7 +47,12 @@ const ChannelSettings = ({
   const handleUpdate = (e) => {
     e.preventDefault();
     clearError();
-    if (name.length) return updateChannel({ ...channel, name, topic });
+    if (name.length)
+      return updateChannel({
+        ...channel,
+        name: name.replace(/-$/, ""),
+        topic,
+      });
     return setError(true);
   };
 

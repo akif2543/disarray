@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { openModal, openSettings } from "../../actions/ui_actions";
-import { canAct, getCurrentChannel } from "../../reducers/selectors";
+import { getCurrentChannel, restricted } from "../../reducers/selectors";
 import { markChannelRead } from "../../actions/channel_actions";
 
 const ChannelContextMenu = ({
@@ -13,7 +13,7 @@ const ChannelContextMenu = ({
   s,
   channel,
   read,
-  canAct,
+  notAllowed,
 }) => {
   const { hasUnreads } = channel;
 
@@ -38,9 +38,9 @@ const ChannelContextMenu = ({
         <>
           <button
             type="button"
-            onClick={canAct ? handleSettings : null}
-            className={canAct ? "" : "disabled"}
-            disabled={!canAct}
+            onClick={notAllowed ? null : handleSettings}
+            className={notAllowed ? "disabled" : ""}
+            disabled={notAllowed}
           >
             Edit Channel
           </button>
@@ -59,11 +59,11 @@ const ChannelContextMenu = ({
           <div className="menu-divider" />
           <button
             type="button"
-            className={canAct ? "red" : "red disabled"}
+            className={notAllowed ? "red disabled" : "red"}
             onClick={
-              canAct ? () => oModal({ name: "delete channel", id }) : null
+              notAllowed ? null : () => oModal({ name: "delete channel", id })
             }
-            disabled={!canAct}
+            disabled={notAllowed}
           >
             Delete Channel
           </button>
@@ -76,7 +76,7 @@ const ChannelContextMenu = ({
 const mSTP = (state, ownProps) => ({
   channel: getCurrentChannel(state, ownProps),
   server: state.entities.servers[ownProps.s],
-  canAct: canAct(state, ownProps),
+  notAllowed: restricted(state, ownProps),
 });
 
 const mDTP = (dispatch) => ({

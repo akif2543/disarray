@@ -245,8 +245,12 @@ export const getSubscription = (state, props) => {
 
 const demoServers = ["The Gang", "Santa Teresa", "No Pandas", "z 1 1"];
 
-export const canAct = (state, props) => {
+export const restricted = (state, props) => {
   const { username } = getCurrentUser(state);
   const { name } = getCurrentServer(state, props);
-  return username !== "Demogorgon" && !demoServers.includes(name);
+  return (
+    username === "Demogorgon" &&
+    demoServers.includes(name) &&
+    process.env.NODE_ENV === "production"
+  );
 };

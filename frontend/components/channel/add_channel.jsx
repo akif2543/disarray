@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { channelName } from "../../util/format_util";
+
 const AddChannel = ({
   createChannel,
   closeModal,
@@ -9,18 +11,18 @@ const AddChannel = ({
   const [name, setName] = useState("");
   const [error, setError] = useState(false);
 
-  const formatName = (input) => input.replace(" ", "-").toLowerCase();
-
-  const handleChange = (e) => setName(formatName(e.target.value));
+  const handleChange = (e) => setName(channelName(e.target.value));
 
   const handleSubmit = (e) => {
     e.preventDefault();
     setError(false);
     if (name.length) {
-      createChannel({ name, server_id: serverId }).then((action) => {
-        const [c] = Object.keys(action.channel);
-        push(`/channels/${serverId}/${c}`);
-      });
+      createChannel({ name: name.replace(/-$/, ""), server_id: serverId }).then(
+        (action) => {
+          const [c] = Object.keys(action.channel);
+          push(`/channels/${serverId}/${c}`);
+        }
+      );
     } else {
       setError(true);
     }
