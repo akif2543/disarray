@@ -430,7 +430,6 @@ button.disabled {
     display: flex;
     flex-direction: column;
     padding: 20px;
-    // border-bottom: 0.5px solid rgb(40, 43, 46);
 
     h4 {
       color: $dk-white;
@@ -529,6 +528,10 @@ button.disabled {
       }
     }
   }
+
+  // .dmd-head.scroll {
+  //   border-bottom: 0.5px solid rgb(40, 43, 46);
+  // }
 
   .dmd-users {
     height: 190px;
@@ -737,6 +740,12 @@ button.disabled {
       }
     }
 
+    .close-dm {
+      display: none;
+      position: absolute;
+      right: 18.75px;
+    }
+
     &:hover {
       .avatar-with-status {
         .badge-bg.sidebar {
@@ -752,6 +761,10 @@ button.disabled {
           color: rgb(220, 221, 222);
         }
       }
+
+      .close-dm {
+        display: block;
+      }
     }
   }
 
@@ -763,9 +776,9 @@ button.disabled {
       }
     }
     .convo-info {
-      h2 {
-        max-width: 140px;
-      }
+      // h2 {
+      //   max-width: 140px;
+      // }
       h2,
       h3 {
         color: $dk-white;

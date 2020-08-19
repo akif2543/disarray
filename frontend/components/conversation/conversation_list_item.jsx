@@ -4,6 +4,7 @@ import { NavLink } from "react-router-dom";
 import AvatarWithStatus from "../user/avatar_with_status";
 import GroupDMIcon from "./group_dm_icon";
 import ContextMenu from "../ui/context_menu";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const ConversationListItem = ({ convo, currentUser }) => {
   const el = useRef(null);
@@ -65,6 +66,9 @@ const ConversationListItem = ({ convo, currentUser }) => {
                 members.length === 1 ? "member" : "members"
               }`}</h3>
             )}
+          </div>
+          <div className="close-dm">
+            <FontAwesomeIcon icon="times" size="lg" />
           </div>
         </button>
       </NavLink>

@@ -26,7 +26,6 @@ const NewGroupDM = ({
   history: { push },
   el,
   nav,
-  switchTab,
   more,
 }) => {
   const starter = more
