@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import AvatarWithStatus from "./avatar_with_status";
 import {
-  getFriendFromPath,
   getCurrentUser,
   getMutualServers,
   getMutualFriends,
@@ -31,7 +30,7 @@ const Profile = ({
   unblockUser,
   addFriend,
   createConversation,
-  oModal,
+  modal,
   closeModal,
   history: { push },
 }) => {
@@ -125,7 +124,7 @@ const Profile = ({
           {menu && (
             <FriendMenu
               toggleMenu={toggleMenu}
-              openModal={oModal}
+              openModal={modal}
               el={el}
               id={id}
               convos={cu.conversees}
@@ -196,7 +195,7 @@ const Profile = ({
                   type="button"
                   key={generate()}
                   className="mutual"
-                  onClick={() => oModal({ name: "profile", id: f.id })}
+                  onClick={() => modal({ name: "profile", id: f.id })}
                 >
                   <AvatarWithStatus
                     avatar={f.avatar}
@@ -232,7 +231,7 @@ const mDTP = (dispatch) => ({
   addFriend: (id) => () => dispatch(requestFriend(id)),
   unblockUser: (id) => () => dispatch(unblock(id)),
   createConversation: (convo) => dispatch(createConversation(convo)),
-  oModal: (modal) => dispatch(openModal(modal)),
+  modal: (m) => dispatch(openModal(m)),
   closeModal: () => dispatch(closeModal()),
 });
 

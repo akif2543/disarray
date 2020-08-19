@@ -728,7 +728,7 @@ button.disabled {
       }
       h3 {
         padding-top: 2px;
-        padding-left: 0;
+        margin-left: 0;
         color: rgb(138, 141, 146);
         font: {
           size: 12px;
@@ -744,7 +744,7 @@ button.disabled {
       }
       .convo-info {
         h2 {
-          max-width: 140px;
+          max-width: 135px;
         }
         h2,
         h3 {

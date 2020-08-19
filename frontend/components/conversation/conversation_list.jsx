@@ -71,16 +71,11 @@ const ConversationList = ({
             if (seen.has(convo.id)) return null;
             seen.add(convo.id);
             return (
-              <NavLink
-                to={`/@me/${convo.id}`}
+              <ConversationListItem
                 key={shortid.generate()}
-              >
-                <ConversationListItem
-                  convo={convo}
-                  isActive={parseInt(conversationId) === convo.id}
-                  currentUser={currentUser}
-                />
-              </NavLink>
+                convo={convo}
+                currentUser={currentUser}
+              />
             );
           })}
         </ul>

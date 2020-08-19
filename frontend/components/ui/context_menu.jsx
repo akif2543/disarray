@@ -4,6 +4,7 @@ import UserContextMenuContainer from "../user/user_context_menu";
 import MessageContextMenuContainer from "../messages/message_context_menu";
 import ServerContextMenuContainer from "../server/menus/server_context_menu";
 import ChannelContextMenuContainer from "../channel/channel_context_menu";
+import GroupDMContextMenuContainer from "../conversation/group_dm_context_menu";
 
 const ContextMenu = ({
   toggleContext,
@@ -13,6 +14,7 @@ const ContextMenu = ({
   s,
   isAuthor,
   toggleEdit,
+  setIcon,
   isOwner,
 }) => {
   const el = useRef(null);
@@ -57,6 +59,16 @@ const ContextMenu = ({
     case "channel":
       component = (
         <ChannelContextMenuContainer id={id} isOwner={isOwner} s={s} />
+      );
+      break;
+    case "convo":
+      component = (
+        <GroupDMContextMenuContainer
+          id={id}
+          isOwner={isOwner}
+          toggleContext={toggleContext}
+          setIcon={setIcon}
+        />
       );
       break;
     default:

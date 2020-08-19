@@ -1,4 +1,5 @@
 import React, { useState, useRef } from "react";
+import { useHistory } from "react-router-dom";
 import { connect } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -11,7 +12,6 @@ import { openModal } from "../../actions/ui_actions";
 import { requestFriend, unblock } from "../../actions/friend_actions";
 import ServerListContainer from "../server/menus/server_list";
 import { createConversation } from "../../actions/conversation_actions";
-import { useHistory } from "react-router-dom";
 
 const UserContextMenu = ({
   currentUser,
@@ -19,7 +19,7 @@ const UserContextMenu = ({
   createConvo,
   addFriend,
   unblockUser,
-  openModal,
+  modal,
   s,
 }) => {
   const { push } = useHistory();
@@ -33,7 +33,7 @@ const UserContextMenu = ({
   const isBlocked = currentUser.blocked[id];
   const notMe = currentUser.id !== id;
 
-  const handleModal = (name) => () => openModal({ name, id });
+  const handleModal = (name) => () => modal({ name, id });
 
   const handleMessage = () => {
     const c = currentUser.conversees[id];
@@ -101,7 +101,7 @@ const UserContextMenu = ({
           <div className="menu-divider" />
           <button
             type="button"
-            onClick={() => openModal({ name: "alias", id: s.id })}
+            onClick={() => modal({ name: "alias", id: s.id })}
           >
             Change Nickname
           </button>
@@ -118,7 +118,7 @@ const mSTP = (state, ownProps) => ({
 });
 
 const mDTP = (dispatch) => ({
-  openModal: (modal) => dispatch(openModal(modal)),
+  modal: (modal) => dispatch(openModal(modal)),
   addFriend: (id) => () => dispatch(requestFriend(id)),
   unblockUser: (id) => () => dispatch(unblock(id)),
   createConversation: (convo) => dispatch(createConversation(convo)),

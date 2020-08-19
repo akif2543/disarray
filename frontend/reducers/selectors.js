@@ -94,15 +94,11 @@ export const getTextChannelMessages = (state, props) => {
 };
 
 export const getCurrentConversation = (state, props) => {
+  if (props.id) return state.entities.conversations[props.id];
   if (props.match.params.conversationId) {
     return state.entities.conversations[props.match.params.conversationId];
   }
   return null;
-  // if (props.location) {
-  //   const re = /\/@me\/(\d+)\//;
-  //   const id = props.location.pathname.match(re)[1];
-  //   return state.entities.conversations[id];
-  // }
 };
 
 export const conversations = (state) => {
@@ -245,13 +241,17 @@ export const getSubscription = (state, props) => {
 };
 
 const demoServers = ["The Gang", "Santa Teresa", "No Pandas", "z 1 1"];
+const demoDMs = ["If Looks Could Kale", "Wrath and the G Squad"];
 
 export const restricted = (state, props) => {
   const { username } = getCurrentUser(state);
-  const { name } = getCurrentServer(state, props);
+  const server = getCurrentServer(state, props);
+  const convo = getCurrentConversation(state, props);
   return (
     username === "Demogorgon" &&
-    demoServers.includes(name) &&
+    (server
+      ? demoServers.includes(server.name)
+      : demoDMs.includes(convo.name)) &&
     process.env.NODE_ENV === "production"
   );
 };

@@ -25,7 +25,15 @@ const ConversationAPI = {
     $.ajax({
       url: `/api/conversations/${id}`,
       method: "PATCH",
-      data: { conversation },
+      data: conversation,
+      contentType: false,
+      processData: false,
+    }),
+  leaveConversation: (membership) =>
+    $.ajax({
+      method: "DELETE",
+      url: "/api/memberships",
+      data: { membership },
     }),
 };
 

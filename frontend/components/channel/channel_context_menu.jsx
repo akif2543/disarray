@@ -8,8 +8,8 @@ import { markChannelRead } from "../../actions/channel_actions";
 const ChannelContextMenu = ({
   isOwner,
   id,
-  oModal,
-  oSettings,
+  modal,
+  settings,
   s,
   channel,
   read,
@@ -19,9 +19,9 @@ const ChannelContextMenu = ({
 
   const handleRead = () => read(id);
 
-  const handleModal = (name) => () => oModal({ name, id: s });
+  const handleModal = (name) => () => modal({ name, id: s });
 
-  const handleSettings = () => oSettings({ name: "channel", id });
+  const handleSettings = () => settings({ name: "channel", id });
 
   return (
     <>
@@ -61,7 +61,7 @@ const ChannelContextMenu = ({
             type="button"
             className={notAllowed ? "red disabled" : "red"}
             onClick={
-              notAllowed ? null : () => oModal({ name: "delete channel", id })
+              notAllowed ? null : () => modal({ name: "delete channel", id })
             }
             disabled={notAllowed}
           >
@@ -80,8 +80,8 @@ const mSTP = (state, ownProps) => ({
 });
 
 const mDTP = (dispatch) => ({
-  oModal: (modal) => dispatch(openModal(modal)),
-  oSettings: (settings) => dispatch(openSettings(settings)),
+  modal: (m) => dispatch(openModal(m)),
+  settings: (s) => dispatch(openSettings(s)),
   read: (c) => dispatch(markChannelRead(c)),
 });
 

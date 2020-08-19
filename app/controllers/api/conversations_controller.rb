@@ -35,7 +35,11 @@ class Api::ConversationsController < ApplicationController
         @conversation.update(group: true) unless @conversation.group
         @conversation.group_bundle(params[:conversation][:ids])
       else
-       @conversation.update(convo_params)
+        if params[:conversation][:icon] == "null"
+          @conversation.icon.purge
+        else
+          @conversation.update(convo_params)
+        end
       end
       @conversation = Conversation.includes(:members, :messages).find(@conversation.id)
       group_broadcast

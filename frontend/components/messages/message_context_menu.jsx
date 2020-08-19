@@ -9,14 +9,14 @@ const MessageContextMenu = ({
   toggleContext,
   toggleEdit,
   id,
-  oModal,
+  modal,
 }) => {
   const handleEdit = () => {
     toggleEdit();
     toggleContext();
   };
 
-  const handleDelete = () => oModal({ name: "messageDelete", id });
+  const handleDelete = () => modal({ name: "messageDelete", id });
 
   const handleCopy = () => {
     document.execCommand("copy");
@@ -54,7 +54,7 @@ const MessageContextMenu = ({
 };
 
 const mDTP = (dispatch) => ({
-  oModal: (modal) => dispatch(openModal(modal)),
+  modal: (m) => dispatch(openModal(m)),
 });
 
 const MessageContextMenuContainer = connect(null, mDTP)(MessageContextMenu);

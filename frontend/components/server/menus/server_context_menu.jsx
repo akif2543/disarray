@@ -8,8 +8,8 @@ import { getCurrentServer, restricted } from "../../../reducers/selectors";
 const ServerContextMenu = ({
   isOwner,
   id,
-  oModal,
-  oSettings,
+  modal,
+  settings,
   server,
   read,
   notAllowed,
@@ -18,9 +18,9 @@ const ServerContextMenu = ({
 
   const handleRead = () => read({ id, channels });
 
-  const handleModal = (name) => () => oModal({ name, id });
+  const handleModal = (name) => () => modal({ name, id });
 
-  const handleSettings = () => oSettings({ name: "server", id });
+  const handleSettings = () => settings({ name: "server", id });
 
   return (
     <>
@@ -80,8 +80,8 @@ const mSTP = (state, ownProps) => ({
 });
 
 const mDTP = (dispatch) => ({
-  oModal: (modal) => dispatch(openModal(modal)),
-  oSettings: (settings) => dispatch(openSettings(settings)),
+  modal: (m) => dispatch(openModal(m)),
+  settings: (s) => dispatch(openSettings(s)),
   read: (server) => dispatch(markRead(server)),
 });
 

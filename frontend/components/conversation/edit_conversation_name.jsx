@@ -14,7 +14,9 @@ const EditConversationName = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (name.trim().length) {
-      customizeConversation(id, { name }).then(toggleEdit());
+      const formData = new FormData();
+      formData.append("conversation[name]", name);
+      customizeConversation(id, formData).then(toggleEdit());
     }
   };
 

@@ -2,6 +2,7 @@ import ConversationAPI from "../util/conversation_api_util";
 
 export const RECEIVE_CONVERSATIONS = "RECEIVE_CONVERSATIONS";
 export const RECEIVE_CONVERSATION = "RECEIVE_CONVERSATION";
+export const REMOVE_CONVERSATION = "REMOVE_CONVERSATION";
 export const RECEIVE_CONVERSATION_ERRORS = "RECEIVE_CONVERSATION_ERRORS";
 export const CLEAR_CONVERSATION_ERRORS = "CLEAR_CONVERSATION_ERRORS";
 export const RECEIVE_ACTIVE_CONVO = "RECEIVE_ACTIVE_CONVO";
@@ -13,6 +14,11 @@ const receiveConversations = (convos) => ({
 
 export const receiveConversation = (convo) => ({
   type: RECEIVE_CONVERSATION,
+  ...convo,
+});
+
+export const removeConversation = (convo) => ({
+  type: REMOVE_CONVERSATION,
   ...convo,
 });
 
@@ -57,5 +63,10 @@ export const addToConversation = (id, ids) => (dispatch) =>
 
 export const customizeConversation = (id, conversation) => (dispatch) =>
   ConversationAPI.customizeConversation(id, conversation)
+    .then((convo) => dispatch(receiveConversation(convo)))
+    .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));
+
+export const leaveConversation = (conversation) => (dispatch) =>
+  ConversationAPI.leaveConversation(conversation)
     .then((convo) => dispatch(receiveConversation(convo)))
     .fail((e) => dispatch(receiveConversationErrors(e.responseJSON)));
