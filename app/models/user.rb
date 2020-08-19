@@ -91,7 +91,7 @@ class User < ApplicationRecord
   end
 
   def is_member?(server)
-    self.servers.include?(server)
+    self.servers.include?(server) || self.conversations.include?(server)
   end
 
   def mutual_friends(other_user)

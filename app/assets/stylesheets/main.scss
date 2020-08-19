@@ -718,6 +718,7 @@ button.disabled {
       h2 {
         color: rgb(138, 141, 146);
         max-width: 158px;
+        line-height: 1.1;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -727,7 +728,7 @@ button.disabled {
         }
       }
       h3 {
-        padding-top: 2px;
+        padding-top: 1px;
         margin-left: 0;
         color: rgb(138, 141, 146);
         font: {

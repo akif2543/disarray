@@ -30,7 +30,10 @@ import {
   receiveSub,
   receiveUnread,
 } from "../../actions/message_actions";
-import { receiveConversation } from "../../actions/conversation_actions";
+import {
+  receiveConversation,
+  removeConversationMember,
+} from "../../actions/conversation_actions";
 import Application from "./app";
 
 const mSTP = (state) => ({
@@ -47,6 +50,7 @@ const mDTP = (dispatch) => ({
   receiveStatus: (status) => dispatch(receiveStatus(status)),
   receiveSub: (sub) => dispatch(receiveSub(sub)),
   receiveConversation: (convo) => dispatch(receiveConversation(convo)),
+  removeCM: (mem) => dispatch(removeConversationMember(mem)),
   friendActions: {
     receiveRequest: (res) => dispatch(receiveRequest(res)),
     receiveAcceptance: (res) => dispatch(receiveAcceptance(res)),

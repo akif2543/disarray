@@ -47,7 +47,7 @@ class Api::MembershipsController < ApplicationController
         @conversation = @membership.subscribeable
         @conversation.new_owner if @conversation.owner == current_user
         @membership.destroy
-        ConversationChannel.broadcast_to(@conversation, format_destroy)
+        group_broadcast
       end
     else
       render json: ["Record not found"], status: 404
@@ -66,6 +66,11 @@ class Api::MembershipsController < ApplicationController
 
   def format_destroy
     JSON.parse(render("api/memberships/destroy.json.jbuilder"))
+  end
+
+  def group_broadcast
+    convo = format_destroy
+    @conversation.members.each { |m| ConversationChannel.broadcast_to(m, convo) }
   end
 
 end

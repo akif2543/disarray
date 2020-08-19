@@ -739,6 +739,11 @@
 
     .leave {
       background: $dk-red;
+      @include button-transition;
+
+      &:hover {
+        background: $dk-red-hover;
+      }
     }
 
     .cancel:hover {
@@ -827,7 +832,7 @@
     }
 
     &:hover {
-      background: rgb(104, 125, 195);
+      background: $dk-blue-hover;
     }
   }
 }
@@ -942,6 +947,12 @@
         background: $dk-blue-hover;
       }
     }
+  }
+}
+
+.modal-confirm.leave-dm {
+  header {
+    height: auto;
   }
 }
 

@@ -2,6 +2,7 @@ import {
   RECEIVE_CONVERSATIONS,
   RECEIVE_CONVERSATION,
   RECEIVE_ACTIVE_CONVO,
+  REMOVE_CONVERSATION_MEMBER,
 } from "../../actions/conversation_actions";
 import {
   RECEIVE_CURRENT_USER,
@@ -17,6 +18,7 @@ const conversationsReducer = (state = {}, action) => {
   const newState = { ...state };
   let messages;
   let message;
+  let i;
 
   switch (action.type) {
     case RECEIVE_CONVERSATIONS:
@@ -52,6 +54,11 @@ const conversationsReducer = (state = {}, action) => {
       if (action.convo) {
         newState[action.convo].unreads = 0;
       }
+      return newState;
+    case REMOVE_CONVERSATION_MEMBER:
+      i = newState[action.conversation].members.indexOf(action.id);
+      if (i >= 0) newState[action.conversation].members.splice(i, 1);
+      newState[action.conversation].owner = action.owner;
       return newState;
     case LOGOUT_CURRENT_USER:
       return {};

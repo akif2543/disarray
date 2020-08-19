@@ -5,4 +5,5 @@ if @server
   json.channels @server.channels.map(&:id)
 else
   json.conversation @conversation.id
+  json.owner @conversation.owner_id
 end

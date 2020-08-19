@@ -13,9 +13,6 @@ import {
 
 import Loading from "../ui/loading";
 
-// import SettingsContainer from "../ui/settings";
-// import ModalContainer from "../ui/modal";
-
 const Settings = lazy(() =>
   import(/* webpackChunkName: "settings" */ "../ui/settings")
 );
@@ -46,6 +43,7 @@ const Application = ({
   receiveStatus,
   receiveSub,
   receiveConversation,
+  removeCM,
   friendActions,
   serverActions,
   messageActions,
@@ -57,7 +55,13 @@ const Application = ({
       appearanceSub(user.id, receiveStatus, receiveSub);
       friendsSub(user.id, friendActions, receiveSub);
       serverSubs(servers, serverActions, messageActions, receiveSub, push);
-      convoChannelSub(user.id, receiveConversation, messageActions, receiveSub);
+      convoChannelSub(
+        user.id,
+        receiveConversation,
+        messageActions,
+        removeCM,
+        receiveSub
+      );
       convoSubs(convos, messageActions, receiveSub);
     }
   }, [loggedIn, Boolean(App)]);

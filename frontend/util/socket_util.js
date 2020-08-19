@@ -174,12 +174,13 @@ const convoSub = (id, receive, remove, unread, sub) => {
   delete App.convo;
 };
 
-export const convoChannelSub = (id, receive, messageActions, sub) => {
+export const convoChannelSub = (id, receive, messageActions, unmember, sub) => {
   const { removeMessage, receiveMessage, receiveUnread } = messageActions;
   App.cc = App.cable.subscriptions.create(
     { channel: "ConversationChannel", id },
     {
       received: (data) => {
+        if (data.action === "remove member") return unmember(data);
         receive(data);
         const [c] = Object.values(data.conversation);
         const re = new RegExp(`#/@me/${c.id}`);

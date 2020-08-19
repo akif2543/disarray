@@ -8,6 +8,7 @@ import MessageModalContainer from "../messages/message_modal_container";
 import DeleteAccountContainer from "../user/delete_account_container";
 import FriendModalContainer from "../friends/friend_modal";
 import ProfileContainer from "../user/profile";
+import DMModalContainer from "../conversation/dm_modal";
 
 const Modal = ({ modal, id, closeModal }) => {
   if (!modal) return null;
@@ -62,7 +63,7 @@ const Modal = ({ modal, id, closeModal }) => {
       component = <ProfileContainer id={id} />;
       break;
     case "leave dm":
-      // component = <ProfileContainer id={id} />;
+      component = <DMModalContainer id={id} />;
       break;
     default:
       return null;

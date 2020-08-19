@@ -30,7 +30,7 @@ class Api::ConversationsController < ApplicationController
 
   def update
     @conversation = Conversation.find_by(id: params[:id])
-    if @conversation && @conversation.owner == current_user
+    if @conversation && current_user.is_member?(@conversation)
       if params[:add]
         @conversation.update(group: true) unless @conversation.group
         @conversation.group_bundle(params[:conversation][:ids])

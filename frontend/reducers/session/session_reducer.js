@@ -20,6 +20,7 @@ import {
 import {
   RECEIVE_CONVERSATION,
   RECEIVE_ACTIVE_CONVO,
+  REMOVE_CONVERSATION,
 } from "../../actions/conversation_actions";
 import { RECEIVE_MESSAGE } from "../../actions/message_actions";
 
@@ -149,6 +150,10 @@ const sessionReducer = (state = { id: null }, action) => {
         newState.conversations.splice(i, 1);
         newState.conversations.unshift(message.messageableId);
       }
+      return newState;
+    case REMOVE_CONVERSATION:
+      i = newState.conversations.indexOf(action.conversation);
+      if (i >= 0) newState.conversations.splice(i, 1);
       return newState;
     default:
       return state;
