@@ -56,7 +56,7 @@ const UserContextMenu = ({
       <button type="button" onClick={handleModal("profile")}>
         Profile
       </button>
-      {notMe && (
+      {notMe && !isBlocked && (
         <>
           <button type="button" onClick={handleMessage}>
             Message
@@ -75,7 +75,6 @@ const UserContextMenu = ({
             <FontAwesomeIcon icon="angle-down" transform={{ rotate: -90 }} />
             {submenu && <ServerListContainer id={id} el={el} />}
           </div>
-
           {isFriend ? (
             <button type="button" onClick={handleModal("unfriend")}>
               Remove Friend
@@ -85,15 +84,17 @@ const UserContextMenu = ({
               Add Friend
             </button>
           )}
-          {isBlocked ? (
-            <button type="button" onClick={unblockUser(id)}>
-              Unblock
-            </button>
-          ) : (
-            <button type="button" onClick={handleModal("block")}>
-              Block
-            </button>
-          )}
+          <button type="button" onClick={handleModal("block")}>
+            Block
+          </button>
+        </>
+      )}
+      {notMe && isBlocked && (
+        <>
+          <div className="menu-divider" />
+          <button type="button" onClick={unblockUser(id)}>
+            Unblock
+          </button>
         </>
       )}
       {!notMe && s && (

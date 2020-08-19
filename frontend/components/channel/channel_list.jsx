@@ -12,7 +12,6 @@ const ChannelList = ({
   channels,
   server,
   openSettings,
-  match,
 }) => {
   const el = useRef(null);
 
@@ -40,7 +39,6 @@ const ChannelList = ({
           openModal={openModal}
           openSettings={openSettings}
           isOwner={isOwner}
-          isActive={parseInt(match.params.channelId) === channel.id}
         />
       </NavLink>
     );

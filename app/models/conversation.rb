@@ -23,4 +23,10 @@ class Conversation < ApplicationRecord
   def group_bundle(ids)
     Membership.create(ids.map { |id| { member_id: id, subscribeable: self } })
   end
+
+  def new_owner
+    lucky = self.members.sample
+    new_owner if lucky == self.owner
+    self.update(owner_id: lucky.id)
+  end
 end

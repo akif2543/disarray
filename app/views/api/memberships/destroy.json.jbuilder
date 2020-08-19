@@ -1,4 +1,8 @@
 json.action "remove member"
 json.id @membership.member_id
-json.server @membership.subscribeable_id
-json.channels @server.channels.map(&:id)
+if @server
+  json.server @server.id
+  json.channels @server.channels.map(&:id)
+else
+  json.conversation @conversation.id
+end

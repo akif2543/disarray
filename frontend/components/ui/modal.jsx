@@ -61,6 +61,9 @@ const Modal = ({ modal, id, closeModal }) => {
     case "profile":
       component = <ProfileContainer id={id} />;
       break;
+    case "leave dm":
+      // component = <ProfileContainer id={id} />;
+      break;
     default:
       return null;
   }

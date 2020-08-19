@@ -39,9 +39,16 @@ class Api::MembershipsController < ApplicationController
     @membership = Membership.find_by(member_id: current_user.id, subscribeable_type: params[:membership][:subscribeable_type], subscribeable_id: params[:membership][:subscribeable_id])
 
     if @membership
-      @server = @membership.subscribeable
-      @membership.destroy
-      ServerChannel.broadcast_to(@server, format_destroy)
+      if @membership.subscribeable_type == "Server"
+        @server = @membership.subscribeable
+        @membership.destroy
+        ServerChannel.broadcast_to(@server, format_destroy)
+      else
+        @conversation = @membership.subscribeable
+        @conversation.new_owner if @conversation.owner == current_user
+        @membership.destroy
+        ConversationChannel.broadcast_to(@conversation, format_destroy)
+      end
     else
       render json: ["Record not found"], status: 404
     end

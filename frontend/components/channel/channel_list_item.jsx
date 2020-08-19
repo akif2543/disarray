@@ -10,13 +10,7 @@ const areEqual = (prevProps, nextProps) => {
   return true;
 };
 
-const ChannelListItem = ({
-  channel,
-  openModal,
-  openSettings,
-  isOwner,
-  // isActive,
-}) => {
+const ChannelListItem = ({ channel, openModal, openSettings, isOwner }) => {
   const inviteEl = useRef(null);
   const editEl = useRef(null);
   const el = useRef(null);

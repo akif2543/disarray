@@ -12,9 +12,6 @@ const ConversationList = ({
   setActive,
   currentUser,
   pending,
-  match: {
-    params: { conversationId },
-  },
 }) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
