@@ -2,10 +2,9 @@ json.action "receive server"
 
 json.server do
   json.set! @server.id do
-    json.cache! @server, expires_in: 10.minutes do
+    json.cache! @server, expires_in: 1.hour do
       json.partial! "api/servers/server", server: @server
     end
-    json.hasUnreads false
   end
 end
 
@@ -16,16 +15,16 @@ end
     end
   end
 
-  # json.messages do
-  #   c.messages.each do |m|
-  #     json.partial! "api/messages/message.json.jbuilder", message: m
-  #   end
-  # end
+  json.messages do
+    c.messages.each do |m|
+      json.partial! "api/messages/message.json.jbuilder", message: m
+    end
+  end
 end
 
 json.users do
   @server.members.each do |m|
-    json.cache! m, expires_in: 10.minutes do
+    json.cache! m, expires_in: 1.hour do
       json.partial! "api/users/user", user: m
     end
   end

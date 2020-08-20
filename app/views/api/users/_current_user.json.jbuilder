@@ -16,7 +16,7 @@ end
 
 json.users do
   user.friends.each do |friend|
-    json.cache! friend, expires_in: 10.minutes do
+    json.cache! friend, expires_in: 1.hour do
       json.partial! "api/users/user.json.jbuilder", user: friend
     end
   end
@@ -39,16 +39,17 @@ end
 user.get_servers.each do |server|
   json.servers do
     json.set! server.id do
-      json.cache! server, expires_in: 10.minutes do
+      json.cache! server, expires_in: 1.hour do
         json.partial! "api/servers/server.json.jbuilder", server: server
       end
-      json.hasUnreads user.updated_at < server.updated_at
+      # json.hasUnreads user.updated_at < server.updated_at
+      json.joined user.join_date(server)
     end
   end
 
   json.users do
     server.members.each do |m|
-      json.cache! [m, m.online], expires_in: 10.minutes do
+      json.cache! [m, m.online], expires_in: 1.hour do
         json.partial! "api/users/user.json.jbuilder", user: m
       end
     end
@@ -74,7 +75,7 @@ end
 user.get_conversations.each do |c|
   json.conversations do
     json.set! c.id do
-      json.cache! c, expires_in: 10.minutes do
+      json.cache! c, expires_in: 1.hour do
         json.partial! "api/conversations/conversation.json.jbuilder", c: c
       end
       json.messages c.messages.reverse.map(&:id)
@@ -84,7 +85,7 @@ user.get_conversations.each do |c|
 
   json.users do 
     c.members.each do |m|
-      json.cache! m, expires_in: 10.minutes do
+      json.cache! m, expires_in: 1.hour do
         json.partial! "api/users/user.json.jbuilder", user: m
       end
     end

@@ -15,6 +15,7 @@ import { RECEIVE_CHANNEL, REMOVE_CHANNEL } from "../../actions/channel_actions";
 
 const serversReducer = (state = {}, action) => {
   const newState = { ...state };
+  let server;
   let channel;
   let i;
   switch (action.type) {
@@ -23,6 +24,11 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_SERVERS:
       return Object.assign(newState, action.servers);
     case RECEIVE_SERVER:
+      [i, server] = Object.entries(action.server);
+      if (newState[i]) {
+        Object.assign(newState[i], server);
+        return newState;
+      }
       return Object.assign(newState, action.server);
     case REMOVE_SERVER:
       delete newState[action.id];

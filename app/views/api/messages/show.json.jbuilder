@@ -3,7 +3,7 @@ json.message do
 end
 
 json.user do
-  json.cache! [@message.author, @message.author.online], expires_in: 10.minutes do
+  json.cache! [@message.author, @message.author.online], expires_in: 1.hour do
     json.partial! "api/users/user", user: @message.author
   end
 end

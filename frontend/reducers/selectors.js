@@ -14,16 +14,23 @@ export const getUserServers = (state) => {
   if (!state.session.id) return [];
   const { servers } = getCurrentUser(state);
   const ids = Object.keys(servers);
-  return ids.reverse().map((id) => {
-    const s = state.entities.servers[id];
-    s.hasUnreads =
-      s.hasUnreads ||
-      s.channels.some(
-        (c) =>
-          state.entities.channels[c] && state.entities.channels[c].hasUnreads
-      );
-    return s;
-  });
+  return ids
+    .map((id) => {
+      const s = state.entities.servers[id];
+      s.hasUnreads =
+        s.hasUnreads ||
+        s.channels.some(
+          (c) =>
+            state.entities.channels[c] && state.entities.channels[c].hasUnreads
+        );
+      return s;
+    })
+    .sort((a, b) => {
+      if (a.joined && b.joined) return new Date(b.joined) - new Date(a.joined);
+      if (a.joined && !b.joined) return 1;
+      if (!a.joined && b.joined) return -1;
+      return 0;
+    });
 };
 
 export const getCurrentServer = (state, props) => {

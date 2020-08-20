@@ -81,7 +81,7 @@ class User < ApplicationRecord
   end
 
   def server_aliases
-    # Rails.cache.fetch([cache_key, __method__], expires_in: 10.minutes) do
+    # Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
       aliases = {}
       self.memberships.each do |m|
         aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
@@ -92,6 +92,10 @@ class User < ApplicationRecord
 
   def is_member?(server)
     self.servers.include?(server) || self.conversations.include?(server)
+  end
+
+  def join_date(server)
+    self.memberships.find_by(subscribeable: server).created_at
   end
 
   def mutual_friends(other_user)
