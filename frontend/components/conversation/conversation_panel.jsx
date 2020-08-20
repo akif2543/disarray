@@ -8,8 +8,8 @@ const ConversationPanel = ({
   openSettings,
   conversations,
   setActive,
-  match,
   pending,
+  close,
 }) => (
   <section className="side-bar convo">
     <header className="convo-search">
@@ -20,8 +20,8 @@ const ConversationPanel = ({
         conversations={conversations}
         currentUser={currentUser}
         setActive={setActive}
-        match={match}
         pending={pending}
+        close={close}
       />
     </main>
     <UserBar currentUser={currentUser} openSettings={openSettings} />

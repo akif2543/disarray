@@ -101,14 +101,16 @@ export const getCurrentConversation = (state, props) => {
   return null;
 };
 
-export const conversations = (state) => {
+export const showConversations = (state) => {
   const { conversations } = getCurrentUser(state);
-  return conversations.map((c) => state.entities.conversations[c]);
+  return conversations
+    .map((c) => state.entities.conversations[c])
+    .filter((c) => !c.hide);
 };
 
 export const getConversations = (state) => {
   if (!state.session.id) return [];
-  const convos = conversations(state);
+  const convos = showConversations(state);
   return convos.map((c) => ({
     ...c,
     members: c.members.map((id) => state.entities.users[id]),

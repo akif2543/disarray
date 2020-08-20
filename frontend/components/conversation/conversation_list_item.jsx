@@ -1,13 +1,15 @@
 import React, { useRef, useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import AvatarWithStatus from "../user/avatar_with_status";
 import GroupDMIcon from "./group_dm_icon";
 import ContextMenu from "../ui/context_menu";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-const ConversationListItem = ({ convo, currentUser }) => {
+const ConversationListItem = ({ convo, currentUser, close }) => {
   const el = useRef(null);
+  const xEl = useRef(null);
+  const { push } = useHistory();
 
   const [context, setContext] = useState(false);
   const [userClick, setUserClick] = useState([]);
@@ -34,6 +36,15 @@ const ConversationListItem = ({ convo, currentUser }) => {
 
   const { members, group, unreads, id, name, owner } = convo;
 
+  const handleClick = (e) => {
+    if (xEl.current.contains(e.target)) {
+      e.preventDefault();
+      close(id);
+      const re = new RegExp(`#/@me/${id}`);
+      if (re.test(window.location.hash)) push("/@me");
+    }
+  };
+
   const { url } = icon;
 
   const convoMembers = members
@@ -44,7 +55,7 @@ const ConversationListItem = ({ convo, currentUser }) => {
 
   return (
     <>
-      <NavLink to={`/@me/${id}`}>
+      <NavLink to={`/@me/${id}`} onClick={handleClick}>
         <button
           type="button"
           className={unreads ? "convo-li unread" : "convo-li"}
@@ -67,7 +78,7 @@ const ConversationListItem = ({ convo, currentUser }) => {
               }`}</h3>
             )}
           </div>
-          <div className="close-dm">
+          <div className="close-dm" ref={xEl}>
             <FontAwesomeIcon icon="times" size="lg" />
           </div>
         </button>

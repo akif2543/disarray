@@ -3,6 +3,7 @@ import ConversationAPI from "../util/conversation_api_util";
 export const RECEIVE_CONVERSATIONS = "RECEIVE_CONVERSATIONS";
 export const RECEIVE_CONVERSATION = "RECEIVE_CONVERSATION";
 export const REMOVE_CONVERSATION = "REMOVE_CONVERSATION";
+export const CLOSE_CONVERSATION = "CLOSE_CONVERSATION";
 export const REMOVE_CONVERSATION_MEMBER = "REMOVE_CONVERSATION_MEMBER";
 export const RECEIVE_CONVERSATION_ERRORS = "RECEIVE_CONVERSATION_ERRORS";
 export const CLEAR_CONVERSATION_ERRORS = "CLEAR_CONVERSATION_ERRORS";
@@ -16,6 +17,11 @@ const receiveConversations = (convos) => ({
 export const receiveConversation = (convo) => ({
   type: RECEIVE_CONVERSATION,
   ...convo,
+});
+
+export const closeConversation = (id) => ({
+  type: CLOSE_CONVERSATION,
+  id,
 });
 
 const removeConversation = (convo) => ({

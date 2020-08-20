@@ -3,6 +3,7 @@ import {
   RECEIVE_CONVERSATION,
   RECEIVE_ACTIVE_CONVO,
   REMOVE_CONVERSATION_MEMBER,
+  CLOSE_CONVERSATION,
 } from "../../actions/conversation_actions";
 import {
   RECEIVE_CURRENT_USER,
@@ -47,18 +48,24 @@ const conversationsReducer = (state = {}, action) => {
     case RECEIVE_UNREAD:
       if (!action.textChannel) {
         newState[action.messageableId].unreads += 1;
+        newState[action.messageableId].hide = false;
         return newState;
       }
       return state;
     case RECEIVE_ACTIVE_CONVO:
       if (action.convo) {
         newState[action.convo].unreads = 0;
+        newState[action.convo].hide = false;
       }
       return newState;
     case REMOVE_CONVERSATION_MEMBER:
       i = newState[action.conversation].members.indexOf(action.id);
       if (i >= 0) newState[action.conversation].members.splice(i, 1);
       newState[action.conversation].owner = action.owner;
+      return newState;
+    case CLOSE_CONVERSATION:
+      newState[action.id].unreads = 0;
+      newState[action.id].hide = true;
       return newState;
     case LOGOUT_CURRENT_USER:
       return {};

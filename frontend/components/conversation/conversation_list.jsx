@@ -12,6 +12,7 @@ const ConversationList = ({
   setActive,
   currentUser,
   pending,
+  close,
 }) => {
   const el = useRef(null);
   const [tooltip, setTooltip] = useState(false);
@@ -22,13 +23,13 @@ const ConversationList = ({
 
   const seen = new Set();
 
-  const handleClick = (id) => () => setActive(id);
+  const handleClick = () => setActive(null);
 
   return (
     <div className="channel-list-wrapper">
       <nav className="channel-list convo">
         <div className="tabs">
-          <NavLink exact to="/@me" onClick={handleClick(null)}>
+          <NavLink exact to="/@me" onClick={handleClick}>
             <button type="button" className="friends-btn">
               <div>
                 <FontAwesomeIcon icon="users" size="lg" />
@@ -72,6 +73,7 @@ const ConversationList = ({
                 key={shortid.generate()}
                 convo={convo}
                 currentUser={currentUser}
+                close={close}
               />
             );
           })}

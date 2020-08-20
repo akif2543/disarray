@@ -704,6 +704,7 @@ button.disabled {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    position: relative;
 
     .avatar,
     .group-dm-icon {
@@ -758,12 +759,17 @@ button.disabled {
         }
         h2,
         h3 {
-          color: rgb(220, 221, 222);
+          color: $dk-off-white;
         }
       }
 
       .close-dm {
         display: block;
+        color: $dk-close-dm;
+
+        &:hover {
+          color: $dk-off-white;
+        }
       }
     }
   }
@@ -788,6 +794,14 @@ button.disabled {
       .avatar-with-status {
         .badge-bg.sidebar {
           background: $dk-active-channel-bg;
+        }
+      }
+
+      .close-dm {
+        color: $dk-close-dm-active;
+
+        &:hover {
+          color: $dk-white;
         }
       }
     }
