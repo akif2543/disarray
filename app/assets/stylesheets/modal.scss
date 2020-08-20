@@ -412,12 +412,18 @@
           input {
             box-sizing: border-box;
             background: $dk-session-input-bg;
-            color: $dk-session-sub;
+            color: $dk-off-white;
             border: 0.5px solid $dk-session-input-b;
             margin-top: 5px;
             padding: 10px;
             width: 320px;
             border-radius: 3px;
+
+            font: {
+              family: "Whitney Medium";
+              size: 14px;
+            }
+
             &:focus {
               border-color: $dk-blue;
             }

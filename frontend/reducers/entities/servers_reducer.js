@@ -24,7 +24,7 @@ const serversReducer = (state = {}, action) => {
     case RECEIVE_SERVERS:
       return Object.assign(newState, action.servers);
     case RECEIVE_SERVER:
-      [i, server] = Object.entries(action.server);
+      [[i, server]] = Object.entries(action.server);
       if (newState[i]) {
         Object.assign(newState[i], server);
         return newState;

@@ -14,6 +14,7 @@ export const getUserServers = (state) => {
   if (!state.session.id) return [];
   const { servers } = getCurrentUser(state);
   const ids = Object.keys(servers);
+  if (!ids.length) return [];
   return ids
     .map((id) => {
       const s = state.entities.servers[id];

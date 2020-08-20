@@ -21,7 +21,6 @@ class Api::ChannelsController < ApplicationController
       @channel.server_id = @server.id
       if @channel.save
         ServerChannel.broadcast_to(@server, format_response)
-        # render :show
       else
         render json: @channel.errors.full_messages, status: 422
       end
@@ -37,7 +36,6 @@ class Api::ChannelsController < ApplicationController
       if @channel
         if @channel.update(channel_params)
           ServerChannel.broadcast_to(@server, format_response)
-          # render :show
         else
           render json: @channel.errors.full_messages, status: 422
         end
@@ -56,7 +54,6 @@ class Api::ChannelsController < ApplicationController
       if @server
         @channel.destroy!
         ServerChannel.broadcast_to(@server, format_destroy)
-        # render :show
       else
         render json: ["You don't have permission to do that."], status: 403
       end      
