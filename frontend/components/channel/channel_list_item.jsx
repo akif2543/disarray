@@ -1,4 +1,5 @@
 import React, { useState, useRef, memo, useEffect } from "react";
+import { NavLink } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Tooltip from "../ui/tooltip";
@@ -10,7 +11,13 @@ const areEqual = (prevProps, nextProps) => {
   return true;
 };
 
-const ChannelListItem = ({ channel, openModal, openSettings, isOwner }) => {
+const ChannelListItem = ({
+  channel,
+  openModal,
+  openSettings,
+  isOwner,
+  collapse,
+}) => {
   const inviteEl = useRef(null);
   const editEl = useRef(null);
   const el = useRef(null);
@@ -47,63 +54,72 @@ const ChannelListItem = ({ channel, openModal, openSettings, isOwner }) => {
 
   const { id, hasUnreads, name, server } = channel;
 
-  const handleInvite = (e) => {
-    e.stopPropagation();
-    openModal({ name: "invite", id: server });
-  };
-
-  const handleSettings = (e) => {
-    e.stopPropagation();
-    openSettings({ name: "channel", id });
+  const handleClick = (e) => {
+    if (inviteEl.current.contains(e.target)) {
+      e.preventDefault();
+      return openModal({ name: "invite", id: server });
+    }
+    if (editEl.current.contains(e.target)) {
+      e.preventDefault();
+      return openSettings({ name: "channel", id });
+    }
   };
 
   return (
     <>
-      <button
-        type="button"
-        className={hasUnreads ? "channel-tab unread" : "channel-tab"}
-        ref={el}
+      <NavLink
+        className={collapse ? "hide" : ""}
+        to={`/channels/${server}/${id}`}
+        onClick={handleClick}
       >
-        <div>
-          <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />
-          <h3>{name}</h3>
-        </div>
-        <div className="icon-grp">
-          <div ref={inviteEl}>
-            <FontAwesomeIcon
-              icon="user-plus"
-              onClick={handleInvite}
-              onMouseOver={showTooltip("invite")}
-              onFocus={showTooltip("invite")}
-              onMouseOut={hideTooltip("invite")}
-              onBlur={hideTooltip("invite")}
-            />
+        <button
+          type="button"
+          className={hasUnreads ? "channel-tab unread" : "channel-tab"}
+          ref={el}
+        >
+          <div>
+            <FontAwesomeIcon icon="hashtag" size="lg" className="hashtag" />
+            <h3>{name}</h3>
           </div>
-          {invite && (
-            <Tooltip text="Create Invite" className="cl-tt inv" el={inviteEl} />
-          )}
-
-          {isOwner && (
-            <div ref={editEl}>
+          <div className="icon-grp">
+            <div ref={inviteEl}>
               <FontAwesomeIcon
-                icon="cog"
-                onClick={handleSettings}
-                onMouseOver={showTooltip("edit")}
-                onFocus={showTooltip("edit")}
-                onMouseOut={hideTooltip("edit")}
-                onBlur={hideTooltip("edit")}
+                icon="user-plus"
+                onMouseOver={showTooltip("invite")}
+                onFocus={showTooltip("invite")}
+                onMouseOut={hideTooltip("invite")}
+                onBlur={hideTooltip("invite")}
               />
-              {edit && (
-                <Tooltip
-                  text="Edit Channel"
-                  className="cl-tt edit"
-                  el={editEl}
-                />
-              )}
             </div>
-          )}
-        </div>
-      </button>
+            {invite && (
+              <Tooltip
+                text="Create Invite"
+                className="cl-tt inv"
+                el={inviteEl}
+              />
+            )}
+
+            {isOwner && (
+              <div ref={editEl}>
+                <FontAwesomeIcon
+                  icon="cog"
+                  onMouseOver={showTooltip("edit")}
+                  onFocus={showTooltip("edit")}
+                  onMouseOut={hideTooltip("edit")}
+                  onBlur={hideTooltip("edit")}
+                />
+                {edit && (
+                  <Tooltip
+                    text="Edit Channel"
+                    className="cl-tt edit"
+                    el={editEl}
+                  />
+                )}
+              </div>
+            )}
+          </div>
+        </button>
+      </NavLink>
       {context && (
         <ContextMenu
           type="channel"

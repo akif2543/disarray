@@ -19,10 +19,14 @@ export const receiveConversation = (convo) => ({
   ...convo,
 });
 
-export const closeConversation = (id) => ({
-  type: CLOSE_CONVERSATION,
-  id,
-});
+export const closeConversation = (id, push) => {
+  const re = new RegExp(`#/@me/${id}`);
+  if (re.test(window.location.hash)) push("/@me");
+  return {
+    type: CLOSE_CONVERSATION,
+    id,
+  };
+};
 
 const removeConversation = (convo) => ({
   type: REMOVE_CONVERSATION,

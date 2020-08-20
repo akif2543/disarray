@@ -39,9 +39,7 @@ const ConversationListItem = ({ convo, currentUser, close }) => {
   const handleClick = (e) => {
     if (xEl.current.contains(e.target)) {
       e.preventDefault();
-      close(id);
-      const re = new RegExp(`#/@me/${id}`);
-      if (re.test(window.location.hash)) push("/@me");
+      close(id, push);
     }
   };
 
@@ -99,6 +97,7 @@ const ConversationListItem = ({ convo, currentUser, close }) => {
           coords={userClick}
           toggleContext={toggleContext}
           id={m.id}
+          dm={id}
         />
       )}
     </>

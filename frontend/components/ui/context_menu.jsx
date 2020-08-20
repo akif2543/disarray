@@ -12,6 +12,7 @@ const ContextMenu = ({
   coords,
   id,
   s,
+  dm,
   isAuthor,
   toggleEdit,
   setIcon,
@@ -41,7 +42,7 @@ const ContextMenu = ({
 
   switch (type) {
     case "user":
-      component = <UserContextMenuContainer id={id} s={s} />;
+      component = <UserContextMenuContainer id={id} s={s} dm={dm} />;
       break;
     case "message":
       component = (

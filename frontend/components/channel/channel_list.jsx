@@ -1,7 +1,6 @@
 import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import shortid from "shortid";
-import { NavLink } from "react-router-dom";
 
 import ChannelListItem from "./channel_list_item";
 import Tooltip from "../ui/tooltip";
@@ -29,18 +28,14 @@ const ChannelList = ({
     if (seen.has(channel.id)) return null;
     seen.add(channel.id);
     return (
-      <NavLink
-        to={`/channels/${server.id}/${channel.id}`}
+      <ChannelListItem
         key={shortid.generate()}
-        className={collapse ? "hide" : ""}
-      >
-        <ChannelListItem
-          channel={channel}
-          openModal={openModal}
-          openSettings={openSettings}
-          isOwner={isOwner}
-        />
-      </NavLink>
+        channel={channel}
+        openModal={openModal}
+        openSettings={openSettings}
+        isOwner={isOwner}
+        collapse={collapse}
+      />
     );
   });
 

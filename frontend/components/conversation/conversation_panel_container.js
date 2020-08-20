@@ -18,7 +18,7 @@ const mSTP = (state) => ({
 const mDTP = (dispatch) => ({
   openSettings: (settings) => dispatch(openSettings(settings)),
   setActive: (convo) => dispatch(receiveActiveConversation(convo)),
-  close: (id) => dispatch(closeConversation(id)),
+  close: (id, push) => dispatch(closeConversation(id, push)),
 });
 
 const ConversationPanelContainer = withRouter(

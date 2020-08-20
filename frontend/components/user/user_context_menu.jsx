@@ -11,7 +11,10 @@ import {
 import { openModal } from "../../actions/ui_actions";
 import { requestFriend, unblock } from "../../actions/friend_actions";
 import ServerListContainer from "../server/menus/server_list";
-import { createConversation } from "../../actions/conversation_actions";
+import {
+  createConversation,
+  closeConversation,
+} from "../../actions/conversation_actions";
 
 const UserContextMenu = ({
   currentUser,
@@ -20,7 +23,9 @@ const UserContextMenu = ({
   addFriend,
   unblockUser,
   modal,
+  close,
   s,
+  dm,
 }) => {
   const { push } = useHistory();
 
@@ -34,6 +39,8 @@ const UserContextMenu = ({
   const notMe = currentUser.id !== id;
 
   const handleModal = (name) => () => modal({ name, id });
+
+  const handleClose = () => close(dm, push);
 
   const handleMessage = () => {
     const c = currentUser.conversees[id];
@@ -58,9 +65,15 @@ const UserContextMenu = ({
       </button>
       {notMe && !isBlocked && (
         <>
-          <button type="button" onClick={handleMessage}>
-            Message
-          </button>
+          {dm ? (
+            <button type="button" onClick={handleClose}>
+              Close DM
+            </button>
+          ) : (
+            <button type="button" onClick={handleMessage}>
+              Message
+            </button>
+          )}
           <div className="menu-divider" />
           <div
             type="button"
@@ -123,6 +136,7 @@ const mDTP = (dispatch) => ({
   addFriend: (id) => () => dispatch(requestFriend(id)),
   unblockUser: (id) => () => dispatch(unblock(id)),
   createConversation: (convo) => dispatch(createConversation(convo)),
+  close: (id, push) => dispatch(closeConversation(id, push)),
 });
 
 const UserContextMenuContainer = connect(mSTP, mDTP)(UserContextMenu);
