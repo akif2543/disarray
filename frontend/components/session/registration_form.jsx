@@ -61,7 +61,7 @@ class RegistrationForm extends React.Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const { register, startLoading } = this.props;
+    const { register } = this.props;
     const { email, username, password } = this.state;
     if (this.valid(email, username, password)) {
       this.errors = {
@@ -69,7 +69,6 @@ class RegistrationForm extends React.Component {
         usernamePresence: false,
         passwordPresence: false,
       };
-      // startLoading();
       register({ email, username, password });
     }
   }

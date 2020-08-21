@@ -3,8 +3,6 @@ import { Link } from "react-router-dom";
 
 import RegistrationForm from "./registration_form";
 import LoginForm from "./login_form";
-// import logo from "assets/images/logo_solo.png";
-// import icon from "assets/images/icon_solo.png";
 
 const Session = ({
   errors,

@@ -1,5 +1,4 @@
 const dateDiff = (date, now = Date.now()) => {
-  // const now = Date.now();
   const messageDate = date.getTime();
   return (now - messageDate) / (24 * 3600 * 1000);
 };
