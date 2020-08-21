@@ -13,8 +13,8 @@ export const getCurrentUser = (state) => {
 export const getUserServers = (state) => {
   if (!state.session.id) return [];
   const { servers } = getCurrentUser(state);
+  if (!servers) return [];
   const ids = Object.keys(servers);
-  if (!ids.length) return [];
   return ids
     .map((id) => {
       const s = state.entities.servers[id];
