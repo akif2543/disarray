@@ -68,6 +68,7 @@
       h2 {
         padding-left: 10px;
         padding-right: 5px;
+        @include text-overflow;
 
         font: {
           family: "Whitney Medium";
