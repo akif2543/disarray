@@ -161,26 +161,28 @@ const Profile = ({
         {mutuals &&
           (mutualServers.length ? (
             <>
-              {mutualServers.map((s) => (
-                <button
-                  type="button"
-                  key={generate()}
-                  className="mutual"
-                  onClick={handleServer(s.id, s.active)}
-                >
-                  {s.icon ? (
-                    <img src={s.icon} alt="" className="server-icon" />
-                  ) : (
-                    <div className="server-icon none">
-                      <h1>{initials(s.name)}</h1>
+              {mutualServers.map((s) =>
+                s === undefined ? null : (
+                  <button
+                    type="button"
+                    key={generate()}
+                    className="mutual"
+                    onClick={handleServer(s.id, s.active)}
+                  >
+                    {s.icon ? (
+                      <img src={s.icon} alt="" className="server-icon" />
+                    ) : (
+                      <div className="server-icon none">
+                        <h1>{initials(s.name)}</h1>
+                      </div>
+                    )}
+                    <div className="server-info">
+                      <h2>{s.name}</h2>
+                      <span>{servers[s.id]}</span>
                     </div>
-                  )}
-                  <div className="server-info">
-                    <h2>{s.name}</h2>
-                    <span>{servers[s.id]}</span>
-                  </div>
-                </button>
-              ))}
+                  </button>
+                )
+              )}
             </>
           ) : (
             <div className="mutuals-doodle mservers">
