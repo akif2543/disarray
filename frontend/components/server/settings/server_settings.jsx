@@ -3,7 +3,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import { initials } from "../../../util/format_util";
 
-const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
+const ServerSettings = ({
+  server,
+  openModal,
+  updateServer,
+  closeSettings,
+  notAllowed,
+}) => {
   const initialIcon = { url: server.icon || "", file: null };
 
   const input = useRef(null);
@@ -65,7 +71,9 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
     <div className="settings">
       <section className="settings-sidebar">
         <nav>
-          <h5 className="server-name">{name.length ? name.toUpperCase() : "SERVER SETTINGS"}</h5>
+          <h5 className="server-name">
+            {name.length ? name.toUpperCase() : "SERVER SETTINGS"}
+          </h5>
           <ul>
             <button type="button" className="active">
               Overview
@@ -73,8 +81,9 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
             <div className="divider" />
             <button
               type="button"
-              className="logout"
-              onClick={openModal({ name: "delete", id })}
+              className={notAllowed ? "logout disabled" : "logout"}
+              onClick={notAllowed ? null : openModal({ name: "delete", id })}
+              disabled={notAllowed}
             >
               Delete Server
             </button>

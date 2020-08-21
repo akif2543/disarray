@@ -38,12 +38,7 @@ const ServerContextMenu = ({
       </button>
       <div className="menu-divider" />
       {isOwner && (
-        <button
-          type="button"
-          onClick={notAllowed ? null : handleSettings}
-          className={notAllowed ? "disabled" : ""}
-          disabled={notAllowed}
-        >
+        <button type="button" onClick={handleSettings}>
           Server Settings
         </button>
       )}

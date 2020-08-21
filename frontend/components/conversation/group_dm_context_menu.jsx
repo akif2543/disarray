@@ -2,7 +2,7 @@ import React, { useRef } from "react";
 import { connect } from "react-redux";
 
 import { openModal } from "../../actions/ui_actions";
-import { restricted, getCurrentConversation } from "../../reducers/selectors";
+import { getCurrentConversation } from "../../reducers/selectors";
 import { customizeConversation } from "../../actions/conversation_actions";
 
 const GroupDMContextMenu = ({
@@ -11,7 +11,6 @@ const GroupDMContextMenu = ({
   id,
   modal,
   customize,
-  notAllowed,
   toggleContext,
   setIcon,
 }) => {
@@ -65,24 +64,14 @@ const GroupDMContextMenu = ({
             Change Icon
           </button>
           {icon && (
-            <button
-              type="button"
-              onClick={handleRemove}
-              className={notAllowed ? "disabled" : ""}
-              disabled={notAllowed}
-            >
+            <button type="button" onClick={handleRemove}>
               Remove Icon
             </button>
           )}
           <div className="menu-divider" />
         </>
       )}
-      <button
-        type="button"
-        className={notAllowed ? "red disabled" : "red"}
-        onClick={handleModal}
-        disabled={notAllowed}
-      >
+      <button type="button" className="red" onClick={handleModal}>
         Leave Group
       </button>
     </>
@@ -91,7 +80,6 @@ const GroupDMContextMenu = ({
 
 const mSTP = (state, ownProps) => ({
   c: getCurrentConversation(state, ownProps),
-  notAllowed: restricted(state, ownProps),
 });
 
 const mDTP = (dispatch) => ({

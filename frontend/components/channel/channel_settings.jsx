@@ -10,6 +10,7 @@ const ChannelSettings = ({
   updateChannel,
   openModal,
   closeSettings,
+  notAllowed,
 }) => {
   const el = useRef(null);
 
@@ -66,15 +67,18 @@ const ChannelSettings = ({
             <div className="divider" />
             <button
               type="button"
-              className={isPrimary ? "logout disabled" : "logout"}
+              className={isPrimary || notAllowed ? "logout disabled" : "logout"}
               onClick={
-                isPrimary ? null : openModal({ name: "delete channel", id })
+                isPrimary || notAllowed
+                  ? null
+                  : openModal({ name: "delete channel", id })
               }
               onMouseEnter={showTooltip}
               onFocus={showTooltip}
               onMouseLeave={hideTooltip}
               onBlur={hideTooltip}
               ref={el}
+              disabled={isPrimary || notAllowed}
             >
               Delete Channel
             </button>

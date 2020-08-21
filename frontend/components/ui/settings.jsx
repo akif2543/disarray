@@ -29,7 +29,7 @@ const Settings = ({ settings, id, closeSettings, modal }) => {
       component = <ServerSettingsContainer id={id} />;
       break;
     case "channel":
-      component = <ChannelSettingsContainer id={id} />;
+      component = <ChannelSettingsContainer id={id} s={99999} />;
       break;
     default:
       return null;

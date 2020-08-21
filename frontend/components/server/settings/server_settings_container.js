@@ -1,7 +1,7 @@
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 
-import { getCurrentServer } from "../../../reducers/selectors";
+import { getCurrentServer, restricted } from "../../../reducers/selectors";
 import { closeSettings, openModal } from "../../../actions/ui_actions";
 import {
   updateServer,
@@ -12,6 +12,7 @@ import ServerSettings from "./server_settings";
 
 const mSTP = (state, ownProps) => ({
   server: getCurrentServer(state, ownProps),
+  notAllowed: restricted(state, ownProps),
 });
 
 const mDTP = (dispatch) => ({

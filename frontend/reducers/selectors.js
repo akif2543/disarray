@@ -37,9 +37,8 @@ export const getUserServers = (state) => {
 export const getCurrentServer = (state, props) => {
   if (props.id && !props.s) return state.entities.servers[props.id];
   if (props.s) return state.entities.servers[props.s];
-  if (props.match) {
-    if (props.match.params.serverId)
-      return state.entities.servers[props.match.params.serverId];
+  if (props.match && props.match.params.serverId) {
+    return state.entities.servers[props.match.params.serverId];
   }
   if (props.location) {
     if (props.location.pathname.includes("channels")) {
@@ -55,7 +54,7 @@ export const getCurrentServer = (state, props) => {
 export const getCurrentChannel = (state, props) => {
   if (props.id) return state.entities.channels[props.id];
 
-  if (props.match.params.channelId) {
+  if (props.match && props.match.params.channelId) {
     return state.entities.channels[props.match.params.channelId];
   }
   if (props.location) {
@@ -103,7 +102,7 @@ export const getTextChannelMessages = (state, props) => {
 
 export const getCurrentConversation = (state, props) => {
   if (props.id) return state.entities.conversations[props.id];
-  if (props.match.params.conversationId) {
+  if (props.match && props.match.params.conversationId) {
     return state.entities.conversations[props.match.params.conversationId];
   }
   return null;
@@ -250,18 +249,18 @@ export const getSubscription = (state, props) => {
     : state.subscriptions.conversation[conversationId];
 };
 
-const demoServers = ["The Gang", "Santa Teresa", "No Pandas", "z 1 1"];
-const demoDMs = ["If Looks Could Kale", "Wrath and the G Squad"];
+const demoServers = [73, 74, 75];
+const demoChannels = [180, 184, 188, 189, 181, 185, 192, 193, 182, 187, 194];
 
 export const restricted = (state, props) => {
-  const { username } = getCurrentUser(state);
+  const { id } = getCurrentUser(state);
   const server = getCurrentServer(state, props);
-  const convo = getCurrentConversation(state, props);
+  const channel = getCurrentChannel(state, props);
   return (
-    username === "Demogorgon" &&
+    id === 132 &&
     (server
-      ? demoServers.includes(server.name)
-      : demoDMs.includes(convo.name)) &&
+      ? demoServers.includes(server.id)
+      : demoChannels.includes(channel.id)) &&
     process.env.NODE_ENV === "production"
   );
 };
