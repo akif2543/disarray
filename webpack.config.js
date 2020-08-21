@@ -1,5 +1,7 @@
 const path = require("path");
 
+// const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer");
+
 module.exports = (env) => {
   const isDev = env === "development";
   return {
@@ -22,6 +24,7 @@ module.exports = (env) => {
         },
       ],
     },
+    // plugins: [new BundleAnalyzerPlugin()],
     devtool: isDev ? "inline-source-map" : "source-map",
     resolve: {
       extensions: [".js", ".jsx", "*"],

@@ -56,7 +56,7 @@ const ServerList = ({
           key={generate()}
           onClick={handleInvite(s.name, s.joinCode)}
         >
-          {s.name}
+          <span>{s.name}</span>
         </button>
       ))}
     </div>
