@@ -474,9 +474,11 @@
       width: 100%;
       padding: 15px;
 
-      h1 {
+      .server-name {
         color: $dk-white;
         font-size: 16px;
+        max-width: 199px;
+        @include text-overflow;
       }
 
       svg {

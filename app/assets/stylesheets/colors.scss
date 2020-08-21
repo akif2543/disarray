@@ -15,6 +15,12 @@
   transition: background-color 0.2s ease-in-out;
 }
 
+@mixin text-overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 $dk-splash-bg: rgb(38, 38, 43);
 $dk-blue: rgb(115, 139, 216);
 $dk-blue-hover: rgb(104, 125, 194);
@@ -81,3 +87,4 @@ $dk-prof-disc: rgb(183, 185, 188);
 $dk-mutual-disc: rgb(135, 136, 140);
 $dk-close-dm: rgb(169, 170, 173);
 $dk-close-dm-active: rgb(195, 196, 198);
+$dk-settings-sidebar-sub: rgb(103, 107, 112);

@@ -52,6 +52,7 @@
       color: rgb(140, 143, 148);
       border-radius: 3px;
       padding: 10px;
+      @include text-overflow;
 
       &:hover {
         background: rgb(52, 55, 60);

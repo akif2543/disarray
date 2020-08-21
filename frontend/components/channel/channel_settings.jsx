@@ -24,18 +24,6 @@ const ChannelSettings = ({
 
   const clearError = () => setError(false);
 
-  const viewName = (input) =>
-    input.length < 21
-      ? input.toUpperCase()
-      : input.slice(0, 20).toUpperCase().concat("...");
-
-  const viewSub = () => {
-    const sub = "TEXT CHANNELS";
-    if (name.length < 12) return sub;
-    if (name.length > 19) return "";
-    return sub.slice(0, name.length - 18).concat("...");
-  };
-
   const handleNameChange = (e) => setName(channelName(e.target.value));
   const handleTopicChange = (e) => setTopic(e.target.value);
   const reset = () => {
@@ -64,8 +52,12 @@ const ChannelSettings = ({
         <nav>
           <header className="channel-sidebar-head">
             <FontAwesomeIcon icon="hashtag" size="xs" />
-            <h5>{viewName(name)}</h5>
-            <h6>{viewSub()}</h6>
+            <div className="name-container">
+              <h5 className="channel-name">{name}</h5>
+            </div>
+            <div className="sub-container">
+              <h6 className="channel-subtitle">TEXT CHANNELS</h6>
+            </div>
           </header>
           <ul>
             <button type="button" className="active">
@@ -132,7 +124,7 @@ const ChannelSettings = ({
                     value={topic}
                     onChange={handleTopicChange}
                     id="set-topic"
-                    placeholder="No topic set."
+                    placeholder="Let everyone know how to use this channel!"
                   />
                 </div>
               </label>

@@ -102,16 +102,12 @@
       border-left: 0.5px solid rgb(66, 69, 74);
       padding-left: 15px;
       transform: translateY(1px);
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
+      @include text-overflow;
       flex: 0 1 auto;
 
       h4 {
         color: rgb(185, 187, 190);
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+        @include text-overflow;
         font: {
           size: 14px;
           family: "Whitney Medium";
@@ -119,38 +115,6 @@
       }
     }
   }
-
-  // .channel-info {
-  //   max-width: calc(100vw - 730px);
-  //   white-space: nowrap;
-  //   overflow: hidden;
-  //   text-overflow: ellipsis;
-  //   @include flex(row, flex-start, center);
-
-  //   .channel-name {
-  //     flex: 9 1 100px;
-  //   }
-
-  //   .topic {
-  //     margin-left: 15px;
-  //     border-left: 0.5px solid rgb(66, 69, 74);
-  //     padding-left: 15px;
-  //     transform: translateY(1px);
-  //     flex: 1 9 250px;
-
-  //     h4 {
-  //       white-space: nowrap;
-  //       overflow: hidden;
-  //       text-overflow: ellipsis;
-  //       min-width: 0;
-  //       color: rgb(185, 187, 190);
-  //       font: {
-  //         size: 14px;
-  //         family: "Whitney Medium";
-  //       }
-  //     }
-  //   }
-  // }
 
   .friends-bar {
     .title {

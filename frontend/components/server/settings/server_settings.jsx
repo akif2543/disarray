@@ -65,7 +65,7 @@ const ServerSettings = ({ server, openModal, updateServer, closeSettings }) => {
     <div className="settings">
       <section className="settings-sidebar">
         <nav>
-          <h5>{name.length ? name.toUpperCase() : "SERVER SETTINGS"}</h5>
+          <h5 className="server-name">{name.length ? name.toUpperCase() : "SERVER SETTINGS"}</h5>
           <ul>
             <button type="button" className="active">
               Overview

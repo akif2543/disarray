@@ -278,7 +278,7 @@ const NavBar = ({
               onClick={togglePopout}
               ref={addEl}
             >
-              <FontAwesomeIcon icon="user-plus" />
+              <FontAwesomeIcon icon="user-plus" size="sm" />
             </button>
             {add && (
               <Tooltip
@@ -297,7 +297,7 @@ const NavBar = ({
               />
             )}
             {group && (
-              <div>
+              <>
                 <button
                   type="button"
                   className={memberBar ? "nav-icon active" : "nav-icon"}
@@ -317,7 +317,7 @@ const NavBar = ({
                     el={memEl}
                   />
                 )}
-              </div>
+              </>
             )}
           </div>
         )}
