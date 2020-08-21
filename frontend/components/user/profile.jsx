@@ -192,24 +192,26 @@ const Profile = ({
         {!mutuals &&
           (mutualFriends.length ? (
             <>
-              {mutualFriends.map((f) => (
-                <button
-                  type="button"
-                  key={generate()}
-                  className="mutual"
-                  onClick={() => modal({ name: "profile", id: f.id })}
-                >
-                  <AvatarWithStatus
-                    avatar={f.avatar}
-                    online={f.online}
-                    sidebar
-                  />
-                  <div className="user-info">
-                    <h2>{f.username}</h2>
-                    <span>#{f.discriminator}</span>
-                  </div>
-                </button>
-              ))}
+              {mutualFriends.map((f) =>
+                f === undefined ? null : (
+                  <button
+                    type="button"
+                    key={generate()}
+                    className="mutual"
+                    onClick={() => modal({ name: "profile", id: f.id })}
+                  >
+                    <AvatarWithStatus
+                      avatar={f.avatar}
+                      online={f.online}
+                      sidebar
+                    />
+                    <div className="user-info">
+                      <h2>{f.username}</h2>
+                      <span>#{f.discriminator}</span>
+                    </div>
+                  </button>
+                )
+              )}
             </>
           ) : (
             <div className="mutuals-doodle mfriends">
