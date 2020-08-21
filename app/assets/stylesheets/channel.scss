@@ -69,6 +69,7 @@
         padding-left: 10px;
         padding-right: 5px;
         @include text-overflow;
+        line-height: 1.1;
 
         font: {
           family: "Whitney Medium";
