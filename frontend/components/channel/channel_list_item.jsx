@@ -55,11 +55,11 @@ const ChannelListItem = ({
   const { id, hasUnreads, name, server } = channel;
 
   const handleClick = (e) => {
-    if (inviteEl.current.contains(e.target)) {
+    if (inviteEl.current && inviteEl.current.contains(e.target)) {
       e.preventDefault();
       return openModal({ name: "invite", id: server });
     }
-    if (editEl.current.contains(e.target)) {
+    if (editEl.current && editEl.current.contains(e.target)) {
       e.preventDefault();
       return openSettings({ name: "channel", id });
     }
