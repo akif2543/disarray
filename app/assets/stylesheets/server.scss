@@ -635,7 +635,11 @@
         height: 42px;
         width: 100%;
 
-        font-size: 16px;
+        font: {
+          size: 16px;
+          family: "Whitney Medium";
+        }
+       
 
         &:focus {
           border-color: $dk-blue;

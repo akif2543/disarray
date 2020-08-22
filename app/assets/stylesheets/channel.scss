@@ -531,7 +531,6 @@
     input {
       background: rgb(48, 51, 57);
       color: rgb(163, 165, 167);
-      font-size: 14px;
       height: 40px;
       width: 100%;
       border-radius: 4px;
@@ -539,6 +538,11 @@
       padding: 10px;
       box-sizing: border-box;
       margin-bottom: 10px;
+
+      font: {
+        family: "Whitney Medium";
+        size: 14px;
+      }
 
       &:hover {
         border-color: $dk-black;
