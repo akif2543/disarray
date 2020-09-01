@@ -81,13 +81,11 @@ class User < ApplicationRecord
   end
 
   def server_aliases
-    # Rails.cache.fetch([cache_key, __method__], expires_in: 1.hour) do
-      aliases = {}
-      self.memberships.each do |m|
-        aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
-      end
-      aliases
-    # end
+    aliases = {}
+    self.memberships.each do |m|
+      aliases[m.subscribeable_id] = m.alias if m.subscribeable_type == "Server"
+    end
+    aliases
   end
 
   def is_member?(server)
@@ -150,7 +148,7 @@ class User < ApplicationRecord
   end
 
   def random_avatar
-    av = ['https://disarray-chat-seeds.s3.amazonaws.com/user_1.png', 'https://disarray-chat-seeds.s3.amazonaws.com/user_2.png', 'https://disarray-chat-seeds.s3.amazonaws.com/user_3.png', 'https://disarray-chat-seeds.s3.amazonaws.com/user_4.png'].sample
-    open(av)
+    av = ['user_1.png', 'user_2.png', 'user_3.png', 'user_4.png'].sample
+    open(Rails.application.routes.url_helpers.root_url + ActionController::Base.helpers.asset_url(av, type: :image))
   end
 end
