@@ -5,6 +5,13 @@ Artwork by [Tania Tiedemann](https://www.instagram.com/tatied.art/)
 
 [Disarray](http://www.disarray-chat.herokuapp.com) is a clone of the popular chat app [Discord](http://www.discord.com). It allows users to create or join custom servers that can each contain multiple chat channels. Users can send instant messages on these channels and those messages will be broadcast to all members of that server, or they can choose to direct message other users. They can also befriend other users and then create group DMs with their friends.
 
+## Contents
+- [Technologies Used](#technologies-used)
+- [Features](#features)
+- [Challenges](#challenges)
+- [Future Directions](#future-directions)
+- [Installation](#installation)
+
 ## Technologies Used
 
 Disarray was created with a Rails backend and a React frontend. Postgres was used for the database and Redux was used for frontend state management. Rails' ActionCable and Redis were used to integrate WebSockets into the application and allow for realtime chat, friend requests, and status updates. Redis was also used to cache frequently accessed data. The excellent [has_friendship](https://github.com/sungwoncho/has_friendship) gem was used to streamline the management of user friendships.
@@ -198,4 +205,48 @@ And just like that, I had visible tooltips in an `overflow-y: scroll` container!
 
 I hope to add functionality for notifications, pinned messages, mentions, and then finally tackle voice chat in the near future. I honestly can't wait!
 
-Thank you for taking the time to look through this README. Please don't hesitate to get in touch if you found it interesting.
+Thank you for taking the time to look through this README. Please don't hesitate to get in touch if you found it interesting or have any questions.
+
+
+## Installation
+
+If you'd like to play around with the code yourself, just fork the repo and follow the instructions below.
+
+Install gems:
+```sh
+bundle install
+```
+Install packages: 
+```sh
+npm install
+```
+
+Set up the database:
+```sh
+bundle exec rails db:create
+bundle exec rails db:schema:load
+```
+
+The seed file will not run in its current state as it will try to access images that are not publically available. You will need to replace the current AWS links with your own image links. You will also need to set up your own storage solution and configure ActiveStorage appropriately.
+
+Once you have done that, you can run the seed file:
+```sh
+bundle exec rails db:seed
+```
+
+Note that you may need to change the default_urls set in ```config/environments/development.rb``` and ```config/environments/production.rb```.
+
+After that you should be good to go. I generally run two terminals.
+
+To run Webpack:
+
+```sh
+npm run start
+```
+
+To run Rails:
+```
+bundle exec rails s
+```
+
+Feel free to reach out if that doesn't work for some reason. Enjoy.
