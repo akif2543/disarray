@@ -1,5 +1,6 @@
 .session-container {
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   min-width: 100%;
   background-image: image-url("session_mask_v2.png"),
     image-url("session_bg.jpg");
