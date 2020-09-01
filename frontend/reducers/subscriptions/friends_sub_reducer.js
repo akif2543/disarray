@@ -7,7 +7,7 @@ const friendsSubReducer = (state = null, action) => {
     case RECEIVE_SUB:
       return action.subType === "Friends" ? action.sub : newState;
     case LOGOUT_CURRENT_USER:
-      newState.unsubscribe();
+      if (newState) newState.unsubscribe();
       return null;
     default:
       return state;

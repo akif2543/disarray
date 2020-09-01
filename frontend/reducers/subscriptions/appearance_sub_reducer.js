@@ -7,7 +7,7 @@ const appearanceSubReducer = (state = null, action) => {
     case RECEIVE_SUB:
       return action.subType === "Appearance" ? action.sub : newState;
     case LOGOUT_CURRENT_USER:
-      newState.unsubscribe();
+      if (newState) newState.unsubscribe();
       return null;
     default:
       return state;
