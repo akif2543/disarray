@@ -135,7 +135,7 @@ const mDTP = (dispatch) => ({
   modal: (modal) => dispatch(openModal(modal)),
   addFriend: (id) => () => dispatch(requestFriend(id)),
   unblockUser: (id) => () => dispatch(unblock(id)),
-  createConversation: (convo) => dispatch(createConversation(convo)),
+  createConvo: (convo) => dispatch(createConversation(convo)),
   close: (id, push) => dispatch(closeConversation(id, push)),
 });
 
