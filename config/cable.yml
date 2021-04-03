@@ -6,5 +6,5 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV['REDIS_TLS_URL'] %>
+  url: <%= ENV['REDIS_URL'] %>
   channel_prefix: disarray_production
