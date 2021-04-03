@@ -9,7 +9,7 @@ import { loading } from "../../reducers/selectors";
 import { startLoading, stopLoading } from "../../actions/ui_actions";
 
 const mSTP = (state) => ({
-  errors: state.errors.session,
+  errors: state.errors.session || [],
   loggedIn: Boolean(state.session.id),
   loading: loading(state),
 });

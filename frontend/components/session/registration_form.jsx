@@ -76,7 +76,7 @@ class RegistrationForm extends React.Component {
 
   render() {
     const { email, username, password } = this.state;
-    const { errors, loading, stopLoading } = this.props;
+    const { errors = [], loading, stopLoading } = this.props;
     const emailError = errors.find((e) => e[0].match(/email/));
     const usernameError = errors.find((e) => e[0].match(/username/));
     const passwordError = errors.find((e) => e[0].match(/password/));
