@@ -33,6 +33,7 @@
     "test": "test"
   },
   "scripts": {
+    "preinstall": "npx npm-force-resolutions",
     "start": "webpack --watch --mode=development",
     "prod": "webpack --watch --mode=production",
     "postinstall": "webpack"
@@ -56,5 +57,8 @@
     "redux-devtools-extension": "^2.13.8",
     "redux-logger": "^3.0.6",
     "webpack-bundle-analyzer": "^3.8.0"
+  },
+  "resolutions": {
+    "ssri": ">=8.0.1"
   }
 }
