@@ -73,7 +73,7 @@ class LoginForm extends React.Component {
 
   render() {
     const { email, password } = this.state;
-    const { errors, loading } = this.props;
+    const { errors = [], loading } = this.props;
     const emailError = errors.find((e) => e[0].match(/email/));
     const passwordError = errors.find((e) => e[0].match(/password/));
     const { emailPresence, passwordPresence } = this.errors;
