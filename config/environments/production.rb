@@ -17,7 +17,7 @@ Rails.application.configure do
   config.action_controller.perform_caching = true
 
 
-  config.cache_store = :redis_cache_store, { url: ENV['REDIS_TLS_URL'] }
+  config.cache_store = :redis_cache_store, { url: ENV['REDIS_URL'] }
 
 
   # Ensures that a master key has been made available in either ENV["RAILS_MASTER_KEY"]
