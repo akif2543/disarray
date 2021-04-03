@@ -9,6 +9,8 @@ Conversation.destroy_all
 Message.destroy_all
 Friendship.destroy_all
 
+# TO FORK: either replace all the references to private AWS-hosted assets below with publically-available images, or delete everything below this line to start with a blank application
+
 # users
 demo, toosh, hiker, sinus, marre, buth, can,
 sewpra, ribs, van, kimky, ecter, wrath,

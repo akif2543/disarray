@@ -6,6 +6,7 @@ Artwork by [Tania Tiedemann](https://www.instagram.com/tatied.art/)
 [Disarray](http://www.disarray-chat.herokuapp.com) is a clone of the popular chat app [Discord](http://www.discord.com). It allows users to create or join custom servers that can each contain multiple chat channels. Users can send instant messages on these channels and those messages will be broadcast to all members of that server, or they can choose to direct message other users. They can also befriend other users and then create group DMs with their friends.
 
 ## Contents
+
 - [Technologies Used](#technologies-used)
 - [Features](#features)
 - [Challenges](#challenges)
@@ -203,40 +204,52 @@ And just like that, I had visible tooltips in an `overflow-y: scroll` container!
 
 ## Future Directions
 
-I hope to add functionality for notifications, pinned messages, mentions, and then finally tackle voice chat in the near future. I honestly can't wait!
+I hope to add functionality for pinned messages, mentions, and then finally tackle voice chat in the near future. (**Update 4/21: Unfortunately I've been busy with other projects and haven't had the time to build out the rest of these features. Perhaps I'll be able to get to them eventually, but if you're interested and feel so inclined, be my guest and open a PR!**)
 
 Thank you for taking the time to look through this README. Please don't hesitate to get in touch if you found it interesting or have any questions.
-
 
 ## Installation
 
 If you'd like to play around with the code yourself, just fork the repo and follow the instructions below.
 
 Install gems:
+
 ```sh
 bundle install
 ```
-Install packages: 
+
+Install packages:
+
 ```sh
 npm install
 ```
 
-Set up the database:
+Set up the database (make sure you have postgres running):
+
 ```sh
 bundle exec rails db:create
 bundle exec rails db:schema:load
 ```
 
-The seed file will not run in its current state as it will try to access images that are not publically available. You will need to replace the current AWS links with your own image links. You will also need to set up your own storage solution and configure ActiveStorage appropriately.
+The seed file will not run in its current state as it will try to access images that are not publically available. You will need to either replace the current AWS links with your own image links, or simply delete everything below [L12](https://github.com/akif2543/disarray/blob/master/db/seeds.rb#L12). You will also need to set up your own storage solution and configure ActiveStorage appropriately. (The [Rails docs](https://edgeguides.rubyonrails.org/active_storage_overview.html) are a good starting point.)
 
-Once you have done that, you can run the seed file:
+I've added comments throughout the repo noting things that will need to be modifed in order to get your version of the application running. You can find them by searching the repo for the phrase `TO FORK`.
+
+Once you have done all that you can run the seed file. Note that you will need to have the Rails server running before you can start seeding in order for the default user avatars to be available.
+
+Start the server in one terminal window with the command:
+
+```
+bundle exec rails s
+```
+
+and in other terminal window run the seed command:
+
 ```sh
 bundle exec rails db:seed
 ```
 
-Note that you may need to change the default_urls set in ```config/environments/development.rb``` and ```config/environments/production.rb```.
-
-After that you should be good to go. I generally run two terminals.
+After that you should be good to go. I generally run two terminals for this as well.
 
 To run Webpack:
 
@@ -245,8 +258,9 @@ npm run start
 ```
 
 To run Rails:
+
 ```
 bundle exec rails s
 ```
 
-Feel free to reach out if that doesn't work for some reason. Enjoy.
+Feel free to reach out if that doesn't work for some reason. Enjoy!

@@ -140,7 +140,9 @@ class User < ApplicationRecord
   end
 
   def ensure_avatar
-    self.avatar.attach(io: random_avatar, filename: "default_avatar.png") unless self.avatar.attached?
+    begin
+      self.avatar.attach(io: random_avatar, filename: "default_avatar.png") unless self.avatar.attached?
+    rescue; end
   end
 
   def generate_session_token
