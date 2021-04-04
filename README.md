@@ -204,13 +204,13 @@ And just like that, I had visible tooltips in an `overflow-y: scroll` container!
 
 ## Future Directions
 
-I hope to add functionality for pinned messages, mentions, and then finally tackle voice chat in the near future. (**Update 4/21: Unfortunately I've been busy with other projects and haven't had the time to build out the rest of these features. Perhaps I'll be able to get to them eventually, but if you're interested and feel so inclined, be my guest and open a PR!**)
+I hope to add functionality for pinned messages, mentions, and then finally tackle voice chat in the near future. (_Update 4/21: Unfortunately I've been busy with other projects and haven't had the time to build out the rest of these features. Perhaps I'll be able to get to them eventually, but if you're interested and feel so inclined, be my guest and open a PR!_)
 
 Thank you for taking the time to look through this README. Please don't hesitate to get in touch if you found it interesting or have any questions.
 
 ## Installation
 
-If you'd like to play around with the code yourself, just fork the repo and follow the instructions below.
+If you'd like to play around with the code yourself, just clone/fork the repo and overwrite your master branch with this repo's `clone` branch, and then follow the instructions below.
 
 Install gems:
 
@@ -231,7 +231,7 @@ bundle exec rails db:create
 bundle exec rails db:schema:load
 ```
 
-The seed file will not run in its current state as it will try to access images that are not publically available. You will need to either replace the current AWS links with your own image links, or simply delete everything below [L12](https://github.com/akif2543/disarray/blob/master/db/seeds.rb#L12). You will also need to set up your own storage solution and configure ActiveStorage appropriately. (The [Rails docs](https://edgeguides.rubyonrails.org/active_storage_overview.html) are a good starting point.)
+I have removed the references to externally hosted images in the [seed file](https://github.com/akif2543/disarray/blob/clone/db/seeds.rb) of the `clone` branch. You can use it as is, or modify it to your liking. You will also need to set up your own storage solution and configure ActiveStorage appropriately. (The [Rails docs](https://edgeguides.rubyonrails.org/active_storage_overview.html) are a good starting point.)
 
 I've added comments throughout the repo noting things that will need to be modifed in order to get your version of the application running. You can find them by searching the repo for the phrase `TO FORK`.
 
@@ -248,6 +248,8 @@ and in other terminal window run the seed command:
 ```sh
 bundle exec rails db:seed
 ```
+
+Note that if you choose to use the seed file as is, seeding can take a few minutes as a lot of messages have to be seeded.
 
 After that you should be good to go. I generally run two terminals for this as well.
 
