@@ -9,7 +9,7 @@ Conversation.destroy_all
 Message.destroy_all
 Friendship.destroy_all
 
-# TO FORK: either replace all the references to private AWS-hosted assets below with publically-available images, or delete everything below this line to start with a blank application
+# TO FORK: replace all the names, emails, aliases below with your own
 
 # users
 demo, toosh, hiker, sinus, marre, buth, can,
@@ -123,32 +123,6 @@ gritz, pide, dojo, trap, man, ric, shy = User.create([
   }, 
 ])
 
-# user avatars
-demo.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/demo.jpg"), filename: "demo.jpg")
-toosh.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/ttoosh_avatar.gif"), filename: "ttoosh_avatar.gif")
-hiker.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/hiker_avatar.jpg"), filename: "hiker_avatar.jpg")
-sinus.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/sinus_avatar.jpg"), filename: "sinus_avatar.jpg")
-marre.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/tuppen_avatar.png"), filename: "tuppen_avatar.png")
-can.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/quackmak_avatar.jpg"), filename: "quackmak_avatar.jpg")
-sewpra.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/sewpra_avatar.png"), filename: "sewpra_avatar.png")
-ribs.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/ribs_avatar.png"), filename: "ribs_avatar.png")
-van.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/van_avatar.png"), filename: "van_avatar.png")
-kimky.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/kimky_avatar.png"), filename: "kimky_avatar.png")
-ecter.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/ecter_avatar.png"), filename: "ecter_avatar.png")
-cubber.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/cubber_avatar.png"), filename: "cubber_avatar.png")
-wrath.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/wrath_avatar.png"), filename: "wrath_avatar.png")
-north.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/north_avatar.png"), filename: "north_avatar.png")
-zaroky.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/zaroky_avatar.png"), filename: "zaroky_avatar.png")
-mul.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/mul_avatar.png"), filename: "mul_avatar.png")
-boots.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/hunter_avatar.png"), filename: "hunter_avatar.png")
-gritz.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/gritz_avatar.png"), filename: "gritz_avatar.png")
-pide.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/pide_avatar.png"), filename: "pide_avatar.png")
-dojo.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/dojo.png"), filename: "dojo.png")
-trap.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/trapunzel_avatar.png"), filename: "trapunzel_avatar.png")
-man.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/manstar_avatar.jpg"), filename: "manstar_avatar.jpg")
-ric.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/ricjoe_avatar.png"), filename: "ricjoe_avatar.png")
-shy.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/shy_avatar.png"), filename: "shy_avatar.png")
-
 # servers
  z, np, st, gang = Server.create([
   {
@@ -165,11 +139,6 @@ shy.avatar.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/shy_ava
     owner_id: hiker.id,
   }, 
 ])
-
-# server icons
-gang.icon.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/gang_icon.jpg"), filename: "gang_icon.jpg")
-np.icon.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/np_icon.png"), filename: "np_icon.png")
-st.icon.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/st_icon.jpg"), filename: "st_icon.jpg")
 
 # friends
 demo.friend_request(toosh)
@@ -428,10 +397,6 @@ kale, dabcity, gsquad, shyx = Conversation.create([
     owner_id: shy.id
   }
 ])
-
-# conversation icons
-kale.icon.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/kale_icon.png"), filename: "kale_icon.png")
-gsquad.icon.attach(io: open("https://disarray-chat-seeds.s3.amazonaws.com/gmod_icon.jpg"), filename: "gmod_icon.jpg")
 
 # conversation members
 kale_mem = [demo.id, dojo.id, trap.id, man.id, mul.id, ric.id]
