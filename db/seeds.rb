@@ -392,7 +392,6 @@ kale, dabcity, gsquad, shyx = Conversation.create([
   owner_id: wrath.id,
   group: true,
   name: "Wrath & Friends",
-  icon: open("https://disarray-chat-seeds.s3.amazonaws.com/gmod_icon.jpg")
   }, { 
     owner_id: shy.id
   }
